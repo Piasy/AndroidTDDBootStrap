@@ -17,9 +17,10 @@ dependencies {
 
     compile project(':common')
     compile modelDependencies.retrofit
-    compile modelDependencies.rxJava
     compile modelDependencies.gson
 
     provided modelDependencies.daggerCompiler
     provided modelDependencies.javaxAnnotation
+
+    compile modelDependencies.eventBus
 }

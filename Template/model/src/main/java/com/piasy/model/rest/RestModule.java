@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
 import retrofit.RestAdapter;
 
 /**
@@ -23,6 +24,11 @@ public class RestModule {
     @Provides
     Gson provideGson() {
         return GsonProvider.provideGson();
+    }
+
+    @Provides
+    EventBus provideEventBus() {
+        return EventBusProvider.provideEventBus();
     }
 
 }

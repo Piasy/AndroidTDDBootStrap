@@ -6,7 +6,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "yolo.template"
+        applicationId "com.piasy.template"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -30,6 +30,7 @@ dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
 
     compile project(':model')
+    compile project(':common-android')
     compile presentationDependencies.androidSupportAppCompatV7
     compile presentationDependencies.butterKnife
     compile presentationDependencies.rxAndroid
@@ -38,4 +39,7 @@ dependencies {
     provided presentationDependencies.javaxAnnotation
 
     compile presentationDependencies.mvp
+
+    // UI library
+    compile presentationDependencies.loadToast
 }

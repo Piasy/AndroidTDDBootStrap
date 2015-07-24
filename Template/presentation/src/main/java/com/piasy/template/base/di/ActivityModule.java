@@ -1,4 +1,4 @@
-package com.piasy.template.di;
+package com.piasy.template.base.di;
 
 import android.app.Activity;
 

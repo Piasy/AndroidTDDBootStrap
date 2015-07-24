@@ -6,4 +6,5 @@ dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
 
     compile commonDependencies.dagger
+    compile commonDependencies.rxJava
 }

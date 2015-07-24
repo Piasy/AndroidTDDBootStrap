@@ -5,14 +5,14 @@ allprojects {
 }
 
 ext {
-    //Android
+    // Android
     androidBuildToolsVersion = '22.0.1'
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 22
     androidCompileSdkVersion = 22
     androidSupportAppCompatV7Version = '22.1.1'
 
-    //Libraries
+    // Libraries
     daggerVersion = '2.0.1'
     butterKnifeVersion = '7.0.1'
     recyclerViewVersion = '21.0.3'
@@ -26,8 +26,12 @@ ext {
     androidSupportSdkVersion = '22.1.1'
     gsonVersion = '2.3.1'
     mvpVersion = '1.2.0'
+    eventBusVersion = '3.0.0-beta1'
 
-    //Testing
+    // UI
+    loadToastVersion = '1.0.8'
+
+    // Testing
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
     assertJVersion = '1.7.1'
@@ -37,15 +41,16 @@ ext {
     testingSupportLibVersion = '0.1'
 
     commonDependencies = [
-            dagger          :   "com.google.dagger:dagger:${daggerVersion}"
+            dagger          :   "com.google.dagger:dagger:${daggerVersion}",
+            rxJava          :   "io.reactivex:rxjava:${rxJavaVersion}"
     ]
 
     modelDependencies = [
         retrofit        :   "com.squareup.retrofit:retrofit:${retrofitVersion}",
-        rxJava          :   "io.reactivex:rxjava:${rxJavaVersion}",
         gson            :   "com.google.code.gson:gson:${gsonVersion}",
         daggerCompiler  :   "com.google.dagger:dagger-compiler:${daggerVersion}",
-        javaxAnnotation :   "org.glassfish:javax.annotation:${javaxAnnotationVersion}"
+        javaxAnnotation :   "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+        eventBus        :   "de.greenrobot:eventbus:${eventBusVersion}"
     ]
 
     presentationDependencies = [
@@ -58,6 +63,8 @@ ext {
             rxAndroid       :   "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation :   "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             mvp             :   "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
+
+            loadToast       :   "net.steamcrafted:load-toast:${loadToastVersion}"
     ]
 
     presentationTestDependencies = [

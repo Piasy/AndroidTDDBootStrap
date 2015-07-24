@@ -1,4 +1,4 @@
-package com.piasy.template.di;
+package com.piasy.template.base.di;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.

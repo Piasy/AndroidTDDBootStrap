@@ -38,12 +38,6 @@ public class GithubUser {
 
     @Expose
     private String type;
-
-    public interface GithubUserType {
-        String USER = "User";
-        String ORGANIZATION = "Organization";
-    }
-
     @Expose
     private Float score;
 
@@ -133,5 +127,10 @@ public class GithubUser {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public interface GithubUserType {
+        String USER = "User";
+        String ORGANIZATION = "Organization";
     }
 }

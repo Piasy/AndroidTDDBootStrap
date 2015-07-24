@@ -1,7 +1,6 @@
-package com.piasy.template.di;
+package com.piasy.template.base.di;
 
 import com.piasy.common.di.PerActivity;
-import com.piasy.template.base.BaseFragment;
 
 import android.app.Activity;
 
@@ -14,7 +13,6 @@ import dagger.Component;
 @Component(modules = ActivityModule.class, dependencies = AppComponent.class)
 public interface ActivityComponent {
 
-    void inject(BaseFragment fragment);
-
     Activity activity();
+
 }

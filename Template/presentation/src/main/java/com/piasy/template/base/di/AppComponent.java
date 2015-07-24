@@ -1,4 +1,4 @@
-package com.piasy.template.di;
+package com.piasy.template.base.di;
 
 import com.piasy.model.rest.RestModule;
 import com.piasy.template.TemplateApp;
@@ -27,9 +27,11 @@ public interface AppComponent {
      * Only @Inject annotated members of parameter type and its super type could be injected,
      * the subtypes' member could not.
      * ref: http://stackoverflow.com/a/29956910/3077508
-     * */
+     */
     void inject(TemplateApp application);
+
     void inject(BaseActivity activity);
+
     void inject(BaseService service);
 
     Application application();
