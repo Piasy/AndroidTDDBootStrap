@@ -2,6 +2,7 @@ package com.piasy.template;
 
 import com.google.gson.Gson;
 
+import com.github.promeg.xlog_android.lib.XLogConfig;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.base.di.AppComponent;
 import com.piasy.template.base.di.AppModule;
@@ -40,6 +41,9 @@ public class TemplateApp extends Application implements IApplication {
         String test = "{\"login\":\"Piasy\"}";
         Toast.makeText(this, mGson.fromJson(test, GithubUser.class).getLogin(), Toast.LENGTH_LONG)
                 .show();
+
+        XLogConfig.config(XLogConfig.newConfigBuilder(this)
+                .build());
     }
 
     @Override

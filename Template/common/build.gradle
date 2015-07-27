@@ -7,4 +7,6 @@ dependencies {
 
     compile commonDependencies.dagger
     compile commonDependencies.rxJava
+
+    compile commonDependencies.xLogCompiler
 }

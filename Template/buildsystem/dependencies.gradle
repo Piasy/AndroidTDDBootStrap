@@ -31,6 +31,9 @@ ext {
     // UI
     loadToastVersion = '1.0.8'
 
+    // Developer
+    xLogVersion = '2.0'
+
     // Testing
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
@@ -41,38 +44,43 @@ ext {
     testingSupportLibVersion = '0.1'
 
     commonDependencies = [
-            dagger          :   "com.google.dagger:dagger:${daggerVersion}",
-            rxJava          :   "io.reactivex:rxjava:${rxJavaVersion}"
+            dagger      : "com.google.dagger:dagger:${daggerVersion}",
+            rxJava      : "io.reactivex:rxjava:${rxJavaVersion}",
+
+            xLogCompiler: "com.github.promeg:xlog-compiler:${xLogVersion}"
     ]
 
     modelDependencies = [
-        retrofit        :   "com.squareup.retrofit:retrofit:${retrofitVersion}",
-        gson            :   "com.google.code.gson:gson:${gsonVersion}",
-        daggerCompiler  :   "com.google.dagger:dagger-compiler:${daggerVersion}",
-        javaxAnnotation :   "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-        eventBus        :   "de.greenrobot:eventbus:${eventBusVersion}"
+            retrofit       : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            gson           : "com.google.code.gson:gson:${gsonVersion}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            javaxAnnotation: "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+            eventBus       : "de.greenrobot:eventbus:${eventBusVersion}"
     ]
 
     presentationDependencies = [
-            androidSupportAppCompatV7 : "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
-            daggerCompiler  :   "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger          :   "com.google.dagger:dagger:${daggerVersion}",
-            butterKnife     :   "com.jakewharton:butterknife:${butterKnifeVersion}",
-            recyclerView    :   "com.android.support:recyclerview-v7:${recyclerViewVersion}",
-            rxJava          :   "io.reactivex:rxjava:${rxJavaVersion}",
-            rxAndroid       :   "io.reactivex:rxandroid:${rxAndroidVersion}",
-            javaxAnnotation :   "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-            mvp             :   "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
+            daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger                   : "com.google.dagger:dagger:${daggerVersion}",
+            butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            recyclerView             : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            rxJava                   : "io.reactivex:rxjava:${rxJavaVersion}",
+            rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+            mvp                      : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
 
-            loadToast       :   "net.steamcrafted:load-toast:${loadToastVersion}"
+            loadToast                : "net.steamcrafted:load-toast:${loadToastVersion}",
+
+            xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
+            xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}"
     ]
 
     presentationTestDependencies = [
-            mockito             :   "org.mockito:mockito-core:${mockitoVersion}",
-            dexmaker            :   "com.google.dexmaker:dexmaker:${dexmakerVersion}",
-            dexmakerMockito     :   "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
-            espresso            :   "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            testingSupportLib   :   "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+            mockito          : "org.mockito:mockito-core:${mockitoVersion}",
+            dexmaker         : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito  : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+            espresso         : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
     ]
 
 }

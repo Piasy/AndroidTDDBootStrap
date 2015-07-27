@@ -3,9 +3,12 @@ package com.piasy.model.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import com.promegu.xlog.base.XLog;
+
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
+@XLog
 public class GithubUser {
 
     @Expose

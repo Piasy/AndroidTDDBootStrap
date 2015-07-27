@@ -9,6 +9,7 @@ import com.piasy.template.base.BaseFragment;
 import com.piasy.template.ui.search.di.GithubSearchComponent;
 import com.piasy.template.ui.search.mvp.GithubSearchPresenter;
 import com.piasy.template.ui.search.mvp.GithubSearchView;
+import com.promegu.xlog.base.XLog;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
+@XLog
 public class GithubSearchFragment
         extends BaseFragment<GithubSearchView, GithubSearchPresenter, GithubSearchComponent>
         implements GithubSearchView {

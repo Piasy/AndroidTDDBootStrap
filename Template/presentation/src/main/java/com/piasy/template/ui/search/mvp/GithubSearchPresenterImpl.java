@@ -1,6 +1,6 @@
 package com.piasy.template.ui.search.mvp;
 
-import com.piasy.common.utils.RxUtil;
+import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.model.entities.GithubSearchResult;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.model.rest.github.GithubAPI;

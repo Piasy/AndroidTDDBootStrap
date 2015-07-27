@@ -1,4 +1,5 @@
-package com.piasy.common.utils;
+package com.piasy.common.android.utils.net;
+
 
 import rx.functions.Action1;
 
