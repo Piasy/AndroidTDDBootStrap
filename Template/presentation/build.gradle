@@ -4,13 +4,13 @@ apply plugin: 'me.tatarka.retrolambda'
 apply from: '../buildsystem/lint-summary.gradle'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
         applicationId "com.piasy.template"
-        minSdkVersion 15
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -57,4 +57,5 @@ dependencies {
     // Developer
     compile presentationDependencies.xLogAndroid
     retrolambdaConfig presentationDependencies.retrolambda
+    compile presentationDependencies.stetho
 }

@@ -3,44 +3,66 @@ package com.piasy.model.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import com.piasy.model.dao.TemplateDB;
 import com.promegu.xlog.base.XLog;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
 @XLog
-public class GithubUser {
+@Table(databaseName = TemplateDB.NAME, tableName = "GithubUsers")
+public class GithubUser extends BaseModel {
 
+    @Column
+    @PrimaryKey(autoincrement = true)
+    private Long id;
+
+    @Column(name = "username")
     @Expose
     private String login;
 
+    @Column
     @Expose
     @SerializedName("id")
     private Long uid;
 
+    @Column
     @Expose
     private String avatar_url;
 
+    @Column
     @Expose
     private String gravatar_id;
 
+    @Column
     @Expose
     private String url;
 
+    @Column
     @Expose
     private String html_url;
 
+    @Column
     @Expose
     private String followers_url;
 
+    @Column
     @Expose
     private String subscriptions_url;
 
+    @Column
     @Expose
     private String repos_url;
 
+    @Column
     @Expose
     private String type;
+
+    @Column
     @Expose
     private Float score;
 
@@ -130,6 +152,14 @@ public class GithubUser {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public interface GithubUserType {

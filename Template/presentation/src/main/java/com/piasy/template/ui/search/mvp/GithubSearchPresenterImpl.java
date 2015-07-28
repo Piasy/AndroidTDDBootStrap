@@ -3,6 +3,9 @@ package com.piasy.template.ui.search.mvp;
 import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.model.rest.github.GithubAPI;
 import com.piasy.template.base.mvp.BaseRxPresenter;
+import com.raizlabs.android.dbflow.runtime.TransactionManager;
+import com.raizlabs.android.dbflow.runtime.transaction.process.ProcessModelInfo;
+import com.raizlabs.android.dbflow.runtime.transaction.process.SaveModelTransaction;
 
 import android.support.annotation.NonNull;
 
@@ -33,7 +36,14 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
     @Override
     public void searchUser(String query, String sort, String order) {
         addSubscription(mGithubAPI.searchGithubUsers(query, sort, order)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnNext(githubUserGithubSearchResult ->
+                        TransactionManager.getInstance()
+                                .addTransaction(
+                                        new SaveModelTransaction<>(
+                                                ProcessModelInfo.withModels(
+                                                        githubUserGithubSearchResult.getItems()))))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(githubUserGithubSearchResult -> {
                     if (isViewAttached()) {
                         getView().showSearchUserResult(githubUserGithubSearchResult.getItems());

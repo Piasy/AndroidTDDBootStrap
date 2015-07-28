@@ -27,6 +27,7 @@ ext {
     gsonVersion = '2.3.1'
     mvpVersion = '1.2.0'
     eventBusVersion = '3.0.0-beta1'
+    DBFlowVersion = '2.2.1'
 
     // UI
     loadToastVersion = '1.0.8'
@@ -34,6 +35,7 @@ ext {
     // Developer
     xLogVersion = '2.0'
     retrolambdaVersion = '2.0.5'
+    stethoVersion = '1.1.1'
 
     // Testing
     robolectricVersion = '3.0'
@@ -52,9 +54,9 @@ ext {
     ]
 
     commonAndroidDependencies = [
-            androidSupportAppCompatV7   :   "com.android.support:appcompat-v7:${androidSupportAppCompatV7Version}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportAppCompatV7Version}",
 
-            retrolambda                 :   "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
+            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
     ]
 
     modelDependencies = [
@@ -62,7 +64,12 @@ ext {
             gson           : "com.google.code.gson:gson:${gsonVersion}",
             daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
             javaxAnnotation: "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-            eventBus       : "de.greenrobot:eventbus:${eventBusVersion}"
+            eventBus       : "de.greenrobot:eventbus:${eventBusVersion}",
+            DBFlow         : "com.raizlabs.android:DBFlow:${DBFlowVersion}",
+            DBFlowCore     : "com.raizlabs.android:DBFlow-Core:${DBFlowVersion}",
+            DBFlowCompiler : "com.raizlabs.android:DBFlow-Compiler:${DBFlowVersion}",
+
+            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
     ]
 
     presentationDependencies = [
@@ -80,7 +87,8 @@ ext {
 
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
             xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
-            retrolambda                 :   "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
+            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+            stetho                   : "com.facebook.stetho:stetho:${stethoVersion}"
     ]
 
     presentationTestDependencies = [
