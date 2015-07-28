@@ -1,4 +1,4 @@
-package yolo.template;
+package com.piasy.template;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

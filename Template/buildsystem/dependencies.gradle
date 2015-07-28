@@ -33,6 +33,7 @@ ext {
 
     // Developer
     xLogVersion = '2.0'
+    retrolambdaVersion = '2.0.5'
 
     // Testing
     robolectricVersion = '3.0'
@@ -48,6 +49,12 @@ ext {
             rxJava      : "io.reactivex:rxjava:${rxJavaVersion}",
 
             xLogCompiler: "com.github.promeg:xlog-compiler:${xLogVersion}"
+    ]
+
+    commonAndroidDependencies = [
+            androidSupportAppCompatV7   :   "com.android.support:appcompat-v7:${androidSupportAppCompatV7Version}",
+
+            retrolambda                 :   "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
     ]
 
     modelDependencies = [
@@ -72,7 +79,8 @@ ext {
             loadToast                : "net.steamcrafted:load-toast:${loadToastVersion}",
 
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
-            xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}"
+            xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
+            retrolambda                 :   "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
     ]
 
     presentationTestDependencies = [

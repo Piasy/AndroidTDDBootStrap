@@ -19,11 +19,9 @@ public class RxUtil {
      * RxUtil.NetErrorProcessor.call(throwable);
      * Otherwise this method won't be invoked
      */
-    public static Action1<Throwable> NetErrorProcessor = new Action1<Throwable>() {
-        @Override
-        public void call(Throwable throwable) {
-            // intercept error process
-        }
+    public static Action1<Throwable> NetErrorProcessor = throwable -> {
+        // intercept error process
+        System.err.println(throwable.getMessage());
     };
 
 }

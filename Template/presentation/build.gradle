@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 apply from: '../buildsystem/lint-summary.gradle'
 
 android {
@@ -22,8 +23,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -55,4 +56,5 @@ dependencies {
 
     // Developer
     compile presentationDependencies.xLogAndroid
+    retrolambdaConfig presentationDependencies.retrolambda
 }
