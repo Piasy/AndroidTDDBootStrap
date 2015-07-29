@@ -2,6 +2,7 @@ package com.piasy.template;
 
 import com.google.gson.Gson;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
 import com.github.promeg.xlog_android.lib.XLogConfig;
 import com.piasy.model.entities.GithubUser;
@@ -15,6 +16,8 @@ import android.app.Application;
 import android.widget.Toast;
 
 import javax.inject.Inject;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -53,6 +56,7 @@ public class TemplateApp extends Application implements IApplication {
                         .enableWebKitInspector(
                                 Stetho.defaultInspectorModulesProvider(this))
                         .build());
+        Fabric.with(this, new Crashlytics());
 
         // test
         String test = "{\"login\":\"Piasy\"}";

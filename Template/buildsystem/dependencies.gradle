@@ -36,6 +36,7 @@ ext {
     xLogVersion = '2.0'
     retrolambdaVersion = '2.0.5'
     stethoVersion = '1.1.1'
+    fabricVersion = '2.5.0'
 
     // Testing
     robolectricVersion = '3.0'
@@ -69,7 +70,7 @@ ext {
             DBFlowCore     : "com.raizlabs.android:DBFlow-Core:${DBFlowVersion}",
             DBFlowCompiler : "com.raizlabs.android:DBFlow-Compiler:${DBFlowVersion}",
 
-            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
+            retrolambda    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
     ]
 
     presentationDependencies = [
@@ -88,7 +89,8 @@ ext {
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
             xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
-            stetho                   : "com.facebook.stetho:stetho:${stethoVersion}"
+            stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
+            fabric                   : "com.crashlytics.sdk.android:crashlytics:${fabricVersion}@aar"
     ]
 
     presentationTestDependencies = [
