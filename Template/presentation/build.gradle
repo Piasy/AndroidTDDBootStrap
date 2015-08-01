@@ -1,19 +1,34 @@
+import static org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS
+import static org.apache.tools.ant.taskdefs.condition.Os.isFamily
+
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply from: '../buildsystem/lint-summary.gradle'
 
+def keyConfigPath
+if (isFamily(FAMILY_WINDOWS)) {
+    keyConfigPath = System.getenv('USERPROFILE') + File.separator + ".ssh" + File.separator +
+            "TemplateKeyStore.properties"
+} else {
+    keyConfigPath = System.getenv('HOME') + File.separator + ".ssh" + File.separator +
+            "TemplateKeyStore.properties"
+}
+
+Properties props = new Properties()
+if (new File(keyConfigPath).exists()) {
+    props.load(new FileInputStream(file(keyConfigPath)))
+}
+
+
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "com.piasy.template"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        versionCode 1
-        versionName "1.0"
     }
 
     buildTypes {
@@ -36,6 +51,43 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+
+    signingConfigs {
+        release {
+            storeFile file(props['keystore'])
+            storePassword props['keystore.password']
+            keyAlias props['key.alias']
+            keyPassword props['key.password']
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors.whenObjectAdded { flavor ->
+        def flavorData = rootProject.ext[flavor.name]
+        flavor.applicationId flavorData.packageName
+        flavor.versionCode flavorData.versionCode
+        flavor.versionName flavorData.versionName
+    }
+
+    productFlavors {
+        develop {}
+
+        product {}
+    }
 }
 
 dependencies {
@@ -56,10 +108,13 @@ dependencies {
     compile presentationDependencies.loadToast
 
     // Developer
-    compile presentationDependencies.xLogAndroid
+    developCompile presentationDependencies.xLogAndroid
+    productCompile presentationDependencies.xLogAndroidIdle
     retrolambdaConfig presentationDependencies.retrolambda
     compile presentationDependencies.stetho
-    compile (presentationDependencies.fabric) {
+    compile(presentationDependencies.fabric) {
         transitive = true;
     }
+    developCompile presentationDependencies.leakCanary
+    productCompile presentationDependencies.leakCanaryIdle
 }

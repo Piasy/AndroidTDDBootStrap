@@ -10,3 +10,6 @@
 
 # Local configuration file (sdk path, etc)
 /local.properties
+
+# Fabric appSecrit
+fabric.properties

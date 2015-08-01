@@ -1,9 +1,3 @@
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
 ext {
     // Android
     androidBuildToolsVersion = '22.0.1'
@@ -37,6 +31,7 @@ ext {
     retrolambdaVersion = '2.0.5'
     stethoVersion = '1.1.1'
     fabricVersion = '2.5.0'
+    leakCanaryVersion = '1.3.1'
 
     // Testing
     robolectricVersion = '3.0'
@@ -51,13 +46,13 @@ ext {
             dagger      : "com.google.dagger:dagger:${daggerVersion}",
             rxJava      : "io.reactivex:rxjava:${rxJavaVersion}",
 
-            xLogCompiler: "com.github.promeg:xlog-compiler:${xLogVersion}"
+            xLogCompiler: "com.github.promeg:xlog-compiler:${xLogVersion}",
     ]
 
     commonAndroidDependencies = [
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportAppCompatV7Version}",
 
-            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
+            retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
     ]
 
     modelDependencies = [
@@ -70,7 +65,7 @@ ext {
             DBFlowCore     : "com.raizlabs.android:DBFlow-Core:${DBFlowVersion}",
             DBFlowCompiler : "com.raizlabs.android:DBFlow-Compiler:${DBFlowVersion}",
 
-            retrolambda    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}"
+            retrolambda    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
     ]
 
     presentationDependencies = [
@@ -86,11 +81,14 @@ ext {
 
             loadToast                : "net.steamcrafted:load-toast:${loadToastVersion}",
 
+            xLog                     : "com.github.promeg:xlog:${xLogVersion}",
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
             xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
             stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
-            fabric                   : "com.crashlytics.sdk.android:crashlytics:${fabricVersion}@aar"
+            fabric                   : "com.crashlytics.sdk.android:crashlytics:${fabricVersion}@aar",
+            leakCanary               : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            leakCanaryIdle           : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
     ]
 
     presentationTestDependencies = [

@@ -11,6 +11,7 @@ import com.piasy.template.base.di.AppModule;
 import com.piasy.template.base.di.DaggerAppComponent;
 import com.piasy.template.base.di.IApplication;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.squareup.leakcanary.LeakCanary;
 
 import android.app.Application;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class TemplateApp extends Application implements IApplication {
                                 Stetho.defaultInspectorModulesProvider(this))
                         .build());
         Fabric.with(this, new Crashlytics());
+        LeakCanary.install(this);
 
         // test
         String test = "{\"login\":\"Piasy\"}";
