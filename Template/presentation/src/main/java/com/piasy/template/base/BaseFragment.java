@@ -6,7 +6,11 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.piasy.common.di.HasComponent;
 import com.piasy.template.base.di.BaseMvpComponent;
 
+import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -29,17 +33,22 @@ public abstract class BaseFragment<
         this.inject();
     }
 
+    protected abstract void inject();
+
     @Override
     public P createPresenter() {
         return presenter;
     }
 
-    protected abstract void inject();
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+    }
 
     protected C getComponent() {
         return mComponent;
     }
-
 
     /**
      * Shows a {@link android.widget.Toast} message.

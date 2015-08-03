@@ -105,6 +105,9 @@ dependencies {
     compile presentationDependencies.mvp
 
     // UI library
+    compile presentationDependencies.recyclerViewV7
+    compile presentationDependencies.cardViewV7
+    compile presentationDependencies.fresco
     compile presentationDependencies.loadToast
 
     // Developer

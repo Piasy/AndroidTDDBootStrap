@@ -12,10 +12,9 @@ import com.piasy.template.ui.search.mvp.GithubSearchView;
 import com.promegu.xlog.base.XLog;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -34,17 +32,13 @@ public class GithubSearchFragment
         extends BaseFragment<GithubSearchView, GithubSearchPresenter, GithubSearchComponent>
         implements GithubSearchView {
 
-    @Bind(R.id.tv_content)
-    TextView mTvContent;
     @Inject
     Gson mGson;
+    @Bind(R.id.rv_search_result)
+    RecyclerView mRvSearchResult;
+    GithubSearchUserResultAdapter mAdapter;
 
     public GithubSearchFragment() {
-    }
-
-    @Override
-    public GithubSearchPresenter createPresenter() {
-        return null;
     }
 
     @Override
@@ -53,15 +47,14 @@ public class GithubSearchFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_github_search, container, false);
+    public GithubSearchPresenter createPresenter() {
+        return null;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        setupView();
 
         String test = "{\"login\":\"PiaSys\"}";
         Toast.makeText(getActivity(), mGson.fromJson(test, GithubUser.class).getLogin(), Toast.LENGTH_LONG)
@@ -73,9 +66,20 @@ public class GithubSearchFragment
         showProgress();
     }
 
+    private void setupView() {
+        mAdapter = new GithubSearchUserResultAdapter();
+        mRvSearchResult.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRvSearchResult.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_github_search;
+    }
+
     @Override
     public void showSearchUserResult(List<GithubUser> users) {
-        mTvContent.setText(mGson.toJson(users));
+        mAdapter.addUsers(users);
         stopProgress(true);
     }
 }

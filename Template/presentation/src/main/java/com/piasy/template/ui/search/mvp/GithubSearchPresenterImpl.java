@@ -4,12 +4,11 @@ import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.model.rest.github.GithubAPI;
 import com.piasy.template.base.mvp.BaseRxPresenter;
-import com.raizlabs.android.dbflow.runtime.TransactionManager;
-import com.raizlabs.android.dbflow.runtime.transaction.process.ProcessModelInfo;
-import com.raizlabs.android.dbflow.runtime.transaction.process.SaveModelTransaction;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import android.support.annotation.NonNull;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import rx.Observable;
@@ -51,12 +50,18 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
         // then load data from cloud
         addSubscription(mGithubAPI.searchGithubUsers(query, sort, order)
                 .subscribeOn(Schedulers.io())
-                .doOnNext(githubUserGithubSearchResult ->
-                        TransactionManager.getInstance()
-                                .addTransaction(
-                                        new SaveModelTransaction<>(
-                                                ProcessModelInfo.withModels(
-                                                        githubUserGithubSearchResult.getItems()))))
+                .doOnNext(githubUserGithubSearchResult -> {
+                    List<GithubUser> local = new Select().from(GithubUser.class).queryList();
+                    for (int i = 0; i < githubUserGithubSearchResult.getItems().size(); i++) {
+                        int index = local.indexOf(githubUserGithubSearchResult.getItems().get(i));
+                        if (index != -1) {
+                            local.get(index).copy(githubUserGithubSearchResult.getItems().get(i));
+                            local.get(index).update();
+                        } else {
+                            githubUserGithubSearchResult.getItems().get(i).save();
+                        }
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(githubUserGithubSearchResult -> {
                     if (isViewAttached()) {

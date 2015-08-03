@@ -3,6 +3,7 @@ package com.piasy.template;
 import com.google.gson.Gson;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.github.promeg.xlog_android.lib.XLogConfig;
 import com.piasy.model.entities.GithubUser;
@@ -46,6 +47,7 @@ public class TemplateApp extends Application implements IApplication {
         mAppComponent.inject(this);
 
         FlowManager.init(this);
+        Fresco.initialize(this);
 
         // Developer
         XLogConfig.config(XLogConfig.newConfigBuilder(this)

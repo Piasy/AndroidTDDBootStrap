@@ -47,15 +47,6 @@ public abstract class BaseActivity extends FragmentActivity {
         return ((IApplication) getApplication()).component();
     }
 
-    /**
-     * Get an Activity module for dependency injection.
-     *
-     * @return {@link ActivityModule}
-     */
-    protected ActivityModule getActivityModule() {
-        return new ActivityModule(this);
-    }
-
     protected abstract void initializeInjector();
 
     @Override
@@ -77,6 +68,19 @@ public abstract class BaseActivity extends FragmentActivity {
         }, 500);
     }
 
+    /**
+     * Get an Activity module for dependency injection.
+     *
+     * @return {@link ActivityModule}
+     */
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
+    }
+
+    public void showProgress() {
+        showProgress("Loading");
+    }
+
     public void showProgress(final String message) {
         if (TextUtils.isEmpty(message)) {
             return;
@@ -92,10 +96,6 @@ public abstract class BaseActivity extends FragmentActivity {
                 mHandler.sendMessage(msg);
             }
         });
-    }
-
-    public void showProgress() {
-        showProgress("Loading");
     }
 
     /**

@@ -66,6 +66,48 @@ public class GithubUser extends BaseModel {
     @Expose
     private Float score;
 
+    public void copy(GithubUser that) {
+        this.login = that.login;
+        this.uid = that.uid;
+        this.avatar_url = that.avatar_url;
+        this.gravatar_id = that.gravatar_id;
+        this.url = that.url;
+        this.html_url = that.html_url;
+        this.followers_url = that.followers_url;
+        this.subscriptions_url = that.subscriptions_url;
+        this.repos_url = that.repos_url;
+        this.type = that.type;
+        this.score = that.score;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (((Object) this).getClass() != obj.getClass()) {
+            return false;
+        }
+        final GithubUser other = (GithubUser) obj;
+
+        if (this.uid == null) {
+            return other.uid == null;
+        }
+
+        return (other.uid != null) && this.uid.equals(other.uid);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uid == null) ? 0 : this.uid.hashCode());
+        return result;
+    }
+
     public String getLogin() {
         return login;
     }

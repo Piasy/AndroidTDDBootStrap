@@ -17,22 +17,11 @@ public abstract class BaseRxPresenter<V extends MvpView> extends MvpBasePresente
 
     private CompositeSubscription mSubscription = null;
 
-    protected abstract
-    @NonNull
-    EventBus getEventBus();
-
     protected void addSubscription(Subscription subscription) {
         if (mSubscription == null || mSubscription.isUnsubscribed()) {
             mSubscription = new CompositeSubscription();
         }
         mSubscription.add(subscription);
-    }
-
-    protected void unSubscribeAll() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
-        }
-        mSubscription = null;
     }
 
     @Override
@@ -48,6 +37,10 @@ public abstract class BaseRxPresenter<V extends MvpView> extends MvpBasePresente
         }
     }
 
+    protected abstract
+    @NonNull
+    EventBus getEventBus();
+
     @Override
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);
@@ -58,5 +51,12 @@ public abstract class BaseRxPresenter<V extends MvpView> extends MvpBasePresente
         if (getEventBus().isRegistered(this)) {
             getEventBus().unregister(this);
         }
+    }
+
+    protected void unSubscribeAll() {
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+        mSubscription = null;
     }
 }
