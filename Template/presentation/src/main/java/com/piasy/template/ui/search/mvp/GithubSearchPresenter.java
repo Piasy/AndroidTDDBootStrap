@@ -7,6 +7,6 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
  */
 public interface GithubSearchPresenter extends MvpPresenter<GithubSearchView> {
 
-    void searchUser(String query, String sort, String order);
+    void loadUser();
 
 }

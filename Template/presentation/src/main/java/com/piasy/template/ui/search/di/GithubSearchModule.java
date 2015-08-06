@@ -1,6 +1,6 @@
 package com.piasy.template.ui.search.di;
 
-import com.piasy.model.rest.github.GithubAPI;
+import com.piasy.model.dao.GithubUserDAO;
 import com.piasy.template.ui.search.mvp.GithubSearchPresenter;
 import com.piasy.template.ui.search.mvp.GithubSearchPresenterImpl;
 
@@ -15,8 +15,8 @@ import de.greenrobot.event.EventBus;
 public class GithubSearchModule {
 
     @Provides
-    GithubSearchPresenter provideGithubSearchPresenter(EventBus bus, GithubAPI api) {
-        return new GithubSearchPresenterImpl(bus, api);
+    GithubSearchPresenter provideGithubSearchPresenter(EventBus bus, GithubUserDAO githubUserDAO) {
+        return new GithubSearchPresenterImpl(bus, githubUserDAO);
     }
 
 }

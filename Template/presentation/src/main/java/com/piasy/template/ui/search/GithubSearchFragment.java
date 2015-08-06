@@ -2,7 +2,6 @@ package com.piasy.template.ui.search;
 
 import com.google.gson.Gson;
 
-import com.piasy.common.Constants;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.R;
 import com.piasy.template.base.BaseFragment;
@@ -60,9 +59,7 @@ public class GithubSearchFragment
         Toast.makeText(getActivity(), mGson.fromJson(test, GithubUser.class).getLogin(), Toast.LENGTH_LONG)
                 .show();
 
-        presenter.searchUser("piasy",
-                Constants.GithubAPIParams.SEARCH_SORT_JOINED,
-                Constants.GithubAPIParams.SEARCH_ORDER_DESC);
+        presenter.loadUser();
         showProgress();
     }
 

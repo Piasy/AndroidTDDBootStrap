@@ -1,6 +1,7 @@
 package com.piasy.template.ui.search.di;
 
 import com.piasy.common.di.PerActivity;
+import com.piasy.model.dao.di.GithubUserDAOModule;
 import com.piasy.model.rest.github.GithubAPIModule;
 import com.piasy.template.base.di.ActivityComponent;
 import com.piasy.template.base.di.ActivityModule;
@@ -21,6 +22,7 @@ import dagger.Component;
         dependencies = AppComponent.class,
         modules = {
                 GithubAPIModule.class,
+                GithubUserDAOModule.class,
                 GithubSearchModule.class,
 
                 ActivityModule.class

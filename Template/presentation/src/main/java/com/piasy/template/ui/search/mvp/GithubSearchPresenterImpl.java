@@ -1,17 +1,12 @@
 package com.piasy.template.ui.search.mvp;
 
 import com.piasy.common.android.utils.net.RxUtil;
-import com.piasy.model.entities.GithubUser;
-import com.piasy.model.rest.github.GithubAPI;
+import com.piasy.model.dao.GithubUserDAO;
 import com.piasy.template.base.mvp.BaseRxPresenter;
-import com.raizlabs.android.dbflow.sql.language.Select;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -22,11 +17,11 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
         implements GithubSearchPresenter {
 
     private final EventBus mBus;
-    private final GithubAPI mGithubAPI;
+    private final GithubUserDAO mGithubUserDAO;
 
-    public GithubSearchPresenterImpl(EventBus bus, GithubAPI githubAPI) {
+    public GithubSearchPresenterImpl(EventBus bus, GithubUserDAO githubUserDAO) {
         mBus = bus;
-        mGithubAPI = githubAPI;
+        mGithubUserDAO = githubUserDAO;
     }
 
     @NonNull
@@ -36,36 +31,14 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
     }
 
     @Override
-    public void searchUser(String query, String sort, String order) {
-        // show local data at first
-        addSubscription(Observable.just(new Select().from(GithubUser.class).queryList())
+    public void loadUser() {
+        // load user from dao, dao take responsibility for where to get the real data
+        addSubscription(mGithubUserDAO.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(users -> {
-                    if (isViewAttached() && users != null && !users.isEmpty()) {
-                        getView().showSearchUserResult(users);
-                    }
-                }, RxUtil.NetErrorProcessor));
-
-        // then load data from cloud
-        addSubscription(mGithubAPI.searchGithubUsers(query, sort, order)
-                .subscribeOn(Schedulers.io())
-                .doOnNext(githubUserGithubSearchResult -> {
-                    List<GithubUser> local = new Select().from(GithubUser.class).queryList();
-                    for (int i = 0; i < githubUserGithubSearchResult.getItems().size(); i++) {
-                        int index = local.indexOf(githubUserGithubSearchResult.getItems().get(i));
-                        if (index != -1) {
-                            local.get(index).copy(githubUserGithubSearchResult.getItems().get(i));
-                            local.get(index).update();
-                        } else {
-                            githubUserGithubSearchResult.getItems().get(i).save();
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(githubUserGithubSearchResult -> {
+                .subscribe(githubUsers -> {
                     if (isViewAttached()) {
-                        getView().showSearchUserResult(githubUserGithubSearchResult.getItems());
+                        getView().showSearchUserResult(githubUsers);
                     }
                 }, RxUtil.NetErrorProcessor));
     }

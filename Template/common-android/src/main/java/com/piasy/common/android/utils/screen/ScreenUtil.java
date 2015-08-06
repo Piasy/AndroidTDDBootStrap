@@ -1,7 +1,5 @@
 package com.piasy.common.android.utils.screen;
 
-import com.promegu.xlog.base.XLog;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -20,7 +18,6 @@ import java.util.List;
 /**
  * Created by guyacong on 2015/4/17.
  */
-@XLog
 public class ScreenUtil {
     protected static Context mContext = null;
 

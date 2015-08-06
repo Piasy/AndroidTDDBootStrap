@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import com.piasy.model.dao.TemplateDB;
-import com.promegu.xlog.base.XLog;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -13,7 +12,6 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
-@XLog
 @Table(databaseName = TemplateDB.NAME, tableName = "GithubUsers")
 public class GithubUser extends BaseModel {
 
