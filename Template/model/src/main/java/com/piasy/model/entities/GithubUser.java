@@ -9,6 +9,8 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.util.Date;
+
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
@@ -17,7 +19,7 @@ public class GithubUser extends BaseModel {
 
     @Column
     @PrimaryKey(autoincrement = true)
-    private Long id;
+    private long id;
 
     @Column(name = "username")
     @Expose
@@ -26,7 +28,7 @@ public class GithubUser extends BaseModel {
     @Column
     @Expose
     @SerializedName("id")
-    private Long uid;
+    private long uid;
 
     @Column
     @Expose
@@ -62,7 +64,43 @@ public class GithubUser extends BaseModel {
 
     @Column
     @Expose
-    private Float score;
+    private String name;
+
+    @Column
+    @Expose
+    private String company;
+
+    @Column
+    @Expose
+    private String blog;
+
+    @Column
+    @Expose
+    private String location;
+
+    @Column
+    @Expose
+    private String email;
+
+    @Column
+    @Expose
+    private int public_repos;
+
+    @Column
+    @Expose
+    private int public_gists;
+
+    @Column
+    @Expose
+    private int followers;
+
+    @Column
+    @Expose
+    private int following;
+
+    @Column
+    @Expose
+    private Date created_at;
 
     public void copy(GithubUser that) {
         this.login = that.login;
@@ -75,7 +113,16 @@ public class GithubUser extends BaseModel {
         this.subscriptions_url = that.subscriptions_url;
         this.repos_url = that.repos_url;
         this.type = that.type;
-        this.score = that.score;
+        this.name = that.name;
+        this.company = that.company;
+        this.blog = that.blog;
+        this.location = that.location;
+        this.email = that.email;
+        this.public_repos = that.public_repos;
+        this.public_gists = that.public_gists;
+        this.followers = that.followers;
+        this.following = that.following;
+        this.created_at = that.created_at;
     }
 
     @Override
@@ -91,18 +138,18 @@ public class GithubUser extends BaseModel {
         }
         final GithubUser other = (GithubUser) obj;
 
-        if (this.uid == null) {
-            return other.uid == null;
+        if (this.uid == 0) {
+            return other.uid == 0;
         }
 
-        return (other.uid != null) && this.uid.equals(other.uid);
+        return (other.uid != 0) && this.uid == other.uid;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.uid == null) ? 0 : this.uid.hashCode());
+        result = prime * result + ((this.uid == 0) ? 0 : Long.valueOf(this.uid).hashCode());
         return result;
     }
 
@@ -122,7 +169,7 @@ public class GithubUser extends BaseModel {
         this.avatar_url = avatar_url;
     }
 
-    public Long getUid() {
+    public long getUid() {
         return uid;
     }
 
@@ -178,14 +225,6 @@ public class GithubUser extends BaseModel {
         this.repos_url = repos_url;
     }
 
-    public Float getScore() {
-        return score;
-    }
-
-    public void setScore(Float score) {
-        this.score = score;
-    }
-
     public String getType() {
         return type;
     }
@@ -194,12 +233,92 @@ public class GithubUser extends BaseModel {
         this.type = type;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPublic_repos() {
+        return public_repos;
+    }
+
+    public void setPublic_repos(int public_repos) {
+        this.public_repos = public_repos;
+    }
+
+    public int getPublic_gists() {
+        return public_gists;
+    }
+
+    public void setPublic_gists(int public_gists) {
+        this.public_gists = public_gists;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public interface GithubUserType {

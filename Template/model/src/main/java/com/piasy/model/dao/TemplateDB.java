@@ -10,6 +10,6 @@ public class TemplateDB {
 
     public static final String NAME = "TemplateDB";
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
 }

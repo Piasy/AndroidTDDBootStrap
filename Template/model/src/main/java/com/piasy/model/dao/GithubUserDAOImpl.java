@@ -28,28 +28,44 @@ public class GithubUserDAOImpl implements GithubUserDAO {
     @Override
     public Observable<List<GithubUser>> getUsers() {
         return Observable.create(subscriber -> {
+            // load from db, and show it if not empty
             List<GithubUser> local = new Select().from(GithubUser.class).queryList();
             if (local == null) {
                 local = new ArrayList<>();
+            } else {
+                subscriber.onNext(local);
             }
-            subscriber.onNext(local);
 
+            // search from cloud
             GithubSearchResult<GithubUser> searchResult = mGithubAPI.searchGithubUsers("piasy",
                     Constants.GithubAPIParams.SEARCH_SORT_JOINED,
                     Constants.GithubAPIParams.SEARCH_ORDER_DESC).toBlocking().single();
+            // and show it
             if (searchResult.getItems() == null) {
                 subscriber.onNext(new ArrayList<GithubUser>());
             } else {
-                subscriber.onNext(searchResult.getItems());
+                // show search result if db data is empty
+                if (local.isEmpty()) {
+                    subscriber.onNext(searchResult.getItems());
+                }
 
+                // if not empty, get full user info from cloud
                 for (int i = 0; i < searchResult.getItems().size(); i++) {
-                    int index = local.indexOf(searchResult.getItems().get(i));
+                    GithubUser fullUserInfo = mGithubAPI
+                            .getGithubUser(searchResult.getItems().get(i).getLogin())
+                            .toBlocking().single();
+                    int index = local.indexOf(fullUserInfo);
                     if (index != -1) {
-                        local.get(index).copy(searchResult.getItems().get(i));
+                        local.get(index).copy(fullUserInfo);
                         local.get(index).update();
                     } else {
-                        searchResult.getItems().get(i).save();
+                        fullUserInfo.save();
+                        local.add(fullUserInfo);
                     }
+                }
+                // and then show it
+                if (!local.isEmpty()) {
+                    subscriber.onNext(local);
                 }
             }
 

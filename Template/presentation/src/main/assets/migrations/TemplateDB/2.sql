@@ -1,0 +1,11 @@
+ALTER TABLE GithubUsers ADD COLUMN name TEXT;
+ALTER TABLE GithubUsers ADD COLUMN company TEXT;
+ALTER TABLE GithubUsers ADD COLUMN blog TEXT;
+ALTER TABLE GithubUsers ADD COLUMN location TEXT;
+ALTER TABLE GithubUsers ADD COLUMN email TEXT;
+ALTER TABLE GithubUsers ADD COLUMN public_repos INTEGER;
+ALTER TABLE GithubUsers ADD COLUMN public_gists INTEGER;
+ALTER TABLE GithubUsers ADD COLUMN followers INTEGER;
+ALTER TABLE GithubUsers ADD COLUMN following INTEGER;
+ALTER TABLE GithubUsers ADD COLUMN created_at TEXT;
+ALTER TABLE GithubUsers DROP score;

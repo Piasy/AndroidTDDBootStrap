@@ -64,7 +64,7 @@ public class GithubSearchFragment
     }
 
     private void setupView() {
-        mAdapter = new GithubSearchUserResultAdapter();
+        mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources());
         mRvSearchResult.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvSearchResult.setAdapter(mAdapter);
     }

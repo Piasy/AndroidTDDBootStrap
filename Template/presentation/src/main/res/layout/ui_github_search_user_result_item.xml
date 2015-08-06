@@ -38,13 +38,32 @@
                 android:layout_marginLeft="10dp"/>
 
         <TextView
-                android:id="@+id/tv_score"
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_below="@+id/iv_user_type"
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="10dp"/>
+
+        <TextView
+                android:id="@+id/tv_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/tv_email"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"/>
+
+        <TextView
+                android:id="@+id/tv_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/tv_followers"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
