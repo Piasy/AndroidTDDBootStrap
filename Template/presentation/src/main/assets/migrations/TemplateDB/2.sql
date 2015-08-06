@@ -8,4 +8,3 @@ ALTER TABLE GithubUsers ADD COLUMN public_gists INTEGER;
 ALTER TABLE GithubUsers ADD COLUMN followers INTEGER;
 ALTER TABLE GithubUsers ADD COLUMN following INTEGER;
 ALTER TABLE GithubUsers ADD COLUMN created_at TEXT;
-ALTER TABLE GithubUsers DROP score;
