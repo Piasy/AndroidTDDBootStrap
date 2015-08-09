@@ -1,5 +1,7 @@
 package com.piasy.common;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
@@ -13,5 +15,10 @@ public class Constants {
 
         String SEARCH_ORDER_ASC = "asc";
         String SEARCH_ORDER_DESC = "desc";
+    }
+
+    public interface REPatterns {
+        Pattern EMAIL_PATTERN = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
 }

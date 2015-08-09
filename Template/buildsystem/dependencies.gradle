@@ -4,24 +4,22 @@ ext {
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 22
     androidCompileSdkVersion = 22
-    androidSupportAppCompatV7Version = '22.1.1'
+    androidSupportLibraryVersion = '22.2.1'
 
     // Libraries
     daggerVersion = '2.0.1'
     butterKnifeVersion = '7.0.1'
-    recyclerViewVersion = '21.0.3'
     rxJavaVersion = '1.0.13'
     rxAndroidVersion = '0.24.0'
     javaxAnnotationVersion = '10.0-b28'
-    gsonVersion = '2.3'
     okHttpVersion = '2.3.0'
     androidAnnotationsVersion = '20.0.0'
     retrofitVersion = '1.9.0'
-    androidSupportSdkVersion = '22.1.1'
     gsonVersion = '2.3.1'
     mvpVersion = '1.2.0'
     eventBusVersion = '3.0.0-beta1'
     DBFlowVersion = '2.2.1'
+    apacheCommonsIOVersion = '1.3.2'
 
     // UI
     loadToastVersion = '1.0.8'
@@ -35,25 +33,41 @@ ext {
     leakCanaryVersion = '1.3.1'
 
     // Testing
-    robolectricVersion = '3.0'
     jUnitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    jsonAssertVersion = '1.2.3'
+
     assertJVersion = '1.7.1'
-    mockitoVersion = '1.9.5'
     dexmakerVersion = '1.0'
     espressoVersion = '2.0'
     testingSupportLibVersion = '0.1'
 
     commonDependencies = [
-            dagger      : "com.google.dagger:dagger:${daggerVersion}",
-            rxJava      : "io.reactivex:rxjava:${rxJavaVersion}",
+            dagger         : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            rxJava         : "io.reactivex:rxjava:${rxJavaVersion}",
+            apacheCommonsIO: "org.apache.commons:commons-io:${apacheCommonsIOVersion}",
 
-            xLogCompiler: "com.github.promeg:xlog-compiler:${xLogVersion}",
+            xLogCompiler   : "com.github.promeg:xlog-compiler:${xLogVersion}",
+    ]
+
+    commonTestDependencies = [
+            junit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
     ]
 
     commonAndroidDependencies = [
-            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportAppCompatV7Version}",
+            daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
+            supportAnnotation        : "com.android.support:support-annotations:${androidSupportLibraryVersion}",
 
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+    ]
+
+    commonAndroidTestDependencies = [
+            junit     : "junit:junit:${jUnitVersion}",
+            mockito   : "org.mockito:mockito-core:${mockitoVersion}",
+            jsonAssert: "org.skyscreamer:jsonassert:${jsonAssertVersion}",
     ]
 
     modelDependencies = [
@@ -70,13 +84,13 @@ ext {
     ]
 
     presentationDependencies = [
-            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
-            recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
-            cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
+            recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportLibraryVersion}",
+            cardViewV7               : "com.android.support:cardview-v7:${androidSupportLibraryVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger                   : "com.google.dagger:dagger:${daggerVersion}",
             butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            recyclerView             : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            recyclerView             : "com.android.support:recyclerview-v7:${androidSupportLibraryVersion}",
             rxJava                   : "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",

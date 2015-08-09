@@ -30,9 +30,11 @@ public class GithubSearchUserResultAdapter
 
     private final List<GithubUser> mGithubUsers = new ArrayList<>();
     private final Resources mResources;
+    private final EmailUtil mEmailUtil;
 
-    public GithubSearchUserResultAdapter(Resources resources) {
+    public GithubSearchUserResultAdapter(Resources resources, EmailUtil emailUtil) {
         mResources = resources;
+        mEmailUtil = emailUtil;
     }
 
     public void addUsers(@NonNull List<GithubUser> users) {
@@ -68,7 +70,7 @@ public class GithubSearchUserResultAdapter
         }
 
         vh.mTvUsername.setText(user.getLogin());
-        if (!TextUtils.isEmpty(user.getEmail()) && EmailUtil.isValidEmail(user.getEmail())) {
+        if (!TextUtils.isEmpty(user.getEmail()) && mEmailUtil.isValidEmail(user.getEmail())) {
             vh.mTvEmail.setText(user.getEmail());
             vh.mTvEmail.setVisibility(View.VISIBLE);
         } else {

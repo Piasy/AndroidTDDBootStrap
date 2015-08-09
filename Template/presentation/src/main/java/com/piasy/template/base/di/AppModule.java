@@ -1,9 +1,8 @@
 package com.piasy.template.base.di;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Resources;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,17 +19,19 @@ public class AppModule {
         mApplication = application;
     }
 
-    @Singleton
     @Provides
-    public Application provideApplication() {
+    Application provideApplication() {
         return this.mApplication;
     }
 
-    @Singleton
     @Provides
-    public Resources provideResources() {
+    Resources provideResources() {
         return this.mApplication.getResources();
     }
 
+    @Provides
+    Context provideContext() {
+        return this.mApplication;
+    }
 
 }

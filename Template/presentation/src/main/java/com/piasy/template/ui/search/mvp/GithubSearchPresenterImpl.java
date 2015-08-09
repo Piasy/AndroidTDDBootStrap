@@ -18,10 +18,13 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
 
     private final EventBus mBus;
     private final GithubUserDAO mGithubUserDAO;
+    private final RxUtil.RxErrorProcessor mRxErrorProcessor;
 
-    public GithubSearchPresenterImpl(EventBus bus, GithubUserDAO githubUserDAO) {
+    public GithubSearchPresenterImpl(EventBus bus, GithubUserDAO githubUserDAO,
+                                     RxUtil.RxErrorProcessor rxErrorProcessor) {
         mBus = bus;
         mGithubUserDAO = githubUserDAO;
+        mRxErrorProcessor = rxErrorProcessor;
     }
 
     @NonNull
@@ -40,6 +43,6 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
                     if (isViewAttached()) {
                         getView().showSearchUserResult(githubUsers);
                     }
-                }, RxUtil.NetErrorProcessor));
+                }, mRxErrorProcessor));
     }
 }

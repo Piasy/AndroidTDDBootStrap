@@ -1,7 +1,6 @@
 package com.piasy.template.ui.search;
 
-import com.google.gson.Gson;
-
+import com.piasy.common.utils.EmailUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.R;
 import com.piasy.template.base.BaseFragment;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class GithubSearchFragment
         implements GithubSearchView {
 
     @Inject
-    Gson mGson;
+    EmailUtil mEmailUtil;
     @Bind(R.id.rv_search_result)
     RecyclerView mRvSearchResult;
     GithubSearchUserResultAdapter mAdapter;
@@ -55,16 +53,12 @@ public class GithubSearchFragment
         super.onViewCreated(view, savedInstanceState);
         setupView();
 
-        String test = "{\"login\":\"PiaSys\"}";
-        Toast.makeText(getActivity(), mGson.fromJson(test, GithubUser.class).getLogin(), Toast.LENGTH_LONG)
-                .show();
-
         presenter.loadUser();
         showProgress();
     }
 
     private void setupView() {
-        mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources());
+        mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources(), mEmailUtil);
         mRvSearchResult.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvSearchResult.setAdapter(mAdapter);
     }

@@ -4,14 +4,12 @@ ext {
 
     develop = [
             packageName: "${basePackageName}.dev",
-            appName    : "TemplateDev",
             versionName: "1.0.0",
             versionCode: 1
     ]
 
     product = [
             packageName: "${basePackageName}",
-            appName    : "Template",
             versionName: "1.0.0",
             versionCode: 1
     ]

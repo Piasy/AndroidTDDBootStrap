@@ -50,6 +50,8 @@ android {
 
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 
     signingConfigs {
@@ -93,7 +95,6 @@ android {
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
 
-    compile project(':model')
     compile project(':common-android')
     compile presentationDependencies.androidSupportAppCompatV7
     compile presentationDependencies.butterKnife

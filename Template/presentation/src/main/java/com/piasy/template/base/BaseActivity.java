@@ -30,6 +30,8 @@ public abstract class BaseActivity extends FragmentActivity {
     protected final MemorySafeHandler mHandler = new MemorySafeHandler(this);
     @Inject
     protected Resources mResources;
+    @Inject
+    protected ScreenUtil mScreenUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +58,11 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     public void stopProgress(final boolean success) {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (success) {
-                    mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_SUCCESS);
-                } else {
-                    mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_ERROR);
-                }
+        mHandler.postDelayed(() -> {
+            if (success) {
+                mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_SUCCESS);
+            } else {
+                mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_ERROR);
             }
         }, 500);
     }
@@ -85,16 +84,13 @@ public abstract class BaseActivity extends FragmentActivity {
         if (TextUtils.isEmpty(message)) {
             return;
         }
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = new Message();
-                msg.what = MSG_WHAT_START_PROGRESS;
-                Bundle bundle = new Bundle();
-                bundle.putString("message", message);
-                msg.setData(bundle);
-                mHandler.sendMessage(msg);
-            }
+        mHandler.post(() -> {
+            Message msg = new Message();
+            msg.what = MSG_WHAT_START_PROGRESS;
+            Bundle bundle = new Bundle();
+            bundle.putString("message", message);
+            msg.setData(bundle);
+            mHandler.sendMessage(msg);
         });
     }
 
@@ -110,42 +106,42 @@ public abstract class BaseActivity extends FragmentActivity {
 
         private boolean isLoadToastShowing = false;
 
-        private LoadToast loadToast;
+        private LoadToast mLoadToast;
 
         public MemorySafeHandler(BaseActivity activity) {
-            mActivity = new WeakReference<BaseActivity>(activity);
+            mActivity = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            BaseActivity activity = mActivity.get();
-            if (activity != null) {
+            if (mActivity.get() != null && mActivity.get().mScreenUtil != null) {
                 switch (msg.what) {
                     case MSG_WHAT_START_PROGRESS:
                         if (isLoadToastShowing) {
                             return;
                         }
                         String message = msg.getData().getString("message");
-                        if (loadToast == null) {
-                            loadToast = new LoadToast(activity)
+                        if (mLoadToast == null) {
+                            mLoadToast = new LoadToast(mActivity.get())
                                     .setText(message)
                                     .setTextColor(0x555555)
-                                    .setTranslationY(ScreenUtil.getMiddleAppY(activity));
+                                    .setTranslationY(mActivity.get()
+                                            .mScreenUtil.getScreenHeight(mActivity.get()) / 2);
                         }
-                        loadToast.show();
+                        mLoadToast.show();
                         isLoadToastShowing = true;
                         break;
                     case MSG_WHAT_STOP_PROGRESS_ERROR:
-                        if (loadToast != null && isLoadToastShowing) {
-                            loadToast.error();
-                            loadToast = null;
+                        if (mLoadToast != null && isLoadToastShowing) {
+                            mLoadToast.error();
+                            mLoadToast = null;
                             isLoadToastShowing = false;
                         }
                         break;
                     case MSG_WHAT_STOP_PROGRESS_SUCCESS:
-                        if (loadToast != null && isLoadToastShowing) {
-                            loadToast.success();
-                            loadToast = null;
+                        if (mLoadToast != null && isLoadToastShowing) {
+                            mLoadToast.success();
+                            mLoadToast = null;
                             isLoadToastShowing = false;
                         }
                         break;

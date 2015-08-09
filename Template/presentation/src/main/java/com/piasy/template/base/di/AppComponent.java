@@ -1,5 +1,11 @@
 package com.piasy.template.base.di;
 
+import com.piasy.common.android.utils.AndroidUtilsModule;
+import com.piasy.common.android.utils.net.RxUtil;
+import com.piasy.common.android.utils.screen.ScreenUtil;
+import com.piasy.common.android.utils.ui.ToastUtil;
+import com.piasy.common.utils.EmailUtil;
+import com.piasy.common.utils.UtilsModule;
 import com.piasy.model.rest.RestModule;
 import com.piasy.template.TemplateApp;
 import com.piasy.template.base.BaseActivity;
@@ -19,6 +25,10 @@ import dagger.Component;
 @Component(
         modules = {
                 AppModule.class,
+
+                UtilsModule.class,
+                AndroidUtilsModule.class,
+
                 RestModule.class
         })
 public interface AppComponent {
@@ -37,4 +47,13 @@ public interface AppComponent {
     Application application();
 
     Resources resources();
+
+    ScreenUtil screenUtil();
+
+    EmailUtil emailUtil();
+
+    ToastUtil toastUtil();
+
+    RxUtil.RxErrorProcessor rxErrorProcessor();
+
 }

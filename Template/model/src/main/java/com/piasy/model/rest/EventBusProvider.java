@@ -12,7 +12,7 @@ public class EventBusProvider {
     }
 
     private static class EventBusHolder {
-        private static EventBus sEventBus = EventBus.builder()
+        private static volatile EventBus sEventBus = EventBus.builder()
                 .logNoSubscriberMessages(false)
                 .sendNoSubscriberEvent(false)
                 .eventInheritance(true)
