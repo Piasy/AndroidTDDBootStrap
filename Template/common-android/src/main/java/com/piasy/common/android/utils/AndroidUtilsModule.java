@@ -8,6 +8,8 @@ import com.piasy.common.android.utils.ui.ToastUtilImpl;
 
 import android.content.Context;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -17,16 +19,19 @@ import dagger.Provides;
 @Module
 public class AndroidUtilsModule {
 
+    @Singleton
     @Provides
     ScreenUtil provideScreenUtil(Context context) {
         return new ScreenUtil(context);
     }
 
+    @Singleton
     @Provides
     ToastUtil provideToastUtil(Context context) {
         return new ToastUtilImpl(context);
     }
 
+    @Singleton
     @Provides
     RxUtil.RxErrorProcessor provideRxErrorProcessor(ToastUtil toastUtil) {
         return new RxUtil(new GithubAPIErrorProcessor(toastUtil)).getRxErrorProcessor();

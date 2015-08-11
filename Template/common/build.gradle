@@ -16,6 +16,7 @@ dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
     def commonTestDependencies = rootProject.ext.commonTestDependencies
 
+    compile commonDependencies.gson
     compile commonDependencies.dagger
     provided commonDependencies.daggerCompiler
     compile commonDependencies.rxJava

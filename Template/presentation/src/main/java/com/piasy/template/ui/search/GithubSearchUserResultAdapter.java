@@ -38,18 +38,9 @@ public class GithubSearchUserResultAdapter
     }
 
     public void addUsers(@NonNull List<GithubUser> users) {
-        for (int i = 0; i < users.size(); i++) {
-            int index = mGithubUsers.indexOf(users.get(i));
-            if (index != -1) {
-                mGithubUsers.set(index, users.get(i));
-            } else {
-                mGithubUsers.add(users.get(i));
-            }
-        }
-
-        if (!users.isEmpty()) {
-            notifyDataSetChanged();
-        }
+        mGithubUsers.clear();
+        mGithubUsers.addAll(users);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,17 +52,17 @@ public class GithubSearchUserResultAdapter
     @Override
     public void onBindViewHolder(GithubSearchResultVH vh, int position) {
         GithubUser user = mGithubUsers.get(position);
-        vh.mIvAvatar.setImageURI(Uri.parse(user.getAvatar_url()));
+        vh.mIvAvatar.setImageURI(Uri.parse(user.avatar_url()));
 
-        if (GithubUser.GithubUserType.ORGANIZATION.equals(user.getType())) {
+        if (GithubUser.GithubUserType.ORGANIZATION.equals(user.type())) {
             vh.mIvUserType.setImageResource(R.drawable.ic_github_user_type_org);
-        } else if (GithubUser.GithubUserType.USER.equals(user.getType())) {
+        } else if (GithubUser.GithubUserType.USER.equals(user.type())) {
             vh.mIvUserType.setImageResource(R.drawable.ic_github_user_type_user);
         }
 
-        vh.mTvUsername.setText(user.getLogin());
-        if (!TextUtils.isEmpty(user.getEmail()) && mEmailUtil.isValidEmail(user.getEmail())) {
-            vh.mTvEmail.setText(user.getEmail());
+        vh.mTvUsername.setText(user.login());
+        if (!TextUtils.isEmpty(user.email()) && mEmailUtil.isValidEmail(user.email())) {
+            vh.mTvEmail.setText(user.email());
             vh.mTvEmail.setVisibility(View.VISIBLE);
         } else {
             vh.mTvEmail.setVisibility(View.GONE);
@@ -79,10 +70,10 @@ public class GithubSearchUserResultAdapter
 
         vh.mTvFollowers.setText(String.format(
                 mResources.getString(R.string.github_user_followers_formatter),
-                user.getFollowers()));
+                user.followers()));
         vh.mTvFollowing.setText(String.format(
                 mResources.getString(R.string.github_user_following_formatter),
-                user.getFollowing()));
+                user.following()));
     }
 
     @Override

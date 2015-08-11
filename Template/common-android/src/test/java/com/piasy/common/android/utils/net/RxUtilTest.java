@@ -1,7 +1,5 @@
 package com.piasy.common.android.utils.net;
 
-import com.piasy.model.entities.GithubAPIError;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

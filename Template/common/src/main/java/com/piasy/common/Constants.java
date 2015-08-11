@@ -17,6 +17,10 @@ public class Constants {
         String SEARCH_ORDER_DESC = "desc";
     }
 
+    public interface TimeFormat {
+        String ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    }
+
     public interface REPatterns {
         Pattern EMAIL_PATTERN = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");

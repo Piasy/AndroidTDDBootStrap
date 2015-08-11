@@ -28,20 +28,27 @@ android {
 
 dependencies {
     def modelDependencies = rootProject.ext.modelDependencies
+    def modelTestDependencies = rootProject.ext.modelTestDependencies
 
-    compile project(':common')
-    compile modelDependencies.retrofit
-    compile modelDependencies.gson
+    compile project(':common-android')
 
     provided modelDependencies.daggerCompiler
     provided modelDependencies.javaxAnnotation
 
     compile modelDependencies.eventBus
 
-    compile modelDependencies.DBFlow
-    compile modelDependencies.DBFlowCore
-    apt modelDependencies.DBFlowCompiler
+    compile modelDependencies.autoParcel
+    apt modelDependencies.autoParcelProcessor
+
+    compile modelDependencies.storIOSQLite
+    compile modelDependencies.storIOSQLiteAnnotation
+    apt modelDependencies.storIOSQLiteAnnotationProcessor
 
     // Developer
     retrolambdaConfig modelDependencies.retrolambda
+
+    testCompile modelTestDependencies.junit
+    testCompile modelTestDependencies.mockito
+    testCompile modelTestDependencies.jsonAssert
+    androidTestCompile modelTestDependencies.testingSupportLib
 }

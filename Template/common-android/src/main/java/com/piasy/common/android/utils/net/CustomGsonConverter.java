@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
-import com.piasy.model.entities.GithubAPIError;
-
 import org.apache.commons.io.IOUtils;
 
 import android.text.TextUtils;

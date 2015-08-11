@@ -10,15 +10,16 @@ ext {
     daggerVersion = '2.0.1'
     butterKnifeVersion = '7.0.1'
     rxJavaVersion = '1.0.13'
-    rxAndroidVersion = '0.24.0'
+    rxAndroidVersion = '1.0.1'
     javaxAnnotationVersion = '10.0-b28'
     okHttpVersion = '2.3.0'
     androidAnnotationsVersion = '20.0.0'
     retrofitVersion = '1.9.0'
     gsonVersion = '2.3.1'
+    autoParcelVersion = '0.3.1'
     mvpVersion = '1.2.0'
     eventBusVersion = '3.0.0-beta1'
-    DBFlowVersion = '2.2.1'
+    storIOVersion = '1.2.0'
     apacheCommonsIOVersion = '1.3.2'
 
     // UI
@@ -47,6 +48,7 @@ ext {
             daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
             rxJava         : "io.reactivex:rxjava:${rxJavaVersion}",
             apacheCommonsIO: "org.apache.commons:commons-io:${apacheCommonsIOVersion}",
+            gson           : "com.google.code.gson:gson:${gsonVersion}",
 
             xLogCompiler   : "com.github.promeg:xlog-compiler:${xLogVersion}",
     ]
@@ -58,6 +60,7 @@ ext {
 
     commonAndroidDependencies = [
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            retrofit                       : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportLibraryVersion}",
 
@@ -71,16 +74,23 @@ ext {
     ]
 
     modelDependencies = [
-            retrofit       : "com.squareup.retrofit:retrofit:${retrofitVersion}",
-            gson           : "com.google.code.gson:gson:${gsonVersion}",
-            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            javaxAnnotation: "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-            eventBus       : "de.greenrobot:eventbus:${eventBusVersion}",
-            DBFlow         : "com.raizlabs.android:DBFlow:${DBFlowVersion}",
-            DBFlowCore     : "com.raizlabs.android:DBFlow-Core:${DBFlowVersion}",
-            DBFlowCompiler : "com.raizlabs.android:DBFlow-Compiler:${DBFlowVersion}",
+            daggerCompiler                 : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+            eventBus                       : "de.greenrobot:eventbus:${eventBusVersion}",
+            storIOSQLite                   : "com.pushtorefresh.storio:sqlite:${storIOVersion}",
+            storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
+            storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
+            autoParcel                     : "com.github.frankiesardo:auto-parcel:${autoParcelVersion}",
+            autoParcelProcessor            : "com.github.frankiesardo:auto-parcel-processor:${autoParcelVersion}",
 
-            retrolambda    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+            retrolambda                    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+    ]
+
+    modelTestDependencies = [
+            junit            : "junit:junit:${jUnitVersion}",
+            mockito          : "org.mockito:mockito-core:${mockitoVersion}",
+            jsonAssert       : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
+            testingSupportLib: "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
     ]
 
     presentationDependencies = [

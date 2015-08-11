@@ -40,11 +40,12 @@ unMock {
 }
 
 dependencies {
-    compile project(':model')
-
     def commonAndroidDependencies = rootProject.ext.commonAndroidDependencies
     def commonAndroidTestDependencies = rootProject.ext.commonAndroidTestDependencies
 
+    compile project(':common')
+
+    compile commonAndroidDependencies.retrofit
     provided commonAndroidDependencies.daggerCompiler
     compile commonAndroidDependencies.androidSupportAppCompatV7
     compile commonAndroidDependencies.androidSupportAppCompatV7

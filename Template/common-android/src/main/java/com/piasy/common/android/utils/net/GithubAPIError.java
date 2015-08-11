@@ -1,4 +1,4 @@
-package com.piasy.model.entities;
+package com.piasy.common.android.utils.net;
 
 import com.google.gson.annotations.Expose;
 

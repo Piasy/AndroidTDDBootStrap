@@ -5,7 +5,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply from: '../buildsystem/lint-summary.gradle'
+//apply from: '../buildsystem/lint-summary.gradle'
 
 def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -95,7 +95,7 @@ android {
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
 
-    compile project(':common-android')
+    compile project(':model')
     compile presentationDependencies.androidSupportAppCompatV7
     compile presentationDependencies.butterKnife
     compile presentationDependencies.rxAndroid

@@ -1,7 +1,6 @@
 package com.piasy.common.android.utils.net;
 
 import com.piasy.common.android.utils.ui.ToastUtil;
-import com.piasy.model.entities.GithubAPIError;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.

@@ -11,7 +11,6 @@ import com.piasy.template.base.di.AppComponent;
 import com.piasy.template.base.di.AppModule;
 import com.piasy.template.base.di.DaggerAppComponent;
 import com.piasy.template.base.di.IApplication;
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import android.app.Application;
@@ -46,7 +45,6 @@ public class TemplateApp extends Application implements IApplication {
                 .build();
         mAppComponent.inject(this);
 
-        FlowManager.init(this);
         Fresco.initialize(this);
 
         // Developer
@@ -64,7 +62,7 @@ public class TemplateApp extends Application implements IApplication {
 
         // test
         String test = "{\"login\":\"Piasy\"}";
-        Toast.makeText(this, mGson.fromJson(test, GithubUser.class).getLogin(), Toast.LENGTH_LONG)
+        Toast.makeText(this, mGson.fromJson(test, GithubUser.class).login(), Toast.LENGTH_LONG)
                 .show();
     }
 

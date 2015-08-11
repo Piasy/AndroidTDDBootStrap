@@ -1,8 +1,6 @@
 package com.piasy.common.android.utils.net;
 
 
-import com.piasy.model.entities.GithubAPIError;
-
 import rx.functions.Action1;
 
 /**

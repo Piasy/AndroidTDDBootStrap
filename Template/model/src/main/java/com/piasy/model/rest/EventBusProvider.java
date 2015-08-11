@@ -7,11 +7,15 @@ import de.greenrobot.event.EventBus;
  */
 public class EventBusProvider {
 
+    private EventBusProvider() {
+    }
+
     public static EventBus provideEventBus() {
         return EventBusHolder.sEventBus;
     }
 
     private static class EventBusHolder {
+        // lazy instantiate
         private static volatile EventBus sEventBus = EventBus.builder()
                 .logNoSubscriberMessages(false)
                 .sendNoSubscriberEvent(false)

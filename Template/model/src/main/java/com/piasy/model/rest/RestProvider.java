@@ -10,11 +10,15 @@ import retrofit.converter.GsonConverter;
  */
 public class RestProvider {
 
+    private RestProvider() {
+    }
+
     public static RestAdapter provideRestAdapter() {
         return RestAdapterHolder.sRestAdapter;
     }
 
     private static class RestAdapterHolder {
+        // lazy instantiate
         private static volatile RestAdapter sRestAdapter = new RestAdapter.Builder()
                 .setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
                 .setConverter(new GsonConverter(GsonProvider.provideGson()))
