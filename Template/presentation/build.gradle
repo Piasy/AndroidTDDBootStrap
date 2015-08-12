@@ -56,7 +56,14 @@ android {
     }
 
     signingConfigs {
-        release {
+        develop {
+            storeFile file('../buildsystem/OpenKey.jks')
+            storePassword '123456'
+            keyAlias '123456'
+            keyPassword '123456'
+        }
+
+        production {
             storeFile file(props['keystore'])
             storePassword props['keystore.password']
             keyAlias props['key.alias']
@@ -68,13 +75,14 @@ android {
         debug {
             minifyEnabled false
             debuggable true
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.develop
         }
 
         release {
             minifyEnabled false
             debuggable true
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.develop  // use open sign key
+            //signingConfig signingConfigs.production  // use private sign key
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
