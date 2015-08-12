@@ -60,7 +60,8 @@ ext {
 
     commonAndroidDependencies = [
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            retrofit                       : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            retrofit                 : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            eventBus                 : "de.greenrobot:eventbus:${eventBusVersion}",
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportLibraryVersion}",
 
@@ -76,7 +77,6 @@ ext {
     modelDependencies = [
             daggerCompiler                 : "com.google.dagger:dagger-compiler:${daggerVersion}",
             javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-            eventBus                       : "de.greenrobot:eventbus:${eventBusVersion}",
             storIOSQLite                   : "com.pushtorefresh.storio:sqlite:${storIOVersion}",
             storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
             storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",

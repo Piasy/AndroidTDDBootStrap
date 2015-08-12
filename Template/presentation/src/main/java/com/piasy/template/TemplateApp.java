@@ -6,6 +6,7 @@ import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.github.promeg.xlog_android.lib.XLogConfig;
+import com.piasy.common.android.utils.ui.ToastUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.base.di.AppComponent;
 import com.piasy.template.base.di.AppModule;
@@ -14,7 +15,6 @@ import com.piasy.template.base.di.IApplication;
 import com.squareup.leakcanary.LeakCanary;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -28,6 +28,8 @@ public class TemplateApp extends Application implements IApplication {
     private static TemplateApp sInstance;
     @Inject
     Gson mGson;
+    @Inject
+    ToastUtil mToastUtil;
     private AppComponent mAppComponent;
 
     public static TemplateApp getInstance() {
@@ -62,8 +64,7 @@ public class TemplateApp extends Application implements IApplication {
 
         // test
         String test = "{\"login\":\"Piasy\"}";
-        Toast.makeText(this, mGson.fromJson(test, GithubUser.class).login(), Toast.LENGTH_LONG)
-                .show();
+        mToastUtil.makeToast(mGson.fromJson(test, GithubUser.class).login());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.piasy.model.rest;
+package com.piasy.common.android.utils.provider;
 
 import de.greenrobot.event.EventBus;
 

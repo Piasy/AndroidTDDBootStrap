@@ -1,10 +1,10 @@
-package com.piasy.common.android.utils.net;
+package com.piasy.model;
 
 import com.google.gson.Gson;
 
-import com.piasy.common.android.MockProvider;
+import com.piasy.common.android.utils.net.CustomGsonConverter;
 import com.piasy.model.entities.GithubUser;
-import com.piasy.model.rest.GsonProvider;
+import com.piasy.common.android.utils.provider.GsonProvider;
 
 import junit.framework.Assert;
 

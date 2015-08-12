@@ -1,4 +1,4 @@
-package com.piasy.model.rest;
+package com.piasy.common.android.utils.provider;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

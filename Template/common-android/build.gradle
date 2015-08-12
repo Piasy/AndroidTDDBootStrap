@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'de.mobilej.unmock'
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -24,19 +23,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-}
-
-unMock {
-    // URI to download the android-all.jar from. e.g. https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/
-    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
-
-    keepStartingWith "android.text.TextUtils"
-    keepStartingWith "android.util."
-    keep "android.net.Uri"
 }
 
 dependencies {
@@ -46,6 +32,7 @@ dependencies {
     compile project(':common')
 
     compile commonAndroidDependencies.retrofit
+    compile commonAndroidDependencies.eventBus
     provided commonAndroidDependencies.daggerCompiler
     compile commonAndroidDependencies.androidSupportAppCompatV7
     compile commonAndroidDependencies.androidSupportAppCompatV7
