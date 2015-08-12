@@ -8,6 +8,9 @@
 /.gradle/
 /build/
 
+# idea folder
+/.idea/
+
 # Local configuration file (sdk path, etc)
 /local.properties
 

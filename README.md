@@ -1,4 +1,4 @@
-#Android template project [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDTemplate.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDTemplate)
+#Android template project [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDBootStrap.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDBootStrap)
 A collection of new technology, best practice, best architecture, useful tools...
 
 ##Build tips
