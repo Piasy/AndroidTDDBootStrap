@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="drawee-0.6.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/presentation/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.6.0/res" />
+      <root url="jar://$PROJECT_DIR$/presentation/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.6.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

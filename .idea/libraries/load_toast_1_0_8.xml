@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="load-toast-1.0.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/presentation/build/intermediates/exploded-aar/net.steamcrafted/load-toast/1.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/presentation/build/intermediates/exploded-aar/net.steamcrafted/load-toast/1.0.8/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

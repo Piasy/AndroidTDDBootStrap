@@ -13,7 +13,7 @@ android:
     - extra-android-support
 
 script:
-  - sh ci.sh
+  - sh buildsystem/ci.sh
 
 notifications:
   email: false

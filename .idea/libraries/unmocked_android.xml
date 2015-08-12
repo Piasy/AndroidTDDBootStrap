@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="unmocked-android">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/common-android/build/intermediates/unmocked-android.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

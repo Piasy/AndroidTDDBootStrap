@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="common.common">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/common/build/libs/common.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
