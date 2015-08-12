@@ -1,4 +1,4 @@
-#Android template project
+#Android template project [![Master branch build status](https://travis-ci.org/Piasy/DemonstrationProjects.svg?branch=master)](https://travis-ci.org/Piasy/DemonstrationProjects)
 A collection of new technology, best practice, best architecture, useful tools...
 
 ##Build tips
