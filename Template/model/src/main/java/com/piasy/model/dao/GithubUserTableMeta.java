@@ -46,43 +46,10 @@ public class GithubUserTableMeta {
 
     @NonNull
     public static final String COLUMN_CREATED_AT = "created_at";
-
-    @NonNull
-    public static String getCreateGithubUserTableSQL() {
-        return CreateGithubUserTableSQLHolder.sCreateGithubUserTableSQL;
-    }
-
-    private static class CreateGithubUserTableSQLHolder {
-        // lazy instantiate
-        private static final String sCreateGithubUserTableSQL = "CREATE TABLE " + TABLE + "(" +
-                COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY, " +
-                COLUMN_LOGIN + " TEXT NOT NULL, " +
-                COLUMN_AVATAR_URL + " TEXT NOT NULL, " +
-                COLUMN_TYPE + " TEXT NOT NULL, " +
-                COLUMN_EMAIL + " TEXT, " +
-                COLUMN_FOLLOWERS + " INTEGER, " +
-                COLUMN_FOLLOWING + " INTEGER, " +
-                COLUMN_CREATED_AT + " INTEGER" +
-                ");";
-    }
-
     @NonNull
     public static final Query sQueryAll = Query.builder()
             .table(TABLE)
             .build();
-
-    @NonNull
-    public static DeleteQuery getDeleteAllQuery() {
-        return DeleteAllQueryHolder.sDeleteAllQuery;
-    }
-
-    private static class DeleteAllQueryHolder {
-        // lazy instantiate
-        private static final DeleteQuery sDeleteAllQuery = DeleteQuery.builder()
-                .table(TABLE)
-                .build();
-    }
-
     @NonNull
     public static final PutResolver<GithubUser> sGithubUserPutResolver = new DefaultPutResolver<GithubUser>() {
         @NonNull
@@ -121,7 +88,6 @@ public class GithubUserTableMeta {
             return contentValues;
         }
     };
-
     @NonNull
     public static final GetResolver<GithubUser> sGithubUserGetResolver = new DefaultGetResolver<GithubUser>() {
         @NonNull
@@ -138,7 +104,6 @@ public class GithubUserTableMeta {
                     .build();
         }
     };
-
     @NonNull
     public static final DeleteResolver<GithubUser> sGithubUserDeleteResolver = new DefaultDeleteResolver<GithubUser>() {
         @NonNull
@@ -155,6 +120,37 @@ public class GithubUserTableMeta {
     // This is just class with Meta Data, we don't need instances
     private GithubUserTableMeta() {
         throw new IllegalStateException("No instances please");
+    }
+
+    @NonNull
+    public static String getCreateGithubUserTableSQL() {
+        return CreateGithubUserTableSQLHolder.sCreateGithubUserTableSQL;
+    }
+
+    @NonNull
+    public static DeleteQuery getDeleteAllQuery() {
+        return DeleteAllQueryHolder.sDeleteAllQuery;
+    }
+
+    private static class CreateGithubUserTableSQLHolder {
+        // lazy instantiate
+        private static final String sCreateGithubUserTableSQL = "CREATE TABLE " + TABLE + "(" +
+                COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY, " +
+                COLUMN_LOGIN + " TEXT NOT NULL, " +
+                COLUMN_AVATAR_URL + " TEXT NOT NULL, " +
+                COLUMN_TYPE + " TEXT NOT NULL, " +
+                COLUMN_EMAIL + " TEXT, " +
+                COLUMN_FOLLOWERS + " INTEGER, " +
+                COLUMN_FOLLOWING + " INTEGER, " +
+                COLUMN_CREATED_AT + " INTEGER" +
+                ");";
+    }
+
+    private static class DeleteAllQueryHolder {
+        // lazy instantiate
+        private static final DeleteQuery sDeleteAllQuery = DeleteQuery.builder()
+                .table(TABLE)
+                .build();
     }
 
 }

@@ -7,7 +7,6 @@ import com.piasy.common.android.utils.ui.ToastUtil;
 import com.piasy.common.utils.EmailUtil;
 import com.piasy.common.utils.UtilsModule;
 import com.piasy.model.dao.di.DBModule;
-import com.piasy.model.dao.di.GithubUserDAOModule;
 import com.piasy.model.rest.RestModule;
 import com.piasy.template.TemplateApp;
 import com.piasy.template.base.BaseActivity;

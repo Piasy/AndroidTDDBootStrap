@@ -2,8 +2,8 @@ package com.piasy.model.entities;
 
 import com.google.gson.Gson;
 
-import com.piasy.model.MockProvider;
 import com.piasy.common.android.utils.provider.GsonProvider;
+import com.piasy.model.MockProvider;
 
 import junit.framework.Assert;
 

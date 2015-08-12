@@ -40,6 +40,22 @@ public class GithubAPIError extends ConversionException {
         this.errors = errors;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getDocumentation_url() {
+        return documentation_url;
+    }
+
+    public void setDocumentation_url(String documentation_url) {
+        this.documentation_url = documentation_url;
+    }
+
     public static class GithubError {
 
         @Expose
@@ -74,21 +90,5 @@ public class GithubAPIError extends ConversionException {
         public void setCode(String code) {
             this.code = code;
         }
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDocumentation_url() {
-        return documentation_url;
-    }
-
-    public void setDocumentation_url(String documentation_url) {
-        this.documentation_url = documentation_url;
     }
 }

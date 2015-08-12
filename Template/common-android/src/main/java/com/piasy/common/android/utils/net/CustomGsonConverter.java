@@ -22,7 +22,7 @@ import retrofit.mime.TypedOutput;
 
 /**
  * Retrofit's GsonConverter
-
+ *
  * Check if it is an api error when get the Response.
  */
 

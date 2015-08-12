@@ -1,0 +1,11 @@
+ext {
+    jacocoExcludes = [
+            'android/**',
+            '**/*$$*',
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Service.*'
+    ]
+}

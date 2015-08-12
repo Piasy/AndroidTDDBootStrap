@@ -17,4 +17,12 @@ public class MockProvider {
         return "{\"login\":\"Piasy\",\"id\":3098704,\"avatar_url\":\"https://avatars.githubusercontent.com/u/3098704?v=3\",\"type\":\"User\",\"email\":\"xz4215@gmail.com\",\"followers\":3,\"following\":25,\"created_at\":\"2012-12-21T14:23:30Z\"}";
     }
 
+    public static String provideEmptyGithubSearchResult() {
+        return "{\"total_count\":0,\"incomplete_results\":false,\"items\":[]}";
+    }
+
+    public static String provideSimplifiedGithubUserSearchResultStr() {
+        return "{\"total_count\":1,\"incomplete_results\":false,\"items\":[{\"login\":\"Piasy\",\"id\":3098704,\"avatar_url\":\"https://avatars.githubusercontent.com/u/3098704?v=3\",\"type\":\"User\",\"email\":\"xz4215@gmail.com\",\"followers\":3,\"following\":25,\"created_at\":\"2012-12-21T14:23:30Z\"}]}";
+    }
+
 }

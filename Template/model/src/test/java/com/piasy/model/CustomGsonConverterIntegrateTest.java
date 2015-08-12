@@ -3,15 +3,15 @@ package com.piasy.model;
 import com.google.gson.Gson;
 
 import com.piasy.common.android.utils.net.CustomGsonConverter;
-import com.piasy.model.entities.GithubUser;
 import com.piasy.common.android.utils.provider.GsonProvider;
+import com.piasy.model.entities.GithubUser;
 
 import junit.framework.Assert;
 
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
-
-import android.text.TextUtils;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class CustomGsonConverterIntegrateTest {
 
     @Test
     public void testFromBodyNonAPIError() {
-        /*GithubUser user = mGson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
+        GithubUser user = mGson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
         TypedInput typedInput = new TypedInput() {
             @Override
             public String mimeType() {
@@ -88,8 +88,7 @@ public class CustomGsonConverterIntegrateTest {
             JSONAssert.assertEquals(mGson.toJson(user), mGson.toJson(convertedUser), false);
         } catch (ConversionException | JSONException e) {
             Assert.assertTrue(false);
-        }*/
-        Assert.assertTrue(TextUtils.isEmpty(""));
+        }
     }
 
 }

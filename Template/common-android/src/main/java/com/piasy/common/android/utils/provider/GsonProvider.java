@@ -2,6 +2,7 @@ package com.piasy.common.android.utils.provider;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.piasy.common.Constants;
 import com.piasy.common.utils.model.AutoParcelTypeAdapterFactory;
 

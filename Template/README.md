@@ -16,3 +16,5 @@ place KeyStore file in some place, and create a TemplateKeyStore.properties, and
   +  Add @Provides annotated provider method in corresponding Module class(UtilsModule.java/AndroidUtilsModule.java)
   +  Add expose method in AppComponent.java
 +  Create Activity
++  Unit test
+  +  ./gradlew :module:unMock :module:test #if use unmock plugin, the unmock plugin seems have a problem that the gradle task will not run automatically.

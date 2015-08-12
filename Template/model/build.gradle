@@ -32,8 +32,6 @@ unMock {
     downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
 
     keep "android.text.TextUtils"
-    keepStartingWith "android.util."
-    keep "android.net.Uri"
 }
 
 dependencies {

@@ -16,6 +16,11 @@ import auto.parcel.AutoParcel;
 @AutoGson(autoParcelClass = AutoParcel_GithubUser.class)
 public abstract class GithubUser {
 
+    @NonNull
+    public static Builder builder() {
+        return new AutoParcel_GithubUser.Builder();
+    }
+
     public abstract long id();
 
     @NonNull
@@ -37,9 +42,9 @@ public abstract class GithubUser {
     @Nullable
     public abstract Date created_at();
 
-    @NonNull
-    public static Builder builder() {
-        return new AutoParcel_GithubUser.Builder();
+    public interface GithubUserType {
+        String USER = "User";
+        String ORGANIZATION = "Organization";
     }
 
     @AutoParcel.Builder
@@ -72,10 +77,5 @@ public abstract class GithubUser {
         @NonNull
         public abstract GithubUser build();
 
-    }
-
-    public interface GithubUserType {
-        String USER = "User";
-        String ORGANIZATION = "Organization";
     }
 }
