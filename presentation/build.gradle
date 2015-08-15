@@ -4,6 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply from: '../buildsystem/lint-summary.gradle'
 apply plugin: 'de.mobilej.unmock'
+apply plugin: 'com.ofg.uptodate'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -78,7 +79,7 @@ android {
         release {
             minifyEnabled false
             debuggable true
-            signingConfig signingConfigs.develop  // use open sign key
+            signingConfig signingConfigs.develop // use open sign key
             //signingConfig signingConfigs.production  // use private sign key
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -99,8 +100,10 @@ android {
 }
 
 unMock {
-    // URI to download the android-all.jar from. e.g. https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/
-    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
+    // URI to download the android-all.jar from. e.g. https://oss.sonatype
+    // .org/content/groups/public/org/robolectric/android-all/
+    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4' +
+            '.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
 
     keep "android.text.TextUtils"
 }

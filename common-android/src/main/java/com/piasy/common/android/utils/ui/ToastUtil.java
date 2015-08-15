@@ -10,5 +10,4 @@ public interface ToastUtil {
     void makeToast(String content);
 
     void makeToast(@StringRes int contentResId);
-
 }

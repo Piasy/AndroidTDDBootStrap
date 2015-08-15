@@ -1,24 +1,19 @@
 package com.piasy.template.base;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import butterknife.ButterKnife;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.piasy.common.di.HasComponent;
 import com.piasy.template.base.di.BaseMvpComponent;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-
-import butterknife.ButterKnife;
-
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
-public abstract class BaseFragment<
-        V extends MvpView,
-        P extends MvpPresenter<V>,
-        C extends BaseMvpComponent<V, P>>
+public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>, C extends BaseMvpComponent<V, P>>
 
         extends MvpFragment<V, P> {
 
@@ -76,5 +71,4 @@ public abstract class BaseFragment<
             ((BaseActivity) getActivity()).showProgress();
         }
     }
-
 }

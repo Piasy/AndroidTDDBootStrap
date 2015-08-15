@@ -1,13 +1,10 @@
 package com.piasy.model.entities;
 
-import com.piasy.common.utils.model.AutoGson;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import java.util.Date;
-
 import auto.parcel.AutoParcel;
+import com.piasy.common.utils.model.AutoGson;
+import java.util.Date;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -76,6 +73,5 @@ public abstract class GithubUser {
 
         @NonNull
         public abstract GithubUser build();
-
     }
 }

@@ -1,9 +1,10 @@
-package com.piasy.model.dao;
+package com.piasy.model.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import com.piasy.model.dao.GithubUserTableMeta;
 
 /**
  * Created by piasy on 15/8/10.
@@ -20,7 +21,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     // Better than static final field -> allows VM to unload useless String
     // Because you need this string only once per application life on the device
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

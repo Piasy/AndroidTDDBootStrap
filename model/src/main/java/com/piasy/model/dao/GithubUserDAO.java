@@ -1,11 +1,8 @@
 package com.piasy.model.dao;
 
-import com.piasy.model.entities.GithubUser;
-
 import android.support.annotation.NonNull;
-
+import com.piasy.model.entities.GithubUser;
 import java.util.List;
-
 import rx.Observable;
 
 /**

@@ -1,22 +1,17 @@
 package com.piasy.model;
 
 import com.google.gson.Gson;
-
 import com.piasy.common.android.utils.net.CustomGsonConverter;
 import com.piasy.common.android.utils.provider.GsonProvider;
 import com.piasy.model.entities.GithubUser;
-
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import junit.framework.Assert;
-
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import retrofit.converter.ConversionException;
 import retrofit.mime.TypedInput;
 
@@ -90,5 +85,4 @@ public class CustomGsonConverterIntegrateTest {
             Assert.assertTrue(false);
         }
     }
-
 }

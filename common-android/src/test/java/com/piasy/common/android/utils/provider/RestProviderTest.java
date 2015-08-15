@@ -1,9 +1,7 @@
 package com.piasy.common.android.utils.provider;
 
 import junit.framework.Assert;
-
 import org.junit.Test;
-
 import retrofit.RestAdapter;
 
 /**
@@ -43,5 +41,4 @@ public class RestProviderTest {
             Assert.assertTrue(false);
         }
     }
-
 }

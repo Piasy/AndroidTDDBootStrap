@@ -11,7 +11,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
-
 import java.util.List;
 
 /**
@@ -60,9 +59,7 @@ public class ScreenUtil {
     }
 
     public synchronized Bitmap getBitmapFromView(View view) {
-        Bitmap b = Bitmap.createBitmap(
-                view.getWidth(), view.getHeight(),
-                Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         mCanvas.setBitmap(b);
         mCanvas.translate(-view.getScrollX(), -view.getScrollY());
         view.draw(mCanvas);
@@ -71,13 +68,12 @@ public class ScreenUtil {
 
     public boolean isAppOnForeground(Context context) {
         String packageName = context.getPackageName();
-        ActivityManager activityManager = ((ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE));
+        ActivityManager activityManager =
+                ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningTaskInfo> tasksInfo = activityManager.getRunningTasks(1);
         if (tasksInfo.size() > 0) {
             // app on stack top
-            if (packageName.equals(tasksInfo.get(0).topActivity
-                    .getPackageName())) {
+            if (packageName.equals(tasksInfo.get(0).topActivity.getPackageName())) {
                 return true;
             }
         }
@@ -85,8 +81,8 @@ public class ScreenUtil {
     }
 
     public boolean isActivityOnForeground(Context context, String activityName) {
-        ActivityManager activityManager = ((ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE));
+        ActivityManager activityManager =
+                ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningTaskInfo> tasksInfo = activityManager.getRunningTasks(1);
         if (tasksInfo.size() > 0) {
             // app on stack top
@@ -104,11 +100,11 @@ public class ScreenUtil {
 
     public int getStatusBarHeight() {
         int result = 0;
-        int resourceId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId =
+                mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = mContext.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
     }
-
 }

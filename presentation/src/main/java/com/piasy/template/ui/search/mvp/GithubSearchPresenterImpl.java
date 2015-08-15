@@ -1,11 +1,9 @@
 package com.piasy.template.ui.search.mvp;
 
+import android.support.annotation.NonNull;
 import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.model.dao.GithubUserDAO;
 import com.piasy.template.base.mvp.BaseRxPresenter;
-
-import android.support.annotation.NonNull;
-
 import de.greenrobot.event.EventBus;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -21,7 +19,7 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
     private final RxUtil.RxErrorProcessor mRxErrorProcessor;
 
     public GithubSearchPresenterImpl(EventBus bus, GithubUserDAO githubUserDAO,
-                                     RxUtil.RxErrorProcessor rxErrorProcessor) {
+            RxUtil.RxErrorProcessor rxErrorProcessor) {
         mBus = bus;
         mGithubUserDAO = githubUserDAO;
         mRxErrorProcessor = rxErrorProcessor;

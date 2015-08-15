@@ -1,7 +1,6 @@
 package com.piasy.common.android.utils.provider;
 
 import com.piasy.common.Constants;
-
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
@@ -19,11 +18,10 @@ public class RestProvider {
 
     private static class RestAdapterHolder {
         // lazy instantiate
-        private static volatile RestAdapter sRestAdapter = new RestAdapter.Builder()
-                .setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
-                .setConverter(new GsonConverter(GsonProvider.provideGson()))
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-                .build();
+        private static volatile RestAdapter sRestAdapter =
+                new RestAdapter.Builder().setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
+                        .setConverter(new GsonConverter(GsonProvider.provideGson()))
+                        .setLogLevel(RestAdapter.LogLevel.FULL)
+                        .build();
     }
-
 }

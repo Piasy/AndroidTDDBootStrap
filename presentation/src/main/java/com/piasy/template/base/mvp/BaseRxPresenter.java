@@ -1,10 +1,8 @@
 package com.piasy.template.base.mvp;
 
+import android.support.annotation.NonNull;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
-
-import android.support.annotation.NonNull;
-
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.EventBusException;
 import rx.Subscription;

@@ -6,8 +6,7 @@
  *
  * Invocations to any linting tasks will subsequently call to
  * `android-lint-summary` and display the output of it at the end of the full
- * build.
- */
+ * build.*/
 
 task hasLintSummaryExecutable(type: Exec) {
     commandLine "which", "android-lint-summary"
@@ -78,27 +77,17 @@ Learn more at go/android-lint-summary.
 trait BuildListenerAdapter implements BuildListener {
 
     @Override
-    void buildFinished(BuildResult result) {
-
-    }
+    void buildFinished(BuildResult result) {}
 
     @Override
-    void buildStarted(Gradle gradle) {
-
-    }
+    void buildStarted(Gradle gradle) {}
 
     @Override
-    void projectsEvaluated(Gradle gradle) {
-
-    }
+    void projectsEvaluated(Gradle gradle) {}
 
     @Override
-    void projectsLoaded(Gradle gradle) {
-
-    }
+    void projectsLoaded(Gradle gradle) {}
 
     @Override
-    void settingsEvaluated(Settings settings) {
-
-    }
+    void settingsEvaluated(Settings settings) {}
 }

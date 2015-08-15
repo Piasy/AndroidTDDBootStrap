@@ -1,20 +1,19 @@
-package com.piasy.model.dao.di;
-
-import com.piasy.model.dao.DBOpenHelper;
-import com.piasy.model.dao.GithubUserTableMeta;
-import com.piasy.model.entities.GithubUser;
-import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
-import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
+package com.piasy.model.db.di;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
-
-import javax.inject.Singleton;
-
+import com.piasy.model.dao.GithubUserTableMeta;
+import com.piasy.model.db.DBOpenHelper;
+import com.piasy.model.db.StorIOSQLiteDelegate;
+import com.piasy.model.db.StorIOSQLiteDelegateImpl;
+import com.piasy.model.entities.GithubUser;
+import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 /**
  * Created by piasy on 15/8/10.
@@ -43,4 +42,10 @@ public class DBModule {
         return new DBOpenHelper(context);
     }
 
+    @Provides
+    @NonNull
+    @Singleton
+    StorIOSQLiteDelegate provideStorIOSQLiteDelegate(@NonNull StorIOSQLite storIOSQLite) {
+        return new StorIOSQLiteDelegateImpl(storIOSQLite);
+    }
 }

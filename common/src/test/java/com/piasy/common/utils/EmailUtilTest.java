@@ -1,7 +1,6 @@
 package com.piasy.common.utils;
 
 import com.piasy.common.Constants;
-
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,5 +44,4 @@ public class EmailUtilTest {
         String email4 = "i@piasy.io.1234";
         Assert.assertThat(email4, mEmailUtil.isValidEmail(email4), Is.is(false));
     }
-
 }

@@ -2,7 +2,6 @@ package com.piasy.template.ui.search.mvp;
 
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.piasy.model.entities.GithubUser;
-
 import java.util.List;
 
 /**
@@ -11,5 +10,4 @@ import java.util.List;
 public interface GithubSearchView extends MvpView {
 
     void showSearchUserResult(List<GithubUser> users);
-
 }

@@ -8,5 +8,4 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 public interface GithubSearchPresenter extends MvpPresenter<GithubSearchView> {
 
     void loadUser();
-
 }

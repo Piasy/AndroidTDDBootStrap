@@ -9,7 +9,7 @@ ext {
     // Libraries
     daggerVersion = '2.0.1'
     butterKnifeVersion = '7.0.1'
-    rxJavaVersion = '1.0.13'
+    rxJavaVersion = '1.0.14'
     rxAndroidVersion = '1.0.1'
     javaxAnnotationVersion = '10.0-b28'
     okHttpVersion = '2.3.0'
@@ -24,10 +24,10 @@ ext {
 
     // UI
     loadToastVersion = '1.0.8'
-    frescoVersion = '0.6.0'
+    frescoVersion = '0.6.1'
 
     // Developer
-    xLogVersion = '2.0'
+    xLogVersion = '2.1.0'
     retrolambdaVersion = '2.0.5'
     stethoVersion = '1.1.1'
     fabricVersion = '2.5.0'
@@ -35,7 +35,7 @@ ext {
 
     // Testing
     jUnitVersion = '4.12'
-    mockitoVersion = '1.10.19'
+    mockitoVersion = '2.0.31-beta'
     jsonAssertVersion = '1.2.3'
 
     assertJVersion = '1.7.1'

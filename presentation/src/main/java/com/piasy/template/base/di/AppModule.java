@@ -3,7 +3,6 @@ package com.piasy.template.base.di;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -33,5 +32,4 @@ public class AppModule {
     Context provideContext() {
         return this.mApplication;
     }
-
 }

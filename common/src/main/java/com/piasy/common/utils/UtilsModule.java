@@ -1,11 +1,9 @@
 package com.piasy.common.utils;
 
 import com.piasy.common.Constants;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
@@ -18,5 +16,4 @@ public class UtilsModule {
     EmailUtil provideEmailUtil() {
         return new EmailUtil(Constants.REPatterns.EMAIL_PATTERN);
     }
-
 }

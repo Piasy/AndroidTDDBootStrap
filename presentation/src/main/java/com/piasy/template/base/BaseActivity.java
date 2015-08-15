@@ -1,23 +1,18 @@
 package com.piasy.template.base;
 
-import com.piasy.common.android.utils.screen.ScreenUtil;
-import com.piasy.template.base.di.ActivityModule;
-import com.piasy.template.base.di.AppComponent;
-import com.piasy.template.base.di.IApplication;
-
-import net.steamcrafted.loadtoast.LoadToast;
-
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-
+import com.piasy.common.android.utils.screen.ScreenUtil;
+import com.piasy.template.base.di.ActivityModule;
+import com.piasy.template.base.di.AppComponent;
+import com.piasy.template.base.di.IApplication;
 import java.lang.ref.WeakReference;
-
 import javax.inject.Inject;
-
+import net.steamcrafted.loadtoast.LoadToast;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -122,11 +117,10 @@ public abstract class BaseActivity extends FragmentActivity {
                         }
                         String message = msg.getData().getString("message");
                         if (mLoadToast == null) {
-                            mLoadToast = new LoadToast(mActivity.get())
-                                    .setText(message)
+                            mLoadToast = new LoadToast(mActivity.get()).setText(message)
                                     .setTextColor(0x555555)
-                                    .setTranslationY(mActivity.get()
-                                            .mScreenUtil.getScreenHeight(mActivity.get()) / 2);
+                                    .setTranslationY(mActivity.get().mScreenUtil.getScreenHeight(
+                                            mActivity.get()) / 2);
                         }
                         mLoadToast.show();
                         isLoadToastShowing = true;
@@ -149,5 +143,4 @@ public abstract class BaseActivity extends FragmentActivity {
             }
         }
     }
-
 }

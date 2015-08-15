@@ -1,9 +1,7 @@
 package com.piasy.template.base.di;
 
-import com.piasy.common.di.PerActivity;
-
 import android.app.Activity;
-
+import com.piasy.common.di.PerActivity;
 import dagger.Component;
 
 /**
@@ -14,5 +12,4 @@ import dagger.Component;
 public interface ActivityComponent {
 
     Activity activity();
-
 }

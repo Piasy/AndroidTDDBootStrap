@@ -1,7 +1,6 @@
 package com.piasy.model.entities;
 
 import com.google.gson.annotations.Expose;
-
 import java.util.List;
 
 /**

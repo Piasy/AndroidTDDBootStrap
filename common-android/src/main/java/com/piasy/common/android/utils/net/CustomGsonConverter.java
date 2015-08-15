@@ -1,19 +1,15 @@
 package com.piasy.common.android.utils.net;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-
-import org.apache.commons.io.IOUtils;
-
-import android.text.TextUtils;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-
+import org.apache.commons.io.IOUtils;
 import retrofit.converter.ConversionException;
 import retrofit.converter.Converter;
 import retrofit.mime.MimeUtil;

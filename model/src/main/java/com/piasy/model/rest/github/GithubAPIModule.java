@@ -14,5 +14,4 @@ public class GithubAPIModule {
     GithubAPI provideGithubAPI(RestAdapter restAdapter) {
         return restAdapter.create(GithubAPI.class);
     }
-
 }

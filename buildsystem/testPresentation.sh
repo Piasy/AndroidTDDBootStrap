@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew :presentation:clean :presentation:unMock :presentation:test
+./gradlew :presentation:clean :presentation:test

@@ -1,11 +1,9 @@
 package com.piasy.model.rest;
 
 import com.google.gson.Gson;
-
 import com.piasy.common.android.utils.provider.EventBusProvider;
 import com.piasy.common.android.utils.provider.GsonProvider;
 import com.piasy.common.android.utils.provider.RestProvider;
-
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
@@ -34,5 +32,4 @@ public class RestModule {
     EventBus provideEventBus() {
         return EventBusProvider.provideEventBus();
     }
-
 }

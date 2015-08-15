@@ -1,7 +1,6 @@
 package com.piasy.template.base.di;
 
 import android.app.Activity;
-
 import dagger.Module;
 import dagger.Provides;
 

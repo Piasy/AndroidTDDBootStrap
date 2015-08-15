@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
+apply plugin: 'com.ofg.uptodate'
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -27,8 +28,10 @@ android {
 }
 
 unMock {
-    // URI to download the android-all.jar from. e.g. https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/
-    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
+    // URI to download the android-all.jar from. e.g. https://oss.sonatype
+    // .org/content/groups/public/org/robolectric/android-all/
+    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4' +
+            '.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
 
     keep "android.os.Looper"
     keepStartingWith "android.util."

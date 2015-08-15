@@ -1,12 +1,9 @@
 package com.piasy.model.entities;
 
 import com.google.gson.Gson;
-
 import com.piasy.common.android.utils.provider.GsonProvider;
 import com.piasy.model.MockProvider;
-
 import junit.framework.Assert;
-
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,5 +45,4 @@ public class GithubUserIntegrateTest {
                 .build();
         Assert.assertEquals(built, converted);
     }
-
 }

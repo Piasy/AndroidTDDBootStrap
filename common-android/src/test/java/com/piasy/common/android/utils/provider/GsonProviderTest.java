@@ -1,9 +1,7 @@
 package com.piasy.common.android.utils.provider;
 
 import com.google.gson.Gson;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
 
 /**
@@ -43,5 +41,4 @@ public class GsonProviderTest {
             Assert.assertTrue(false);
         }
     }
-
 }

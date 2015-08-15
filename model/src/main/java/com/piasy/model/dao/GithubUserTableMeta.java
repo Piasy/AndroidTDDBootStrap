@@ -1,5 +1,8 @@
 package com.piasy.model.dao;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
 import com.piasy.model.entities.GithubUser;
 import com.pushtorefresh.storio.sqlite.operations.delete.DefaultDeleteResolver;
 import com.pushtorefresh.storio.sqlite.operations.delete.DeleteResolver;
@@ -11,10 +14,6 @@ import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
 import com.pushtorefresh.storio.sqlite.queries.InsertQuery;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.pushtorefresh.storio.sqlite.queries.UpdateQuery;
-
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.support.annotation.NonNull;
 
 /**
  * Created by piasy on 15/8/10.
@@ -47,75 +46,74 @@ public class GithubUserTableMeta {
     @NonNull
     public static final String COLUMN_CREATED_AT = "created_at";
     @NonNull
-    public static final Query sQueryAll = Query.builder()
-            .table(TABLE)
-            .build();
+    public static final Query sQueryAll = Query.builder().table(TABLE).build();
     @NonNull
-    public static final PutResolver<GithubUser> sGithubUserPutResolver = new DefaultPutResolver<GithubUser>() {
-        @NonNull
-        @Override
-        protected InsertQuery mapToInsertQuery(@NonNull GithubUser user) {
-            return InsertQuery.builder()
-                    .table(TABLE)
-                    .build();
-        }
+    public static final PutResolver<GithubUser> sGithubUserPutResolver =
+            new DefaultPutResolver<GithubUser>() {
+                @NonNull
+                @Override
+                protected InsertQuery mapToInsertQuery(@NonNull GithubUser user) {
+                    return InsertQuery.builder().table(TABLE).build();
+                }
 
-        @NonNull
-        @Override
-        protected UpdateQuery mapToUpdateQuery(@NonNull GithubUser user) {
-            return UpdateQuery.builder()
-                    .table(TABLE)
-                    .where(COLUMN_ID + " = ?")
-                    .whereArgs(user.id())
-                    .build();
-        }
+                @NonNull
+                @Override
+                protected UpdateQuery mapToUpdateQuery(@NonNull GithubUser user) {
+                    return UpdateQuery.builder()
+                            .table(TABLE)
+                            .where(COLUMN_ID + " = ?")
+                            .whereArgs(user.id())
+                            .build();
+                }
 
-        @NonNull
-        @Override
-        protected ContentValues mapToContentValues(@NonNull GithubUser user) {
-            final ContentValues contentValues = new ContentValues(8);
+                @NonNull
+                @Override
+                protected ContentValues mapToContentValues(@NonNull GithubUser user) {
+                    final ContentValues contentValues = new ContentValues(8);
 
-            contentValues.put(COLUMN_ID, user.id());
-            contentValues.put(COLUMN_LOGIN, user.login());
-            contentValues.put(COLUMN_AVATAR_URL, user.avatar_url());
-            contentValues.put(COLUMN_TYPE, user.type());
-            contentValues.put(COLUMN_EMAIL, user.email());
-            contentValues.put(COLUMN_FOLLOWERS, user.followers());
-            contentValues.put(COLUMN_FOLLOWING, user.following());
-            contentValues.put(COLUMN_CREATED_AT, user.created_at() == null ? -1 :
-                    user.created_at().getTime());
+                    contentValues.put(COLUMN_ID, user.id());
+                    contentValues.put(COLUMN_LOGIN, user.login());
+                    contentValues.put(COLUMN_AVATAR_URL, user.avatar_url());
+                    contentValues.put(COLUMN_TYPE, user.type());
+                    contentValues.put(COLUMN_EMAIL, user.email());
+                    contentValues.put(COLUMN_FOLLOWERS, user.followers());
+                    contentValues.put(COLUMN_FOLLOWING, user.following());
+                    contentValues.put(COLUMN_CREATED_AT,
+                            user.created_at() == null ? -1 : user.created_at().getTime());
 
-            return contentValues;
-        }
-    };
+                    return contentValues;
+                }
+            };
     @NonNull
-    public static final GetResolver<GithubUser> sGithubUserGetResolver = new DefaultGetResolver<GithubUser>() {
-        @NonNull
-        @Override
-        public GithubUser mapFromCursor(@NonNull Cursor cursor) {
-            return GithubUser.builder()
-                    .id(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)))
-                    .login(cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)))
-                    .avatar_url(cursor.getString(cursor.getColumnIndex(COLUMN_AVATAR_URL)))
-                    .type(cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)))
-                    .email(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)))
-                    .followers(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWERS)))
-                    .following(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWING)))
-                    .build();
-        }
-    };
+    public static final GetResolver<GithubUser> sGithubUserGetResolver =
+            new DefaultGetResolver<GithubUser>() {
+                @NonNull
+                @Override
+                public GithubUser mapFromCursor(@NonNull Cursor cursor) {
+                    return GithubUser.builder()
+                            .id(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)))
+                            .login(cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)))
+                            .avatar_url(cursor.getString(cursor.getColumnIndex(COLUMN_AVATAR_URL)))
+                            .type(cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)))
+                            .email(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)))
+                            .followers(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWERS)))
+                            .following(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWING)))
+                            .build();
+                }
+            };
     @NonNull
-    public static final DeleteResolver<GithubUser> sGithubUserDeleteResolver = new DefaultDeleteResolver<GithubUser>() {
-        @NonNull
-        @Override
-        protected DeleteQuery mapToDeleteQuery(@NonNull GithubUser user) {
-            return DeleteQuery.builder()
-                    .table(TABLE)
-                    .where(COLUMN_ID + " = ?")
-                    .whereArgs(user.id())
-                    .build();
-        }
-    };
+    public static final DeleteResolver<GithubUser> sGithubUserDeleteResolver =
+            new DefaultDeleteResolver<GithubUser>() {
+                @NonNull
+                @Override
+                protected DeleteQuery mapToDeleteQuery(@NonNull GithubUser user) {
+                    return DeleteQuery.builder()
+                            .table(TABLE)
+                            .where(COLUMN_ID + " = ?")
+                            .whereArgs(user.id())
+                            .build();
+                }
+            };
 
     // This is just class with Meta Data, we don't need instances
     private GithubUserTableMeta() {
@@ -148,9 +146,7 @@ public class GithubUserTableMeta {
 
     private static class DeleteAllQueryHolder {
         // lazy instantiate
-        private static final DeleteQuery sDeleteAllQuery = DeleteQuery.builder()
-                .table(TABLE)
-                .build();
+        private static final DeleteQuery sDeleteAllQuery =
+                DeleteQuery.builder().table(TABLE).build();
     }
-
 }

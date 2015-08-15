@@ -16,5 +16,4 @@ public class GithubAPIErrorProcessor {
     public void process(GithubAPIError apiError) {
         mToastUtil.makeToast(apiError.getMessage());
     }
-
 }

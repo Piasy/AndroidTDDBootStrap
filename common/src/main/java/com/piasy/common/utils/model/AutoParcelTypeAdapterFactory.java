@@ -23,5 +23,4 @@ public class AutoParcelTypeAdapterFactory implements TypeAdapterFactory {
 
         return (TypeAdapter<T>) gson.getAdapter(annotation.autoParcelClass());
     }
-
 }

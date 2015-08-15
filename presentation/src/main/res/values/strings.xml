@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">Template</string>
-    <string name="title_activity_github_search">GithubSearchActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+  <string name="app_name">Template</string>
+  <string name="title_activity_github_search">GithubSearchActivity</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="action_settings">Settings</string>
 
-    <!-- GithubSearch -->
-    <string name="github_user_followers_formatter" formatted="false">%d Followers</string>
-    <string name="github_user_following_formatter" formatted="false">%d Following</string>
+  <!-- GithubSearch -->
+  <string name="github_user_followers_formatter"
+      formatted="false">%d Followers</string>
+  <string name="github_user_following_formatter"
+      formatted="false">%d Following</string>
 </resources>

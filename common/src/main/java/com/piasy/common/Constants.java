@@ -22,7 +22,7 @@ public class Constants {
     }
 
     public interface REPatterns {
-        Pattern EMAIL_PATTERN = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Pattern EMAIL_PATTERN = Pattern.compile(
+                "^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
 }

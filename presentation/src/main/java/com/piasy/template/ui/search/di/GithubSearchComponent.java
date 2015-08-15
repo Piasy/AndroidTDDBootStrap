@@ -1,7 +1,7 @@
 package com.piasy.template.ui.search.di;
 
 import com.piasy.common.di.PerActivity;
-import com.piasy.model.dao.di.GithubUserDAOModule;
+import com.piasy.model.dao.di.DAOModule;
 import com.piasy.model.rest.github.GithubAPIModule;
 import com.piasy.template.base.di.ActivityComponent;
 import com.piasy.template.base.di.ActivityModule;
@@ -11,7 +11,6 @@ import com.piasy.template.ui.search.GithubSearchActivity;
 import com.piasy.template.ui.search.GithubSearchFragment;
 import com.piasy.template.ui.search.mvp.GithubSearchPresenter;
 import com.piasy.template.ui.search.mvp.GithubSearchView;
-
 import dagger.Component;
 
 /**
@@ -21,9 +20,7 @@ import dagger.Component;
 @Component(
         dependencies = AppComponent.class,
         modules = {
-                GithubAPIModule.class,
-                GithubUserDAOModule.class,
-                GithubSearchModule.class,
+                GithubAPIModule.class, DAOModule.class, GithubSearchModule.class,
 
                 ActivityModule.class
         })
@@ -33,5 +30,4 @@ public interface GithubSearchComponent
     void inject(GithubSearchActivity activity);
 
     void inject(GithubSearchFragment fragment);
-
 }

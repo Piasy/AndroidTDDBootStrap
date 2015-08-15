@@ -1,5 +1,10 @@
 package com.piasy.template.ui.search;
 
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import butterknife.Bind;
 import com.piasy.common.utils.EmailUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.R;
@@ -8,18 +13,8 @@ import com.piasy.template.ui.search.di.GithubSearchComponent;
 import com.piasy.template.ui.search.mvp.GithubSearchPresenter;
 import com.piasy.template.ui.search.mvp.GithubSearchView;
 import com.promegu.xlog.base.XLog;
-
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.Bind;
-
 
 /**
  * A placeholder fragment containing a simple view.

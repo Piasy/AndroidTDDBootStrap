@@ -1,11 +1,10 @@
 package com.piasy.template.ui.search;
 
+import android.os.Bundle;
 import com.piasy.common.di.HasComponent;
 import com.piasy.template.base.BaseActivity;
 import com.piasy.template.ui.search.di.DaggerGithubSearchComponent;
 import com.piasy.template.ui.search.di.GithubSearchComponent;
-
-import android.os.Bundle;
 
 public class GithubSearchActivity extends BaseActivity
         implements HasComponent<GithubSearchComponent> {

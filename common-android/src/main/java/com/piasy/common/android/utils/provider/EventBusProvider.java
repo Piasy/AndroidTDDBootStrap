@@ -23,5 +23,4 @@ public class EventBusProvider {
                 .throwSubscriberException(true)
                 .build();
     }
-
 }

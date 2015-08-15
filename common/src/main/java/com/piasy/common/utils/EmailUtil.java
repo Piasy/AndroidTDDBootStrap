@@ -14,5 +14,4 @@ public class EmailUtil {
         return email != null && email.length() > 0 &&
                 mEmailPattern.matcher(email).find();
     }
-
 }

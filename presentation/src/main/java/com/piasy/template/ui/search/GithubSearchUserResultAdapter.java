@@ -1,10 +1,5 @@
 package com.piasy.template.ui.search;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.piasy.common.utils.EmailUtil;
-import com.piasy.model.entities.GithubUser;
-import com.piasy.template.R;
-
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.piasy.common.utils.EmailUtil;
+import com.piasy.model.entities.GithubUser;
+import com.piasy.template.R;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/3.
@@ -45,8 +42,8 @@ public class GithubSearchUserResultAdapter
 
     @Override
     public GithubSearchResultVH onCreateViewHolder(ViewGroup parent, int type) {
-        return new GithubSearchResultVH(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.ui_github_search_user_result_item, parent, false));
+        return new GithubSearchResultVH(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.ui_github_search_user_result_item, parent, false));
     }
 
     @Override
@@ -68,12 +65,12 @@ public class GithubSearchUserResultAdapter
             vh.mTvEmail.setVisibility(View.GONE);
         }
 
-        vh.mTvFollowers.setText(String.format(
-                mResources.getString(R.string.github_user_followers_formatter),
-                user.followers()));
-        vh.mTvFollowing.setText(String.format(
-                mResources.getString(R.string.github_user_following_formatter),
-                user.following()));
+        vh.mTvFollowers.setText(
+                String.format(mResources.getString(R.string.github_user_followers_formatter),
+                        user.followers()));
+        vh.mTvFollowing.setText(
+                String.format(mResources.getString(R.string.github_user_following_formatter),
+                        user.following()));
     }
 
     @Override

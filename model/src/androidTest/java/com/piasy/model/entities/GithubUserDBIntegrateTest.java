@@ -1,17 +1,15 @@
 package com.piasy.model.entities;
 
-import com.piasy.model.dao.DBOpenHelper;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import com.piasy.model.dao.GithubUserTableMeta;
+import com.piasy.model.db.DBOpenHelper;
 import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 
 /**
  * Created by piasy on 15/8/11.
@@ -33,8 +31,7 @@ public class GithubUserDBIntegrateTest {
                 .build();
 
         // Clearing books table before each test case
-        mStorIOSQLite
-                .delete()
+        mStorIOSQLite.delete()
                 .byQuery(GithubUserTableMeta.getDeleteAllQuery())
                 .prepare()
                 .executeAsBlocking();
@@ -44,5 +41,4 @@ public class GithubUserDBIntegrateTest {
     public void testInsert() {
         // TODO
     }
-
 }

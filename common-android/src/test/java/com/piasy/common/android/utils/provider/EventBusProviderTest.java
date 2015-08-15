@@ -1,10 +1,8 @@
 package com.piasy.common.android.utils.provider;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import de.greenrobot.event.EventBus;
+import junit.framework.Assert;
+import org.junit.Test;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
@@ -43,5 +41,4 @@ public class EventBusProviderTest {
             Assert.assertTrue(false);
         }
     }
-
 }

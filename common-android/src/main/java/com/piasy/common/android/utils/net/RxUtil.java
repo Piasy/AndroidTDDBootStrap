@@ -1,6 +1,5 @@
 package com.piasy.common.android.utils.net;
 
-
 import rx.functions.Action1;
 
 /**
@@ -48,5 +47,4 @@ public class RxUtil {
             }
         }
     }
-
 }
