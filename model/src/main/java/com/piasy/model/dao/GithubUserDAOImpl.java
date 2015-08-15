@@ -6,6 +6,7 @@ import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.model.db.StorIOSQLiteDelegate;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.model.rest.github.GithubAPI;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -41,13 +42,18 @@ public class GithubUserDAOImpl implements GithubUserDAO {
                         // else update local data totally
                         List<GithubUser> local = mStorIOSQLite.getAllGithubUser();
 
-                        List<GithubUser> cloud = searchResult.getItems();
+                        // NOTE!!! create a copy to avoid modify caller's state
+                        // there will be two extra List creation, but they will be GCed quickly(if
+                        // no memory leak happens), but object creation may have bad effect in
+                        // Android platform, so is this a good practice?
+                        List<GithubUser> cloud = new ArrayList<>(searchResult.getItems());
                         if (local.isEmpty()) {
                             // first time, no local data, show partly cloud data at first
-                            mStorIOSQLite.putAllGithubUser(cloud);
+                            // NOTE!!! instantiate a new array, to avoid modify-after-call problem
+                            mStorIOSQLite.putAllGithubUser(new ArrayList<>(cloud));
                         }
 
-                        for (int i = 0; i < searchResult.getItems().size(); i++) {
+                        for (int i = 0; i < cloud.size(); i++) {
                             GithubUser fullUserInfo = mGithubAPI.getGithubUser(cloud.get(i).login())
                                     .toBlocking()
                                     .single();
