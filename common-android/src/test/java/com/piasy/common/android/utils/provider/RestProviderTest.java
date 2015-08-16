@@ -12,7 +12,7 @@ public class RestProviderTest {
     private RestAdapter one, two;
 
     @Test
-    public void testProvideEventBus() {
+    public void testProvideRestAdapter() {
         one = RestProvider.provideRestAdapter();
         two = RestProvider.provideRestAdapter();
 
@@ -20,7 +20,7 @@ public class RestProviderTest {
     }
 
     @Test
-    public void testProvideEventBusConcurrently() {
+    public void testProvideRestAdapterConcurrently() {
         Thread t1 = new Thread(() -> {
             one = RestProvider.provideRestAdapter();
         });

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.common.android.utils.provider.GsonProvider;
+import com.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.piasy.model.MockProvider;
 import com.piasy.model.db.StorIOSQLiteDelegate;
 import com.piasy.model.entities.GithubSearchResult;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
-public class GithubUserDAOImplTest {
+public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
 
     private StorIOSQLiteDelegate mStorIOSQLite;
     private GithubAPI mGithubAPI;
@@ -44,6 +45,7 @@ public class GithubUserDAOImplTest {
 
     @Before
     public void setUp() {
+        initThreeTenABP();
         Gson gson = GsonProvider.provideGson();
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
                 new TypeToken<GithubSearchResult<GithubUser>>() {

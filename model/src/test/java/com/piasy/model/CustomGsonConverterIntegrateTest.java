@@ -1,6 +1,7 @@
 package com.piasy.model;
 
 import com.google.gson.Gson;
+import com.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.piasy.common.android.utils.net.CustomGsonConverter;
 import com.piasy.common.android.utils.provider.GsonProvider;
 import com.piasy.model.entities.GithubUser;
@@ -18,13 +19,14 @@ import retrofit.mime.TypedInput;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
  */
-public class CustomGsonConverterIntegrateTest {
+public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
 
     private Gson mGson;
     private CustomGsonConverter mCustomGsonConverter;
 
     @Before
     public void setUp() {
+        initThreeTenABP();
         mGson = GsonProvider.provideGson();
         mCustomGsonConverter = new CustomGsonConverter(mGson);
     }

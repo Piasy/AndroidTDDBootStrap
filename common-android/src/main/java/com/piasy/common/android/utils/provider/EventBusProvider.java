@@ -7,9 +7,6 @@ import de.greenrobot.event.EventBus;
  */
 public class EventBusProvider {
 
-    private EventBusProvider() {
-    }
-
     public static EventBus provideEventBus() {
         return EventBusHolder.sEventBus;
     }

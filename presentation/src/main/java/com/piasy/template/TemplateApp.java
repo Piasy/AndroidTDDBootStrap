@@ -4,8 +4,8 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
-import com.github.promeg.xlog_android.lib.XLogConfig;
 import com.google.gson.Gson;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.piasy.common.android.utils.ui.ToastUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.base.di.AppComponent;
@@ -42,9 +42,10 @@ public class TemplateApp extends Application implements IApplication {
         mAppComponent.inject(this);
 
         Fresco.initialize(this);
+        AndroidThreeTen.init(this);
 
         // Developer
-        XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
+        //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
         Stetho.initialize(Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))

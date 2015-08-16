@@ -1,5 +1,6 @@
 package com.piasy.model.rest;
 
+import android.app.Application;
 import com.google.gson.Gson;
 import com.piasy.common.android.utils.provider.EventBusProvider;
 import com.piasy.common.android.utils.provider.GsonProvider;
@@ -19,13 +20,13 @@ public class RestModule {
      * Not using dagger scope here because RestProvider guarantee Singleton.
      */
     @Provides
-    RestAdapter provideRestAdapter() {
-        return RestProvider.provideRestAdapter();
+    RestAdapter provideRestAdapter(Application application) {
+        return RestProvider.provideRestAdapter(application);
     }
 
     @Provides
-    Gson provideGson() {
-        return GsonProvider.provideGson();
+    Gson provideGson(Application application) {
+        return GsonProvider.provideGson(application);
     }
 
     @Provides

@@ -49,6 +49,7 @@ dependencies {
     compile commonAndroidDependencies.androidSupportAppCompatV7
     compile commonAndroidDependencies.androidSupportAppCompatV7
     compile commonAndroidDependencies.supportAnnotation
+    compile commonAndroidDependencies.threetenabp
 
     retrolambdaConfig commonAndroidDependencies.retrolambda
 

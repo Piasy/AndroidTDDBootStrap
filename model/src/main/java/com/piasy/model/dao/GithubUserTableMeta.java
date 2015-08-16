@@ -14,6 +14,9 @@ import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
 import com.pushtorefresh.storio.sqlite.queries.InsertQuery;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 import com.pushtorefresh.storio.sqlite.queries.UpdateQuery;
+import org.threeten.bp.Instant;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
 
 /**
  * Created by piasy on 15/8/10.
@@ -78,8 +81,8 @@ public class GithubUserTableMeta {
                     contentValues.put(COLUMN_EMAIL, user.email());
                     contentValues.put(COLUMN_FOLLOWERS, user.followers());
                     contentValues.put(COLUMN_FOLLOWING, user.following());
-                    contentValues.put(COLUMN_CREATED_AT,
-                            user.created_at() == null ? -1 : user.created_at().getTime());
+                    contentValues.put(COLUMN_CREATED_AT, user.created_at() == null ? -1
+                            : user.created_at().toInstant().toEpochMilli());
 
                     return contentValues;
                 }
@@ -98,6 +101,9 @@ public class GithubUserTableMeta {
                             .email(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)))
                             .followers(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWERS)))
                             .following(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWING)))
+                            .created_at(ZonedDateTime.ofInstant(Instant.ofEpochMilli(
+                                    cursor.getLong(cursor.getColumnIndex(COLUMN_CREATED_AT))),
+                                    ZoneId.systemDefault()))
                             .build();
                 }
             };

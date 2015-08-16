@@ -3,6 +3,8 @@ package com.piasy.model.db;
 import com.piasy.model.dao.GithubUserTableMeta;
 import com.piasy.model.entities.GithubUser;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.operations.delete.DeleteResult;
+import com.pushtorefresh.storio.sqlite.operations.put.PutResults;
 import java.util.List;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -18,16 +20,16 @@ public class StorIOSQLiteDelegateImpl implements StorIOSQLiteDelegate {
     }
 
     @Override
-    public void deleteAllGithubUser() {
-        mStorIOSQLite.delete()
+    public DeleteResult deleteAllGithubUser() {
+        return mStorIOSQLite.delete()
                 .byQuery(GithubUserTableMeta.getDeleteAllQuery())
                 .prepare()
                 .executeAsBlocking();
     }
 
     @Override
-    public void putAllGithubUser(List<GithubUser> users) {
-        mStorIOSQLite.put().objects(users).prepare().executeAsBlocking();
+    public PutResults<GithubUser> putAllGithubUser(List<GithubUser> users) {
+        return mStorIOSQLite.put().objects(users).prepare().executeAsBlocking();
     }
 
     @Override

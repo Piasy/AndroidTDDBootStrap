@@ -49,7 +49,6 @@ public class MockitoTest {
         Assert.assertEquals(2, captor.getAllValues().get(1).intValue());
     }
 
-
     @SuppressWarnings("unchecked")
     @Test
     public void testArgCapList() {

@@ -12,7 +12,7 @@ public class GsonProviderTest {
     private Gson one, two;
 
     @Test
-    public void testProvideEventBus() {
+    public void testProvideGson() {
         one = GsonProvider.provideGson();
         two = GsonProvider.provideGson();
 
@@ -20,7 +20,7 @@ public class GsonProviderTest {
     }
 
     @Test
-    public void testProvideEventBusConcurrently() {
+    public void testProvideGsonConcurrently() {
         Thread t1 = new Thread(() -> {
             one = GsonProvider.provideGson();
         });
