@@ -49,9 +49,13 @@ public class ZonedDateTimeConvertTest extends BaseThreeTenBPTest {
     @Test
     public void testSimpleParse() {
         String dateStr = "2015-08-16T13:27:33Z";
-        String toString = "2015-08-16T13:27:33+08:00[Asia/Shanghai]";
         ZonedDateTime date = mDateTimeFormatter.parse(dateStr, ZonedDateTime.FROM);
-        Assert.assertEquals(toString, date.toString());
+        Assert.assertEquals(2015, date.getYear());
+        Assert.assertEquals(8, date.getMonthValue());
+        Assert.assertEquals(16, date.getDayOfMonth());
+        Assert.assertEquals(13, date.getHour());
+        Assert.assertEquals(27, date.getMinute());
+        Assert.assertEquals(33, date.getSecond());
     }
 
     @Test
