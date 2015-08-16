@@ -16,7 +16,6 @@ public abstract class BaseThreeTenBPTest {
     private static final AtomicBoolean initialized = new AtomicBoolean();
 
     protected void initThreeTenABP() {
-        System.out.println(new File(".").getAbsolutePath());
         if (initialized.getAndSet(true)) {
             return;
         }

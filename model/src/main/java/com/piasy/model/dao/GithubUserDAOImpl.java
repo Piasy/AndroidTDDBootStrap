@@ -35,7 +35,7 @@ public class GithubUserDAOImpl implements GithubUserDAO {
                 Constants.GithubAPIParams.SEARCH_ORDER_DESC)
                 .subscribeOn(Schedulers.io())
                 .subscribe(searchResult -> {
-                    if (searchResult.getItems() == null || searchResult.getItems().isEmpty()) {
+                    if (searchResult.getItems().isEmpty()) {
                         // if no cloud data, remove local data
                         mStorIOSQLite.deleteAllGithubUser();
                     } else {
@@ -46,10 +46,13 @@ public class GithubUserDAOImpl implements GithubUserDAO {
                         // there will be two extra List creation, but they will be GCed quickly(if
                         // no memory leak happens), but object creation may have bad effect in
                         // Android platform, so is this a good practice?
-                        List<GithubUser> cloud = new ArrayList<>(searchResult.getItems());
+
+
+                        // UPDATE: create snapshot for params is the caller's duty
+                        List<GithubUser> cloud = searchResult.getItems();
                         if (local.isEmpty()) {
                             // first time, no local data, show partly cloud data at first
-                            // NOTE!!! instantiate a new array, to avoid modify-after-call problem
+                            // NOTE!!! create a snapshot, to avoid callee see changed params
                             mStorIOSQLite.putAllGithubUser(new ArrayList<>(cloud));
                         }
 

@@ -48,6 +48,9 @@ public class GithubUserIntegrateTest extends BaseThreeTenBPTest {
                 .following(converted.following())
                 .created_at(converted.created_at())
                 .build();
-        Assert.assertEquals(built, converted);
+        Assert.assertEquals(converted, built);
+
+        GithubUser from = GithubUser.from(built);
+        Assert.assertEquals(built, from);
     }
 }

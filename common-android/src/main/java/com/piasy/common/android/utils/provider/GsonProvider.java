@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.piasy.common.Constants;
 import com.piasy.common.android.utils.model.CustomZonedDateTimeConverter;
 import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
-import com.piasy.common.utils.model.AutoParcelTypeAdapterFactory;
+import com.piasy.common.utils.model.AutoGenTypeAdapterFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.chrono.IsoChronology;
@@ -44,7 +44,7 @@ public class GsonProvider {
 
         private static volatile Gson sGson = new GsonBuilder()
                 //.excludeFieldsWithoutExposeAnnotation()   //not exclude for auto parcel
-                .registerTypeAdapterFactory(new AutoParcelTypeAdapterFactory())
+                .registerTypeAdapterFactory(new AutoGenTypeAdapterFactory())
                 .registerTypeAdapter(ZonedDateTime.class,
                         new CustomZonedDateTimeConverter(sDateTimeFormatter))
                 .setDateFormat(Constants.TimeFormat.ISO_8601)

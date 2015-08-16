@@ -10,12 +10,17 @@ import org.threeten.bp.ZonedDateTime;
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
 @AutoParcel
-@AutoGson(autoParcelClass = AutoParcel_GithubUser.class)
+@AutoGson(autoClass = AutoParcel_GithubUser.class)
 public abstract class GithubUser {
 
     @NonNull
     public static Builder builder() {
         return new AutoParcel_GithubUser.Builder();
+    }
+
+    @NonNull
+    public static GithubUser from(GithubUser user) {
+        return new AutoParcel_GithubUser.Builder(user).build();
     }
 
     public abstract long id();

@@ -71,7 +71,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserNoCloudData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mEmptyResult);
+            subscriber.onNext(GithubSearchResult.from(mEmptyResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
 
@@ -97,20 +97,17 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserHasCloudDataNoLocalData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleResult);
+            subscriber.onNext(GithubSearchResult.from(mSingleResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleUser);
+            subscriber.onNext(GithubUser.from(mSingleUser));
             subscriber.onCompleted();
         })).given(mGithubAPI).getGithubUser(anyString());
 
-        given(mStorIOSQLite.getAllGithubUser()).willReturn(mEmptyUserList);
+        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>(mEmptyUserList));
         willReturn(Observable.empty()).given(mStorIOSQLite).getAllGithubUserReactively();
         ArgumentCaptor<List<GithubUser>> capturedUsers = ArgumentCaptor.forClass(List.class);
-
-        GithubUser partly = mSingleResult.getItems().get(0);
-        GithubUser fully = mSingleUser;
 
         // when
         TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
@@ -126,13 +123,13 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
         then(mStorIOSQLite).should(timeout(100)).getAllGithubUser();
         then(mStorIOSQLite).should(timeout(100).times(2)).putAllGithubUser(capturedUsers.capture());
         verifyNoMoreInteractions(mStorIOSQLite);
-        Assert.assertFalse(fully.equals(partly));
+        Assert.assertFalse(mSingleUser.equals(mSingleResult.getItems().get(0)));
         List<GithubUser> args1 = capturedUsers.getAllValues().get(0);
         Assert.assertEquals(1, args1.size());
-        Assert.assertEquals(partly, args1.get(0));
+        Assert.assertEquals(mSingleResult.getItems().get(0), args1.get(0));
         List<GithubUser> args2 = capturedUsers.getAllValues().get(1);
         Assert.assertEquals(1, args2.size());
-        Assert.assertEquals(fully, args2.get(0));
+        Assert.assertEquals(mSingleUser, args2.get(0));
 
         then(mRxErrorProcessor).shouldHaveZeroInteractions();
     }
@@ -141,19 +138,17 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserHasCloudDataHasLocalData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleResult);
+            subscriber.onNext(GithubSearchResult.from(mSingleResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleUser);
+            subscriber.onNext(GithubUser.from(mSingleUser));
             subscriber.onCompleted();
         })).given(mGithubAPI).getGithubUser(anyString());
 
-        given(mStorIOSQLite.getAllGithubUser()).willReturn(mSingleUserList);
+        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>(mSingleUserList));
         willReturn(Observable.empty()).given(mStorIOSQLite).getAllGithubUserReactively();
         ArgumentCaptor<List<GithubUser>> capturedUsers = ArgumentCaptor.forClass(List.class);
-
-        GithubUser fully = mSingleUser;
 
         // when
         TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
@@ -171,7 +166,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
         verifyNoMoreInteractions(mStorIOSQLite);
         List<GithubUser> args1 = capturedUsers.getAllValues().get(0);
         Assert.assertEquals(1, args1.size());
-        Assert.assertEquals(fully, args1.get(0));
+        Assert.assertEquals(mSingleUser, args1.get(0));
 
         then(mRxErrorProcessor).shouldHaveZeroInteractions();
     }

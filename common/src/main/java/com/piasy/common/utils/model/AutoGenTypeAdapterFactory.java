@@ -6,9 +6,9 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * copy from: https://gist.github.com/JakeWharton/0d67d01badcee0ae7bc9
+ * https://gist.github.com/Piasy/fa507251da452d36b221
  */
-public class AutoParcelTypeAdapterFactory implements TypeAdapterFactory {
+public final class AutoGenTypeAdapterFactory implements TypeAdapterFactory {
 
     @SuppressWarnings("unchecked")
     @Override
@@ -21,6 +21,6 @@ public class AutoParcelTypeAdapterFactory implements TypeAdapterFactory {
             return null;
         }
 
-        return (TypeAdapter<T>) gson.getAdapter(annotation.autoParcelClass());
+        return (TypeAdapter<T>) gson.getAdapter(annotation.autoClass());
     }
 }

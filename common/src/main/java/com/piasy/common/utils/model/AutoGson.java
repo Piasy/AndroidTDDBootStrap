@@ -6,12 +6,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * modified copy from: https://gist.github.com/JakeWharton/0d67d01badcee0ae7bc9
+ * https://gist.github.com/Piasy/fa507251da452d36b221
+ *
+ * Marks an {@link AutoValue @AutoValue}/{@link AutoParcel @AutoParcel}-annotated type for proper Gson serialization.
+ * <p>
+ * This annotation is needed because the {@linkplain Retention retention} of {@code @AutoValue}/{@code @AutoParcel}
+ * does not allow reflection at runtime.
  */
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface AutoGson {
-    // A reference to the AutoValue-generated class (e.g. AutoValue_MyClass). This is
+    // A reference to the Auto*-generated class (e.g. AutoValue_MyClass/AutoParcel_MyClass). This is
     // necessary to handle obfuscation of the class names.
-    Class autoParcelClass();
+    Class autoClass();
 }
