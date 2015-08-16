@@ -2,7 +2,9 @@ package com.piasy.template.base.di;
 
 import android.app.Application;
 import android.content.res.Resources;
+import com.google.gson.Gson;
 import com.piasy.common.android.utils.AndroidUtilsModule;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.piasy.common.android.utils.net.RxUtil;
 import com.piasy.common.android.utils.screen.ScreenUtil;
 import com.piasy.common.android.utils.ui.ToastUtil;
@@ -15,7 +17,9 @@ import com.piasy.template.TemplateApp;
 import com.piasy.template.base.BaseActivity;
 import com.piasy.template.base.BaseService;
 import dagger.Component;
+import de.greenrobot.event.EventBus;
 import javax.inject.Singleton;
+import retrofit.RestAdapter;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -55,4 +59,12 @@ public interface AppComponent {
     RxUtil.RxErrorProcessor rxErrorProcessor();
 
     StorIOSQLiteDelegate storIOSQLite();
+
+    ThreeTenABPDelegate threeTenABPDelegate();
+
+    Gson gson();
+
+    EventBus eventBus();
+
+    RestAdapter restAdapter();
 }

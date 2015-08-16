@@ -5,7 +5,7 @@ import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
-import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.piasy.common.android.utils.ui.ToastUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.base.di.AppComponent;
@@ -26,6 +26,8 @@ public class TemplateApp extends Application implements IApplication {
     Gson mGson;
     @Inject
     ToastUtil mToastUtil;
+    @Inject
+    ThreeTenABPDelegate mThreeTenABPDelegate;
     private AppComponent mAppComponent;
 
     public static TemplateApp getInstance() {
@@ -42,7 +44,7 @@ public class TemplateApp extends Application implements IApplication {
         mAppComponent.inject(this);
 
         Fresco.initialize(this);
-        AndroidThreeTen.init(this);
+        mThreeTenABPDelegate.init();
 
         // Developer
         //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());

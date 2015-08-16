@@ -1,7 +1,7 @@
 package com.piasy.common.android.utils.provider;
 
-import android.app.Application;
 import com.piasy.common.Constants;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
@@ -28,14 +28,14 @@ public class RestProvider {
 
     private static volatile RestAdapter sRestAdapter = null;
 
-    public static RestAdapter provideRestAdapter(Application application) {
+    public static RestAdapter provideRestAdapter(ThreeTenABPDelegate delegate) {
         if (sRestAdapter == null) {
             synchronized (RestProvider.class) {
                 if (sRestAdapter == null) {
                     sRestAdapter =
                             new RestAdapter.Builder().setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
-                                    .setConverter(new GsonConverter(
-                                            GsonProvider.provideGson(application)))
+                                    .setConverter(
+                                            new GsonConverter(GsonProvider.provideGson(delegate)))
                                     .setLogLevel(RestAdapter.LogLevel.FULL)
                                     .build();
                 }

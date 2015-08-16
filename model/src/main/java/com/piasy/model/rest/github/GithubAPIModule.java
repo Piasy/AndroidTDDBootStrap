@@ -7,7 +7,7 @@ import retrofit.RestAdapter;
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
-@Module(includes = com.piasy.model.rest.RestModule.class)
+@Module
 public class GithubAPIModule {
 
     @Provides

@@ -101,8 +101,8 @@ public class GithubUserTableMeta {
                             .email(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)))
                             .followers(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWERS)))
                             .following(cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWING)))
-                            .created_at(ZonedDateTime.ofInstant(Instant.ofEpochMilli(
-                                    cursor.getLong(cursor.getColumnIndex(COLUMN_CREATED_AT))),
+                            .created_at(ZonedDateTime.ofInstant(Instant.ofEpochMilli(cursor.getLong(
+                                            cursor.getColumnIndex(COLUMN_CREATED_AT))),
                                     ZoneId.systemDefault()))
                             .build();
                 }

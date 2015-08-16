@@ -1,11 +1,10 @@
 package com.piasy.common.android.utils.provider;
 
-import android.app.Application;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.piasy.common.Constants;
 import com.piasy.common.android.utils.model.CustomZonedDateTimeConverter;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.piasy.common.utils.model.AutoParcelTypeAdapterFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
@@ -20,8 +19,8 @@ import org.threeten.bp.temporal.ChronoField;
  */
 public class GsonProvider {
 
-    public static Gson provideGson(Application application) {
-        AndroidThreeTen.init(application);
+    public static Gson provideGson(ThreeTenABPDelegate delegate) {
+        delegate.init();
         return GsonHolder.sGson;
     }
 

@@ -2,6 +2,8 @@ package com.piasy.model.rest;
 
 import android.app.Application;
 import com.google.gson.Gson;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.piasy.common.android.utils.model.ThreeTenABPDelegateImpl;
 import com.piasy.common.android.utils.provider.EventBusProvider;
 import com.piasy.common.android.utils.provider.GsonProvider;
 import com.piasy.common.android.utils.provider.RestProvider;
@@ -20,17 +22,22 @@ public class RestModule {
      * Not using dagger scope here because RestProvider guarantee Singleton.
      */
     @Provides
-    RestAdapter provideRestAdapter(Application application) {
-        return RestProvider.provideRestAdapter(application);
+    RestAdapter provideRestAdapter(ThreeTenABPDelegate delegate) {
+        return RestProvider.provideRestAdapter(delegate);
     }
 
     @Provides
-    Gson provideGson(Application application) {
-        return GsonProvider.provideGson(application);
+    Gson provideGson(ThreeTenABPDelegate delegate) {
+        return GsonProvider.provideGson(delegate);
     }
 
     @Provides
     EventBus provideEventBus() {
         return EventBusProvider.provideEventBus();
+    }
+
+    @Provides
+    ThreeTenABPDelegate provideThreeTenABPDelegate(Application application) {
+        return new ThreeTenABPDelegateImpl(application);
     }
 }
