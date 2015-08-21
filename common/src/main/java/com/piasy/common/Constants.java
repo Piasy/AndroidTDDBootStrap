@@ -25,4 +25,9 @@ public class Constants {
         Pattern EMAIL_PATTERN = Pattern.compile(
                 "^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
+
+    public interface IconifyIcons {
+        String USER = "{md-person}";
+        String ORG = "{md-people}";
+    }
 }

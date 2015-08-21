@@ -5,6 +5,8 @@ import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.MaterialModule;
 import com.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.piasy.common.android.utils.ui.ToastUtil;
 import com.piasy.model.entities.GithubUser;
@@ -45,6 +47,8 @@ public class TemplateApp extends Application implements IApplication {
 
         Fresco.initialize(this);
         mThreeTenABPDelegate.init();
+
+        Iconify.with(new MaterialModule());
 
         // Developer
         //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());

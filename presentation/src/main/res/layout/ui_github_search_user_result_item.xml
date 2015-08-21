@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      >
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/iv_avatar"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        fresco:roundedCornerRadius="10dp"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/ic_github_user_type_user"
-        fresco:placeholderImageScaleType="centerCrop"
-        />
-
-    <ImageView
-        android:id="@+id/iv_user_type"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_toRightOf="@+id/iv_avatar"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        />
-
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_user_type"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="10dp"
-        />
+        >
 
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_avatar"
-        android:layout_below="@+id/iv_user_type"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/iv_avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                fresco:roundedCornerRadius="10dp"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_github_user_type_user"
+                fresco:placeholderImageScaleType="centerCrop"
+                />
 
-    <TextView
-        android:id="@+id/tv_followers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_avatar"
-        android:layout_below="@+id/tv_email"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        />
+        <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/icon_tv_user_type"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"
+                />
 
-    <TextView
-        android:id="@+id/tv_following"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_avatar"
-        android:layout_below="@+id/tv_followers"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="20dp"
-        />
-  </RelativeLayout>
+        <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/icon_tv_user_type"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/icon_tv_user_type"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        <TextView
+                android:id="@+id/tv_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/tv_email"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        <TextView
+                android:id="@+id/tv_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/tv_followers"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                />
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -16,3 +16,4 @@
 #   public *;
 #}
 -keepattributes SourceFile, LineNumberTable
+-keep class com.joanzapata.** { *; }

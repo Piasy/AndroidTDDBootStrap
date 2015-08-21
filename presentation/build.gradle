@@ -126,6 +126,7 @@ dependencies {
     compile presentationDependencies.cardViewV7
     compile presentationDependencies.fresco
     compile presentationDependencies.loadToast
+    compile presentationDependencies.iconifyMD
 
     // Developer
     developCompile presentationDependencies.xLogAndroid

@@ -8,11 +8,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.joanzapata.iconify.widget.IconTextView;
+import com.piasy.common.Constants;
 import com.piasy.common.utils.EmailUtil;
 import com.piasy.model.entities.GithubUser;
 import com.piasy.template.R;
@@ -52,9 +53,9 @@ public class GithubSearchUserResultAdapter
         vh.mIvAvatar.setImageURI(Uri.parse(user.avatar_url()));
 
         if (GithubUser.GithubUserType.ORGANIZATION.equals(user.type())) {
-            vh.mIvUserType.setImageResource(R.drawable.ic_github_user_type_org);
+            vh.mIvUserType.setText(Constants.IconifyIcons.ORG);
         } else if (GithubUser.GithubUserType.USER.equals(user.type())) {
-            vh.mIvUserType.setImageResource(R.drawable.ic_github_user_type_user);
+            vh.mIvUserType.setText(Constants.IconifyIcons.USER);
         }
 
         vh.mTvUsername.setText(user.login());
@@ -82,8 +83,8 @@ public class GithubSearchUserResultAdapter
 
         @Bind(R.id.iv_avatar)
         SimpleDraweeView mIvAvatar;
-        @Bind(R.id.iv_user_type)
-        ImageView mIvUserType;
+        @Bind(R.id.icon_tv_user_type)
+        IconTextView mIvUserType;
         @Bind(R.id.tv_username)
         TextView mTvUsername;
         @Bind(R.id.tv_email)
