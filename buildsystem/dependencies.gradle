@@ -19,7 +19,7 @@ ext {
     autoParcelVersion = '0.3.1'
     mvpVersion = '1.2.0'
     eventBusVersion = '3.0.0-beta1'
-    storIOVersion = '1.2.0'
+    storIOVersion = '1.2.1'
     apacheCommonsIOVersion = '1.3.2'
     threetenabpVersion = '1.0.2'
 
@@ -29,7 +29,7 @@ ext {
     iconifyVersion = '2.0.7'
 
     // Developer
-    xLogVersion = '2.1.0'
+    xLogVersion = '2.1.1'
     retrolambdaVersion = '2.0.5'
     stethoVersion = '1.1.1'
     fabricVersion = '2.5.0'
