@@ -57,4 +57,3 @@ dependencies {
     testCompile commonAndroidTestDependencies.mockito
     testCompile commonAndroidTestDependencies.jsonAssert
 }
-

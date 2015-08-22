@@ -1,10 +1,10 @@
 ext {
     // Android
-    androidBuildToolsVersion = '22.0.1'
+    androidBuildToolsVersion = '23.0.0'
     androidMinSdkVersion = 15
-    androidTargetSdkVersion = 22
-    androidCompileSdkVersion = 22
-    androidSupportLibraryVersion = '22.2.1'
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
+    androidSupportLibraryVersion = '23.0.0'
 
     // Libraries
     daggerVersion = '2.0.1'
@@ -39,6 +39,7 @@ ext {
     jUnitVersion = '4.12'
     mockitoVersion = '2.0.31-beta'
     jsonAssertVersion = '1.2.3'
+    jacocoVersion = '0.7.4.201502262128'
 
     assertJVersion = '1.7.1'
     dexmakerVersion = '1.0'
@@ -111,7 +112,7 @@ ext {
 
             loadToast                : "net.steamcrafted:load-toast:${loadToastVersion}",
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
-            iconifyMD       : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
+            iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
 
             xLog                     : "com.github.promeg:xlog:${xLogVersion}",
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",

@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'buildsystem/dependencies.gradle'
 apply from: 'buildsystem/variants.gradle'
-apply from: 'buildsystem/testConfig.gradle'
 
 buildscript {
     repositories {
@@ -37,3 +36,5 @@ allprojects {
         }
     }
 }
+
+apply from: 'buildsystem/jacoco.gradle'
