@@ -30,16 +30,53 @@ def moduleJacocoExec = [
  * */
 def moduleExcludes = [
         'common'        : [
-                '**/R*.class',
-                '**/BuildConfig*'
+                // plain code
+                '**/Constants.**',
+                '**/Constants$**.**',
+                '**/AutoGenTypeAdapterFactory.**',
+
+                // di code
+                '**/**Module.**',
+                '**/**Module_**.**',
+
+                // test code
+                '**/**Test.**',
         ],
         'common-android': [
+                // Android framework related
                 '**/R*.class',
-                '**/BuildConfig*'
+                '**/BuildConfig.**',
+                '**/ToastUtilImpl**',
+                '**/ScreenUtil.**',
+
+                // Android framework delegate implementation
+                '**/**DelegateImpl.**',
+
+                // di code
+                '**/**Module.**',
+                '**/**Module_**.**',
+
+                // test code
+                '**/BaseThreeTenBPTest.**',
+                '**/**Test.**',
         ],
         'model'         : [
+                // Android framework related
                 '**/R*.class',
-                '**/BuildConfig*'
+                '**/BuildConfig*',
+                '**/DBOpenHelper.**',
+
+                // Android framework delegate implementation
+                '**/**DelegateImpl.**',
+                '**/**TableMeta.**',
+                '**/**TableMeta$**.**',
+
+                // di code
+                '**/**Module.**',
+                '**/**Module_**.**',
+
+                // test code
+                '**/**Test.**',
         ],
         'presentation'  : [
                 '**/R*.class',
@@ -70,9 +107,14 @@ subprojects { prj ->
             }
 
             classDirectories = fileTree(
-                    dir: moduleClassDirs[prj.name],
-                    excludes: moduleExcludes[prj.name]
+                    dir: moduleClassDirs[prj.name]
             )
+
+            afterEvaluate {
+                classDirectories = files(classDirectories.files.collect {
+                    fileTree(dir: it, exclude: moduleExcludes[prj.name])
+                })
+            }
 
             sourceDirectories = files('src/main/java')
             executionData = files(moduleJacocoExec[prj.name])

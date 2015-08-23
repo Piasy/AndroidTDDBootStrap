@@ -21,3 +21,6 @@ place KeyStore file in some place, and create a TemplateKeyStore.properties, and
 +  Create Activity
 +  Unit test
   +  ./gradlew :module:unMock :module:test #if use unmock plugin, the unmock plugin seems have a problem that the gradle task will not run automatically.
+
+##Coverage
+![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)
