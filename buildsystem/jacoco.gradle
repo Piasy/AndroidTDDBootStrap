@@ -2,7 +2,7 @@
  *  List of modules that don't require Jacoco
  */
 def ignoredByJacoco = [
-    'presentation'
+        'presentation'
 ]
 
 /**
@@ -126,9 +126,7 @@ task jacocoFullReport(type: JacocoReport, group: 'Coverage reports') {
 
     doFirst {
         //noinspection GroovyAssignabilityCheck
-        println("jacocoFullReport doFirst: " + executionData)
         executionData = files(executionData.findAll { it.exists() })
-        println("executionData: " + executionData)
     }
 }
 
