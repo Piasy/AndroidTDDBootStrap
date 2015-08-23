@@ -6,8 +6,8 @@ import com.github.piasy.common.android.utils.provider.GsonProvider;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.github.piasy.model.MockProvider;
 import com.github.piasy.model.db.StorIOSQLiteDelegate;
-import com.github.piasy.model.entities.GithubSearchResult;
 import com.github.piasy.model.entities.GithubUser;
+import com.github.piasy.model.entities.GithubUserSearchResult;
 import com.github.piasy.model.rest.github.GithubAPI;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,10 +38,9 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     private RxUtil.RxErrorProcessor mRxErrorProcessor;
     private GithubUserDAO mGithubUserDAO;
 
-    private GithubSearchResult<GithubUser> mEmptyResult;
-    private List<GithubUser> mEmptyUserList;
+    private GithubUserSearchResult mEmptyResult;
     private List<GithubUser> mSingleUserList;
-    private GithubSearchResult<GithubUser> mSingleResult;
+    private GithubUserSearchResult mSingleResult;
     private GithubUser mSingleUser;
 
     @Before
@@ -49,12 +48,11 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
         initThreeTenABP();
         Gson gson = GsonProvider.provideGson(mock(ThreeTenABPDelegate.class));
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
-                new TypeToken<GithubSearchResult<GithubUser>>() {
+                new TypeToken<GithubUserSearchResult>() {
                 }.getType());
 
-        mEmptyUserList = new ArrayList<>();
         mSingleResult = gson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
-                new TypeToken<GithubSearchResult<GithubUser>>() {
+                new TypeToken<GithubUserSearchResult>() {
                 }.getType());
         mSingleUser = gson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
         mSingleUserList = new ArrayList<>();
@@ -71,7 +69,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserNoCloudData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(GithubSearchResult.from(mEmptyResult));
+            subscriber.onNext(GithubUserSearchResult.from(mEmptyResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
 
@@ -97,7 +95,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserHasCloudDataNoLocalData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(GithubSearchResult.from(mSingleResult));
+            subscriber.onNext(GithubUserSearchResult.from(mSingleResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {
@@ -105,7 +103,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
             subscriber.onCompleted();
         })).given(mGithubAPI).getGithubUser(anyString());
 
-        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>(mEmptyUserList));
+        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>());
         willReturn(Observable.empty()).given(mStorIOSQLite).getAllGithubUserReactively();
         ArgumentCaptor<List<GithubUser>> capturedUsers = ArgumentCaptor.forClass(List.class);
 
@@ -123,10 +121,10 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
         then(mStorIOSQLite).should(timeout(100)).getAllGithubUser();
         then(mStorIOSQLite).should(timeout(100).times(2)).putAllGithubUser(capturedUsers.capture());
         verifyNoMoreInteractions(mStorIOSQLite);
-        Assert.assertFalse(mSingleUser.equals(mSingleResult.getItems().get(0)));
+        Assert.assertFalse(mSingleUser.equals(mSingleResult.items().get(0)));
         List<GithubUser> args1 = capturedUsers.getAllValues().get(0);
         Assert.assertEquals(1, args1.size());
-        Assert.assertEquals(mSingleResult.getItems().get(0), args1.get(0));
+        Assert.assertEquals(mSingleResult.items().get(0), args1.get(0));
         List<GithubUser> args2 = capturedUsers.getAllValues().get(1);
         Assert.assertEquals(1, args2.size());
         Assert.assertEquals(mSingleUser, args2.get(0));
@@ -138,7 +136,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     public void testGetUserHasCloudDataHasLocalData() {
         // given
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(GithubSearchResult.from(mSingleResult));
+            subscriber.onNext(GithubUserSearchResult.from(mSingleResult));
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {

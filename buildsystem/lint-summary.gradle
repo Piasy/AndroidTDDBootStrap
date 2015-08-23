@@ -6,7 +6,8 @@
  *
  * Invocations to any linting tasks will subsequently call to
  * `android-lint-summary` and display the output of it at the end of the full
- * build.*/
+ * build.
+ */
 
 task hasLintSummaryExecutable(type: Exec) {
     commandLine "which", "android-lint-summary"
@@ -35,7 +36,6 @@ afterEvaluate {
 }
 
 class LintSummaryTask extends DefaultTask implements BuildListenerAdapter {
-
     def stdout = new ByteArrayOutputStream()
 
     @SuppressWarnings("GroovyUnusedDeclaration")
@@ -48,8 +48,7 @@ class LintSummaryTask extends DefaultTask implements BuildListenerAdapter {
             // com.android.build.gradle.internal.dsl.LintOptions that's used to generate the full
             // variant-specific output name, but I'd prefer to get the options object instead
             // somehow.
-            filePath = [project.projectDir, "build", "outputs", "lint-results.xml"].
-                    join(File.separator)
+            filePath = [project.projectDir, "build", "outputs", "lint-results.xml"].join(File.separator)
         }
         project.exec {
             commandLine "android-lint-summary", "-v", filePath
@@ -64,10 +63,8 @@ class LintSummaryTask extends DefaultTask implements BuildListenerAdapter {
         if (state.skipped) {
             println """
 For prettier display of lint errors, install `android-lint-summary`.
-
 echo "/home/phartig/tools/android-lint-summary" >> ~/.tools
 sync-dottools.sh
-
 Learn more at go/android-lint-summary.
             """.stripMargin()
         }
@@ -75,19 +72,28 @@ Learn more at go/android-lint-summary.
 }
 
 trait BuildListenerAdapter implements BuildListener {
+    @Override
+    void buildFinished(BuildResult result) {
+
+    }
 
     @Override
-    void buildFinished(BuildResult result) {}
+    void buildStarted(Gradle gradle) {
+
+    }
 
     @Override
-    void buildStarted(Gradle gradle) {}
+    void projectsEvaluated(Gradle gradle) {
+
+    }
 
     @Override
-    void projectsEvaluated(Gradle gradle) {}
+    void projectsLoaded(Gradle gradle) {
+
+    }
 
     @Override
-    void projectsLoaded(Gradle gradle) {}
+    void settingsEvaluated(Settings settings) {
 
-    @Override
-    void settingsEvaluated(Settings settings) {}
+    }
 }

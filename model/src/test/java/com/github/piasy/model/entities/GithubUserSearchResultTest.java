@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/11.
  */
-public class GithubSearchResultTest extends BaseThreeTenBPTest {
+public class GithubUserSearchResultTest extends BaseThreeTenBPTest {
 
     private Gson mGson;
 
@@ -29,9 +29,9 @@ public class GithubSearchResultTest extends BaseThreeTenBPTest {
 
     @Test
     public void testSerialize() {
-        GithubSearchResult<GithubUser> converted =
+        GithubUserSearchResult converted =
                 mGson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
-                        new TypeToken<GithubSearchResult<GithubUser>>() {
+                        new TypeToken<GithubUserSearchResult>() {
                         }.getType());
         try {
             JSONAssert.assertEquals(MockProvider.provideSimplifiedGithubUserSearchResultStr(),

@@ -35,7 +35,7 @@ public class GithubUserDAOImpl implements GithubUserDAO {
                 Constants.GithubAPIParams.SEARCH_ORDER_DESC)
                 .subscribeOn(Schedulers.io())
                 .subscribe(searchResult -> {
-                    if (searchResult.getItems().isEmpty()) {
+                    if (searchResult.items().isEmpty()) {
                         // if no cloud data, remove local data
                         mStorIOSQLite.deleteAllGithubUser();
                     } else {
@@ -48,7 +48,7 @@ public class GithubUserDAOImpl implements GithubUserDAO {
                         // Android platform, so is this a good practice?
 
                         // UPDATE: create snapshot for params is the caller's duty
-                        List<GithubUser> cloud = searchResult.getItems();
+                        List<GithubUser> cloud = searchResult.items();
                         if (local.isEmpty()) {
                             // first time, no local data, show partly cloud data at first
                             // NOTE!!! create a snapshot, to avoid callee see changed params

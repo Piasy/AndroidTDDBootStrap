@@ -18,6 +18,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 fresco:roundedCornerRadius="10dp"
                 fresco:actualImageScaleType="centerCrop"
@@ -30,8 +31,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:gravity="center"
+                android:layout_toEndOf="@+id/iv_avatar"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_marginTop="24dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="20sp"
                 />
@@ -40,8 +43,10 @@
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/icon_tv_user_type"
                 android:layout_toRightOf="@+id/icon_tv_user_type"
                 android:layout_marginTop="24dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 />
 
@@ -49,9 +54,11 @@
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_avatar"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_below="@+id/icon_tv_user_type"
                 android:layout_marginTop="6dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 />
 
@@ -59,9 +66,11 @@
                 android:id="@+id/tv_followers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_avatar"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_below="@+id/tv_email"
                 android:layout_marginTop="6dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 />
 
@@ -69,9 +78,11 @@
                 android:id="@+id/tv_following"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_avatar"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_below="@+id/tv_followers"
                 android:layout_marginTop="6dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 />
