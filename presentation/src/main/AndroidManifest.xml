@@ -23,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".ui.search.DemoKotlinActivity"/>
+
         <meta-data
                 android:name="io.fabric.ApiKey"
                 android:value="03bc0f690add9fe0b29a06fa9f3aace1ac45d998"

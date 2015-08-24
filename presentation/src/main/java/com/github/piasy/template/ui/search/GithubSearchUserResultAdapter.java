@@ -3,6 +3,7 @@ package com.github.piasy.template.ui.search;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,9 +31,16 @@ public class GithubSearchUserResultAdapter
     private final Resources mResources;
     private final EmailUtil mEmailUtil;
 
-    public GithubSearchUserResultAdapter(Resources resources, EmailUtil emailUtil) {
+    public interface Action {
+        void userDetail(GithubUser user);
+    }
+
+    private final Action mAction;
+
+    public GithubSearchUserResultAdapter(Resources resources, EmailUtil emailUtil, Action mAction) {
         mResources = resources;
         mEmailUtil = emailUtil;
+        this.mAction = mAction;
     }
 
     public void addUsers(@NonNull List<GithubUser> users) {
@@ -72,6 +80,8 @@ public class GithubSearchUserResultAdapter
         vh.mTvFollowing.setText(
                 String.format(mResources.getString(R.string.github_user_following_formatter),
                         user.following()));
+
+        vh.mCardView.setOnClickListener(v -> mAction.userDetail(user));
     }
 
     @Override
@@ -93,6 +103,9 @@ public class GithubSearchUserResultAdapter
         TextView mTvFollowers;
         @Bind(R.id.tv_following)
         TextView mTvFollowing;
+
+        @Bind(R.id.card_view)
+        CardView mCardView;
 
         public GithubSearchResultVH(View itemView) {
             super(itemView);

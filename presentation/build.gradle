@@ -1,10 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply from: '../buildsystem/lint-summary.gradle'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -97,6 +99,9 @@ android {
 
         product {}
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 unMock {
@@ -138,4 +143,18 @@ dependencies {
     }
     developCompile presentationDependencies.leakCanary
     productCompile presentationDependencies.leakCanaryIdle
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '0.12.1230'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
 }

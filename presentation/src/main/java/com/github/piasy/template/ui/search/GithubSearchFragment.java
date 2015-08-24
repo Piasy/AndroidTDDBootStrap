@@ -1,5 +1,6 @@
 package com.github.piasy.template.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +54,13 @@ public class GithubSearchFragment
     }
 
     private void setupView() {
-        mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources(), mEmailUtil);
+        mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources(), mEmailUtil,
+                new GithubSearchUserResultAdapter.Action() {
+                    @Override
+                    public void userDetail(GithubUser user) {
+                        startActivity(new Intent(getActivity(), DemoKotlinActivity.class));
+                    }
+                });
         mRvSearchResult.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvSearchResult.setAdapter(mAdapter);
     }
