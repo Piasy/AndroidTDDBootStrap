@@ -1,10 +1,14 @@
 <resources>
-  <string name="app_name">Template</string>
+    <string name="app_name">Template</string>
 
-  <!-- GithubSearch -->
-  <string name="github_user_followers_formatter"
-      formatted="false">%d Followers</string>
-  <string name="github_user_following_formatter"
-      formatted="false">%d Following</string>
+    <!-- GithubSearch -->
+    <string name="github_user_followers_formatter"
+            formatted="false">%d Followers</string>
+    <string name="github_user_following_formatter"
+            formatted="false">%d Following</string>
     <string name="hello_world">Hello World!</string>
+    <string name="search_result">Search Result</string>
+
+    <string name="error_auto_start">Error happens with auto start.</string>
+    <string name="fix_it">FIX IT</string>
 </resources>

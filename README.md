@@ -20,7 +20,7 @@ place KeyStore file in some place, and create a TemplateKeyStore.properties, and
   +  Add expose method in AppComponent.java
 +  Create Activity
 +  Unit test
-  +  ./gradlew :module:unMock :module:test #if use unmock plugin, the unmock plugin seems have a problem that the gradle task will not run automatically.
+  +  ~~./gradlew :module:unMock :module:test #if use unmock plugin, the unmock plugin seems have a problem that the gradle task will not run automatically.~~ use the test*.sh script in buildsystem dir
 
 ##Coverage
 ![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)

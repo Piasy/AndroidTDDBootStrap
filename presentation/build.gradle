@@ -116,8 +116,11 @@ unMock {
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
 
-    compile project(':model')
+    compile (project(':model')) {
+        exclude module: 'xlog'
+    }
     compile presentationDependencies.androidSupportAppCompatV7
+    compile presentationDependencies.supportDesignLibrary
     compile presentationDependencies.butterKnife
     compile presentationDependencies.rxAndroid
 

@@ -34,6 +34,7 @@ ext {
     stethoVersion = '1.1.1'
     fabricVersion = '2.5.0'
     leakCanaryVersion = '1.3.1'
+    timberVersion = '3.1.0'
 
     // Testing
     jUnitVersion = '4.12'
@@ -70,6 +71,7 @@ ext {
             threetenabp              : "com.jakewharton.threetenabp:threetenabp:${threetenabpVersion}",
 
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+            timber                   : "com.jakewharton.timber:timber:${timberVersion}",
     ]
 
     commonAndroidTestDependencies = [
@@ -99,6 +101,7 @@ ext {
 
     presentationDependencies = [
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
+            supportDesignLibrary     : "com.android.support:design:${androidSupportLibraryVersion}",
             recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportLibraryVersion}",
             cardViewV7               : "com.android.support:cardview-v7:${androidSupportLibraryVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -114,7 +117,6 @@ ext {
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
             iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
 
-            xLog                     : "com.github.promeg:xlog:${xLogVersion}",
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
             xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",

@@ -1,6 +1,7 @@
 package com.github.piasy.template.ui.search.di;
 
 import com.github.piasy.common.android.utils.net.RxUtil;
+import com.github.piasy.common.android.utils.roms.MiUIUtil;
 import com.github.piasy.model.dao.GithubUserDAO;
 import com.github.piasy.template.ui.search.mvp.GithubSearchPresenter;
 import com.github.piasy.template.ui.search.mvp.GithubSearchPresenterImpl;
@@ -16,7 +17,7 @@ public class GithubSearchModule {
 
     @Provides
     GithubSearchPresenter provideGithubSearchPresenter(EventBus bus, GithubUserDAO githubUserDAO,
-            RxUtil.RxErrorProcessor rxErrorProcessor) {
-        return new GithubSearchPresenterImpl(bus, githubUserDAO, rxErrorProcessor);
+            RxUtil.RxErrorProcessor rxErrorProcessor, MiUIUtil miUIUtil) {
+        return new GithubSearchPresenterImpl(bus, githubUserDAO, rxErrorProcessor, miUIUtil);
     }
 }

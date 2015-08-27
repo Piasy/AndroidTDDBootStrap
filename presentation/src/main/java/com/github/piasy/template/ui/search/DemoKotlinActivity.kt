@@ -1,10 +1,9 @@
 package com.github.piasy.template.ui.search
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.github.piasy.template.R
-import kotlinx.android.synthetic.activity_demo_kotlin.mTvMessage;
+import kotlinx.android.synthetic.activity_demo_kotlin.mTvMessage
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/24.

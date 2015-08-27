@@ -2,11 +2,14 @@ package com.github.piasy.template.ui.search.mvp;
 
 import android.support.annotation.NonNull;
 import com.github.piasy.common.android.utils.net.RxUtil;
+import com.github.piasy.common.android.utils.roms.MiUIUtil;
 import com.github.piasy.model.dao.GithubUserDAO;
+import com.github.piasy.template.TemplateApp;
 import com.github.piasy.template.base.mvp.BaseRxPresenter;
 import de.greenrobot.event.EventBus;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/24.
@@ -17,12 +20,14 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
     private final EventBus mBus;
     private final GithubUserDAO mGithubUserDAO;
     private final RxUtil.RxErrorProcessor mRxErrorProcessor;
+    private final MiUIUtil mMiUIUtil;
 
     public GithubSearchPresenterImpl(EventBus bus, GithubUserDAO githubUserDAO,
-            RxUtil.RxErrorProcessor rxErrorProcessor) {
+            RxUtil.RxErrorProcessor rxErrorProcessor, MiUIUtil miUIUtil) {
         mBus = bus;
         mGithubUserDAO = githubUserDAO;
         mRxErrorProcessor = rxErrorProcessor;
+        mMiUIUtil = miUIUtil;
     }
 
     @NonNull
@@ -42,5 +47,19 @@ public class GithubSearchPresenterImpl extends BaseRxPresenter<GithubSearchView>
                         getView().showSearchUserResult(githubUsers);
                     }
                 }, mRxErrorProcessor));
+
+        Timber.i("AutoBoot: Presenter, " + TemplateApp.getInstance().getStartFrom());
+        if (TemplateApp.getInstance().getStartFrom() != TemplateApp.StartFrom.BOOT &&
+                mMiUIUtil.isMiUI()) {
+            addSubscription(mGithubUserDAO.getUsers()
+                    .subscribeOn(Schedulers.io())
+                    .take(1)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(githubUsers -> {
+                        if (isViewAttached()) {
+                            getView().showHelpBar();
+                        }
+                    }, mRxErrorProcessor));
+        }
     }
 }

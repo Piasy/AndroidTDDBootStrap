@@ -3,6 +3,8 @@ package com.github.piasy.common.android.utils;
 import android.content.Context;
 import com.github.piasy.common.android.utils.net.GithubAPIErrorProcessor;
 import com.github.piasy.common.android.utils.net.RxUtil;
+import com.github.piasy.common.android.utils.roms.MiUIUtil;
+import com.github.piasy.common.android.utils.roms.RomUtil;
 import com.github.piasy.common.android.utils.screen.ScreenUtil;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.github.piasy.common.android.utils.ui.ToastUtilImpl;
@@ -32,5 +34,11 @@ public class AndroidUtilsModule {
     @Provides
     RxUtil.RxErrorProcessor provideRxErrorProcessor(ToastUtil toastUtil) {
         return new RxUtil(new GithubAPIErrorProcessor(toastUtil)).getRxErrorProcessor();
+    }
+
+    @Singleton
+    @Provides
+    MiUIUtil provideMiUIUtil() {
+        return new MiUIUtil(RomUtil.provideRomUtil());
     }
 }

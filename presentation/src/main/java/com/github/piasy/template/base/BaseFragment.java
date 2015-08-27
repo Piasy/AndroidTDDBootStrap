@@ -13,8 +13,8 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  */
-public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>, C extends BaseMvpComponent<V, P>>
-
+public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>, C extends
+        BaseMvpComponent<V, P>>
         extends MvpFragment<V, P> {
 
     private C mComponent;

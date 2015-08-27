@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import com.github.piasy.common.android.utils.AndroidUtilsModule;
 import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.net.RxUtil;
+import com.github.piasy.common.android.utils.roms.MiUIUtil;
 import com.github.piasy.common.android.utils.screen.ScreenUtil;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.github.piasy.common.utils.EmailUtil;
@@ -55,6 +56,8 @@ public interface AppComponent {
     EmailUtil emailUtil();
 
     ToastUtil toastUtil();
+
+    MiUIUtil miUIUtil();
 
     RxUtil.RxErrorProcessor rxErrorProcessor();
 

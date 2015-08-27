@@ -1,16 +1,34 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:ctsbb="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mLlContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        >
+    <com.github.piasy.common.android.utils.ui.CenterTitleSideButtonBar
+            android:id="@+id/mTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@android:color/holo_blue_bright"
+            ctsbb:hasLeftButton="true"
+            ctsbb:leftButtonSrc="@mipmap/ic_github_user_type_user"
+            ctsbb:leftButtonBg="@null"
+            ctsbb:rightButtonSrc="@mipmap/ic_github_user_type_user"
+            ctsbb:rightButtonBg="@null"
+            ctsbb:hasRightButton="true"
+            ctsbb:hasTitle="true"
+            ctsbb:centerTitle="@string/search_result"
+            ctsbb:centerTitleTextGravity="center"
+            ctsbb:centerTitleTextSize="28sp"
+            />
 
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv_search_result"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />
-
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvSearchResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+</LinearLayout>

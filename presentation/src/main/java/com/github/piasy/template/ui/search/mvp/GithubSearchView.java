@@ -10,4 +10,6 @@ import java.util.List;
 public interface GithubSearchView extends MvpView {
 
     void showSearchUserResult(List<GithubUser> users);
+
+    void showHelpBar();
 }

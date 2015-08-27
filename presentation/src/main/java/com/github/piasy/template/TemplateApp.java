@@ -17,6 +17,7 @@ import com.joanzapata.iconify.fonts.MaterialModule;
 import com.squareup.leakcanary.LeakCanary;
 import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -34,6 +35,22 @@ public class TemplateApp extends Application implements IApplication {
 
     public static TemplateApp getInstance() {
         return sInstance;
+    }
+
+    public interface StartFrom {
+        int UNDEFINED = -1;
+        int BOOT = 1;
+        int HOME = 2;
+    }
+
+    private int mStartFrom = StartFrom.UNDEFINED;
+
+    public void setStartFrom(int startFrom) {
+        mStartFrom = startFrom;
+    }
+
+    public int getStartFrom() {
+        return mStartFrom;
     }
 
     @Override
@@ -58,10 +75,22 @@ public class TemplateApp extends Application implements IApplication {
                 .build());
         Fabric.with(this, new Crashlytics());
         LeakCanary.install(this);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new Timber.DebugTree());
+        }
 
         // test
         String test = "{\"login\":\"Piasy\"}";
         mToastUtil.makeToast(mGson.fromJson(test, GithubUser.class).login());
+
+        Thread.setDefaultUncaughtExceptionHandler((thread, ex) -> {
+            Timber.i(
+                    "AutoBoot UncaughtExceptionHandler: thread " + thread.toString() + ", ex " +
+                            ex.toString());
+            ex.printStackTrace();
+        });
     }
 
     @Override
