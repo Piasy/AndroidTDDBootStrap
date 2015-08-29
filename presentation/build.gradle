@@ -135,6 +135,7 @@ dependencies {
     compile presentationDependencies.fresco
     compile presentationDependencies.loadToast
     compile presentationDependencies.iconifyMD
+    compile presentationDependencies.ctsbb
 
     // Developer
     developCompile presentationDependencies.xLogAndroid

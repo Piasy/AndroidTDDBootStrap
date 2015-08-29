@@ -11,6 +11,7 @@ import com.github.piasy.template.base.di.AppComponent;
 import com.github.piasy.template.base.di.AppModule;
 import com.github.piasy.template.base.di.DaggerAppComponent;
 import com.github.piasy.template.base.di.IApplication;
+import com.github.promeg.xlog_android.lib.XLogConfig;
 import com.google.gson.Gson;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
@@ -68,7 +69,7 @@ public class TemplateApp extends Application implements IApplication {
         Iconify.with(new MaterialModule());
 
         // Developer
-        //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
+        XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
         Stetho.initialize(Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
