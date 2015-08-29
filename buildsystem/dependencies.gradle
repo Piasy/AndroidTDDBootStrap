@@ -17,7 +17,7 @@ ext {
     retrofitVersion = '1.9.0'
     gsonVersion = '2.3.1'
     autoParcelVersion = '0.3.1'
-    mvpVersion = '1.2.0'
+    mvpVersion = '1.3.0'
     eventBusVersion = '3.0.0-beta1'
     storIOVersion = '1.2.1'
     apacheCommonsIOVersion = '1.3.2'
@@ -25,9 +25,9 @@ ext {
 
     // UI
     loadToastVersion = '1.0.8'
-    frescoVersion = '0.6.1'
-    iconifyVersion = '2.0.7'
-    handyWidgetsVersion = '0.0.2'
+    frescoVersion = '0.7.0'
+    iconifyVersion = '2.0.8'
+    handyWidgetsVersion = '0.1.0'
 
     // Developer
     xLogVersion = '2.1.1'

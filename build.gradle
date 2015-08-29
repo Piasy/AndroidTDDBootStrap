@@ -38,9 +38,6 @@ allprojects {
             // For fabric
             url 'https://maven.fabric.io/public'
         }
-        maven {
-            url  "http://dl.bintray.com/piasy/maven"
-        }
     }
 }
 
