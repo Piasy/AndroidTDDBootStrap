@@ -18,6 +18,7 @@ import com.joanzapata.iconify.fonts.MaterialModule;
 import com.squareup.leakcanary.LeakCanary;
 import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
+import jonathanfinerty.once.Once;
 import timber.log.Timber;
 
 /**
@@ -67,6 +68,7 @@ public class TemplateApp extends Application implements IApplication {
         mThreeTenABPDelegate.init();
 
         Iconify.with(new MaterialModule());
+        Once.initialise(this);
 
         // Developer
         XLogConfig.config(XLogConfig.newConfigBuilder(this).build());

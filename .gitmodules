@@ -1,0 +1,3 @@
+[submodule "once"]
+	path = once
+	url = git@github.com:Piasy/Once.git

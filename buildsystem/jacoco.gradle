@@ -2,7 +2,8 @@
  *  List of modules that don't require Jacoco
  */
 def ignoredByJacoco = [
-        'presentation'
+        'presentation',
+        'once'
 ]
 
 /**

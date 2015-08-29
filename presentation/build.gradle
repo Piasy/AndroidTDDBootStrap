@@ -119,6 +119,7 @@ dependencies {
     compile (project(':model')) {
         exclude module: 'xlog'
     }
+    compile project(':once:once')
     compile presentationDependencies.androidSupportAppCompatV7
     compile presentationDependencies.supportDesignLibrary
     compile presentationDependencies.butterKnife

@@ -1,1 +1,1 @@
-include ':presentation', ':common-android', ":common", ":model"
+include ':presentation', ':common-android', ":common", ":model", ":once:once"
