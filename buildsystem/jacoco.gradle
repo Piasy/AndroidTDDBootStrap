@@ -3,7 +3,9 @@
  */
 def ignoredByJacoco = [
         'presentation',
-        'once'
+        'once',
+        'HandyWidgets',
+        'centertitlesidebuttonbar'
 ]
 
 /**
@@ -91,6 +93,7 @@ def moduleExcludes = [
 subprojects { prj ->
 
     // Apply Jacoco only if the project is not in the ignore list
+    logger.debug("subprojects: " + prj.name)
     if (!ignoredByJacoco.contains(prj.name)) {
         apply plugin: 'jacoco'
 

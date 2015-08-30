@@ -42,3 +42,4 @@ allprojects {
 }
 
 apply from: 'buildsystem/jacoco.gradle'
+apply from: 'HandyWidgets/build.gradle'
