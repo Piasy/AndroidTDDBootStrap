@@ -39,22 +39,6 @@ public class TemplateApp extends Application implements IApplication {
         return sInstance;
     }
 
-    public interface StartFrom {
-        int UNDEFINED = -1;
-        int BOOT = 1;
-        int HOME = 2;
-    }
-
-    private int mStartFrom = StartFrom.UNDEFINED;
-
-    public void setStartFrom(int startFrom) {
-        mStartFrom = startFrom;
-    }
-
-    public int getStartFrom() {
-        return mStartFrom;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -84,7 +68,7 @@ public class TemplateApp extends Application implements IApplication {
             Timber.plant(new Timber.DebugTree());
         }
 
-        // test
+        // test for di in Application object
         String test = "{\"login\":\"Piasy\"}";
         mToastUtil.makeToast(mGson.fromJson(test, GithubUser.class).login());
 

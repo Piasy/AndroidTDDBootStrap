@@ -29,21 +29,6 @@
         <activity
                 android:name=".ui.search.DemoKotlinActivity"/>
 
-        <service android:name=".service.StickyService"/>
-
-        <receiver android:name=".receiver.BootCompleteReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:process=":remote" android:name=".receiver.AlarmReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.SCREEN_ON"/>
-                <action android:name="com.github.piasy.STICKY_ALARM"/>
-            </intent-filter>
-        </receiver>
-
         <meta-data
                 android:name="io.fabric.ApiKey"
                 android:value="03bc0f690add9fe0b29a06fa9f3aace1ac45d998"

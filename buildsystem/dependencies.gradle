@@ -4,7 +4,7 @@ ext {
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
-    androidSupportLibraryVersion = '23.0.0'
+    androidSupportSdkVersion = '23.0.0'
 
     // Libraries
     daggerVersion = '2.0.1'
@@ -67,8 +67,8 @@ ext {
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             retrofit                 : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             eventBus                 : "de.greenrobot:eventbus:${eventBusVersion}",
-            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
-            supportAnnotation        : "com.android.support:support-annotations:${androidSupportLibraryVersion}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
+            supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
             threetenabp              : "com.jakewharton.threetenabp:threetenabp:${threetenabpVersion}",
 
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
@@ -101,14 +101,14 @@ ext {
     ]
 
     presentationDependencies = [
-            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
-            supportDesignLibrary     : "com.android.support:design:${androidSupportLibraryVersion}",
-            recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportLibraryVersion}",
-            cardViewV7               : "com.android.support:cardview-v7:${androidSupportLibraryVersion}",
+            androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
+            supportDesignLibrary     : "com.android.support:design:${androidSupportSdkVersion}",
+            recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
+            cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger                   : "com.google.dagger:dagger:${daggerVersion}",
             butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            recyclerView             : "com.android.support:recyclerview-v7:${androidSupportLibraryVersion}",
+            recyclerView             : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             rxJava                   : "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
