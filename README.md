@@ -2,10 +2,10 @@
 [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDBootStrap.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDBootStrap)
 [![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master)
 
-An Android TDD bootstrap project, use a collection of new technology, obey best practices, inspired from some popular architectures, devolop with many handy tools.
+An Android TDD bootstrap project, use a collection of new technology, obey best practices, inspired from some popular architectures, develop with many handy tools.
 
 ##Why another bootstrap project?
-From the begining of this year 2015, our team start a new project, and before we develop functionalities in detail, we try to create a well-architectured project from scratch, with well designed network layer, data layer, asynchronous execution, communication between modules, and last but not least: unit test and integrate test support. After several months of developing, we found some drawback of our current architecture, and also found some popular architectures, then I decide to extract our original well designed architecture and open source it, with amendment according to the drawback and features from new popular architectures we found.   
+From the beginning of this year 2015, our team start a new project, and before we develop functionality in detail, we try to create a well-architecture project from scratch, with well designed network layer, data layer, asynchronous execution, communication between modules, and last but not least: unit test and integrate test support. After several months of developing, we found some drawback of our current architecture, and also found some popular architectures, then I decide to extract our original well designed architecture and open source it, with amendment according to the drawback and features from new popular architectures we found.
 Recently I have seen a lot of bootstrap/base Android project, including [JakeWharton's u2020](https://github.com/JakeWharton/u2020), [mobiwiseco's Android-Base-Project](https://github.com/mobiwiseco/Android-Base-Project), etc, but none of these projects cover all features I include in this AndroidTDDBootStrap project. That's why I want more people to see this repo, and I also want get feedback from more people to improve this project.
 
 ##Architecture
@@ -51,19 +51,19 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 
 ##Project structure
 +  common
-  +  Pure java library, provide common functionalities.
+  +  Pure java library, provide common functionality.
 +  common-android
-  +  Android library, provide common functionalities.
+  +  Android library, provide common functionality.
 +  model
   +  Android library, define network API, data object, DAO...
 +  presentation
-  +  Android application, app functionalities.
+  +  Android application, app functionality.
 +  package organization
   +  package by layer v.s. package by feature, see more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/).
   +  package by layer + package by feature
     +  network API, data object, DAO are organized in the single `model` library module
     +  common utils and base code are organized together
-    +  app functionalities are organized by feature, mvp, di, ui code are organized together
+    +  app functionality are organized by feature, mvp, di, ui code are organized together
 
 ##Build tips
 +  Sign key config
