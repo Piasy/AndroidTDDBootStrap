@@ -43,8 +43,10 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
   +  [Espresso](https://code.google.com/p/android-test-kit/)
 +  Continuous integration
   +  [Travis CI](https://travis-ci.org/)
-+  Checkstyle
-  +  todo
++  Code quality, customized from [Vincent Brison's vb-android-app-quality repo](https://github.com/vincentbrison/vb-android-app-quality)
+  +  [Checkstyle](https://github.com/checkstyle/checkstyle), Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. By default it supports the Google Java Style Guide and Sun Code Conventions, but is highly configurable. It can be invoked with an ANT task and a command line program.
+  +  [Find bugs](https://github.com/findbugsproject/findbugs), FindBugs is a defect detection tool for Java that uses static analysis to look for more than 200 bug patterns, such as null pointer dereferences, infinite recursive loops, bad uses of the Java libraries and deadlocks.
+  +  [PMD](https://github.com/pmd/pmd), PMD is a source code analyzer.
 +  Code coverage
   +  Jacoco & [Codecov](https://codecov.io)
 +  [Kotlin](http://kotlinlang.org/), Statically typed programming language for the JVM, Android and the browser.

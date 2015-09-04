@@ -37,11 +37,15 @@ public class GithubSearchFragment
     ToastUtil mToastUtil;
     @Bind(R.id.mRvSearchResult)
     RecyclerView mRvSearchResult;
-    GithubSearchUserResultAdapter mAdapter;
     @Bind(R.id.mTitleBar)
     CenterTitleSideButtonBar mTitleBar;
     @Inject
     Resources mResources;
+
+    @Inject
+    MiUIUtil mMiUIUtil;
+
+    private GithubSearchUserResultAdapter mAdapter;
 
     @Override
     protected void inject() {
@@ -76,9 +80,6 @@ public class GithubSearchFragment
         mRvSearchResult.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvSearchResult.setAdapter(mAdapter);
     }
-
-    @Inject
-    MiUIUtil mMiUIUtil;
 
     @Override
     protected int getLayoutRes() {

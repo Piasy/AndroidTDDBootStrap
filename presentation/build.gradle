@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply from: '../buildsystem/lint-summary.gradle'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply from: '../config/quality.gradle'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -42,11 +42,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    lintOptions {
-        // Required for now!
-        xmlOutput file("$buildDir/outputs/lint-results.xml")
     }
 
     packagingOptions {
