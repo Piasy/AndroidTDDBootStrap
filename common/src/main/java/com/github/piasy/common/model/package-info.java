@@ -22,22 +22,9 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.di;
-
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Interface representing a contract for clients that contains a component for dependency
- * injection.
- *
- * @param <C> the {@link dagger.Component} type that client holds.
+ * {@link com.github.piasy.common.model.AutoGson} annotation and {@link
+ * com.github.piasy.common.model.AutoGenTypeAdapterFactory} definition. Provide function to combine
+ * Auto-Value/Auto-Parcel with Gson.
  */
-public interface HasComponent<C> {
-
-    /**
-     * Get the {@link dagger.Component} instance.
-     *
-     * @return the {@link dagger.Component} instance.
-     */
-    C getComponent();
-}
+package com.github.piasy.common.model;

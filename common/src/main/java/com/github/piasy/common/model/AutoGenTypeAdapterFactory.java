@@ -22,22 +22,25 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.di;
+package com.github.piasy.common.model;
+
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Interface representing a contract for clients that contains a component for dependency
- * injection.
- *
- * @param <C> the {@link dagger.Component} type that client holds.
+ * https://gist.github.com/Piasy/fa507251da452d36b221
  */
-public interface HasComponent<C> {
+public final class AutoGenTypeAdapterFactory implements TypeAdapterFactory {
 
-    /**
-     * Get the {@link dagger.Component} instance.
-     *
-     * @return the {@link dagger.Component} instance.
-     */
-    C getComponent();
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(final Gson gson, final TypeToken<T> type) {
+        final Class<T> rawType = (Class<T>) type.getRawType();
+        final AutoGson annotation = rawType.getAnnotation(AutoGson.class);
+
+        // Only deserialize classes decorated with @AutoGson.
+        return annotation == null ? null : (TypeAdapter<T>) gson.getAdapter(annotation.autoClass());
+    }
 }

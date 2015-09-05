@@ -6,7 +6,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
-apply from: '../config/quality.gradle'
+apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {

@@ -31,8 +31,8 @@ public class GithubUserDAOImpl implements GithubUserDAO {
     @Override
     public Observable<List<GithubUser>> getUsers() {
         // search from cloud
-        mGithubAPI.searchGithubUsers("piasy", Constants.GithubAPIParams.SEARCH_SORT_JOINED,
-                Constants.GithubAPIParams.SEARCH_ORDER_DESC)
+        mGithubAPI.searchGithubUsers("piasy", Constants.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
+                Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .subscribeOn(Schedulers.io())
                 .subscribe(searchResult -> {
                     if (searchResult.items().isEmpty()) {

@@ -22,22 +22,9 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.di;
-
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Interface representing a contract for clients that contains a component for dependency
- * injection.
- *
- * @param <C> the {@link dagger.Component} type that client holds.
+ * {@link com.github.piasy.common.di.HasComponent} annotation and {@link
+ * com.github.piasy.common.di.PerActivity} definition. Base dagger2 {@link dagger.Component} holder
+ * class interface and custom {@link javax.inject.Scope} for every Android Activity.
  */
-public interface HasComponent<C> {
-
-    /**
-     * Get the {@link dagger.Component} instance.
-     *
-     * @return the {@link dagger.Component} instance.
-     */
-    C getComponent();
-}
+package com.github.piasy.common.di;

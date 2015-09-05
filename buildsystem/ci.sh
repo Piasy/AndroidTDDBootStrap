@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew :once:once:clean :once:once:testDebug && buildsystem/testCommon.sh && buildsystem/testCommonAndroid.sh && buildsystem/testModel.sh && buildsystem/testPresentation.sh
+./gradlew :once:once:clean :once:once:testDebug && buildsystem/checkCommon.sh && buildsystem/checkCommonAndroid.sh && buildsystem/checkModel.sh && buildsystem/checkPresentation.sh

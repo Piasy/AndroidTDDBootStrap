@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
-apply from: '../config/quality.gradle'
+apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion

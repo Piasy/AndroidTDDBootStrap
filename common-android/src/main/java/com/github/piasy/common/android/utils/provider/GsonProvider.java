@@ -3,7 +3,7 @@ package com.github.piasy.common.android.utils.provider;
 import com.github.piasy.common.Constants;
 import com.github.piasy.common.android.utils.model.CustomZonedDateTimeConverter;
 import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
-import com.github.piasy.common.utils.model.AutoGenTypeAdapterFactory;
+import com.github.piasy.common.model.AutoGenTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.threeten.bp.ZoneId;
@@ -47,7 +47,7 @@ public class GsonProvider {
                 .registerTypeAdapterFactory(new AutoGenTypeAdapterFactory())
                 .registerTypeAdapter(ZonedDateTime.class,
                         new CustomZonedDateTimeConverter(sDateTimeFormatter))
-                .setDateFormat(Constants.TimeFormat.ISO_8601)
+                .setDateFormat(Constants.TIMEFORMAT_ISO_8601)
                 .setPrettyPrinting()
                 .create();
     }

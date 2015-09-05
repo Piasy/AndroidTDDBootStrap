@@ -3,7 +3,7 @@ package com.github.piasy.model.entities;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import auto.parcel.AutoParcel;
-import com.github.piasy.common.utils.model.AutoGson;
+import com.github.piasy.common.model.AutoGson;
 import org.threeten.bp.ZonedDateTime;
 
 /**

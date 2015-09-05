@@ -61,9 +61,9 @@ public class GithubSearchUserResultAdapter
         vh.mIvAvatar.setImageURI(Uri.parse(user.avatar_url()));
 
         if (GithubUser.GithubUserType.ORGANIZATION.equals(user.type())) {
-            vh.mIvUserType.setText(Constants.IconifyIcons.ORG);
+            vh.mIvUserType.setText(Constants.ICONIFY_ICONS_ORG);
         } else if (GithubUser.GithubUserType.USER.equals(user.type())) {
-            vh.mIvUserType.setText(Constants.IconifyIcons.USER);
+            vh.mIvUserType.setText(Constants.ICONIFY_ICONS_USER);
         }
 
         vh.mTvUsername.setText(user.login());

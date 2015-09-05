@@ -22,22 +22,31 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.di;
+package com.github.piasy.common.model;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
+ * https://gist.github.com/Piasy/fa507251da452d36b221
  *
- * Interface representing a contract for clients that contains a component for dependency
- * injection.
+ * Marks an {@link AutoValue @AutoValue}/{@link AutoParcel @AutoParcel}-annotated type for proper
+ * Gson serialization.
+ * <p>
+ * This annotation is needed because the {@linkplain Retention retention} of {@code
  *
- * @param <C> the {@link dagger.Component} type that client holds.
+ * @AutoValue}/{@code @AutoParcel}
+ * does not allow reflection at runtime.
  */
-public interface HasComponent<C> {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface AutoGson {
 
     /**
-     * Get the {@link dagger.Component} instance.
-     *
-     * @return the {@link dagger.Component} instance.
+     * A reference to the Auto*-generated class (e.g. AutoValue_MyClass/AutoParcel_MyClass). This
+     * is necessary to handle obfuscation of the class names.
      */
-    C getComponent();
+    Class autoClass();
 }

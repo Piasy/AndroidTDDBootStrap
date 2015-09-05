@@ -22,22 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.di;
-
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Interface representing a contract for clients that contains a component for dependency
- * injection.
- *
- * @param <C> the {@link dagger.Component} type that client holds.
+ * Java common functionality.
  */
-public interface HasComponent<C> {
-
-    /**
-     * Get the {@link dagger.Component} instance.
-     *
-     * @return the {@link dagger.Component} instance.
-     */
-    C getComponent();
-}
+package com.github.piasy.common;
