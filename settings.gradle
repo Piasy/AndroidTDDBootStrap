@@ -1,1 +1,1 @@
-include ':presentation', ':common-android', ":common", ":model", ":once:once", ":HandyWidgets:centertitlesidebuttonbar"
+include ':presentation', ':common-android', ":common", ":model"

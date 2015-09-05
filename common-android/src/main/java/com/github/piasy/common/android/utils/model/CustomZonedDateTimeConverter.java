@@ -40,10 +40,14 @@ import org.threeten.bp.format.DateTimeFormatter;
 public class CustomZonedDateTimeConverter
         implements JsonSerializer<ZonedDateTime>, JsonDeserializer<ZonedDateTime> {
     /** Formatter. */
-    private final DateTimeFormatter FORMATTER;
+    private final DateTimeFormatter mDateTimeFormatter;
 
-    public CustomZonedDateTimeConverter(DateTimeFormatter formatter) {
-        FORMATTER = formatter;
+    /**
+     * Create instance with the given {@link DateTimeFormatter}.
+     * @param formatter the given {@link DateTimeFormatter}.
+     */
+    public CustomZonedDateTimeConverter(final DateTimeFormatter formatter) {
+        mDateTimeFormatter = formatter;
     }
 
     /**
@@ -62,9 +66,9 @@ public class CustomZonedDateTimeConverter
      * @return a JsonElement corresponding to the specified object.
      */
     @Override
-    public JsonElement serialize(ZonedDateTime src, Type typeOfSrc,
-            JsonSerializationContext context) {
-        return new JsonPrimitive(FORMATTER.format(src));
+    public JsonElement serialize(final ZonedDateTime src, final Type typeOfSrc,
+            final JsonSerializationContext context) {
+        return new JsonPrimitive(mDateTimeFormatter.format(src));
     }
 
     /**
@@ -84,8 +88,8 @@ public class CustomZonedDateTimeConverter
      * @throws JsonParseException if json is not in the expected format of {@code typeOfT}
      */
     @Override
-    public ZonedDateTime deserialize(JsonElement json, Type typeOfT,
-            JsonDeserializationContext context) throws JsonParseException {
-        return FORMATTER.parse(json.getAsString(), ZonedDateTime.FROM);
+    public ZonedDateTime deserialize(final JsonElement json, final Type typeOfT,
+            final JsonDeserializationContext context) throws JsonParseException {
+        return mDateTimeFormatter.parse(json.getAsString(), ZonedDateTime.FROM);
     }
 }

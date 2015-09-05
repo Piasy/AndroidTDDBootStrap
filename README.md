@@ -44,9 +44,11 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 +  Continuous integration
   +  [Travis CI](https://travis-ci.org/)
 +  Code quality, customized from [Vincent Brison's vb-android-app-quality repo](https://github.com/vincentbrison/vb-android-app-quality)
+  +  [AndroidCodeQualityConfig](https://github.com/Piasy/AndroidCodeQualityConfig)
   +  [Checkstyle](https://github.com/checkstyle/checkstyle), Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. By default it supports the Google Java Style Guide and Sun Code Conventions, but is highly configurable. It can be invoked with an ANT task and a command line program.
   +  [Find bugs](https://github.com/findbugsproject/findbugs), FindBugs is a defect detection tool for Java that uses static analysis to look for more than 200 bug patterns, such as null pointer dereferences, infinite recursive loops, bad uses of the Java libraries and deadlocks.
   +  [PMD](https://github.com/pmd/pmd), PMD is a source code analyzer.
+  +  Lint, [Android Lint Summary](https://github.com/passy/android-lint-summary), View your Android lint issues with style.
 +  Code coverage
   +  Jacoco & [Codecov](https://codecov.io)
 +  [Kotlin](http://kotlinlang.org/), Statically typed programming language for the JVM, Android and the browser.
@@ -81,12 +83,14 @@ This function is commented to use travis ci.
 +  Create Activity
 +  Unit test
   +  use the test*.sh script in buildsystem dir
++  Run `./buildsystem/ci.sh` before git push.
 
 ##Todo
-+  CheckStyle
++  ~~CheckStyle~~
 +  Espresso test of presentation module
 +  NDK integrate
 +  MVP source generator
++  MVVM branch
 
 ##Coverage
 ![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)

@@ -1,6 +1,33 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.github.piasy.common.android.utils.net;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import retrofit.converter.ConversionException;
 
@@ -10,83 +37,111 @@ import retrofit.converter.ConversionException;
 public class GithubAPIError extends ConversionException {
 
     @Expose
-    private String message;
+    @SerializedName("message")
+    private String mErrorMessage;
 
     @Expose
-    private String documentation_url;
+    @SerializedName("documentation_url")
+    private String mDocumentationUrl;
 
     @Expose
-    private List<GithubError> errors;
+    @SerializedName("errors")
+    private List<GithubError> mErrors;
 
-    public GithubAPIError(String message) {
+    /**
+     * Create a {@link GithubAPIError} with message.
+     *
+     * @param message the error message.
+     */
+    public GithubAPIError(final String message) {
         super(message);
     }
 
-    public GithubAPIError(String message, Throwable throwable) {
+    /**
+     * Create a {@link GithubAPIError} with message and throwable.
+     *
+     * @param message the error message.
+     * @param throwable the error throwable.
+     */
+    public GithubAPIError(final String message, final Throwable throwable) {
         super(message, throwable);
     }
 
-    public GithubAPIError(Throwable throwable) {
+    /**
+     * Create a {@link GithubAPIError} with throwable.
+     *
+     * @param throwable the error throwable.
+     */
+    public GithubAPIError(final Throwable throwable) {
         super(throwable);
     }
 
+    /**
+     * Get Error message for this API error.
+     * @return message for this API error.
+     */
+    @NonNull
+    public String getErrorMessage() {
+        return mErrorMessage;
+    }
+
+    /**
+     * Get Error documentation_url for this API error.
+     * @return documentation_url for this API error.
+     */
+    @Nullable
+    public String getDocumentationUrl() {
+        return mDocumentationUrl;
+    }
+
+    /**
+     * Get Error errors list for this API error.
+     * @return errors list for this API error.
+     */
+    @Nullable
     public List<GithubError> getErrors() {
-        return errors;
+        return mErrors;
     }
 
-    public void setErrors(List<GithubError> errors) {
-        this.errors = errors;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDocumentation_url() {
-        return documentation_url;
-    }
-
-    public void setDocumentation_url(String documentation_url) {
-        this.documentation_url = documentation_url;
-    }
-
+    /**
+     * The Github Error within the {@link GithubAPIError}.
+     */
     public static class GithubError {
 
         @Expose
-        private String resource;
+        @SerializedName("resource")
+        private String mResource;
 
         @Expose
-        private String field;
+        @SerializedName("field")
+        private String mField;
 
         @Expose
-        private String code;
+        @SerializedName("code")
+        private String mCode;
 
+        /**
+         * get resource of this Error
+         * @return resource of this Error
+         */
         public String getResource() {
-            return resource;
+            return mResource;
         }
 
-        public void setResource(String resource) {
-            this.resource = resource;
-        }
-
+        /**
+         * get field of this Error
+         * @return field of this Error
+         */
         public String getField() {
-            return field;
+            return mField;
         }
 
-        public void setField(String field) {
-            this.field = field;
-        }
-
+        /**
+         * get code of this Error
+         * @return code of this Error
+         */
         public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
+            return mCode;
         }
     }
 }

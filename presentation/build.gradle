@@ -114,7 +114,6 @@ dependencies {
     compile (project(':model')) {
         exclude module: 'xlog'
     }
-    compile project(':once:once')
     compile presentationDependencies.androidSupportAppCompatV7
     compile presentationDependencies.supportDesignLibrary
     compile presentationDependencies.butterKnife
@@ -124,6 +123,7 @@ dependencies {
     provided presentationDependencies.javaxAnnotation
 
     compile presentationDependencies.mvp
+    compile presentationDependencies.once
 
     // UI library
     compile presentationDependencies.recyclerViewV7

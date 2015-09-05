@@ -99,7 +99,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(GithubUser.from(mSingleUser));
+            subscriber.onNext(mSingleUser);
             subscriber.onCompleted();
         })).given(mGithubAPI).getGithubUser(anyString());
 
@@ -140,7 +140,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
             subscriber.onCompleted();
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
         willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(GithubUser.from(mSingleUser));
+            subscriber.onNext(mSingleUser);
             subscriber.onCompleted();
         })).given(mGithubAPI).getGithubUser(anyString());
 

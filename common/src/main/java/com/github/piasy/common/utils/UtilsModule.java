@@ -32,7 +32,7 @@ import javax.inject.Singleton;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
  *
- * Dagger2 module for java utility dependencies.
+ * Dagger2 {@link Module} for java utility dependencies.
  */
 @Module
 public class UtilsModule {

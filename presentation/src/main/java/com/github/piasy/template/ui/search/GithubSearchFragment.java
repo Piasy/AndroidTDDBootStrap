@@ -97,7 +97,7 @@ public class GithubSearchFragment
         Snackbar snackbar =
                 Snackbar.make(mTitleBar, R.string.error_auto_start, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.fix_it, v -> {
-                            startActivity(mMiUIUtil.jump2AutoStartManeger());
+                            startActivity(mMiUIUtil.jump2AutoStartManager());
                         });
         snackbar.getView().setBackgroundResource(android.R.color.holo_blue_light);
         if (snackbar.getView() instanceof Snackbar.SnackbarLayout &&

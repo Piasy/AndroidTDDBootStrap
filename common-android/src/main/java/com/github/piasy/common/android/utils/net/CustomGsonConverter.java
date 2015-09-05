@@ -1,3 +1,27 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.github.piasy.common.android.utils.net;
 
 import android.text.TextUtils;
@@ -15,6 +39,7 @@ import retrofit.converter.Converter;
 import retrofit.mime.MimeUtil;
 import retrofit.mime.TypedInput;
 import retrofit.mime.TypedOutput;
+import timber.log.Timber;
 
 /**
  * Retrofit's GsonConverter
@@ -25,51 +50,50 @@ import retrofit.mime.TypedOutput;
 public class CustomGsonConverter implements Converter {
 
     private final Gson mGson;
-
     private String mEncoding;
 
     /**
      * Create an instance using the supplied {@link Gson} object for conversion. Encoding to JSON
-     * and
-     * decoding from JSON (when no charset is specified by a header) will use UTF-8.
+     * and decoding from JSON (when no charset is specified by a header) will use UTF-8.
+     *
+     * @param gson supplied {@link Gson} object for conversion.
      */
-    public CustomGsonConverter(Gson gson) {
+    public CustomGsonConverter(final Gson gson) {
         this(gson, "UTF-8");
     }
 
     /**
      * Create an instance using the supplied {@link Gson} object for conversion. Encoding to JSON
-     * and
-     * decoding from JSON (when no charset is specified by a header) will use the specified
+     * and decoding from JSON (when no charset is specified by a header) will use the specified
      * mEncoding.
+     *
+     * @param gson supplied {@link Gson} object for conversion.
+     * @param encoding encoding used in conversion.
      */
-    public CustomGsonConverter(Gson gson, String encoding) {
+    public CustomGsonConverter(final Gson gson, final String encoding) {
         this.mGson = gson;
         this.mEncoding = encoding;
     }
 
     @Override
-    public Object fromBody(TypedInput body, Type type) throws ConversionException {
-        String charset = mEncoding;
-        if (body.mimeType() != null) {
-            charset = MimeUtil.parseCharset(body.mimeType(), mEncoding);
-        }
+    public Object fromBody(final TypedInput body, final Type type) throws ConversionException {
+        final String charset = body.mimeType() == null ? mEncoding :
+                MimeUtil.parseCharset(body.mimeType(), mEncoding);
         String inputStr;
         try {
-            StringWriter writer = new StringWriter();
+            final StringWriter writer = new StringWriter();
             IOUtils.copy(body.in(), writer, charset);
             inputStr = writer.toString();
             IOUtils.closeQuietly(body.in());
             try {
-                if (inputStr != null) {
-                    // is an api error ?
-                    GithubAPIError apiError = mGson.fromJson(inputStr, GithubAPIError.class);
-                    if (apiError != null && !TextUtils.isEmpty(apiError.getMessage())) {
-                        throw apiError;
-                    }
+                // is an api error ?
+                final GithubAPIError apiError = mGson.fromJson(inputStr, GithubAPIError.class);
+                if (apiError != null && !TextUtils.isEmpty(apiError.getMessage())) {
+                    throw apiError;
                 }
             } catch (JsonSyntaxException e) {
                 // not an api error
+                Timber.e("JsonSyntaxException at api from body: " + e.toString());
             }
 
             return mGson.fromJson(inputStr, type);
@@ -79,7 +103,7 @@ public class CustomGsonConverter implements Converter {
     }
 
     @Override
-    public TypedOutput toBody(Object object) {
+    public TypedOutput toBody(final Object object) {
         try {
             return new JsonTypedOutput(mGson.toJson(object).getBytes(mEncoding), mEncoding);
         } catch (UnsupportedEncodingException e) {
@@ -89,13 +113,13 @@ public class CustomGsonConverter implements Converter {
 
     private static class JsonTypedOutput implements TypedOutput {
 
-        private final byte[] jsonBytes;
+        private final byte[] mJsonBytes;
 
-        private final String mimeType;
+        private final String mMimeType;
 
-        JsonTypedOutput(byte[] jsonBytes, String encode) {
-            this.jsonBytes = jsonBytes;
-            this.mimeType = "application/json; charset=" + encode;
+        JsonTypedOutput(final byte[] jsonBytes, final String encode) {
+            this.mJsonBytes = jsonBytes;
+            this.mMimeType = "application/json; charset=" + encode;
         }
 
         @Override
@@ -105,17 +129,17 @@ public class CustomGsonConverter implements Converter {
 
         @Override
         public String mimeType() {
-            return mimeType;
+            return mMimeType;
         }
 
         @Override
         public long length() {
-            return jsonBytes.length;
+            return mJsonBytes.length;
         }
 
         @Override
-        public void writeTo(OutputStream out) throws IOException {
-            out.write(jsonBytes);
+        public void writeTo(final OutputStream out) throws IOException {
+            out.write(mJsonBytes);
         }
     }
 }

@@ -1,9 +1,3 @@
-[submodule "once"]
-	path = once
-	url = git@github.com:Piasy/Once.git
-[submodule "HandyWidgets"]
-	path = HandyWidgets
-	url = git@github.com:Piasy/HandyWidgets.git
 [submodule "AndroidCodeQualityConfig"]
 	path = AndroidCodeQualityConfig
 	url = git@github.com:Piasy/AndroidCodeQualityConfig.git
