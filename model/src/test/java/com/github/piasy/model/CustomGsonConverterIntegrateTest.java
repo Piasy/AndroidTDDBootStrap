@@ -1,8 +1,7 @@
 package com.github.piasy.model;
 
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.github.piasy.common.android.provider.GsonProvider;
 import com.github.piasy.common.android.utils.net.CustomGsonConverter;
-import com.github.piasy.common.android.utils.provider.GsonProvider;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.github.piasy.model.entities.GithubUser;
 import com.google.gson.Gson;
@@ -17,8 +16,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import retrofit.converter.ConversionException;
 import retrofit.mime.TypedInput;
 
-import static org.mockito.Mockito.mock;
-
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
  */
@@ -30,7 +27,7 @@ public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
     @Before
     public void setUp() {
         initThreeTenABP();
-        mGson = GsonProvider.provideGson(mock(ThreeTenABPDelegate.class));
+        mGson = GsonProvider.provideGson();
         mCustomGsonConverter = new CustomGsonConverter(mGson);
     }
 

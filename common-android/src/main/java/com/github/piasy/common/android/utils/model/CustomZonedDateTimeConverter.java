@@ -44,6 +44,7 @@ public class CustomZonedDateTimeConverter
 
     /**
      * Create instance with the given {@link DateTimeFormatter}.
+     *
      * @param formatter the given {@link DateTimeFormatter}.
      */
     public CustomZonedDateTimeConverter(final DateTimeFormatter formatter) {

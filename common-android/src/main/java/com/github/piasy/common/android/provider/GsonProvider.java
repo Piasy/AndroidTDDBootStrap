@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;
 
+import android.support.annotation.VisibleForTesting;
 import com.github.piasy.common.Constants;
 import com.github.piasy.common.android.utils.model.CustomZonedDateTimeConverter;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.github.piasy.common.model.AutoGenTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,14 +50,13 @@ public final class GsonProvider {
     }
 
     /**
-     * Provide the {@link Gson} singleton instance. The {@link ThreeTenABPDelegate}
-     * parameter is used to initialize the JSR-310 library.
+     * Provide the {@link Gson} singleton instance. Should be only called in test cases, besides
+     * {@link ProviderModule}.
      *
-     * @param delegate used to initialize the JSR-310 library.
      * @return the singleton {@link Gson}.
      */
-    public static Gson provideGson(final ThreeTenABPDelegate delegate) {
-        delegate.init();
+    @VisibleForTesting
+    public static Gson provideGson() {
         return GsonHolder.sGson;
     }
 

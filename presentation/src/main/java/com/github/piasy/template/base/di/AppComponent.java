@@ -12,7 +12,7 @@ import com.github.piasy.common.utils.EmailUtil;
 import com.github.piasy.common.utils.UtilsModule;
 import com.github.piasy.model.db.StorIOSQLiteDelegate;
 import com.github.piasy.model.db.di.DBModule;
-import com.github.piasy.model.rest.RestModule;
+import com.github.piasy.common.android.provider.ProviderModule;
 import com.github.piasy.template.TemplateApp;
 import com.github.piasy.template.base.BaseActivity;
 import com.github.piasy.template.base.BaseService;
@@ -32,7 +32,7 @@ import retrofit.RestAdapter;
 
                 UtilsModule.class, AndroidUtilsModule.class,
 
-                DBModule.class, RestModule.class
+                DBModule.class, ProviderModule.class
         })
 public interface AppComponent {
 

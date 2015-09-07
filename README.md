@@ -63,7 +63,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 +  presentation
   +  Android application, app functionality.
 +  package organization
-  +  package by layer v.s. package by feature, see more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/).
+  +  package by layer v.s. package by feature, read more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), and [Package by feature, not layer](http://www.javapractices.com/topic/TopicAction.do?Id=205).
   +  package by layer + package by feature
     +  network API, data object, DAO are organized in the single `model` library module
     +  common utils and base code are organized together
@@ -87,6 +87,7 @@ This function is commented to use travis ci.
 
 ##Todo
 +  ~~CheckStyle~~
++  re-arch the provider package
 +  Espresso test of presentation module
 +  NDK integrate
 +  MVP source generator

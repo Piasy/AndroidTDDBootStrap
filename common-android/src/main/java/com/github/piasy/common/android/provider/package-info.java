@@ -23,8 +23,9 @@
  */
 
 /**
- * Android common provider utility classes, include {@link com.github.piasy.common.android.utils
- * .provider.EventBusProvider}, {@link com.github.piasy.common.android.utils.provider.GsonProvider},
- * {@link com.github.piasy.common.android.utils.provider.RestProvider}.
+ * Android singleton providers, include {@link com.github.piasy.common.android.provider
+ * .EventBusProvider},
+ * {@link com.github.piasy.common.android.provider.GsonProvider},
+ * {@link com.github.piasy.common.android.provider.RestProvider}.
  */
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;

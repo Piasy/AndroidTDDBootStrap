@@ -4,6 +4,8 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
+import com.github.piasy.common.android.provider.ProviderModule;
+import com.github.piasy.common.android.utils.AndroidUtilsModule;
 import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.github.piasy.model.entities.GithubUser;
@@ -45,7 +47,10 @@ public class TemplateApp extends Application implements IApplication {
 
         sInstance = this;
 
-        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .androidUtilsModule(new AndroidUtilsModule(this))
+                .build();
         mAppComponent.inject(this);
 
         Fresco.initialize(this);
@@ -73,8 +78,7 @@ public class TemplateApp extends Application implements IApplication {
         mToastUtil.makeToast(mGson.fromJson(test, GithubUser.class).login());
 
         Thread.setDefaultUncaughtExceptionHandler((thread, ex) -> {
-            Timber.i(
-                    "AutoBoot UncaughtExceptionHandler: thread " + thread.toString() + ", ex " +
+            Timber.i("AutoBoot UncaughtExceptionHandler: thread " + thread.toString() + ", ex " +
                             ex.toString());
             ex.printStackTrace();
         });

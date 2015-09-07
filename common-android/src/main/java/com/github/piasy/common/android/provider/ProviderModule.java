@@ -22,59 +22,58 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;
 
 import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
-import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.google.gson.Gson;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.mockito.Mockito.mock;
+import dagger.Module;
+import dagger.Provides;
+import de.greenrobot.event.EventBus;
+import javax.inject.Singleton;
+import retrofit.RestAdapter;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/12.
+ * Created by Piasy{github.com/Piasy} on 15/9/6.
+ *
+ * Singleton provider module.
  */
-public class GsonProviderTest extends BaseThreeTenBPTest {
+@Module
+public class ProviderModule {
 
-    private Gson one, two;
-    private ThreeTenABPDelegate mDelegate;
-
-    @Before
-    public void setUp() {
-        initThreeTenABP();
-        mDelegate = mock(ThreeTenABPDelegate.class);
+    /**
+     * Provide the {@link EventBus} singleton.
+     *
+     * @return the {@link EventBus} singleton.
+     */
+    @Singleton
+    @Provides
+    EventBus provideBus() {
+        return EventBusProvider.provideEventBus();
     }
 
-    @Test
-    public void testProvideGson() {
-        one = GsonProvider.provideGson(mDelegate);
-        two = GsonProvider.provideGson(mDelegate);
-
-        Assert.assertTrue(one.equals(two));
+    /**
+     * Provide the {@link Gson} singleton.
+     *
+     * @param delegate to initialize the JSR-310 library.
+     * @return the {@link Gson} singleton.
+     */
+    @Singleton
+    @Provides
+    Gson provideGson(final ThreeTenABPDelegate delegate) {
+        delegate.init();
+        return GsonProvider.provideGson();
     }
 
-    @Test
-    public void testProvideGsonConcurrently() {
-        final Thread t1 = new Thread(() -> {
-            one = GsonProvider.provideGson(mDelegate);
-        });
-
-        final Thread t2 = new Thread(() -> {
-            two = GsonProvider.provideGson(mDelegate);
-        });
-
-        t1.start();
-        t2.start();
-
-        try {
-            t1.join();
-            t2.join();
-
-            Assert.assertTrue(one.equals(two));
-        } catch (InterruptedException e) {
-            Assert.assertTrue(false);
-        }
+    /**
+     * Provide the {@link RestAdapter} singleton.
+     *
+     * @param delegate to initialize the JSR-310 library.
+     * @return the {@link RestAdapter} singleton.
+     */
+    @Singleton
+    @Provides
+    RestAdapter provideRestAdapter(final ThreeTenABPDelegate delegate) {
+        delegate.init();
+        return RestProvider.provideRestAdapter();
     }
 }

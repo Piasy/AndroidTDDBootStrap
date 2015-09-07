@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;
 
 import de.greenrobot.event.EventBus;
 
@@ -42,7 +42,7 @@ public final class EventBusProvider {
      *
      * @return the singleton {@link EventBus}.
      */
-    public static EventBus provideEventBus() {
+    static EventBus provideEventBus() {
         return EventBusHolder.sEventBus;
     }
 

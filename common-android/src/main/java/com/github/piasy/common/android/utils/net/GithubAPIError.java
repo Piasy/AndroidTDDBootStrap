@@ -78,6 +78,7 @@ public class GithubAPIError extends ConversionException {
 
     /**
      * Get Error message for this API error.
+     *
      * @return message for this API error.
      */
     @NonNull
@@ -87,6 +88,7 @@ public class GithubAPIError extends ConversionException {
 
     /**
      * Get Error documentation_url for this API error.
+     *
      * @return documentation_url for this API error.
      */
     @Nullable
@@ -96,6 +98,7 @@ public class GithubAPIError extends ConversionException {
 
     /**
      * Get Error errors list for this API error.
+     *
      * @return errors list for this API error.
      */
     @Nullable
@@ -122,6 +125,7 @@ public class GithubAPIError extends ConversionException {
 
         /**
          * get resource of this Error
+         *
          * @return resource of this Error
          */
         public String getResource() {
@@ -130,6 +134,7 @@ public class GithubAPIError extends ConversionException {
 
         /**
          * get field of this Error
+         *
          * @return field of this Error
          */
         public String getField() {
@@ -138,6 +143,7 @@ public class GithubAPIError extends ConversionException {
 
         /**
          * get code of this Error
+         *
          * @return code of this Error
          */
         public String getCode() {

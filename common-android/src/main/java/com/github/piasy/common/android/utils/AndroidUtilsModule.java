@@ -24,7 +24,11 @@
 
 package com.github.piasy.common.android.utils;
 
+import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.github.piasy.common.android.utils.model.ThreeTenABPDelegateImpl;
 import com.github.piasy.common.android.utils.net.GithubAPIErrorProcessor;
 import com.github.piasy.common.android.utils.net.RxUtil;
 import com.github.piasy.common.android.utils.roms.MiUIUtil;
@@ -44,30 +48,55 @@ import javax.inject.Singleton;
 @Module
 public class AndroidUtilsModule {
 
+    private final Application mApplication;
+    private final Context mContext;
+
+    /**
+     * Create instance with the {@link Application} object.
+     *
+     * @param application the {@link Application} object.
+     */
+    public AndroidUtilsModule(@NonNull final Application application) {
+        mApplication = application;
+        mContext = mApplication.getApplicationContext();
+    }
+
+    /**
+     * Provide {@link ThreeTenABPDelegate} with the given context. Dagger ensure the {@link
+     * Singleton} property.
+     * TODO the {@link ThreeTenABPDelegate} instance must be exposed to create a ProviderModule
+     * instance?
+     *
+     * @return the provided {@link ThreeTenABPDelegate}
+     */
+    @Singleton
+    @Provides
+    ThreeTenABPDelegate provideThreeTenABPDelegate() {
+        return new ThreeTenABPDelegateImpl(mApplication);
+    }
+
     /**
      * Provide {@link ScreenUtil} with the given context. Dagger ensure the {@link Singleton}
      * property.
      *
-     * @param context the app {@link Context}
      * @return the provided {@link ScreenUtil}
      */
     @Singleton
     @Provides
-    ScreenUtil provideScreenUtil(final Context context) {
-        return new ScreenUtil(context);
+    ScreenUtil provideScreenUtil() {
+        return new ScreenUtil(mContext);
     }
 
     /**
      * Provide {@link ToastUtil} with the given context. Dagger ensure the {@link Singleton}
      * property.
      *
-     * @param context the app {@link Context}
      * @return the provided {@link ToastUtil}
      */
     @Singleton
     @Provides
-    ToastUtil provideToastUtil(final Context context) {
-        return new ToastUtilImpl(context);
+    ToastUtil provideToastUtil() {
+        return new ToastUtilImpl(mContext);
     }
 
     /**

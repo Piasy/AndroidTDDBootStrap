@@ -30,7 +30,8 @@ import android.support.annotation.StringRes;
  * Created by Piasy{github.com/Piasy} on 15/8/9.
  *
  * Toast utility class. Make toast with content string or string resource id.
- * Abstract this logic into an interface to make code unit-testable, decouple with Android framework
+ * Abstract this logic into an interface to make code unit-testable, decouple with Android
+ * framework
  * dependency.
  */
 public interface ToastUtil {
@@ -46,6 +47,6 @@ public interface ToastUtil {
      * Make toast with string resource id.
      *
      * @param contentResId the content string resource id.
-     * */
+     */
     void makeToast(@StringRes int contentResId);
 }

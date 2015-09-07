@@ -20,16 +20,16 @@ public class AppModule {
 
     @Provides
     Application provideApplication() {
-        return this.mApplication;
+        return mApplication;
     }
 
     @Provides
     Resources provideResources() {
-        return this.mApplication.getResources();
+        return mApplication.getResources();
     }
 
     @Provides
     Context provideContext() {
-        return this.mApplication;
+        return mApplication;
     }
 }

@@ -22,37 +22,38 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.ui;
+package com.github.piasy.common.android.provider;
 
-import android.content.Context;
-import android.support.annotation.StringRes;
-import android.widget.Toast;
+import com.github.piasy.common.Constants;
+import retrofit.RestAdapter;
+import retrofit.converter.GsonConverter;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/9.
+ * Created by Piasy{github.com/Piasy} on 15/7/23.
  *
- * Implementation of {@link ToastUtil}, using the Android framework {@link Toast}.
+ * A singleton provider providing {@link retrofit.RestAdapter}.
  */
-public class ToastUtilImpl implements ToastUtil {
+public final class RestProvider {
 
-    private final Context mContext;
+    private RestProvider() {
+        // singleton
+    }
 
     /**
-     * Create instance with the app {@link Context}.
+     * Provide the {@link RestAdapter} singleton instance.
      *
-     * @param context the app {@link Context}.
+     * @return the singleton {@link RestAdapter}.
      */
-    public ToastUtilImpl(final Context context) {
-        mContext = context;
+    static RestAdapter provideRestAdapter() {
+        return RestAdapterHolder.sRestAdapter;
     }
 
-    @Override
-    public void makeToast(final String content) {
-        Toast.makeText(mContext, content, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void makeToast(@StringRes final int contentResId) {
-        Toast.makeText(mContext, contentResId, Toast.LENGTH_LONG).show();
+    private static class RestAdapterHolder {
+        // lazy instantiate
+        private static volatile RestAdapter sRestAdapter =
+                new RestAdapter.Builder().setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
+                        .setConverter(new GsonConverter(GsonProvider.provideGson()))
+                        .setLogLevel(RestAdapter.LogLevel.FULL)
+                        .build();
     }
 }

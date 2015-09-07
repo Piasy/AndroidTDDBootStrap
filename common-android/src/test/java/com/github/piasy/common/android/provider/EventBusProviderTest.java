@@ -22,39 +22,35 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;
 
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import de.greenrobot.event.EventBus;
 import junit.framework.Assert;
 import org.junit.Test;
-import retrofit.RestAdapter;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
+public class EventBusProviderTest {
 
-public class RestProviderTest {
-
-    private RestAdapter one, two;
+    private EventBus one, two;
 
     @Test
-    public void testProvideRestAdapter() {
-        one = RestProvider.provideRestAdapter(mock(ThreeTenABPDelegate.class));
-        two = RestProvider.provideRestAdapter(mock(ThreeTenABPDelegate.class));
+    public void testProvideEventBus() {
+        one = EventBusProvider.provideEventBus();
+        two = EventBusProvider.provideEventBus();
 
         Assert.assertTrue(one.equals(two));
     }
 
     @Test
-    public void testProvideRestAdapterConcurrently() {
+    public void testProvideEventBusConcurrently() {
         final Thread t1 = new Thread(() -> {
-            one = RestProvider.provideRestAdapter(mock(ThreeTenABPDelegate.class));
+            one = EventBusProvider.provideEventBus();
         });
 
         final Thread t2 = new Thread(() -> {
-            two = RestProvider.provideRestAdapter(mock(ThreeTenABPDelegate.class));
+            two = EventBusProvider.provideEventBus();
         });
 
         t1.start();

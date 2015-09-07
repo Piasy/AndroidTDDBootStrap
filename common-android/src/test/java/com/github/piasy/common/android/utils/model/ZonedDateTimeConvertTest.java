@@ -24,7 +24,7 @@
 
 package com.github.piasy.common.android.utils.model;
 
-import com.github.piasy.common.android.utils.provider.GsonProvider;
+import com.github.piasy.common.android.provider.GsonProvider;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,8 +38,6 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.format.ResolverStyle;
 import org.threeten.bp.temporal.ChronoField;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/16.
@@ -99,8 +97,8 @@ public class ZonedDateTimeConvertTest extends BaseThreeTenBPTest {
         final String dateStr = "2015-08-16T13:27:33Z";
         final ZonedDateTimeHolder holder = new ZonedDateTimeHolder();
         holder.time = mDateTimeFormatter.parse(dateStr, ZonedDateTime.FROM);
-        final ZonedDateTimeHolder fromJson = GsonProvider.provideGson(mock(ThreeTenABPDelegate.class))
-                .fromJson(json, ZonedDateTimeHolder.class);
+        final ZonedDateTimeHolder fromJson =
+                GsonProvider.provideGson().fromJson(json, ZonedDateTimeHolder.class);
         Assert.assertEquals(holder.time, fromJson.time);
     }
 

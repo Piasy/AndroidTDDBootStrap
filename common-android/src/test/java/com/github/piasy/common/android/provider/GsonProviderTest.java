@@ -22,37 +22,54 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.ui;
+package com.github.piasy.common.android.provider;
 
-import android.content.Context;
-import android.support.annotation.StringRes;
-import android.widget.Toast;
+import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
+import com.google.gson.Gson;
+import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/9.
- *
- * Implementation of {@link ToastUtil}, using the Android framework {@link Toast}.
+ * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
-public class ToastUtilImpl implements ToastUtil {
+public class GsonProviderTest extends BaseThreeTenBPTest {
 
-    private final Context mContext;
+    private Gson one, two;
 
-    /**
-     * Create instance with the app {@link Context}.
-     *
-     * @param context the app {@link Context}.
-     */
-    public ToastUtilImpl(final Context context) {
-        mContext = context;
+    @Before
+    public void setUp() {
+        initThreeTenABP();
     }
 
-    @Override
-    public void makeToast(final String content) {
-        Toast.makeText(mContext, content, Toast.LENGTH_LONG).show();
+    @Test
+    public void testProvideGson() {
+        one = GsonProvider.provideGson();
+        two = GsonProvider.provideGson();
+
+        Assert.assertTrue(one.equals(two));
     }
 
-    @Override
-    public void makeToast(@StringRes final int contentResId) {
-        Toast.makeText(mContext, contentResId, Toast.LENGTH_LONG).show();
+    @Test
+    public void testProvideGsonConcurrently() {
+        final Thread t1 = new Thread(() -> {
+            one = GsonProvider.provideGson();
+        });
+
+        final Thread t2 = new Thread(() -> {
+            two = GsonProvider.provideGson();
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+
+            Assert.assertTrue(one.equals(two));
+        } catch (InterruptedException e) {
+            Assert.assertTrue(false);
+        }
     }
 }

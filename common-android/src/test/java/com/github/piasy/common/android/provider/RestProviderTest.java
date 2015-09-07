@@ -22,35 +22,36 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.provider;
+package com.github.piasy.common.android.provider;
 
-import de.greenrobot.event.EventBus;
 import junit.framework.Assert;
 import org.junit.Test;
+import retrofit.RestAdapter;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
-public class EventBusProviderTest {
 
-    private EventBus one, two;
+public class RestProviderTest {
+
+    private RestAdapter one, two;
 
     @Test
-    public void testProvideEventBus() {
-        one = EventBusProvider.provideEventBus();
-        two = EventBusProvider.provideEventBus();
+    public void testProvideRestAdapter() {
+        one = RestProvider.provideRestAdapter();
+        two = RestProvider.provideRestAdapter();
 
         Assert.assertTrue(one.equals(two));
     }
 
     @Test
-    public void testProvideEventBusConcurrently() {
+    public void testProvideRestAdapterConcurrently() {
         final Thread t1 = new Thread(() -> {
-            one = EventBusProvider.provideEventBus();
+            one = RestProvider.provideRestAdapter();
         });
 
         final Thread t2 = new Thread(() -> {
-            two = EventBusProvider.provideEventBus();
+            two = RestProvider.provideRestAdapter();
         });
 
         t1.start();
