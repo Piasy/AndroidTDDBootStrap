@@ -24,6 +24,7 @@
 
 package com.github.piasy.common.android.provider;
 
+import android.support.annotation.VisibleForTesting;
 import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.google.gson.Gson;
 import dagger.Module;
@@ -59,7 +60,8 @@ public class ProviderModule {
      */
     @Singleton
     @Provides
-    Gson provideGson(final ThreeTenABPDelegate delegate) {
+    @VisibleForTesting
+    public Gson provideGson(final ThreeTenABPDelegate delegate) {
         delegate.init();
         return GsonProvider.provideGson();
     }

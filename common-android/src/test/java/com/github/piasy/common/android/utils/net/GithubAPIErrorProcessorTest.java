@@ -25,7 +25,8 @@
 package com.github.piasy.common.android.utils.net;
 
 import com.github.piasy.common.android.MockProvider;
-import com.github.piasy.common.android.provider.GsonProvider;
+import com.github.piasy.common.android.provider.ProviderModule;
+import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.google.gson.Gson;
 import org.junit.Before;
@@ -48,7 +49,7 @@ public class GithubAPIErrorProcessorTest {
     public void setUp() {
         mToastUtil = mock(ToastUtil.class);
         mGithubAPIErrorProcessor = new GithubAPIErrorProcessor(mToastUtil);
-        mGson = GsonProvider.provideGson();
+        mGson = new ProviderModule().provideGson(mock(ThreeTenABPDelegate.class));
     }
 
     @Test

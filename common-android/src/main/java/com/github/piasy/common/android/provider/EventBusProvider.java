@@ -31,7 +31,7 @@ import de.greenrobot.event.EventBus;
  *
  * A singleton provider providing {@link EventBus}.
  */
-public final class EventBusProvider {
+final class EventBusProvider {
 
     private EventBusProvider() {
         // singleton

@@ -24,7 +24,6 @@
 
 package com.github.piasy.common.android.provider;
 
-import android.support.annotation.VisibleForTesting;
 import com.github.piasy.common.Constants;
 import com.github.piasy.common.android.utils.model.CustomZonedDateTimeConverter;
 import com.github.piasy.common.model.AutoGenTypeAdapterFactory;
@@ -43,7 +42,7 @@ import org.threeten.bp.temporal.ChronoField;
  *
  * A singleton provider providing {@link Gson}.
  */
-public final class GsonProvider {
+final class GsonProvider {
 
     private GsonProvider() {
         // singleton
@@ -55,8 +54,7 @@ public final class GsonProvider {
      *
      * @return the singleton {@link Gson}.
      */
-    @VisibleForTesting
-    public static Gson provideGson() {
+    static Gson provideGson() {
         return GsonHolder.sGson;
     }
 

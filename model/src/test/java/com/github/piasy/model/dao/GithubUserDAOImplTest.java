@@ -1,6 +1,7 @@
 package com.github.piasy.model.dao;
 
-import com.github.piasy.common.android.provider.GsonProvider;
+import com.github.piasy.common.android.provider.ProviderModule;
+import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.net.RxUtil;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.github.piasy.model.MockProvider;
@@ -45,7 +46,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     @Before
     public void setUp() {
         initThreeTenABP();
-        Gson gson = GsonProvider.provideGson();
+        Gson gson = new ProviderModule().provideGson(mock(ThreeTenABPDelegate.class));
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
                 new TypeToken<GithubUserSearchResult>() {
                 }.getType());

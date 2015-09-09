@@ -67,9 +67,9 @@ public class GithubSearchFragment
     }
 
     private void setupView() {
-        mTitleBar.setLeftButtonOnClickListener(v -> mToastUtil.makeToast("Click Left Button"));
+        /*mTitleBar.setLeftButtonOnClickListener(v -> mToastUtil.makeToast("Click Left Button"));
         mTitleBar.setRightButtonOnClickListener(v -> mToastUtil.makeToast("Click Right Button"));
-        mTitleBar.showRightButton();
+        mTitleBar.showRightButton();*/
         mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources(), mEmailUtil,
                 new GithubSearchUserResultAdapter.Action() {
                     @Override

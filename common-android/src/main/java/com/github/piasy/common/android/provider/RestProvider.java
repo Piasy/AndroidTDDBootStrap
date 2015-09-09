@@ -33,7 +33,7 @@ import retrofit.converter.GsonConverter;
  *
  * A singleton provider providing {@link retrofit.RestAdapter}.
  */
-public final class RestProvider {
+final class RestProvider {
 
     private RestProvider() {
         // singleton
