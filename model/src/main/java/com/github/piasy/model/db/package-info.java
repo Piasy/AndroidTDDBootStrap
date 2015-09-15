@@ -23,6 +23,6 @@
  */
 
 /**
- * Android common functionality test.
+ * DB package.
  */
-package com.github.piasy.common.android;
+package com.github.piasy.model.db;

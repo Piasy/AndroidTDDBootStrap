@@ -35,6 +35,7 @@ import org.threeten.bp.ZonedDateTime;
  *
  * Github User representation, immutable.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 @AutoParcel
 @AutoGson(autoClass = AutoParcel_GithubUser.class)
 public abstract class GithubUser {
@@ -94,6 +95,7 @@ public abstract class GithubUser {
      *
      * @return the avatar_url property.
      */
+    @SuppressWarnings("PMD.MethodNamingConventions")
     @NonNull
     public abstract String avatar_url();
 
@@ -132,6 +134,7 @@ public abstract class GithubUser {
      *
      * @return the created_at property.
      */
+    @SuppressWarnings("PMD.MethodNamingConventions")
     @Nullable
     public abstract ZonedDateTime created_at();
 
@@ -165,6 +168,7 @@ public abstract class GithubUser {
          * @param avatarUrl the login property to set.
          * @return the builder after avatar_url property is set.
          */
+        @SuppressWarnings("PMD.MethodNamingConventions")
         @NonNull
         public abstract Builder avatar_url(@NonNull String avatarUrl);
 
@@ -210,6 +214,7 @@ public abstract class GithubUser {
          * @param createdAt the login property to set.
          * @return the builder after created_at property is set.
          */
+        @SuppressWarnings("PMD.MethodNamingConventions")
         @NonNull
         public abstract Builder created_at(ZonedDateTime createdAt);
 

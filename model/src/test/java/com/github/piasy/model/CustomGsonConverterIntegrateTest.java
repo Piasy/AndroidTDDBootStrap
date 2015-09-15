@@ -24,6 +24,7 @@ import static org.mockito.Mockito.mock;
  */
 public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
 
+    public static final String UTF_8 = "UTF-8";
     private Gson mGson;
     private CustomGsonConverter mCustomGsonConverter;
 
@@ -34,12 +35,13 @@ public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
         mCustomGsonConverter = new CustomGsonConverter(mGson);
     }
 
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Test
     public void testFromBodyAPIError() {
-        TypedInput typedInput = new TypedInput() {
+        final TypedInput typedInput = new TypedInput() {
             @Override
             public String mimeType() {
-                return "UTF-8";
+                return UTF_8;
             }
 
             @Override
@@ -49,7 +51,8 @@ public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
 
             @Override
             public InputStream in() throws IOException {
-                return new ByteArrayInputStream(MockProvider.provideGithubAPIErrorStr().getBytes());
+                return new ByteArrayInputStream(
+                        MockProvider.provideGithubAPIErrorStr().getBytes(UTF_8));
             }
         };
 
@@ -61,13 +64,15 @@ public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
         }
     }
 
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     @Test
     public void testFromBodyNonAPIError() {
-        GithubUser user = mGson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
-        TypedInput typedInput = new TypedInput() {
+        final GithubUser user =
+                mGson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
+        final TypedInput typedInput = new TypedInput() {
             @Override
             public String mimeType() {
-                return "UTF-8";
+                return UTF_8;
             }
 
             @Override
@@ -77,14 +82,15 @@ public class CustomGsonConverterIntegrateTest extends BaseThreeTenBPTest {
 
             @Override
             public InputStream in() throws IOException {
-                return new ByteArrayInputStream(MockProvider.provideGithubUserStr().getBytes());
+                return new ByteArrayInputStream(
+                        MockProvider.provideGithubUserStr().getBytes(UTF_8));
             }
         };
 
         try {
-            Object converted = mCustomGsonConverter.fromBody(typedInput, GithubUser.class);
+            final Object converted = mCustomGsonConverter.fromBody(typedInput, GithubUser.class);
             Assert.assertTrue(converted instanceof GithubUser);
-            GithubUser convertedUser = (GithubUser) converted;
+            final GithubUser convertedUser = (GithubUser) converted;
             JSONAssert.assertEquals(mGson.toJson(user), mGson.toJson(convertedUser), false);
         } catch (ConversionException | JSONException e) {
             Assert.assertTrue(false);

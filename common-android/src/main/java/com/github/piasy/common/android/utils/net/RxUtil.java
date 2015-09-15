@@ -64,7 +64,7 @@ public class RxUtil {
     /**
      * Rx {@link Action1<Throwable>} impl class that process all Rx Error.
      */
-    public static final class RxErrorProcessor implements Action1<Throwable> {
+    public static class RxErrorProcessor implements Action1<Throwable> {
 
         private final GithubAPIErrorProcessor mAPIErrorProcessor;
 

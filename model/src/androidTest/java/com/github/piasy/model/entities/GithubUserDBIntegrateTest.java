@@ -25,18 +25,22 @@ import org.threeten.bp.ZonedDateTime;
  */
 @RunWith(AndroidJUnit4.class)
 public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
+    private static final String LOGIN = "Piasy";
+    private static final String AVATAR = "avatar";
+    private static final String TYPE = "User";
+    private static final String EMAIL = "xz4215@gmail.com";
     private StorIOSQLiteDelegate mStorIOSQLiteDelegate;
 
     @Before
     public void setUp() {
         initThreeTenABP(InstrumentationRegistry.getContext());
 
-        StorIOSQLite storIOSQLite = DefaultStorIOSQLite.builder()
+        final StorIOSQLite storIOSQLite = DefaultStorIOSQLite.builder()
                 .sqliteOpenHelper(new DBOpenHelper(InstrumentationRegistry.getContext()))
                 .addTypeMapping(GithubUser.class, SQLiteTypeMapping.<GithubUser>builder()
-                        .putResolver(GithubUserTableMeta.sGithubUserPutResolver)
-                        .getResolver(GithubUserTableMeta.sGithubUserGetResolver)
-                        .deleteResolver(GithubUserTableMeta.sGithubUserDeleteResolver)
+                        .putResolver(GithubUserTableMeta.GITHUB_USER_PUT_RESOLVER)
+                        .getResolver(GithubUserTableMeta.GITHUB_USER_GET_RESOLVER)
+                        .deleteResolver(GithubUserTableMeta.GITHUB_USER_DELETE_RESOLVER)
                         .build())
                 .build();
         mStorIOSQLiteDelegate = new StorIOSQLiteDelegateImpl(storIOSQLite);
@@ -50,19 +54,19 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
         List<GithubUser> storedUsers = mStorIOSQLiteDelegate.getAllGithubUser();
         Assert.assertTrue(storedUsers.isEmpty());
 
-        List<GithubUser> users = new ArrayList<>();
-        GithubUser user = GithubUser.builder()
+        final List<GithubUser> users = new ArrayList<>();
+        final GithubUser user = GithubUser.builder()
                 .id(1)
-                .login("Piasy")
-                .avatar_url("avatar")
-                .type("User")
+                .login(LOGIN)
+                .avatar_url(AVATAR)
+                .type(TYPE)
                 .followers(3)
                 .following(25)
-                .email("xz4215@gmail.com")
+                .email(EMAIL)
                 .created_at(ZonedDateTime.now())
                 .build();
         users.add(user);
-        PutResults<GithubUser> results = mStorIOSQLiteDelegate.putAllGithubUser(users);
+        final PutResults<GithubUser> results = mStorIOSQLiteDelegate.putAllGithubUser(users);
 
         Assert.assertEquals(1, results.numberOfInserts());
         Assert.assertEquals(0, results.numberOfUpdates());
@@ -77,15 +81,15 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
         List<GithubUser> storedUsers = mStorIOSQLiteDelegate.getAllGithubUser();
         Assert.assertTrue(storedUsers.isEmpty());
 
-        List<GithubUser> users = new ArrayList<>();
-        GithubUser user = GithubUser.builder()
+        final List<GithubUser> users = new ArrayList<>();
+        final GithubUser user = GithubUser.builder()
                 .id(1)
-                .login("Piasy")
-                .avatar_url("avatar")
-                .type("User")
+                .login(LOGIN)
+                .avatar_url(AVATAR)
+                .type(TYPE)
                 .followers(3)
                 .following(25)
-                .email("xz4215@gmail.com")
+                .email(EMAIL)
                 .created_at(ZonedDateTime.now())
                 .build();
         users.add(user);
@@ -98,11 +102,11 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertEquals(user, storedUsers.get(0));
 
-        GithubUser altered = GithubUser.builder()
+        final GithubUser altered = GithubUser.builder()
                 .id(1)
-                .login("Piasy")
-                .avatar_url("avatar")
-                .type("User")
+                .login(LOGIN)
+                .avatar_url(AVATAR)
+                .type(TYPE)
                 .followers(4)
                 .following(25)
                 .email("i@piasy.com")
@@ -125,19 +129,19 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
         List<GithubUser> storedUsers = mStorIOSQLiteDelegate.getAllGithubUser();
         Assert.assertTrue(storedUsers.isEmpty());
 
-        List<GithubUser> users = new ArrayList<>();
-        GithubUser user = GithubUser.builder()
+        final List<GithubUser> users = new ArrayList<>();
+        final GithubUser user = GithubUser.builder()
                 .id(1)
-                .login("Piasy")
-                .avatar_url("avatar")
-                .type("User")
+                .login(LOGIN)
+                .avatar_url(AVATAR)
+                .type(TYPE)
                 .followers(3)
                 .following(25)
-                .email("xz4215@gmail.com")
+                .email(EMAIL)
                 .created_at(ZonedDateTime.now())
                 .build();
         users.add(user);
-        PutResults<GithubUser> results = mStorIOSQLiteDelegate.putAllGithubUser(users);
+        final PutResults<GithubUser> results = mStorIOSQLiteDelegate.putAllGithubUser(users);
 
         Assert.assertEquals(1, results.numberOfInserts());
         Assert.assertEquals(0, results.numberOfUpdates());
@@ -146,7 +150,7 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertEquals(user, storedUsers.get(0));
 
-        DeleteResult deleteResult = mStorIOSQLiteDelegate.deleteAllGithubUser();
+        final DeleteResult deleteResult = mStorIOSQLiteDelegate.deleteAllGithubUser();
         Assert.assertEquals(1, deleteResult.numberOfRowsDeleted());
         storedUsers = mStorIOSQLiteDelegate.getAllGithubUser();
         Assert.assertEquals(0, storedUsers.size());

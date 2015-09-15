@@ -23,6 +23,6 @@
  */
 
 /**
- * Android common functionality test.
+ * DAO package
  */
-package com.github.piasy.common.android;
+package com.github.piasy.model.dao;

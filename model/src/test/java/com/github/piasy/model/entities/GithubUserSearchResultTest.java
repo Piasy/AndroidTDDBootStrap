@@ -29,7 +29,7 @@ public class GithubUserSearchResultTest extends BaseThreeTenBPTest {
 
     @Test
     public void testSerialize() {
-        GithubUserSearchResult converted =
+        final GithubUserSearchResult converted =
                 mGson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
                         new TypeToken<GithubUserSearchResult>() {
                         }.getType());

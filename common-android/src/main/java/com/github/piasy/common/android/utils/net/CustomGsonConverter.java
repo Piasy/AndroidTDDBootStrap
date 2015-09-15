@@ -88,7 +88,7 @@ public class CustomGsonConverter implements Converter {
             try {
                 // is an api error ?
                 final GithubAPIError apiError = mGson.fromJson(inputStr, GithubAPIError.class);
-                if (apiError != null && !TextUtils.isEmpty(apiError.getMessage())) {
+                if (apiError != null && !TextUtils.isEmpty(apiError.getErrorMessage())) {
                     throw apiError;
                 }
             } catch (JsonSyntaxException e) {

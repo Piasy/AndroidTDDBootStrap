@@ -64,8 +64,6 @@ public class AndroidUtilsModule {
     /**
      * Provide {@link ThreeTenABPDelegate} with the given context. Dagger ensure the {@link
      * Singleton} property.
-     * TODO the {@link ThreeTenABPDelegate} instance must be exposed to create a ProviderModule
-     * instance?
      *
      * @return the provided {@link ThreeTenABPDelegate}
      */

@@ -27,7 +27,7 @@ import java.util.List;
 public class GithubSearchUserResultAdapter
         extends RecyclerView.Adapter<GithubSearchUserResultAdapter.GithubSearchResultVH> {
 
-    private final List<GithubUser> mGithubUsers = new ArrayList<>();
+    private final ArrayList<GithubUser> mGithubUsers = new ArrayList<>();
     private final Resources mResources;
     private final EmailUtil mEmailUtil;
 

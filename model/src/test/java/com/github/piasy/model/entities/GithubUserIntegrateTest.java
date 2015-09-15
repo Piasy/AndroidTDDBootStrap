@@ -28,8 +28,8 @@ public class GithubUserIntegrateTest extends BaseThreeTenBPTest {
 
     @Test
     public void testAutoParcelAutoGson() {
-        String mock = MockProvider.provideGithubUserStr();
-        GithubUser converted = mGson.fromJson(mock, GithubUser.class);
+        final String mock = MockProvider.provideGithubUserStr();
+        final GithubUser converted = mGson.fromJson(mock, GithubUser.class);
         Assert.assertNotNull(converted);
         try {
             JSONAssert.assertEquals(MockProvider.provideSimplifiedGithubUserStr(),
@@ -38,7 +38,7 @@ public class GithubUserIntegrateTest extends BaseThreeTenBPTest {
             Assert.assertTrue(false);
         }
 
-        GithubUser built = GithubUser.builder()
+        final GithubUser built = GithubUser.builder()
                 .id(converted.id())
                 .login(converted.login())
                 .avatar_url(converted.avatar_url())

@@ -1,3 +1,27 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.github.piasy.model.db;
 
 import android.content.Context;
@@ -8,6 +32,8 @@ import com.github.piasy.model.dao.GithubUserTableMeta;
 
 /**
  * Created by piasy on 15/8/10.
+ *
+ * Simple DB open helper.
  */
 public class DBOpenHelper extends SQLiteOpenHelper {
 
@@ -15,7 +41,11 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
 
-    public DBOpenHelper(@NonNull Context context) {
+    /**
+     * Create DB open helper with context.
+     * @param context context used to create db open helper.
+     */
+    public DBOpenHelper(@NonNull final Context context) {
         super(context, DB_NAME, null, VERSION);
     }
 
@@ -23,12 +53,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     // Because you need this string only once per application life on the device
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(final SQLiteDatabase db) {
         db.execSQL(GithubUserTableMeta.getCreateGithubUserTableSQL());
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         // no impl
     }
 }

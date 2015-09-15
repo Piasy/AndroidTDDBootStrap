@@ -23,6 +23,6 @@
  */
 
 /**
- * Android common functionality test.
+ * Github API definition.
  */
-package com.github.piasy.common.android;
+package com.github.piasy.model.rest.github;
