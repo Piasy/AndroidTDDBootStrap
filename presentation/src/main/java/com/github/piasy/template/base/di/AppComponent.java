@@ -95,72 +95,84 @@ public interface AppComponent {
 
     /**
      * exposed {@link Application} object.
+     *
      * @return exposed {@link Application} object.
      */
     Application application();
 
     /**
      * exposed {@link Resources} object.
+     *
      * @return exposed {@link Resources} object.
      */
     Resources resources();
 
     /**
      * exposed {@link ScreenUtil} object.
+     *
      * @return exposed {@link ScreenUtil} object.
      */
     ScreenUtil screenUtil();
 
     /**
      * exposed {@link EmailUtil} object.
+     *
      * @return exposed {@link EmailUtil} object.
      */
     EmailUtil emailUtil();
 
     /**
      * exposed {@link ToastUtil} object.
+     *
      * @return exposed {@link ToastUtil} object.
      */
     ToastUtil toastUtil();
 
     /**
      * exposed {@link MiUIUtil} object.
+     *
      * @return exposed {@link MiUIUtil} object.
      */
     MiUIUtil miUIUtil();
 
     /**
      * exposed {@link RxUtil.RxErrorProcessor} object.
+     *
      * @return exposed {@link RxUtil.RxErrorProcessor} object.
      */
     RxUtil.RxErrorProcessor rxErrorProcessor();
 
     /**
      * exposed {@link StorIOSQLiteDelegate} object.
+     *
      * @return exposed {@link StorIOSQLiteDelegate} object.
      */
     StorIOSQLiteDelegate storIOSQLite();
 
     /**
      * exposed {@link ThreeTenABPDelegate} object.
+     *
      * @return exposed {@link ThreeTenABPDelegate} object.
      */
     ThreeTenABPDelegate threeTenABPDelegate();
 
     /**
      * exposed {@link Gson} object.
+     *
      * @return exposed {@link Gson} object.
      */
     Gson gson();
 
     /**
      * exposed {@link EventBus} object.
+     *
      * @return exposed {@link EventBus} object.
      */
     EventBus eventBus();
 
     /**
      * exposed {@link RestAdapter} object.
+     *
      * @return exposed {@link RestAdapter} object.
      */
     RestAdapter restAdapter();

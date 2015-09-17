@@ -40,6 +40,7 @@ public class ActivityModule {
 
     /**
      * Create the module with {@link Activity} object.
+     *
      * @param activity {@link Activity} object to provide.
      */
     public ActivityModule(final Activity activity) {
@@ -48,6 +49,7 @@ public class ActivityModule {
 
     /**
      * provide {@link Activity} object.
+     *
      * @return {@link Activity} object.
      */
     @Provides

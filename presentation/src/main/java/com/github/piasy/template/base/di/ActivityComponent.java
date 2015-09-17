@@ -39,6 +39,7 @@ public interface ActivityComponent {
 
     /**
      * expose the {@link Activity} object to sub component.
+     *
      * @return exposed {@link Activity} object.
      */
     Activity activity();

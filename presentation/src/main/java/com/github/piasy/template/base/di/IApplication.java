@@ -32,6 +32,7 @@ package com.github.piasy.template.base.di;
 public interface IApplication {
     /**
      * expose the {@link AppComponent} object.
+     *
      * @return the {@link AppComponent} object.
      */
     AppComponent component();

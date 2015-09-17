@@ -132,14 +132,12 @@ public final class GithubSearchUserResultAdapter
         TextView mTvFollowers;
         @Bind(R.id.tv_following)
         TextView mTvFollowing;
-
         @Bind(R.id.card_view)
         CardView mCardView;
 
         private final Action mAction;
         private final Resources mResources;
         private final EmailUtil mEmailUtil;
-
         private GithubUser mGithubUser;
 
         /**

@@ -48,12 +48,10 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
         initThreeTenABP();
         final Gson gson = new ProviderModule().provideGson(mock(ThreeTenABPDelegate.class));
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
-                new TypeToken<GithubUserSearchResult>() {
-                }.getType());
+                new TypeToken<GithubUserSearchResult>() {}.getType());
 
         mSingleResult = gson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
-                new TypeToken<GithubUserSearchResult>() {
-                }.getType());
+                new TypeToken<GithubUserSearchResult>() {}.getType());
         mSingleUser = gson.fromJson(MockProvider.provideGithubUserStr(), GithubUser.class);
         mSingleUserList = new ArrayList<>();
         mSingleUserList.add(mSingleUser);
@@ -171,9 +169,10 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
 
     /**
      * NOTE!!! should never used in production code.
-     * */
+     */
     private GithubUserSearchResult copySearchResult(final GithubUserSearchResult obj) {
-        return GithubUserSearchResult.builder().incomplete_results(obj.incomplete_results())
+        return GithubUserSearchResult.builder()
+                .incomplete_results(obj.incomplete_results())
                 .items(new ArrayList<>(obj.items()))
                 .total_count(obj.total_count())
                 .build();

@@ -43,12 +43,12 @@ public abstract class GithubUser {
     // ============= begin GithubUserType =============
     /**
      * Github User Type User.
-     * */
+     */
     public static final String GITHUB_USER_TYPE_USER = "User";
 
     /**
      * Github User Type Organization.
-     * */
+     */
     public static final String GITHUB_USER_TYPE_ORGANIZATION = "Organization";
     // ============= end GithubUserType =============
 

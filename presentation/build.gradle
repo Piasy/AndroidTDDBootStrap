@@ -22,6 +22,8 @@ if (new File(keyConfigPath).exists()) {
     props.load(new FileInputStream(file(keyConfigPath)))
 }*/
 
+def isTravis = "true".equals(System.getenv("TRAVIS"))
+def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -48,6 +50,11 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isTravis
     }
 
     signingConfigs {

@@ -43,6 +43,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     /**
      * Create DB open helper with context.
+     *
      * @param context context used to create db open helper.
      */
     public DBOpenHelper(@NonNull final Context context) {

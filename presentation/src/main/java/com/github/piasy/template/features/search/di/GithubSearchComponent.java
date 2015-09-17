@@ -55,12 +55,14 @@ public interface GithubSearchComponent
 
     /**
      * Inject dependency into {@link GithubSearchActivity}.
+     *
      * @param activity {@link GithubSearchActivity}.
      */
     void inject(GithubSearchActivity activity);
 
     /**
      * Inject dependency into {@link GithubSearchFragment}.
+     *
      * @param fragment {@link GithubSearchFragment}.
      */
     void inject(GithubSearchFragment fragment);

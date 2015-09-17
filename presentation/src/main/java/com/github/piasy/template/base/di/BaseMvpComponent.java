@@ -40,6 +40,7 @@ public interface BaseMvpComponent<V extends MvpView, P extends MvpPresenter<V>> 
 
     /**
      * expose the presenter object.
+     *
      * @return exposed presenter object.
      */
     @NonNull

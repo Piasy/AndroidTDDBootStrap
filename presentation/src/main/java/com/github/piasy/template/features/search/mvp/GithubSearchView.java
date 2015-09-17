@@ -37,6 +37,7 @@ public interface GithubSearchView extends MvpView {
 
     /**
      * show search user result.
+     *
      * @param users search user result.
      */
     void showSearchUserResult(List<GithubUser> users);

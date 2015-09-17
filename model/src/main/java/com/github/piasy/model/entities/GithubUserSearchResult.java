@@ -15,6 +15,15 @@ import java.util.List;
 public abstract class GithubUserSearchResult {
 
     /**
+     * public static factory method to create a builder.
+     *
+     * @return builder to build immutable object.
+     */
+    public static Builder builder() {
+        return new AutoParcel_GithubUserSearchResult.Builder();
+    }
+
+    /**
      * get total count for search result.
      *
      * @return total count for search result.
@@ -37,15 +46,6 @@ public abstract class GithubUserSearchResult {
      */
     @NonNull
     public abstract List<GithubUser> items();
-
-    /**
-     * public static factory method to create a builder.
-     *
-     * @return builder to build immutable object.
-     */
-    public static Builder builder() {
-        return new AutoParcel_GithubUserSearchResult.Builder();
-    }
 
     ///**
     // * copy the object from the existing one.

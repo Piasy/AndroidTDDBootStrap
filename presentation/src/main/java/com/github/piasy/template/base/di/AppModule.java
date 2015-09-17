@@ -42,6 +42,7 @@ public class AppModule {
 
     /**
      * Create module with {@link Application} object.
+     *
      * @param application {@link Application} object.
      */
     public AppModule(final Application application) {
@@ -50,6 +51,7 @@ public class AppModule {
 
     /**
      * Provide {@link Application} object.
+     *
      * @return {@link Application} object.
      */
     @Provides
@@ -59,6 +61,7 @@ public class AppModule {
 
     /**
      * Provide {@link Resources} object.
+     *
      * @return {@link Resources} object.
      */
     @Provides
@@ -68,6 +71,7 @@ public class AppModule {
 
     /**
      * Provide {@link Context} object.
+     *
      * @return {@link Context} object.
      */
     @Provides

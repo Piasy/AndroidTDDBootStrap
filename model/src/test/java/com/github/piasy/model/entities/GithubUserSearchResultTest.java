@@ -31,8 +31,7 @@ public class GithubUserSearchResultTest extends BaseThreeTenBPTest {
     public void testSerialize() {
         final GithubUserSearchResult converted =
                 mGson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
-                        new TypeToken<GithubUserSearchResult>() {
-                        }.getType());
+                        new TypeToken<GithubUserSearchResult>() {}.getType());
         try {
             JSONAssert.assertEquals(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
                     mGson.toJson(converted), false);

@@ -63,6 +63,12 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopProgress(true);
+    }
+
     /**
      * Get the Main Application component for dependency injection.
      *
@@ -76,12 +82,6 @@ public abstract class BaseActivity extends FragmentActivity {
      * Initialize dependency injector.
      */
     protected abstract void initializeInjector();
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopProgress(true);
-    }
 
     /**
      * Get an Activity module for dependency injection.
@@ -141,8 +141,8 @@ public abstract class BaseActivity extends FragmentActivity {
      * http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html
      */
     private static class MemorySafeHandler extends Handler {
-        private boolean mIsLoadToastShowing;
         private final LoadToast mLoadToast;
+        private boolean mIsLoadToastShowing;
 
         public MemorySafeHandler(final LoadToast loadToast) {
             super();

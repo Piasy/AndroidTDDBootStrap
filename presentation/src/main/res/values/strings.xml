@@ -2,10 +2,8 @@
     <string name="app_name">Template</string>
 
     <!-- GithubSearch -->
-    <string name="github_user_followers_formatter"
-            formatted="false">%d Followers</string>
-    <string name="github_user_following_formatter"
-            formatted="false">%d Following</string>
+    <string name="github_user_followers_formatter" formatted="false">%d Followers</string>
+    <string name="github_user_following_formatter" formatted="false">%d Following</string>
     <string name="hello_world">Hello World!</string>
     <string name="search_result">Search Result</string>
 
