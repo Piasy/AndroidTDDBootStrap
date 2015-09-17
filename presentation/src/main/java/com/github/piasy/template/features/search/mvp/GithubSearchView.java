@@ -22,36 +22,27 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.base.di;
+package com.github.piasy.template.features.search.mvp;
 
-import android.app.Activity;
-import dagger.Module;
-import dagger.Provides;
+import com.github.piasy.model.entities.GithubUser;
+import com.hannesdorfmann.mosby.mvp.MvpView;
+import java.util.List;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
+ * Created by Piasy{github.com/Piasy} on 15/7/24.
  *
- * DI module abstraction for Activity scope.
+ * Mvp View interface for {@link com.github.piasy.template.features.search.GithubSearchActivity}.
  */
-@Module
-public class ActivityModule {
-
-    private final Activity mActivity;
+public interface GithubSearchView extends MvpView {
 
     /**
-     * Create the module with {@link Activity} object.
-     * @param activity {@link Activity} object to provide.
+     * show search user result.
+     * @param users search user result.
      */
-    public ActivityModule(final Activity activity) {
-        mActivity = activity;
-    }
+    void showSearchUserResult(List<GithubUser> users);
 
     /**
-     * provide {@link Activity} object.
-     * @return {@link Activity} object.
+     * show help bar.
      */
-    @Provides
-    Activity provideActivity() {
-        return mActivity;
-    }
+    void showHelpBar();
 }

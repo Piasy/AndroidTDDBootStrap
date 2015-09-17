@@ -16,4 +16,9 @@
 
 # Fabric appSecrit
 fabric.properties
+
+# bintray secrets
 bintray.properties
+
+# inspect
+.buildProfile/

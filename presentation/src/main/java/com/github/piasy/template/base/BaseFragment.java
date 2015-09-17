@@ -1,8 +1,31 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.github.piasy.template.base;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.github.piasy.common.di.HasComponent;
 import com.github.piasy.template.base.di.BaseMvpComponent;
@@ -12,6 +35,12 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
+ *
+ * Base fragment class.
+ *
+ * @param <V> type parameter extends {@link MvpView}.
+ * @param <P> type parameter extends {@link MvpPresenter}.
+ * @param <C> type parameter extends {@link BaseMvpComponent}.
  */
 public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>, C extends
         BaseMvpComponent<V, P>>
@@ -28,6 +57,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         this.inject();
     }
 
+    /**
+     * inject dependencies.
+     */
     protected abstract void inject();
 
     @Override
@@ -36,7 +68,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
     }
@@ -46,29 +78,36 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     /**
-     * Shows a {@link android.widget.Toast} message.
-     *
-     * @param message An string representing a message to be shown.
+     * Show progress feedback with default text hint.
+     * forward to host Activity.
      */
-    protected void showToastMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void showProgress() {
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).showProgress();
+        }
     }
 
-    public void showProgress(String message) {
+    /**
+     * Show progress feedback with the specified text hint.
+     * forward to host Activity.
+     *
+     * @param message the specified text hint.
+     */
+    public void showProgress(final String message) {
         if (getActivity() instanceof BaseActivity) {
             ((BaseActivity) getActivity()).showProgress(message);
         }
     }
 
-    public void stopProgress(boolean success) {
+    /**
+     * Stop the progress feedback.
+     * forward to host Activity.
+     *
+     * @param success whether the process succeeded or not.
+     */
+    public void stopProgress(final boolean success) {
         if (getActivity() instanceof BaseActivity) {
             ((BaseActivity) getActivity()).stopProgress(success);
-        }
-    }
-
-    public void showProgress() {
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).showProgress();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.github.piasy.template.ui.search
+package com.github.piasy.template.features.search
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

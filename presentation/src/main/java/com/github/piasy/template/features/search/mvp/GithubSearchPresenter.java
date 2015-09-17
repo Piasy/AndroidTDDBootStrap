@@ -22,36 +22,19 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.base.di;
+package com.github.piasy.template.features.search.mvp;
 
-import android.app.Activity;
-import dagger.Module;
-import dagger.Provides;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
+ * Created by Piasy{github.com/Piasy} on 15/7/24.
  *
- * DI module abstraction for Activity scope.
+ * Presenter for {@link com.github.piasy.template.features.search.GithubSearchActivity}.
  */
-@Module
-public class ActivityModule {
-
-    private final Activity mActivity;
+public interface GithubSearchPresenter extends MvpPresenter<GithubSearchView> {
 
     /**
-     * Create the module with {@link Activity} object.
-     * @param activity {@link Activity} object to provide.
+     * load users.
      */
-    public ActivityModule(final Activity activity) {
-        mActivity = activity;
-    }
-
-    /**
-     * provide {@link Activity} object.
-     * @return {@link Activity} object.
-     */
-    @Provides
-    Activity provideActivity() {
-        return mActivity;
-    }
+    void loadUser();
 }

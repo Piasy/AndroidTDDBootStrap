@@ -1,4 +1,4 @@
-package com.github.piasy.template.ui.search;
+package com.github.piasy.template.features.search;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,9 +16,9 @@ import com.github.piasy.handywidgets.centertitlesidebuttonbar.CenterTitleSideBut
 import com.github.piasy.model.entities.GithubUser;
 import com.github.piasy.template.R;
 import com.github.piasy.template.base.BaseFragment;
-import com.github.piasy.template.ui.search.di.GithubSearchComponent;
-import com.github.piasy.template.ui.search.mvp.GithubSearchPresenter;
-import com.github.piasy.template.ui.search.mvp.GithubSearchView;
+import com.github.piasy.template.features.search.di.GithubSearchComponent;
+import com.github.piasy.template.features.search.mvp.GithubSearchPresenter;
+import com.github.piasy.template.features.search.mvp.GithubSearchView;
 import com.promegu.xlog.base.XLog;
 import java.util.List;
 import javax.inject.Inject;
@@ -58,7 +58,7 @@ public class GithubSearchFragment
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupView();
 
@@ -67,13 +67,10 @@ public class GithubSearchFragment
     }
 
     private void setupView() {
-        /*mTitleBar.setLeftButtonOnClickListener(v -> mToastUtil.makeToast("Click Left Button"));
-        mTitleBar.setRightButtonOnClickListener(v -> mToastUtil.makeToast("Click Right Button"));
-        mTitleBar.showRightButton();*/
         mAdapter = new GithubSearchUserResultAdapter(getActivity().getResources(), mEmailUtil,
                 new GithubSearchUserResultAdapter.Action() {
                     @Override
-                    public void userDetail(GithubUser user) {
+                    public void userDetail(final GithubUser user) {
                         startActivity(new Intent(getActivity(), DemoKotlinActivity.class));
                     }
                 });
@@ -87,14 +84,14 @@ public class GithubSearchFragment
     }
 
     @Override
-    public void showSearchUserResult(List<GithubUser> users) {
+    public void showSearchUserResult(final List<GithubUser> users) {
         mAdapter.addUsers(users);
         stopProgress(true);
     }
 
     @Override
     public void showHelpBar() {
-        Snackbar snackbar =
+        final Snackbar snackbar =
                 Snackbar.make(mTitleBar, R.string.error_auto_start, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.fix_it, v -> {
                             startActivity(mMiUIUtil.jump2AutoStartManager());
@@ -102,7 +99,7 @@ public class GithubSearchFragment
         snackbar.getView().setBackgroundResource(android.R.color.holo_blue_light);
         if (snackbar.getView() instanceof Snackbar.SnackbarLayout &&
                 ((Snackbar.SnackbarLayout) snackbar.getView()).getChildAt(0) instanceof TextView) {
-            TextView snackBarText =
+            final TextView snackBarText =
                     (TextView) ((Snackbar.SnackbarLayout) snackbar.getView()).getChildAt(0);
             snackBarText.setTextColor(mResources.getColor(android.R.color.white));
         }

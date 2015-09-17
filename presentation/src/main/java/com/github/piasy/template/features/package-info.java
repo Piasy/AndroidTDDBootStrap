@@ -22,36 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.base.di;
-
-import android.app.Activity;
-import dagger.Module;
-import dagger.Provides;
-
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * DI module abstraction for Activity scope.
+ * feature packages.
  */
-@Module
-public class ActivityModule {
-
-    private final Activity mActivity;
-
-    /**
-     * Create the module with {@link Activity} object.
-     * @param activity {@link Activity} object to provide.
-     */
-    public ActivityModule(final Activity activity) {
-        mActivity = activity;
-    }
-
-    /**
-     * provide {@link Activity} object.
-     * @return {@link Activity} object.
-     */
-    @Provides
-    Activity provideActivity() {
-        return mActivity;
-    }
-}
+package com.github.piasy.template.features;

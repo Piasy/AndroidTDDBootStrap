@@ -22,36 +22,38 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.base.di;
+package com.github.piasy.template.features.search.di;
 
-import android.app.Activity;
+import com.github.piasy.common.android.utils.net.RxUtil;
+import com.github.piasy.common.android.utils.roms.MiUIUtil;
+import com.github.piasy.model.dao.GithubUserDAO;
+import com.github.piasy.template.features.search.mvp.GithubSearchPresenter;
+import com.github.piasy.template.features.search.mvp.GithubSearchPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  *
- * DI module abstraction for Activity scope.
+ * DI Module for {@link com.github.piasy.template.features.search.GithubSearchActivity}.
  */
 @Module
-public class ActivityModule {
-
-    private final Activity mActivity;
+public class GithubSearchModule {
 
     /**
-     * Create the module with {@link Activity} object.
-     * @param activity {@link Activity} object to provide.
-     */
-    public ActivityModule(final Activity activity) {
-        mActivity = activity;
-    }
-
-    /**
-     * provide {@link Activity} object.
-     * @return {@link Activity} object.
+     * Provide {@link GithubSearchPresenter} with dependencies.
+     *
+     * @param bus {@link EventBus}.
+     * @param githubUserDAO {@link GithubUserDAO} to operate with data.
+     * @param rxErrorProcessor {@link RxUtil.RxErrorProcessor} to process errors in rx.
+     * @param miUIUtil {@link MiUIUtil} to check for ROM.
+     * @return {@link GithubSearchPresenter} object.
      */
     @Provides
-    Activity provideActivity() {
-        return mActivity;
+    GithubSearchPresenter provideGithubSearchPresenter(final EventBus bus,
+            final GithubUserDAO githubUserDAO, final RxUtil.RxErrorProcessor rxErrorProcessor,
+            final MiUIUtil miUIUtil) {
+        return new GithubSearchPresenterImpl(bus, githubUserDAO, rxErrorProcessor);
     }
 }
