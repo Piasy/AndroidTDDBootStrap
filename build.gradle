@@ -41,7 +41,7 @@ allprojects {
             url 'https://maven.fabric.io/public'
         }
     }
-    apply plugin: "com.jakeout.gradle-inspector"
+    //apply plugin: "com.jakeout.gradle-inspector"
 }
 
 apply from: 'AndroidCodeQualityConfig/jacoco.gradle'
