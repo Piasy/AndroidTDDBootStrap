@@ -32,6 +32,10 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "boolean", "REPORT_CRASH", "true"
     }
 
     buildTypes {
@@ -83,6 +87,7 @@ android {
         release {
             minifyEnabled false
             debuggable true
+            shrinkResources true
             signingConfig signingConfigs.develop // use open sign key
             //signingConfig signingConfigs.production  // use private sign key
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -97,12 +102,18 @@ android {
     }
 
     productFlavors {
-        develop {}
+        develop {
+            buildConfigField "boolean", "REPORT_CRASH", "false"
+        }
 
-        product {}
+        product {
+            buildConfigField "boolean", "REPORT_CRASH", "true"
+        }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+
+        test.java.srcDirs += 'build/generated/source/apt/develop/debug'
     }
 }
 
@@ -117,6 +128,7 @@ unMock {
 
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
 
     compile (project(':model')) {
         exclude module: 'xlog'
@@ -131,6 +143,10 @@ dependencies {
 
     compile presentationDependencies.mvp
     compile presentationDependencies.once
+    compile presentationDependencies.rxBinding
+    compile presentationDependencies.rxBindingAppCompatV7
+    compile presentationDependencies.rxLifeCycle
+    compile presentationDependencies.rxLifeCycleComponent
 
     // UI library
     compile presentationDependencies.recyclerViewV7
@@ -138,7 +154,7 @@ dependencies {
     compile presentationDependencies.fresco
     compile presentationDependencies.loadToast
     compile presentationDependencies.iconifyMD
-    compile presentationDependencies.ctsbb
+    compile presentationDependencies.mugen
 
     // Developer
     developCompile presentationDependencies.xLogAndroid
@@ -150,7 +166,21 @@ dependencies {
     }
     developCompile presentationDependencies.leakCanary
     productCompile presentationDependencies.leakCanaryIdle
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    androidTestCompile (presentationTestDependencies.mockito) {
+        exclude module: "hamcrest-core"
+    }
+    androidTestCompile presentationTestDependencies.dexmaker
+    androidTestCompile (presentationTestDependencies.dexmakerMockito) {
+        exclude module: "hamcrest-core"
+    }
+    androidTestCompile presentationTestDependencies.espresso
+    androidTestCompile presentationTestDependencies.espressoIntents
+    androidTestCompile presentationTestDependencies.androidJUnitRunner
+    androidTestCompile presentationTestDependencies.androidJUnit4Rules
+    androidTestApt presentationDependencies.daggerCompiler
 }
 buildscript {
     ext.kotlin_version = '0.12.1230'

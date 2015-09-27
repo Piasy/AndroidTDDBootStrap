@@ -31,7 +31,7 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/24.
  *
- * DI sub component that expose a presenter object.
+ * DI sub appComponent that expose a presenter object.
  *
  * @param <V> type parameter extends {@link MvpView}.
  * @param <P> type parameter extends {@link MvpPresenter}.

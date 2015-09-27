@@ -81,7 +81,7 @@ final class GsonProvider {
                 .registerTypeAdapterFactory(new AutoGenTypeAdapterFactory())
                 .registerTypeAdapter(ZonedDateTime.class,
                         new CustomZonedDateTimeConverter(sDateTimeFormatter))
-                .setDateFormat(Constants.TIMEFORMAT_ISO_8601)
+                .setDateFormat(Constants.TIME_FORMAT_ISO_8601)
                 .setPrettyPrinting()
                 .create();
     }

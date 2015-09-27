@@ -24,7 +24,7 @@
 
 /**
  * {@link com.github.piasy.common.di.HasComponent} annotation and {@link
- * com.github.piasy.common.di.PerActivity} definition. Base dagger2 {@link dagger.Component} holder
+ * com.github.piasy.common.di.ActivityScope} definition. Base dagger2 {@link dagger.Component} holder
  * class interface and custom {@link javax.inject.Scope} for every Android Activity.
  */
 package com.github.piasy.common.di;

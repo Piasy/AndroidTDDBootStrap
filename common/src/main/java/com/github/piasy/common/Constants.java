@@ -71,14 +71,14 @@ public final class Constants {
     /**
      * Time format ISO_8601.
      */
-    public static final String TIMEFORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    public static final String TIME_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     // ============= end TimeFormat =============
 
     // ============= begin REPatterns =============
     /**
      * Email re pattern.
      */
-    public static final Pattern RE_PATTERTNS_EMAIL_PATTERN =
+    public static final Pattern RE_PATTERNS_EMAIL_PATTERN =
             Pattern.compile("^[_A-Za-z0-9-\\+]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     // ============= end REPatterns =============
 

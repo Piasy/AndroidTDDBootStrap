@@ -31,6 +31,7 @@ import com.github.piasy.model.db.StorIOSQLiteDelegate;
 import com.github.piasy.model.rest.github.GithubAPI;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/5.
@@ -49,6 +50,7 @@ public class DAOModule {
      * @param rxErrorProcessor Rx error processor.
      * @return GithubUserDAO instance.
      */
+    @Singleton
     @Provides
     GithubUserDAO provideGithubUserDAO(final StorIOSQLiteDelegate storIOSQLite,
             final GithubAPI githubAPI, final RxUtil.RxErrorProcessor rxErrorProcessor) {

@@ -24,17 +24,22 @@
 
 package com.github.piasy.template.base;
 
+import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.WindowManager;
 import com.github.piasy.common.android.utils.screen.ScreenUtil;
+import com.github.piasy.template.app.di.AppComponent;
+import com.github.piasy.template.app.di.IApplication;
 import com.github.piasy.template.base.di.ActivityModule;
-import com.github.piasy.template.base.di.AppComponent;
-import com.github.piasy.template.base.di.IApplication;
+import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -43,23 +48,27 @@ import net.steamcrafted.loadtoast.LoadToast;
  *
  * Base Activity class.
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private static final int MSG_WHAT_START_PROGRESS = 1000;
     private static final int MSG_WHAT_STOP_PROGRESS_SUCCESS = 1001;
     private static final int MSG_WHAT_STOP_PROGRESS_ERROR = 1002;
+
     @Inject
     protected Resources mResources;
     @Inject
-    protected ScreenUtil mScreenUtil;
+    ScreenUtil mScreenUtil;
     private MemorySafeHandler mHandler;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        this.getApplicationComponent().inject(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags =
+                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
         initializeInjector();
-        mHandler = new MemorySafeHandler(new LoadToast(this).setTextColor(0x555555)
-                .setTranslationY(mScreenUtil.getScreenHeight(this) / 2));
+        mHandler = new MemorySafeHandler(0x555555, mScreenUtil.getScreenHeight(this) / 2, this);
         super.onCreate(savedInstanceState);
     }
 
@@ -70,12 +79,16 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     /**
-     * Get the Main Application component for dependency injection.
+     * Get the Main Application appComponent for dependency injection.
      *
      * @return {@link AppComponent}
      */
     protected AppComponent getApplicationComponent() {
-        return ((IApplication) getApplication()).component();
+        if (!(getApplication() instanceof IApplication)) {
+            throw new IllegalArgumentException(
+                    "Application class must implement IApplication interface.");
+        }
+        return ((IApplication) getApplication()).appComponent();
     }
 
     /**
@@ -138,25 +151,44 @@ public abstract class BaseActivity extends FragmentActivity {
      * Instances of static inner classes do not hold an implicit
      * reference to their outer class.
      *
-     * http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html
+     * http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html.
+     *
+     * NOTE!!! the LoadToast object must be recreate every time showing it in AppCompatActivity,
+     * otherwise, its mView field will be re-added into parent view, cause IllegalStateException.
+     * But when the host Activity is FragmentActivity, it's ok.
      */
     private static class MemorySafeHandler extends Handler {
-        private final LoadToast mLoadToast;
-        private boolean mIsLoadToastShowing;
+        private LoadToast mLoadToast;
+        @ColorInt
+        private final int mTextColor;
+        private final int mShowYPos;
+        private boolean mIsLoadToastShowing = false;
+        private final WeakReference<Activity> mActivityWeakReference;
 
-        public MemorySafeHandler(final LoadToast loadToast) {
+        public MemorySafeHandler(@ColorInt final int textColor, final int showYPos,
+                Activity activity) {
             super();
-            mLoadToast = loadToast;
+            mTextColor = textColor;
+            mShowYPos = showYPos;
+            mActivityWeakReference = new WeakReference<>(activity);
         }
 
         @Override
         public void handleMessage(@NonNull final Message msg) {
+            if (mActivityWeakReference.get() == null) {
+                return;
+            }
             switch (msg.what) {
                 case MSG_WHAT_START_PROGRESS:
                     if (mIsLoadToastShowing) {
                         return;
                     }
                     final String message = msg.getData().getString("message");
+                    if (mLoadToast == null) {
+                        mLoadToast =
+                                new LoadToast(mActivityWeakReference.get()).setTextColor(mTextColor)
+                                        .setTranslationY(mShowYPos);
+                    }
                     mLoadToast.setText(message);
                     mLoadToast.show();
                     mIsLoadToastShowing = true;
@@ -165,12 +197,14 @@ public abstract class BaseActivity extends FragmentActivity {
                     if (mIsLoadToastShowing) {
                         mLoadToast.error();
                         mIsLoadToastShowing = false;
+                        mLoadToast = null;
                     }
                     break;
                 case MSG_WHAT_STOP_PROGRESS_SUCCESS:
                     if (mIsLoadToastShowing) {
                         mLoadToast.success();
                         mIsLoadToastShowing = false;
+                        mLoadToast = null;
                     }
                     break;
                 default:

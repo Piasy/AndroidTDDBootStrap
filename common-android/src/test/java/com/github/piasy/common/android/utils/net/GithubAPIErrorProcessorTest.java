@@ -26,13 +26,13 @@ package com.github.piasy.common.android.utils.net;
 
 import com.github.piasy.common.android.MockProvider;
 import com.github.piasy.common.android.provider.ProviderModule;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.only;
 
@@ -62,6 +62,6 @@ public class GithubAPIErrorProcessorTest {
         mGithubAPIErrorProcessor.process(error);
 
         // then
-        then(mToastUtil).should(only()).makeToast(error.getErrorMessage());
+        verify(mToastUtil, only()).makeToast(error.getErrorMessage());
     }
 }

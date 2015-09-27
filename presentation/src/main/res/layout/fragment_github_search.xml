@@ -1,33 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:ctsbb="http://schemas.android.com/apk/res-auto"
               android:id="@+id/mLlContainer"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:background="@color/white"
         >
 
-    <com.github.piasy.handywidgets.centertitlesidebuttonbar.CenterTitleSideButtonBar
-            android:id="@+id/mTitleBar"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@android:color/holo_blue_bright"
-            ctsbb:hasLeftButton="true"
-            ctsbb:leftButtonSrc="@mipmap/ic_github_user_type_user"
-            ctsbb:leftButtonBg="@null"
-            ctsbb:hasRightButton="true"
-            ctsbb:rightButtonAsText="true"
-            ctsbb:rightButtonText="SETTING"
-            ctsbb:rightButtonTextColor="@drawable/white_text_selector"
-            ctsbb:rightButtonTextSize="10sp"
-            ctsbb:rightButtonBg="@android:color/transparent"
-            ctsbb:hasTitle="true"
-            ctsbb:centerTitleTextColor="@android:color/white"
-            ctsbb:centerTitle="@string/search_result"
-            ctsbb:centerTitleTextGravity="center"
-            ctsbb:centerTitleTextSize="10sp"
-            ctsbb:hasDivider="true"
-            ctsbb:dividerHeight="1dp"
-            ctsbb:dividerColor="@android:color/black"
+    <include
+            layout="@layout/ui_toolbar"
+            android:id="@+id/mToolBar"
             />
 
     <android.support.v7.widget.RecyclerView

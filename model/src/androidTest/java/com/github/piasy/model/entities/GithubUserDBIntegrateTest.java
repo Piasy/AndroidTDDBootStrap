@@ -3,13 +3,10 @@ package com.github.piasy.model.entities;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPAndroidTest;
-import com.github.piasy.model.dao.GithubUserTableMeta;
-import com.github.piasy.model.db.DBOpenHelper;
 import com.github.piasy.model.db.StorIOSQLiteDelegate;
 import com.github.piasy.model.db.StorIOSQLiteDelegateImpl;
-import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping;
+import com.github.piasy.model.db.di.DBModuleExposure;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.pushtorefresh.storio.sqlite.operations.delete.DeleteResult;
 import com.pushtorefresh.storio.sqlite.operations.put.PutResults;
 import java.util.ArrayList;
@@ -35,14 +32,8 @@ public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
     public void setUp() {
         initThreeTenABP(InstrumentationRegistry.getContext());
 
-        final StorIOSQLite storIOSQLite = DefaultStorIOSQLite.builder()
-                .sqliteOpenHelper(new DBOpenHelper(InstrumentationRegistry.getContext()))
-                .addTypeMapping(GithubUser.class, SQLiteTypeMapping.<GithubUser>builder()
-                        .putResolver(GithubUserTableMeta.GITHUB_USER_PUT_RESOLVER)
-                        .getResolver(GithubUserTableMeta.GITHUB_USER_GET_RESOLVER)
-                        .deleteResolver(GithubUserTableMeta.GITHUB_USER_DELETE_RESOLVER)
-                        .build())
-                .build();
+        final StorIOSQLite storIOSQLite =
+                DBModuleExposure.exposeStorIOSQLite(InstrumentationRegistry.getContext());
         mStorIOSQLiteDelegate = new StorIOSQLiteDelegateImpl(storIOSQLite);
 
         // Clearing table before each test case

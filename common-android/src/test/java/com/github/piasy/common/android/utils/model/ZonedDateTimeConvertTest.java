@@ -24,6 +24,7 @@
 
 package com.github.piasy.common.android.utils.model;
 
+import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.github.piasy.common.android.provider.ProviderModule;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.google.gson.Gson;

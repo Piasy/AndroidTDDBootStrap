@@ -24,7 +24,8 @@
 
 package com.github.piasy.template.base.di;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import com.github.piasy.common.di.ActivityScope;
 import dagger.Module;
 import dagger.Provides;
 
@@ -36,24 +37,25 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-    private final Activity mActivity;
+    private final AppCompatActivity mActivity;
 
     /**
-     * Create the module with {@link Activity} object.
+     * Create the module with {@link AppCompatActivity} object.
      *
-     * @param activity {@link Activity} object to provide.
+     * @param activity {@link AppCompatActivity} object to provide.
      */
-    public ActivityModule(final Activity activity) {
+    public ActivityModule(final AppCompatActivity activity) {
         mActivity = activity;
     }
 
     /**
-     * provide {@link Activity} object.
+     * provide {@link AppCompatActivity} object.
      *
-     * @return {@link Activity} object.
+     * @return {@link AppCompatActivity} object.
      */
+    @ActivityScope
     @Provides
-    Activity provideActivity() {
+    AppCompatActivity provideActivity() {
         return mActivity;
     }
 }

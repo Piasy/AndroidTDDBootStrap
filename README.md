@@ -1,6 +1,6 @@
 #Android TDD bootstrap project
 [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDBootStrap.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDBootStrap)
-[![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master)
+[![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master)  
 
 An Android TDD bootstrap project, use a collection of new technology, obey best practices, inspired from some popular architectures, develop with many handy tools.
 
@@ -72,8 +72,6 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 ##Build tips
 +  Sign key config
 Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.  
-This function is commented to use travis ci.
-+  Use Android Lint Summary tool: `./gradlew lint`
 
 ##Dev tips
 +  Create utils
@@ -82,16 +80,19 @@ This function is commented to use travis ci.
   +  Add expose method in AppComponent.java
 +  Create Activity
 +  Unit test
-  +  use the test*.sh script in buildsystem dir
+  +  use the check*.sh script in buildsystem dir
 +  Run `./buildsystem/ci.sh` before git push.
 
 ##Todo
 +  ~~CheckStyle~~
-+  re-arch the provider package
++  ~~re-arch the provider package~~
 +  Espresso test of presentation module
++  re-arch AppComponent
 +  NDK integrate
 +  MVP source generator
 +  MVVM branch
++  react native branch
++  kotlin branch
 
 ##Coverage
 ![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)

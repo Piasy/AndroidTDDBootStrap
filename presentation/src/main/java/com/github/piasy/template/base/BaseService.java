@@ -1,8 +1,8 @@
 package com.github.piasy.template.base;
 
 import android.app.Service;
-import com.github.piasy.template.base.di.AppComponent;
-import com.github.piasy.template.base.di.IApplication;
+import com.github.piasy.template.app.di.AppComponent;
+import com.github.piasy.template.app.di.IApplication;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.EventBusException;
 import javax.inject.Inject;
@@ -20,7 +20,6 @@ public abstract class BaseService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.getApplicationComponent().inject(this);
         if (!mBus.isRegistered(this)) {
             try {
                 mBus.register(this);
@@ -39,6 +38,6 @@ public abstract class BaseService extends Service {
     }
 
     protected AppComponent getApplicationComponent() {
-        return ((IApplication) getApplication()).component();
+        return ((IApplication) getApplication()).appComponent();
     }
 }

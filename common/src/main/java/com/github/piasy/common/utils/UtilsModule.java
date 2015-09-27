@@ -45,6 +45,6 @@ public class UtilsModule {
     @Singleton
     @Provides
     EmailUtil provideEmailUtil() {
-        return new EmailUtil(Constants.RE_PATTERTNS_EMAIL_PATTERN);
+        return new EmailUtil(Constants.RE_PATTERNS_EMAIL_PATTERN);
     }
 }

@@ -62,8 +62,8 @@ dependencies {
     // Developer
     retrolambdaConfig modelDependencies.retrolambda
 
+    debugCompile modelTestDependencies.mockito
     testCompile modelTestDependencies.junit
-    testCompile modelTestDependencies.mockito
     testCompile modelTestDependencies.jsonAssert
-    androidTestCompile modelTestDependencies.testingSupportLib
+    androidTestCompile modelTestDependencies.androidJUnitRunner
 }

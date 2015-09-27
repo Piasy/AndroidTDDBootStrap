@@ -42,4 +42,13 @@ public interface GithubUserDAO {
      */
     @NonNull
     Observable<List<GithubUser>> getUsers();
+
+    /**
+     * search github user.
+     *
+     * @param query search query.
+     * @return search result observable.
+     */
+    @NonNull
+    Observable<List<GithubUser>> searchUser(@NonNull String query);
 }

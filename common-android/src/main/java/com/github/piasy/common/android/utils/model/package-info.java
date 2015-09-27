@@ -23,6 +23,6 @@
  */
 
 /**
- * Android common model utility classes,including classes related to JSR-310 library.
+ * Android common model utility classes.
  */
 package com.github.piasy.common.android.utils.model;

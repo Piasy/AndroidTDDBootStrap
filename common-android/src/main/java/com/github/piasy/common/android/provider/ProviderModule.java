@@ -25,7 +25,7 @@
 package com.github.piasy.common.android.provider;
 
 import android.support.annotation.VisibleForTesting;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;

@@ -29,6 +29,7 @@ import com.github.piasy.common.Constants;
 import com.github.piasy.common.android.utils.net.RxUtil;
 import com.github.piasy.model.db.StorIOSQLiteDelegate;
 import com.github.piasy.model.entities.GithubUser;
+import com.github.piasy.model.entities.GithubUserSearchResult;
 import com.github.piasy.model.rest.github.GithubAPI;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,5 +106,13 @@ public final class GithubUserDAOImpl implements GithubUserDAO {
                 }, mRxErrorProcessor);
 
         return mStorIOSQLite.getAllGithubUserReactively();
+    }
+
+    @NonNull
+    @Override
+    public Observable<List<GithubUser>> searchUser(@NonNull String query) {
+        return mGithubAPI.searchGithubUsers(query, Constants.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
+                Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
+                .map(GithubUserSearchResult::items);
     }
 }

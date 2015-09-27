@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="gross_green">#ff99cc00</color>
+    <color name="gross_green_dark">#ff669900</color>
+    <color name="light_purple">#ffaa66cc</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+</resources>

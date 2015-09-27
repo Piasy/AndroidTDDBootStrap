@@ -26,7 +26,7 @@ package com.github.piasy.common.android.utils.net;
 
 import com.github.piasy.common.android.MockProvider;
 import com.github.piasy.common.android.provider.ProviderModule;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
+import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.google.gson.Gson;
 import junit.framework.Assert;

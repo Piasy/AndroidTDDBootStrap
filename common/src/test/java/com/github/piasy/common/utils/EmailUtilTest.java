@@ -39,7 +39,7 @@ public class EmailUtilTest {
 
     @Before
     public void setUp() {
-        mEmailUtil = new EmailUtil(Constants.RE_PATTERTNS_EMAIL_PATTERN);
+        mEmailUtil = new EmailUtil(Constants.RE_PATTERNS_EMAIL_PATTERN);
     }
 
     @Test

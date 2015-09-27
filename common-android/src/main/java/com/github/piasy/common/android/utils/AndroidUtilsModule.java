@@ -24,11 +24,8 @@
 
 package com.github.piasy.common.android.utils;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegate;
-import com.github.piasy.common.android.utils.model.ThreeTenABPDelegateImpl;
 import com.github.piasy.common.android.utils.net.GithubAPIErrorProcessor;
 import com.github.piasy.common.android.utils.net.RxUtil;
 import com.github.piasy.common.android.utils.roms.MiUIUtil;
@@ -48,34 +45,19 @@ import javax.inject.Singleton;
 @Module
 public class AndroidUtilsModule {
 
-    private final Application mApplication;
     private final Context mContext;
 
     /**
-     * Create instance with the {@link Application} object.
+     * Create instance with the {@link Context} object.
      *
-     * @param application the {@link Application} object.
+     * @param context the {@link Context} object.
      */
-    public AndroidUtilsModule(@NonNull final Application application) {
-        mApplication = application;
-        mContext = mApplication.getApplicationContext();
+    public AndroidUtilsModule(@NonNull final Context context) {
+        mContext = context;
     }
 
     /**
-     * Provide {@link ThreeTenABPDelegate} with the given context. Dagger ensure the {@link
-     * Singleton} property.
-     *
-     * @return the provided {@link ThreeTenABPDelegate}
-     */
-    @Singleton
-    @Provides
-    ThreeTenABPDelegate provideThreeTenABPDelegate() {
-        return new ThreeTenABPDelegateImpl(mApplication);
-    }
-
-    /**
-     * Provide {@link ScreenUtil} with the given context. Dagger ensure the {@link Singleton}
-     * property.
+     * Provide {@link ScreenUtil} with the given context.
      *
      * @return the provided {@link ScreenUtil}
      */
@@ -86,8 +68,7 @@ public class AndroidUtilsModule {
     }
 
     /**
-     * Provide {@link ToastUtil} with the given context. Dagger ensure the {@link Singleton}
-     * property.
+     * Provide {@link ToastUtil} with the given context.
      *
      * @return the provided {@link ToastUtil}
      */
@@ -98,8 +79,7 @@ public class AndroidUtilsModule {
     }
 
     /**
-     * Provide {@link RxUtil.RxErrorProcessor} with the given context. Dagger ensure the {@link
-     * Singleton} property.
+     * Provide {@link RxUtil.RxErrorProcessor} with the given context.
      *
      * @param toastUtil the needed {@link ToastUtil}
      * @return the provided {@link RxUtil.RxErrorProcessor}
@@ -111,8 +91,7 @@ public class AndroidUtilsModule {
     }
 
     /**
-     * Provide {@link MiUIUtil} with the given context. Dagger ensure the {@link Singleton}
-     * property.
+     * Provide {@link MiUIUtil} with the given context.
      *
      * @return the provided {@link MiUIUtil}
      */

@@ -8,13 +8,19 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-            android:name=".TemplateApp"
+            android:name=".app.TemplateApp"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"
             >
         <activity
-                android:name=".features.search.GithubSearchActivity"
+                android:name=".features.user.GithubUserActivity"
+                android:label="@string/app_name"
+                android:parentActivityName=".features.splash.SplashActivity"
+                />
+
+        <activity
+                android:name=".features.splash.SplashActivity"
                 android:label="@string/app_name"
                 >
             <intent-filter>
@@ -23,8 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".features.search.DemoKotlinActivity"/>
 
         <meta-data
                 android:name="io.fabric.ApiKey"
