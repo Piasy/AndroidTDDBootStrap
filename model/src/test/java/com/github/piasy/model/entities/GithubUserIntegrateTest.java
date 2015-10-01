@@ -1,7 +1,6 @@
 package com.github.piasy.model.entities;
 
-import com.github.piasy.common.android.provider.ProviderModule;
-import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
+import com.github.piasy.common.android.provider.GsonProviderExposure;
 import com.github.piasy.common.android.utils.tests.BaseThreeTenBPTest;
 import com.github.piasy.model.MockProvider;
 import com.google.gson.Gson;
@@ -10,8 +9,6 @@ import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by piasy on 15/8/11.
@@ -23,7 +20,7 @@ public class GithubUserIntegrateTest extends BaseThreeTenBPTest {
     @Before
     public void setUp() {
         initThreeTenABP();
-        mGson = new ProviderModule().provideGson(mock(ThreeTenABPDelegate.class));
+        mGson = GsonProviderExposure.exposeGson();
     }
 
     @Test

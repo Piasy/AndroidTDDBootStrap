@@ -1,6 +1,6 @@
 ext {
 
-    basePackageName = 'com.piasy.template'
+    basePackageName = 'com.github.piasy.template'
 
     develop = [
             packageName: "${basePackageName}.dev",

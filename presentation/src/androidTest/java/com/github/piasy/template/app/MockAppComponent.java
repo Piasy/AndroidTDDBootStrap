@@ -22,15 +22,18 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template;
+package com.github.piasy.template.app;
 
+import com.github.piasy.common.android.jsr310.JSR310Module;
 import com.github.piasy.common.android.provider.ProviderModule;
 import com.github.piasy.common.android.utils.AndroidUtilsModule;
+import com.github.piasy.common.utils.UtilsModule;
 import com.github.piasy.model.dao.di.DAOModule;
 import com.github.piasy.model.db.di.DBModule;
 import com.github.piasy.model.rest.github.GithubAPIModule;
 import com.github.piasy.template.app.di.AppComponent;
 import com.github.piasy.template.app.di.AppModule;
+import com.github.piasy.template.features.splash.SplashActivityTest;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -46,13 +49,13 @@ import javax.inject.Singleton;
 
                 ProviderModule.class, DBModule.class, GithubAPIModule.class, DAOModule.class,
 
-                AndroidUtilsModule.class
+                JSR310Module.class, AndroidUtilsModule.class, UtilsModule.class
         })
 public interface MockAppComponent extends AppComponent {
     /**
      * Inject dependency into test cases.
      *
-     * @param activityTest BaseActivityTest
+     * @param activityTest SplashActivityTest
      */
-    void inject(BaseActivityTest activityTest);
+    void inject(SplashActivityTest activityTest);
 }

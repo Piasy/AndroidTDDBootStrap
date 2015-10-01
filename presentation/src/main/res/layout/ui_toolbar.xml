@@ -31,6 +31,6 @@
                                    android:background="@color/gross_green"
                                    android:paddingTop="@dimen/toolbar_padding_top"
                                    android:foregroundGravity="center_vertical"
-                                   app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                                   android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />

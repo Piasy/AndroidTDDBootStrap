@@ -45,7 +45,7 @@ public final class DBModuleExposure {
      * @return provided StorIOSQLite object
      */
     public static StorIOSQLite exposeStorIOSQLite(@NonNull final Context context) {
-        DBModule dbModule = new DBModule();
+        final DBModule dbModule = new DBModule();
         return dbModule.provideStorIOSQLite(dbModule.provideSQSqLiteOpenHelper(context));
     }
 }

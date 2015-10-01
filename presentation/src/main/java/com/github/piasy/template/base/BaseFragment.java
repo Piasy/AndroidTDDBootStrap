@@ -24,6 +24,7 @@
 
 package com.github.piasy.template.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ import rx.subjects.BehaviorSubject;
  * @param <P> type parameter extends {@link MvpPresenter}.
  * @param <C> type parameter extends {@link BaseMvpComponent}.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>, C extends
         BaseMvpComponent<V, P>>
         extends MvpFragment<V, P> implements FragmentLifecycleProvider {
@@ -64,7 +66,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     @Override
-    public final <T> Observable.Transformer<T, T> bindUntilEvent(FragmentEvent event) {
+    public final <T> Observable.Transformer<T, T> bindUntilEvent(final FragmentEvent event) {
         return RxLifecycle.bindUntilFragmentEvent(mLifecycleSubject, event);
     }
 
@@ -74,13 +76,13 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     @Override
-    public void onAttach(android.app.Activity activity) {
+    public void onAttach(final Activity activity) {
         super.onAttach(activity);
         mLifecycleSubject.onNext(FragmentEvent.ATTACH);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLifecycleSubject.onNext(FragmentEvent.CREATE);
     }
@@ -148,8 +150,8 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         return super.onCreateView(inflater, container, savedInstanceState);
     }

@@ -34,14 +34,14 @@ import dagger.Module;
  */
 @Module
 public class UserModule {
-    private final GithubUser mGithubUser;
 
     /**
      * create module with the github user in this scope.
      *
      * @param githubUser the github user in this scope.
      */
-    public UserModule(GithubUser githubUser) {
-        mGithubUser = githubUser;
+    public UserModule(final GithubUser githubUser) {
+        //mGithubUser = githubUser;
+        githubUser.login();
     }
 }

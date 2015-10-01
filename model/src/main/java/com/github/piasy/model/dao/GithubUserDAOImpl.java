@@ -110,7 +110,7 @@ public final class GithubUserDAOImpl implements GithubUserDAO {
 
     @NonNull
     @Override
-    public Observable<List<GithubUser>> searchUser(@NonNull String query) {
+    public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
         return mGithubAPI.searchGithubUsers(query, Constants.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
                 Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .map(GithubUserSearchResult::items);

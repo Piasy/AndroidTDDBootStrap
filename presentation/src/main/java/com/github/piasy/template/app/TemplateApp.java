@@ -28,7 +28,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.github.piasy.common.android.utils.AndroidUtilsModule;
-import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.github.piasy.model.entities.GithubUser;
 import com.github.piasy.template.app.di.AppComponent;
 import com.github.piasy.template.app.di.AppModule;
@@ -38,8 +37,6 @@ import com.github.piasy.template.app.di.UserComponent;
 import com.github.piasy.template.app.di.UserModule;
 import com.github.piasy.template.app.di.VisitorComponent;
 import com.github.piasy.template.app.di.VisitorModule;
-import com.google.gson.Gson;
-import javax.inject.Inject;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -48,10 +45,6 @@ import javax.inject.Inject;
  */
 public class TemplateApp extends Application implements IApplication {
 
-    @Inject
-    Gson mGson;
-    @Inject
-    ToastUtil mToastUtil;
     private AppComponent mAppComponent;
     private VisitorComponent mVisitorComponent;
     private UserComponent mUserComponent;
@@ -83,12 +76,7 @@ public class TemplateApp extends Application implements IApplication {
                     .androidUtilsModule(new AndroidUtilsModule(this))
                     .build();
         }
-        mAppComponent.inject(this);
         mVisitorComponent = mAppComponent.plus(new VisitorModule());
-
-        // test
-        String test = "{\"login\":\"Piasy\"}";
-        mToastUtil.makeToast(mGson.fromJson(test, GithubUser.class).login());
     }
 
     @NonNull
@@ -105,7 +93,7 @@ public class TemplateApp extends Application implements IApplication {
 
     @NonNull
     @Override
-    public UserComponent createUserComponent(GithubUser user) {
+    public UserComponent createUserComponent(final GithubUser user) {
         mUserComponent = mAppComponent.plus(new UserModule(user));
         return mUserComponent;
     }
@@ -120,12 +108,19 @@ public class TemplateApp extends Application implements IApplication {
         return mUserComponent;
     }
 
+    @SuppressWarnings("PMD.NullAssignment")
     @Override
     public void releaseUserComponent() {
         mUserComponent = null;
     }
 
+    /**
+     * set mock component for test.
+     *
+     * @param appComponent mock component
+     */
     void setComponent(@NonNull final AppComponent appComponent) {
         mAppComponent = appComponent;
+        mVisitorComponent = mAppComponent.plus(new VisitorModule());
     }
 }

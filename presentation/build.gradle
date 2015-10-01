@@ -133,28 +133,62 @@ dependencies {
     compile (project(':model')) {
         exclude module: 'xlog'
     }
-    compile presentationDependencies.androidSupportAppCompatV7
-    compile presentationDependencies.supportDesignLibrary
+    compile project(':EasyFlow')
+    compile (presentationDependencies.androidSupportAppCompatV7) {
+        exclude module: 'support-v4'
+    }
+    compile (presentationDependencies.supportDesignLibrary) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
     compile presentationDependencies.butterKnife
-    compile presentationDependencies.rxAndroid
+    compile (presentationDependencies.rxAndroid) {
+        exclude module: 'rxjava'
+    }
 
     apt presentationDependencies.daggerCompiler
     provided presentationDependencies.javaxAnnotation
 
-    compile presentationDependencies.mvp
-    compile presentationDependencies.once
-    compile presentationDependencies.rxBinding
-    compile presentationDependencies.rxBindingAppCompatV7
-    compile presentationDependencies.rxLifeCycle
-    compile presentationDependencies.rxLifeCycleComponent
+    compile (presentationDependencies.mvp) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    compile (presentationDependencies.once) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    compile (presentationDependencies.rxBinding) {
+        exclude module: 'support-annotations'
+    }
+    compile (presentationDependencies.rxBindingAppCompatV7) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'rxbinding'
+    }
+    compile (presentationDependencies.rxLifeCycle) {
+        exclude module: 'rxbinding'
+    }
+    compile (presentationDependencies.rxLifeCycleComponent) {
+        exclude module: 'rxlifecycle'
+        exclude module: 'appcompat-v7'
+    }
+    provided presentationDependencies.eventBusProcessor
 
     // UI library
-    compile presentationDependencies.recyclerViewV7
+    compile (presentationDependencies.recyclerViewV7) {
+        exclude module: 'support-v4'
+    }
     compile presentationDependencies.cardViewV7
-    compile presentationDependencies.fresco
+    compile (presentationDependencies.fresco) {
+        exclude module: 'support-v4'
+    }
     compile presentationDependencies.loadToast
-    compile presentationDependencies.iconifyMD
-    compile presentationDependencies.mugen
+    compile (presentationDependencies.iconifyMD) {
+        exclude module: 'support-v4'
+    }
+    compile (presentationDependencies.mugen) {
+        exclude module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
 
     // Developer
     developCompile presentationDependencies.xLogAndroid
@@ -172,13 +206,25 @@ dependencies {
     androidTestCompile (presentationTestDependencies.mockito) {
         exclude module: "hamcrest-core"
     }
+    androidTestCompile presentationTestDependencies.hamcrestLibrary
     androidTestCompile presentationTestDependencies.dexmaker
     androidTestCompile (presentationTestDependencies.dexmakerMockito) {
         exclude module: "hamcrest-core"
+        exclude module: "mockito-core"
     }
-    androidTestCompile presentationTestDependencies.espresso
-    androidTestCompile presentationTestDependencies.espressoIntents
-    androidTestCompile presentationTestDependencies.androidJUnitRunner
+    androidTestCompile (presentationTestDependencies.espresso) {
+        exclude module: "hamcrest-library"
+        exclude module: "rules"
+        exclude module: "runner"
+    }
+    androidTestCompile (presentationTestDependencies.espessoContrib) {
+        exclude module: "espresso-core"
+        exclude module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile (presentationTestDependencies.espressoIntents) {
+        exclude module: "espresso-core"
+    }
     androidTestCompile presentationTestDependencies.androidJUnit4Rules
     androidTestApt presentationDependencies.daggerCompiler
 }

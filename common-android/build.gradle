@@ -48,9 +48,8 @@ dependencies {
     compile commonAndroidDependencies.retrofit
     compile commonAndroidDependencies.eventBus
     provided commonAndroidDependencies.daggerCompiler
-    compile commonAndroidDependencies.androidSupportAppCompatV7
-    compile commonAndroidDependencies.androidSupportAppCompatV7
     compile commonAndroidDependencies.supportAnnotation
+    compile commonAndroidDependencies.supportV4
     compile commonAndroidDependencies.threetenabp
     compile commonAndroidDependencies.timber
 

@@ -1,3 +1,6 @@
 [submodule "AndroidCodeQualityConfig"]
 	path = AndroidCodeQualityConfig
 	url = git@github.com:Piasy/AndroidCodeQualityConfig.git
+[submodule "EasyFlow"]
+	path = EasyFlow
+	url = git@github.com:Piasy/EasyFlow.git

@@ -88,8 +88,8 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
 
     private GithubSearchUserResultAdapter mAdapter;
     private RecyclerViewAttacher mAttacher;
-    private boolean mIsLoading = false;
-    private boolean mHasAllLoaded = false;
+    private boolean mIsLoading;
+    private boolean mHasAllLoaded;
     private String mCurrentQuery = "";
 
     @Override
@@ -109,6 +109,7 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
     }
 
     private void setupView() {
+        mToolBar.setTitle(R.string.search);
         mActivity.setSupportActionBar(mToolBar);
         mAdapter = new GithubSearchUserResultAdapter(mResources,
                 user -> mToastUtil.makeToast("Clicked: " + user.login()));
@@ -135,10 +136,10 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search_github_user, menu);
-        MenuItem search = menu.findItem(R.id.mActionSearch);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        final MenuItem search = menu.findItem(R.id.mActionSearch);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         RxSearchView.queryTextChanges(searchView)
                 .compose(this.<CharSequence>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
@@ -146,12 +147,12 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
                 .subscribe(query -> {
                     if (!TextUtils.equals(mCurrentQuery, query)) {
                         mCurrentQuery = query.toString();
-                        if (!TextUtils.isEmpty(mCurrentQuery)) {
+                        if (TextUtils.isEmpty(mCurrentQuery)) {
+                            showSearchUserResult(Collections.emptyList());
+                        } else {
                             presenter.searchUser(mCurrentQuery);
                             showProgress();
                             mIsLoading = true;
-                        } else {
-                            showSearchUserResult(Collections.emptyList());
                         }
                     }
                 });

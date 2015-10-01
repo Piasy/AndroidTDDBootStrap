@@ -66,7 +66,7 @@ public class SplashPresenterImpl extends BaseRxPresenter<SplashView> implements 
     }
 
     @Override
-    public void searchUser(@NotNull String query) {
+    public void searchUser(@NotNull final String query) {
         // load user from dao, dao take responsibility for where to get the real data
         addSubscription(mGithubUserDAO.searchUser(query)
                 .subscribeOn(Schedulers.io())

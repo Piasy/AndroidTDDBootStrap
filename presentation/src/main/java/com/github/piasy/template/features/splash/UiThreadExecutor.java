@@ -24,23 +24,22 @@
 
 package com.github.piasy.template.features.splash;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.github.piasy.template.R;
+import android.os.Handler;
+import android.os.Looper;
+
+import android.support.annotation.NonNull;
+import java.util.concurrent.Executor;
 
 /**
- * A placeholder fragment containing a splash view.
+ * Created by Piasy{github.com/Piasy} on 15/10/1.
+ *
+ * Execute command in UI thread.
  */
-public class SplashFragment extends Fragment {
+public class UiThreadExecutor implements Executor {
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
-    @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_splash, container, false);
+    public void execute(@NonNull final Runnable command) {
+        mHandler.post(command);
     }
 }

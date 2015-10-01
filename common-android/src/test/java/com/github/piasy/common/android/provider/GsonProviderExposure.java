@@ -22,45 +22,27 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.common.android.utils.net;
+package com.github.piasy.common.android.provider;
 
-import com.github.piasy.common.android.MockProvider;
-import com.github.piasy.common.android.provider.GsonProviderExposure;
-import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.google.gson.Gson;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.only;
-import static org.mockito.Mockito.verify;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/9.
+ * Created by Piasy{github.com/Piasy} on 15/9/27.
+ *
+ * Expose gson provider for test.
  */
-public class GithubAPIErrorProcessorTest {
+public final class GsonProviderExposure {
 
-    private ToastUtil mToastUtil;
-    private GithubAPIErrorProcessor mGithubAPIErrorProcessor;
-    private Gson mGson;
-
-    @Before
-    public void setUp() {
-        mToastUtil = mock(ToastUtil.class);
-        mGithubAPIErrorProcessor = new GithubAPIErrorProcessor(mToastUtil);
-        mGson = GsonProviderExposure.exposeGson();
+    private GsonProviderExposure() {
+        // no instance
     }
 
-    @Test
-    public void testProcess() {
-        // given
-        final GithubAPIError error =
-                mGson.fromJson(MockProvider.provideGithubAPIErrorStr(), GithubAPIError.class);
-
-        // when
-        mGithubAPIErrorProcessor.process(error);
-
-        // then
-        verify(mToastUtil, only()).makeToast(error.getErrorMessage());
+    /**
+     * Expose gson provider for test.
+     *
+     * @return exposed gson.
+     */
+    public static Gson exposeGson() {
+        return GsonProvider.provideGson();
     }
 }

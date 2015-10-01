@@ -31,7 +31,6 @@ import com.github.piasy.common.utils.UtilsModule;
 import com.github.piasy.model.dao.di.DAOModule;
 import com.github.piasy.model.db.di.DBModule;
 import com.github.piasy.model.rest.github.GithubAPIModule;
-import com.github.piasy.template.app.TemplateApp;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -72,12 +71,14 @@ public interface AppComponent {
      */
     UserComponent plus(UserModule userModule);
 
-    /**
-     * Only @Inject annotated members of parameter type and its super type could be injected,
-     * the subtypes' member could not.
-     * ref: http://stackoverflow.com/a/29956910/3077508
-     *
-     * @param application {@link TemplateApp} object to inject dependency.
-     */
-    void inject(TemplateApp application);
+    ///**
+    // * Only @Inject annotated members of parameter type and its super type could be injected,
+    // * the subtypes' member could not.
+    // * ref: http://stackoverflow.com/a/29956910/3077508
+    // *
+    // * NOTE!!! Inject dependency into Application object will slow down the app first start.
+    // *
+    // * @param application {@link TemplateApp} object to inject dependency.
+    // */
+    //void inject(TemplateApp application);
 }

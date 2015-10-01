@@ -32,13 +32,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.WindowManager;
 import com.github.piasy.common.android.utils.screen.ScreenUtil;
 import com.github.piasy.template.app.di.AppComponent;
 import com.github.piasy.template.app.di.IApplication;
 import com.github.piasy.template.base.di.ActivityModule;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 import net.steamcrafted.loadtoast.LoadToast;
@@ -48,7 +48,7 @@ import net.steamcrafted.loadtoast.LoadToast;
  *
  * Base Activity class.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     private static final int MSG_WHAT_START_PROGRESS = 1000;
     private static final int MSG_WHAT_STOP_PROGRESS_SUCCESS = 1001;
@@ -63,9 +63,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            final WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
             localLayoutParams.flags =
-                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags;
         }
         initializeInjector();
         mHandler = new MemorySafeHandler(0x555555, mScreenUtil.getScreenHeight(this) / 2, this);
@@ -162,17 +162,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         @ColorInt
         private final int mTextColor;
         private final int mShowYPos;
-        private boolean mIsLoadToastShowing = false;
+        private boolean mIsLoadToastShowing;
         private final WeakReference<Activity> mActivityWeakReference;
 
         public MemorySafeHandler(@ColorInt final int textColor, final int showYPos,
-                Activity activity) {
+                final Activity activity) {
             super();
             mTextColor = textColor;
             mShowYPos = showYPos;
             mActivityWeakReference = new WeakReference<>(activity);
         }
 
+        @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.NullAssignment"})
         @Override
         public void handleMessage(@NonNull final Message msg) {
             if (mActivityWeakReference.get() == null) {

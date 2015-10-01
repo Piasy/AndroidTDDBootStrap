@@ -22,25 +22,33 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.features.splash;
+package com.github.piasy.template.app;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.github.piasy.template.R;
+import android.app.Instrumentation;
+import android.support.test.InstrumentationRegistry;
+import com.github.piasy.common.android.utils.AndroidUtilsModule;
+import com.github.piasy.model.rest.github.MockGithubAPIModule;
+import com.github.piasy.template.app.di.AppModule;
 
 /**
- * A placeholder fragment containing a splash view.
+ * Created by Piasy{github.com/Piasy} on 15/9/26.
  */
-public class SplashFragment extends Fragment {
-
-    @Nullable
-    @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_splash, container, false);
+@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
+public abstract class BaseActivityTest {
+    /**
+     * set mock app component.
+     *
+     * @return MockAppComponent
+     */
+    protected MockAppComponent setMockAppComponent() {
+        final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        final TemplateApp app = (TemplateApp) instrumentation.getTargetContext().getApplicationContext();
+        final MockAppComponent component = DaggerMockAppComponent.builder()
+                .appModule(new AppModule(app))
+                .androidUtilsModule(new AndroidUtilsModule(app))
+                .githubAPIModule(new MockGithubAPIModule())
+                .build();
+        app.setComponent(component);
+        return component;
     }
 }
