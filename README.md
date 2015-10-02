@@ -1,14 +1,14 @@
-#Android TDD bootstrap project
+# Android TDD bootstrap project
 [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDBootStrap.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDBootStrap)
 [![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master)  
 
 An Android TDD bootstrap project, use a collection of new technology, obey best practices, inspired from some popular architectures, develop with many handy tools.
 
-##Why another bootstrap project?
+## Why another bootstrap project?
 From the beginning of this year 2015, our team start a new project, and before we develop functionality in detail, we try to create a well-architecture project from scratch, with well designed network layer, data layer, asynchronous execution, communication between modules, and last but not least: unit test and integrate test support. After several months of developing, we found some drawback of our current architecture, and also found some popular architectures, then I decide to extract our original well designed architecture and open source it, with amendment according to the drawback and features from new popular architectures we found.
 Recently I have seen a lot of bootstrap/base Android project, including [JakeWharton's u2020](https://github.com/JakeWharton/u2020), [mobiwiseco's Android-Base-Project](https://github.com/mobiwiseco/Android-Base-Project), etc, but none of these projects cover all features I include in this AndroidTDDBootStrap project. That's why I want more people to see this repo, and I also want get feedback from more people to improve this project.
 
-##Architecture
+## Architecture
 Based on the project architecture I'm currently work on, [YOLO](https://www.yoloyolo.tv/), and inspired from popular architectures: [Android Clean Architecture](https://github.com/android10/Android-CleanArchitecture), [Against Android Unit Tests: The Square way](http://www.philosophicalhacker.com/2015/04/10/against-android-unit-tests/).
 +  MVP: [Mosby](https://github.com/sockeqwe/mosby), A Model-View-Presenter library for modern Android apps.
 +  Dependency injection
@@ -53,7 +53,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
   +  Jacoco & [Codecov](https://codecov.io)
 +  [Kotlin](http://kotlinlang.org/), Statically typed programming language for the JVM, Android and the browser.
 
-##Project structure
+## Project structure
 +  common
   +  Pure java library, provide common functionality.
 +  common-android
@@ -69,34 +69,34 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
     +  common utils and base code are organized together
     +  app functionality are organized by feature, mvp, di, ui code are organized together
 
-##Build tips
+## Build tips
 +  Sign key config
 Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.  
 
-##Dev tips
+## Dev tips
 +  Create utils
   +  Create util class in common/common-android module
   +  Add @Provides annotated provider method in corresponding Module class(UtilsModule.java/AndroidUtilsModule.java)
-  +  Add expose method in AppComponent.java
+  +  ~~Add expose method in AppComponent.java~~
 +  Create Activity
 +  Unit test
   +  use the check*.sh script in buildsystem dir
 +  Run `./buildsystem/ci.sh` before git push.
 
-##Todo
+## Todo
 +  ~~CheckStyle~~
 +  ~~re-arch the provider package~~
-+  Espresso test of presentation module
-+  re-arch AppComponent
++  ~~Espresso test of presentation module~~
++  ~~re-arch AppComponent~~
 +  NDK integrate
 +  MVP source generator
 +  MVVM branch
 +  react native branch
 +  kotlin branch
 
-##Coverage
+## Coverage
 ![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)
 
-##Acknowledgement
+## Acknowledgement
 +  Thanks for our team, [YOLO](https://www.yoloyolo.tv/).
 +  Thanks for my colleague & mentor, [promeG](https://github.com/promeG/).
