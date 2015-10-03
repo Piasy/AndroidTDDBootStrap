@@ -1,6 +1,6 @@
 # Android TDD bootstrap project
 [![Master branch build status](https://travis-ci.org/Piasy/AndroidTDDBootStrap.svg?branch=master)](https://travis-ci.org/Piasy/AndroidTDDBootStrap)
-[![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master)  
+[![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/coverage.svg?branch=master)](http://codecov.io/github/Piasy/AndroidTDDBootStrap?branch=master) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidTDDBootStrap-green.svg?style=flat)](https://android-arsenal.com/details/3/2586)  
 
 An Android TDD bootstrap project, use a collection of new technology, obey best practices, inspired from some popular architectures, develop with many handy tools.
 
@@ -88,6 +88,7 @@ Place KeyStore file in some place, and create a TemplateKeyStore.properties, and
 +  ~~re-arch the provider package~~
 +  ~~Espresso test of presentation module~~
 +  ~~re-arch AppComponent~~
++  facebook [BUCK](http://buckbuild.com) integration
 +  NDK integrate
 +  MVP source generator
 +  MVVM branch
