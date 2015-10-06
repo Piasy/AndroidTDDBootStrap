@@ -69,6 +69,7 @@ ext {
 
     commonAndroidDependencies = [
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             retrofit                 : "com.squareup.retrofit:retrofit:${retrofitVersion}",
             eventBus                 : "de.greenrobot:eventbus:${eventBusVersion}",
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
@@ -90,7 +91,6 @@ ext {
 
     modelDependencies = [
             daggerCompiler                 : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             storIOSQLite                   : "com.pushtorefresh.storio:sqlite:${storIOVersion}",
             storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
             storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
@@ -117,7 +117,6 @@ ext {
             recyclerView             : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             rxJava                   : "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
-            javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             mvp                      : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
             once                     : "com.jonathanfinerty.once:once:${onceVersion}",
             eventBusProcessor        : "de.greenrobot:eventbus-annotation-processor:${eventBusVersion}",

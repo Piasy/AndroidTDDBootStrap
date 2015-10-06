@@ -31,6 +31,7 @@ import au.com.ds.ef.EventEnum;
 import au.com.ds.ef.FlowBuilder;
 import au.com.ds.ef.StateEnum;
 import au.com.ds.ef.StatefulContext;
+import au.com.ds.ef.call.ContextHandler;
 import au.com.ds.ef.err.LogicViolationError;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -49,6 +50,8 @@ import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 import jonathanfinerty.once.Once;
 import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -62,11 +65,14 @@ import static au.com.ds.ef.FlowBuilder.on;
  * Dagger
  * 2 - graph creation performance</a> to avoid activity state loss.
  */
+@SuppressWarnings({
+        "PMD.CyclomaticComplexity", "PMD.StdCyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity"
+})
 public class SplashActivity extends BaseActivity implements HasComponent<SplashComponent> {
 
     private static final String SPLASH_FRAGMENT = "SplashFragment";
     private static final String GITHUB_SEARCH_FRAGMENT = "GithubSearchFragment";
-    private static final String RELEASE = "release";
     private static final int TIME = 10000;
     private static final String TAG = "SplashActivity";
 
@@ -109,58 +115,71 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                                                                 State.Transaction)))))
                 .executor(new UiThreadExecutor());
 
-        mFlow.whenEnter(State.Start, context -> {
-            context.setState(State.Start);
-            Observable.create(subscriber -> {
-                try {
-                    mFlow.trigger(Event.Initialize, mStatefulContext);
-                } catch (LogicViolationError logicViolationError) {
-                    Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
-                }
-                if (BuildConfig.DEBUG) {
-                    Timber.plant(new Timber.DebugTree());
-                } else {
-                    Timber.plant(new Timber.DebugTree());
-                }
+        mFlow.whenEnter(State.Start, new ContextHandler<StatefulContext>() {
+            @Override
+            public void call(final StatefulContext context) {
+                context.setState(State.Start);
+                Observable.create(new Observable.OnSubscribe<Boolean>() {
+                    @Override
+                    public void call(final Subscriber<? super Boolean> subscriber) {
+                        try {
+                            mFlow.trigger(Event.Initialize, mStatefulContext);
+                        } catch (LogicViolationError logicViolationError) {
+                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+                        }
+                        if (BuildConfig.DEBUG) {
+                            Timber.plant(new Timber.DebugTree());
+                        } else {
+                            Timber.plant(new Timber.DebugTree());
+                        }
 
-                Fresco.initialize(mApp);
-                Iconify.with(new MaterialModule());
-                Once.initialise(mApp);
+                        Fresco.initialize(mApp);
+                        Iconify.with(new MaterialModule());
+                        Once.initialise(mApp);
 
-                // Developer
-                //XLogConfig.config(XLogConfig.newConfigBuilder(mApp).build());
-                // simulate heavy library initialization
-                try {
-                    Thread.sleep(TIME);
-                } catch (InterruptedException e) {
-                    Timber.e(Constants.ERROR_LOG_FORMAT, TAG, e);
-                }
-                Stetho.initialize(Stetho.newInitializerBuilder(mApp)
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(mApp))
-                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(mApp))
-                        .build());
-                if (BuildConfig.REPORT_CRASH) {
-                    Fabric.with(mApp, new Crashlytics());
-                    //Crashlytics.setString();
-                }
-                if (RELEASE.equals(BuildConfig.BUILD_TYPE)) {
-                    LeakCanary.install(mApp);
-                }
-                subscriber.onNext(true);
-                subscriber.onCompleted();
-            }).subscribeOn(Schedulers.io()).subscribe(success -> {
-                try {
-                    mFlow.trigger(Event.Finish, mStatefulContext);
-                } catch (LogicViolationError logicViolationError) {
-                    Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
-                }
-            });
-        }).whenEnter(State.Transaction, context -> {
-            context.setState(State.Transaction);
-            mFragmentManager.beginTransaction()
-                    .remove(mFragmentManager.findFragmentByTag(SPLASH_FRAGMENT))
-                    .add(android.R.id.content, new GithubSearchFragment(), GITHUB_SEARCH_FRAGMENT)
-                    .commit();
+                        // Developer
+                        //XLogConfig.config(XLogConfig.newConfigBuilder(mApp).build());
+                        // simulate heavy library initialization
+                        try {
+                            Thread.sleep(TIME);
+                        } catch (InterruptedException e) {
+                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, e);
+                        }
+                        Stetho.initialize(Stetho.newInitializerBuilder(mApp)
+                                .enableDumpapp(Stetho.defaultDumperPluginsProvider(mApp))
+                                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(mApp))
+                                .build());
+                        if (BuildConfig.REPORT_CRASH) {
+                            Fabric.with(mApp, new Crashlytics());
+                            //Crashlytics.setString();
+                        }
+                        if (BuildConfig.INSTALL_LEAK_CANARY) {
+                            LeakCanary.install(mApp);
+                        }
+                        subscriber.onNext(true);
+                        subscriber.onCompleted();
+                    }
+                }).subscribeOn(Schedulers.io()).subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(final Boolean aBoolean) {
+                        try {
+                            mFlow.trigger(Event.Finish, mStatefulContext);
+                        } catch (LogicViolationError logicViolationError) {
+                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+                        }
+                    }
+                });
+            }
+        }).whenEnter(State.Transaction, new ContextHandler<StatefulContext>() {
+            @Override
+            public void call(final StatefulContext context) {
+                context.setState(State.Transaction);
+                mFragmentManager.beginTransaction()
+                        .remove(mFragmentManager.findFragmentByTag(SPLASH_FRAGMENT))
+                        .add(android.R.id.content, new GithubSearchFragment(),
+                                GITHUB_SEARCH_FRAGMENT)
+                        .commit();
+            }
         });
     }
 

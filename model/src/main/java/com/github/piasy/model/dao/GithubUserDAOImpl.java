@@ -34,6 +34,8 @@ import com.github.piasy.model.rest.github.GithubAPI;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -69,39 +71,44 @@ public final class GithubUserDAOImpl implements GithubUserDAO {
         mGithubAPI.searchGithubUsers("piasy", Constants.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
                 Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .subscribeOn(Schedulers.io())
-                .subscribe(searchResult -> {
-                    if (searchResult.items().isEmpty()) {
-                        // if no cloud data, remove local data
-                        mStorIOSQLite.deleteAllGithubUser();
-                    } else {
-                        // else update local data totally
-                        final List<GithubUser> local = mStorIOSQLite.getAllGithubUser();
+                .subscribe(new Action1<GithubUserSearchResult>() {
+                    @Override
+                    public void call(final GithubUserSearchResult searchResult) {
+                        if (searchResult.items().isEmpty()) {
+                            // if no cloud data, remove local data
+                            mStorIOSQLite.deleteAllGithubUser();
+                        } else {
+                            // else update local data totally
+                            final List<GithubUser> local = mStorIOSQLite.getAllGithubUser();
 
-                        // NOTE!!! create a copy to avoid modify caller's state
-                        // there will be two extra List creation, but they will be GCed quickly(if
-                        // no memory leak happens), but object creation may have bad effect in
-                        // Android platform, so is this a good practice?
+                            // NOTE!!! create a copy to avoid modify caller's state
+                            // there will be two extra List creation, but they will be GCed
+                            // quickly(if
+                            // no memory leak happens), but object creation may have bad effect in
+                            // Android platform, so is this a good practice?
 
-                        // UPDATE: create snapshot for params is the caller's duty
-                        final List<GithubUser> cloud = searchResult.items();
-                        if (local.isEmpty()) {
-                            // first time, no local data, show partly cloud data at first
-                            // NOTE!!! create a snapshot, to avoid callee see changed params
-                            // NOTE again!!! `Collections.unmodifiableList` just limit that the
-                            // callee could not modify this List, but modification in caller side
-                            // will still be visible in callee!
-                            mStorIOSQLite.putAllGithubUser(new ArrayList<>(cloud));
+                            // UPDATE: create snapshot for params is the caller's duty
+                            final List<GithubUser> cloud = searchResult.items();
+                            if (local.isEmpty()) {
+                                // first time, no local data, show partly cloud data at first
+                                // NOTE!!! create a snapshot, to avoid callee see changed params
+                                // NOTE again!!! `Collections.unmodifiableList` just limit that the
+                                // callee could not modify this List, but modification in caller
+                                // side
+                                // will still be visible in callee!
+                                mStorIOSQLite.putAllGithubUser(new ArrayList<>(cloud));
+                            }
+
+                            for (int i = 0; i < cloud.size(); i++) {
+                                final GithubUser fullUserInfo =
+                                        mGithubAPI.getGithubUser(cloud.get(i).login())
+                                                .toBlocking()
+                                                .single();
+                                cloud.set(i, fullUserInfo);
+                            }
+                            // won't use `cloud` any more, no need to create snapshot for it
+                            mStorIOSQLite.putAllGithubUser(cloud);
                         }
-
-                        for (int i = 0; i < cloud.size(); i++) {
-                            final GithubUser fullUserInfo =
-                                    mGithubAPI.getGithubUser(cloud.get(i).login())
-                                            .toBlocking()
-                                            .single();
-                            cloud.set(i, fullUserInfo);
-                        }
-                        // won't use `cloud` any more, no need to create snapshot for it
-                        mStorIOSQLite.putAllGithubUser(cloud);
                     }
                 }, mRxErrorProcessor);
 
@@ -113,6 +120,11 @@ public final class GithubUserDAOImpl implements GithubUserDAO {
     public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
         return mGithubAPI.searchGithubUsers(query, Constants.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
                 Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
-                .map(GithubUserSearchResult::items);
+                .map(new Func1<GithubUserSearchResult, List<GithubUser>>() {
+                    @Override
+                    public List<GithubUser> call(final GithubUserSearchResult githubUserSearchResult) {
+                        return githubUserSearchResult.items();
+                    }
+                });
     }
 }

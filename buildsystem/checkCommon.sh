@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew :common:clean :common:check
+./gradlew :common:clean :common:check --stacktrace

@@ -1,0 +1,61 @@
+android_resource(
+	name = 'res',
+	res = 'src/main/res',
+	package = 'com.github.piasy.common.android',
+	deps = [
+
+		'//.okbuck/common-android:aar__support-v4-23.0.1.aar',
+		'//.okbuck/common-android:aar__threetenabp-1.0.2.aar',
+	],
+	visibility = ['PUBLIC'],
+)
+
+android_build_config(
+	name = 'build_config',
+	package = 'com.github.piasy.common.android',
+	values = [
+	],
+	visibility = ['//common-android:src'],
+)
+
+android_library(
+	name = 'src',
+	srcs = glob(['src/main/java/**/*.java']),
+	deps = [
+		':res',
+		':build_config',
+
+		'//common:src',
+
+		'//.okbuck/common-android:aar__support-v4-23.0.1.aar',
+		'//.okbuck/common-android:aar__threetenabp-1.0.2.aar',
+		'//.okbuck/common-android:all-jars',
+	],
+	exported_deps = [
+		'//common:src',
+
+		'//.okbuck/common-android:aar__support-v4-23.0.1.aar',
+		'//.okbuck/common-android:aar__threetenabp-1.0.2.aar',
+		'//.okbuck/common-android:all-jars',
+	],
+	visibility = ['PUBLIC'],
+	annotation_processors = [
+		'com.promegu.xlog.processor.XLogProcessor',
+		'com.google.auto.service.processor.AutoServiceProcessor',
+		'auto.parcel.processor.AutoParcelProcessor',
+		'auto.parcel.processor.AutoParcelBuilderProcessor',
+		'dagger.internal.codegen.ComponentProcessor',
+	],
+	annotation_processor_deps = [
+		'//common:src',
+		'//.okbuck/common-android:all-jars',
+		'//.okbuck/common-android:all-aars',
+		'//.okbuck/annotation_processor_deps:all-jars',
+		'//.okbuck/annotation_processor_deps:all-aars',
+	],
+)
+
+project_config(
+	src_target = '//common-android:src',
+	src_roots = ['src/main/java'],
+)

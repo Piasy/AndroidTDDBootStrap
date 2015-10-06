@@ -75,12 +75,12 @@ public final class ToolbarMatchers {
      *
      * @param textMatcher to match the title of Toolbar.
      */
-    public static Matcher<View> withSupportToolbarTitle(final Matcher<CharSequence> textMatcher) {
+    public static Matcher<View> withSupportToolbarTitle(final Matcher<String> textMatcher) {
         return new BoundedMatcher<View, android.support.v7.widget.Toolbar>(
                 android.support.v7.widget.Toolbar.class) {
             @Override
             public boolean matchesSafely(final android.support.v7.widget.Toolbar toolbar) {
-                return textMatcher.matches(toolbar.getTitle());
+                return textMatcher.matches(toolbar.getTitle().toString());
             }
 
             @Override
@@ -99,12 +99,12 @@ public final class ToolbarMatchers {
      * @param textMatcher to match the title of Toolbar.
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static Matcher<View> withToolbarTitle(final Matcher<CharSequence> textMatcher) {
+    public static Matcher<View> withToolbarTitle(final Matcher<String> textMatcher) {
         return new BoundedMatcher<View, android.widget.Toolbar>(
                 android.widget.Toolbar.class) {
             @Override
             public boolean matchesSafely(final android.widget.Toolbar toolbar) {
-                return textMatcher.matches(toolbar.getTitle());
+                return textMatcher.matches(toolbar.getTitle().toString());
             }
 
             @Override

@@ -88,7 +88,7 @@ Place KeyStore file in some place, and create a TemplateKeyStore.properties, and
 +  ~~re-arch the provider package~~
 +  ~~Espresso test of presentation module~~
 +  ~~re-arch AppComponent~~
-+  facebook [BUCK](http://buckbuild.com) integration
++  ~~facebook [BUCK](http://buckbuild.com) integration~~ integrate with [OkBuck](https://github.com/Piasy/OkBuck)
 +  NDK integrate
 +  MVP source generator
 +  MVVM branch

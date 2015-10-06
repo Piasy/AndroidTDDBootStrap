@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import rx.Observable;
+import rx.Subscriber;
 import rx.observers.TestSubscriber;
 
 import static org.mockito.BDDMockito.given;
@@ -65,9 +66,12 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     @Test
     public void testGetUserNoCloudData() {
         // given
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mEmptyResult);
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUserSearchResult>() {
+            @Override
+            public void call(final Subscriber<? super GithubUserSearchResult> subscriber) {
+                subscriber.onNext(mEmptyResult);
+                subscriber.onCompleted();
+            }
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
 
         willReturn(Observable.empty()).given(mStorIOSQLite).getAllGithubUserReactively();
@@ -91,16 +95,22 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     @Test
     public void testGetUserHasCloudDataNoLocalData() {
         // given
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(copySearchResult(mSingleResult));
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUserSearchResult>() {
+            @Override
+            public void call(final Subscriber<? super GithubUserSearchResult> subscriber) {
+                subscriber.onNext(copySearchResult(mSingleResult));
+                subscriber.onCompleted();
+            }
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleUser);
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUser>() {
+            @Override
+            public void call(final Subscriber<? super GithubUser> subscriber) {
+                subscriber.onNext(mSingleUser);
+                subscriber.onCompleted();
+            }
         })).given(mGithubAPI).getGithubUser(anyString());
 
-        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>());
+        given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<GithubUser>());
         willReturn(Observable.empty()).given(mStorIOSQLite).getAllGithubUserReactively();
         final ArgumentCaptor<List<GithubUser>> capturedUsers = ArgumentCaptor.forClass(List.class);
 
@@ -132,13 +142,19 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
     @Test
     public void testGetUserHasCloudDataHasLocalData() {
         // given
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(copySearchResult(mSingleResult));
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUserSearchResult>() {
+            @Override
+            public void call(final Subscriber<? super GithubUserSearchResult> subscriber) {
+                subscriber.onNext(copySearchResult(mSingleResult));
+                subscriber.onCompleted();
+            }
         })).given(mGithubAPI).searchGithubUsers(anyString(), anyString(), anyString());
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleUser);
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUser>() {
+            @Override
+            public void call(final Subscriber<? super GithubUser> subscriber) {
+                subscriber.onNext(mSingleUser);
+                subscriber.onCompleted();
+            }
         })).given(mGithubAPI).getGithubUser(anyString());
 
         given(mStorIOSQLite.getAllGithubUser()).willReturn(new ArrayList<>(mSingleUserList));

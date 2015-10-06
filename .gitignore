@@ -22,3 +22,8 @@ bintray.properties
 
 # inspect
 .buildProfile/
+
+# buck & OkBuck
+/buck-out/
+/.buckd/
+/.okbuck/

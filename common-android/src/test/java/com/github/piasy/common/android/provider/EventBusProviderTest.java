@@ -45,12 +45,18 @@ public class EventBusProviderTest {
 
     @Test
     public void testProvideEventBusConcurrently() {
-        final Thread t1 = new Thread(() -> {
-            one = EventBusProvider.provideEventBus();
+        final Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                one = EventBusProvider.provideEventBus();
+            }
         });
 
-        final Thread t2 = new Thread(() -> {
-            two = EventBusProvider.provideEventBus();
+        final Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                two = EventBusProvider.provideEventBus();
+            }
         });
 
         t1.start();

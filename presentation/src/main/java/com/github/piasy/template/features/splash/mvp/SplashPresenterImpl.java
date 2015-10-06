@@ -27,10 +27,13 @@ package com.github.piasy.template.features.splash.mvp;
 import android.support.annotation.NonNull;
 import com.github.piasy.common.android.utils.net.RxUtil;
 import com.github.piasy.model.dao.GithubUserDAO;
+import com.github.piasy.model.entities.GithubUser;
 import com.github.piasy.template.base.mvp.BaseRxPresenter;
 import de.greenrobot.event.EventBus;
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -71,9 +74,12 @@ public class SplashPresenterImpl extends BaseRxPresenter<SplashView> implements 
         addSubscription(mGithubUserDAO.searchUser(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(githubUsers -> {
-                    if (isViewAttached()) {
-                        getView().showSearchUserResult(githubUsers);
+                .subscribe(new Action1<List<GithubUser>>() {
+                    @Override
+                    public void call(final List<GithubUser> githubUsers) {
+                        if (isViewAttached()) {
+                            getView().showSearchUserResult(githubUsers);
+                        }
                     }
                 }, mRxErrorProcessor));
     }

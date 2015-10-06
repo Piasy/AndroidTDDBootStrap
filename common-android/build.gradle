@@ -24,8 +24,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
@@ -48,6 +48,8 @@ dependencies {
     compile commonAndroidDependencies.retrofit
     compile commonAndroidDependencies.eventBus
     provided commonAndroidDependencies.daggerCompiler
+    compile commonAndroidDependencies.javaxAnnotation
+
     compile commonAndroidDependencies.supportAnnotation
     compile commonAndroidDependencies.supportV4
     compile commonAndroidDependencies.threetenabp

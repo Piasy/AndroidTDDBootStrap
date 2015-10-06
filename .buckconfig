@@ -1,0 +1,8 @@
+[alias]
+	presentation = //presentation:bin
+
+[android]
+	target = android-23
+
+[project]
+	ignore = .git

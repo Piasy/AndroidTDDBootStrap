@@ -32,7 +32,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.piasy.common.Constants;
@@ -113,13 +112,9 @@ public final class GithubSearchUserResultAdapter
     static class GithubSearchResultVH extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        @Bind(R.id.mIvAvatar)
-        SimpleDraweeView mIvAvatar;
-        @Bind(R.id.mTvUsername)
-        IconTextView mTvUsername;
-        @Bind(R.id.mCardView)
-        CardView mCardView;
-
+        private final SimpleDraweeView mIvAvatar;
+        private final IconTextView mTvUsername;
+        private final CardView mCardView;
         private final Resources mResources;
         private GithubUser mGithubUser;
         private final Action mAction;
@@ -136,6 +131,9 @@ public final class GithubSearchUserResultAdapter
             mResources = resources;
             mAction = action;
             ButterKnife.bind(this, itemView);
+            mIvAvatar = ButterKnife.findById(itemView, R.id.mIvAvatar);
+            mTvUsername = ButterKnife.findById(itemView, R.id.mTvUsername);
+            mCardView = ButterKnife.findById(itemView, R.id.mCardView);
             mCardView.setOnClickListener(this);
         }
 

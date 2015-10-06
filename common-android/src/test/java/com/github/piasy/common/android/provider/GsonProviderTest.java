@@ -52,12 +52,18 @@ public class GsonProviderTest extends BaseThreeTenBPTest {
 
     @Test
     public void testProvideGsonConcurrently() {
-        final Thread t1 = new Thread(() -> {
-            one = GsonProvider.provideGson();
+        final Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                one = GsonProvider.provideGson();
+            }
         });
 
-        final Thread t2 = new Thread(() -> {
-            two = GsonProvider.provideGson();
+        final Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                two = GsonProvider.provideGson();
+            }
         });
 
         t1.start();

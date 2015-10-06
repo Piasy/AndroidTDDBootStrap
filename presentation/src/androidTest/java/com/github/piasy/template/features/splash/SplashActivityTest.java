@@ -54,6 +54,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import rx.Observable;
+import rx.Subscriber;
 
 import static android.os.SystemClock.sleep;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
@@ -103,9 +104,12 @@ public class SplashActivityTest extends BaseActivityTest {
 
     @Test
     public void testNormalLaunch() {
-        willReturn(Observable.create(subscriber -> {
-            subscriber.onNext(mSingleResult);
-            subscriber.onCompleted();
+        willReturn(Observable.create(new Observable.OnSubscribe<GithubUserSearchResult>() {
+            @Override
+            public void call(final Subscriber<? super GithubUserSearchResult> subscriber) {
+                subscriber.onNext(mSingleResult);
+                subscriber.onCompleted();
+            }
         })/*.delay(10, TimeUnit.SECONDS)*/).given(mGithubAPI)
                 .searchGithubUsers(anyString(), anyString(), anyString());
 

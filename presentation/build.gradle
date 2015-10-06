@@ -30,12 +30,10 @@ android {
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.androidMinSdkVersion
-        targetSdkVersion rootProject.ext.androidTargetSdkVersion
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "boolean", "REPORT_CRASH", "true"
+        buildConfigField "boolean", "INSTALL_LEAK_CANARY", "true"
     }
 
     buildTypes {
@@ -46,8 +44,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     packagingOptions {
@@ -96,9 +94,6 @@ android {
 
     productFlavors.whenObjectAdded { flavor ->
         def flavorData = rootProject.ext[flavor.name]
-        flavor.applicationId flavorData.packageName
-        flavor.versionCode flavorData.versionCode
-        flavor.versionName flavorData.versionName
     }
 
     productFlavors {
@@ -111,8 +106,6 @@ android {
         }
     }
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-
         test.java.srcDirs += 'build/generated/source/apt/develop/debug'
     }
 }
@@ -147,7 +140,6 @@ dependencies {
     }
 
     apt presentationDependencies.daggerCompiler
-    provided presentationDependencies.javaxAnnotation
 
     compile (presentationDependencies.mvp) {
         exclude module: 'appcompat-v7'
@@ -191,15 +183,17 @@ dependencies {
     }
 
     // Developer
-    developCompile presentationDependencies.xLogAndroid
-    productCompile presentationDependencies.xLogAndroidIdle
+    /*developCompile presentationDependencies.xLogAndroid
+    productCompile presentationDependencies.xLogAndroidIdle*/
+    compile presentationDependencies.xLogAndroid
+    /*developCompile presentationDependencies.leakCanary
+    productCompile presentationDependencies.leakCanaryIdle*/
+    compile presentationDependencies.leakCanary
     retrolambdaConfig presentationDependencies.retrolambda
     compile presentationDependencies.stetho
     compile(presentationDependencies.fabric) {
         transitive = true;
     }
-    developCompile presentationDependencies.leakCanary
-    productCompile presentationDependencies.leakCanaryIdle
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

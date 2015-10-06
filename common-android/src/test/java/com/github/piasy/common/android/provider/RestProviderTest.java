@@ -46,12 +46,18 @@ public class RestProviderTest {
 
     @Test
     public void testProvideRestAdapterConcurrently() {
-        final Thread t1 = new Thread(() -> {
-            one = RestProvider.provideRestAdapter();
+        final Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                one = RestProvider.provideRestAdapter();
+            }
         });
 
-        final Thread t2 = new Thread(() -> {
-            two = RestProvider.provideRestAdapter();
+        final Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                two = RestProvider.provideRestAdapter();
+            }
         });
 
         t1.start();

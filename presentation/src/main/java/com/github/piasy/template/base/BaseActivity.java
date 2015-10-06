@@ -119,13 +119,16 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      */
     public void showProgress(final String message) {
         if (!TextUtils.isEmpty(message) && mHandler != null) {
-            mHandler.post(() -> {
-                final Message msg = new Message();
-                msg.what = MSG_WHAT_START_PROGRESS;
-                final Bundle bundle = new Bundle();
-                bundle.putString("message", message);
-                msg.setData(bundle);
-                mHandler.sendMessage(msg);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    final Message msg = new Message();
+                    msg.what = MSG_WHAT_START_PROGRESS;
+                    final Bundle bundle = new Bundle();
+                    bundle.putString("message", message);
+                    msg.setData(bundle);
+                    mHandler.sendMessage(msg);
+                }
             });
         }
     }
@@ -137,11 +140,14 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      */
     public void stopProgress(final boolean success) {
         if (mHandler != null) {
-            mHandler.postDelayed(() -> {
-                if (success) {
-                    mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_SUCCESS);
-                } else {
-                    mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_ERROR);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (success) {
+                        mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_SUCCESS);
+                    } else {
+                        mHandler.sendEmptyMessage(MSG_WHAT_STOP_PROGRESS_ERROR);
+                    }
                 }
             }, 500);
         }

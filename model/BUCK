@@ -1,0 +1,61 @@
+android_resource(
+	name = 'res',
+	res = 'src/main/res',
+	package = 'com.github.piasy.model',
+	deps = [
+		'//common-android:res',
+
+	],
+	visibility = ['PUBLIC'],
+)
+
+android_build_config(
+	name = 'build_config',
+	package = 'com.github.piasy.model',
+	values = [
+	],
+	visibility = ['//model:src'],
+)
+
+android_library(
+	name = 'src',
+	srcs = glob(['src/main/java/**/*.java']),
+	deps = [
+		':res',
+		':build_config',
+
+		'//common:src',
+		'//common-android:src',
+		'//common-android:res',
+
+		'//.okbuck/model:all-jars',
+	],
+	exported_deps = [
+		'//common:src',
+		'//common-android:src',
+
+		'//.okbuck/model:all-jars',
+	],
+	visibility = ['PUBLIC'],
+	annotation_processors = [
+		'com.promegu.xlog.processor.XLogProcessor',
+		'com.pushtorefresh.storio.sqlite.annotations.processor.StorIOSQLiteProcessor',
+		'com.google.auto.service.processor.AutoServiceProcessor',
+		'auto.parcel.processor.AutoParcelProcessor',
+		'auto.parcel.processor.AutoParcelBuilderProcessor',
+		'dagger.internal.codegen.ComponentProcessor',
+	],
+	annotation_processor_deps = [
+		'//common:src',
+		'//common-android:src',
+		'//.okbuck/model:all-jars',
+		'//.okbuck/model:all-aars',
+		'//.okbuck/annotation_processor_deps:all-jars',
+		'//.okbuck/annotation_processor_deps:all-aars',
+	],
+)
+
+project_config(
+	src_target = '//model:src',
+	src_roots = ['src/main/java'],
+)

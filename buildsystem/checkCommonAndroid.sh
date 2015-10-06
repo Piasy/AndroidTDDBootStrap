@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew :common-android:clean :common-android:check
+./gradlew :common-android:clean :common-android:check --stacktrace

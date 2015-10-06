@@ -1,0 +1,23 @@
+java_library(
+	name = 'src',
+	srcs = glob(['src/main/java/**/*.java']),
+	deps = [
+		'//.okbuck/common:all-jars',
+	],
+	exported_deps = [
+		'//.okbuck/common:all-jars',
+	],
+	visibility = ['PUBLIC'],
+	annotation_processors = [
+		'dagger.internal.codegen.ComponentProcessor',
+	],
+	annotation_processor_deps = [
+		'//.okbuck/common:all-jars',
+		'//.okbuck/annotation_processor_deps:all-jars',
+	],
+)
+
+project_config(
+	src_target = '//common:src',
+	src_roots = ['src/main/java'],
+)

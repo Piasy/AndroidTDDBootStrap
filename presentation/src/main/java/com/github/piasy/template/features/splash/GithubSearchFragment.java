@@ -38,7 +38,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.github.piasy.common.android.utils.roms.MiUIUtil;
 import com.github.piasy.common.android.utils.ui.ToastUtil;
 import com.github.piasy.common.utils.EmailUtil;
@@ -59,6 +59,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Fragment that search for github user.
@@ -76,16 +77,14 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
     ToastUtil mToastUtil;
     @Inject
     AppCompatActivity mActivity;
-    @Bind(R.id.mRvSearchResult)
-    RecyclerView mRvSearchResult;
-    @Bind(R.id.mToolBar)
-    Toolbar mToolBar;
     @Inject
     Resources mResources;
 
     @Inject
     MiUIUtil mMiUIUtil;
 
+    private RecyclerView mRvSearchResult;
+    private Toolbar mToolBar;
     private GithubSearchUserResultAdapter mAdapter;
     private RecyclerViewAttacher mAttacher;
     private boolean mIsLoading;
@@ -105,14 +104,25 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bind(view);
         setupView();
+    }
+
+    private void bind(final View view) {
+        mRvSearchResult = ButterKnife.findById(view, R.id.mRvSearchResult);
+        mToolBar = ButterKnife.findById(view, R.id.mToolBar);
     }
 
     private void setupView() {
         mToolBar.setTitle(R.string.search);
         mActivity.setSupportActionBar(mToolBar);
         mAdapter = new GithubSearchUserResultAdapter(mResources,
-                user -> mToastUtil.makeToast("Clicked: " + user.login()));
+                new GithubSearchUserResultAdapter.Action() {
+                    @Override
+                    public void userDetail(final GithubUser user) {
+                        mToastUtil.makeToast("Clicked: " + user.login());
+                    }
+                });
         mRvSearchResult.setLayoutManager(
                 new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
         mRvSearchResult.setAdapter(mAdapter);
@@ -144,15 +154,18 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
                 .compose(this.<CharSequence>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(query -> {
-                    if (!TextUtils.equals(mCurrentQuery, query)) {
-                        mCurrentQuery = query.toString();
-                        if (TextUtils.isEmpty(mCurrentQuery)) {
-                            showSearchUserResult(Collections.emptyList());
-                        } else {
-                            presenter.searchUser(mCurrentQuery);
-                            showProgress();
-                            mIsLoading = true;
+                .subscribe(new Action1<CharSequence>() {
+                    @Override
+                    public void call(final CharSequence query) {
+                        if (!TextUtils.equals(mCurrentQuery, query)) {
+                            mCurrentQuery = query.toString();
+                            if (TextUtils.isEmpty(mCurrentQuery)) {
+                                showSearchUserResult(Collections.<GithubUser>emptyList());
+                            } else {
+                                presenter.searchUser(mCurrentQuery);
+                                showProgress();
+                                mIsLoading = true;
+                            }
                         }
                     }
                 });
