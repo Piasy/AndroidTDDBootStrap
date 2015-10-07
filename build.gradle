@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.1.1'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.0'
-        classpath "com.github.piasy:okbuck-gradle-plugin:0.2.2"
+        classpath "com.github.piasy:okbuck-gradle-plugin:0.2.3"
 
         classpath "gradle.plugin.com.jakeout:inspector:0.3.0"
     }

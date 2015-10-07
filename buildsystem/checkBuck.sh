@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew clean jar okbuck && buck install presentation
+./gradlew clean okbuck && ./buck/bin/buck install presentation
