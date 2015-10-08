@@ -39,6 +39,7 @@ import com.facebook.stetho.Stetho;
 import com.github.piasy.common.Constants;
 import com.github.piasy.common.di.HasComponent;
 import com.github.piasy.template.BuildConfig;
+import com.github.piasy.template.R;
 import com.github.piasy.template.app.TemplateApp;
 import com.github.piasy.template.base.BaseActivity;
 import com.github.piasy.template.features.splash.di.SplashComponent;
@@ -94,6 +95,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction()

@@ -32,8 +32,8 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "boolean", "REPORT_CRASH", "true"
-        buildConfigField "boolean", "INSTALL_LEAK_CANARY", "true"
+        buildConfigField "boolean", "REPORT_CRASH", "false"
+        buildConfigField "boolean", "INSTALL_LEAK_CANARY", "false"
     }
 
     buildTypes {

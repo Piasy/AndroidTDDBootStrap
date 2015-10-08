@@ -41,8 +41,8 @@ android_build_config(
 	name = 'build_config',
 	package = 'com.github.piasy.template',
 	values = [
-		'boolean INSTALL_LEAK_CANARY = true',
-		'boolean REPORT_CRASH = true',
+		'boolean INSTALL_LEAK_CANARY = false',
+		'boolean REPORT_CRASH = false',
 	],
 	visibility = ['//presentation:src'],
 )

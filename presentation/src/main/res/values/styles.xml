@@ -11,4 +11,7 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
 </resources>
