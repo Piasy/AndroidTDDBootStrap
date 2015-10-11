@@ -52,7 +52,6 @@ import javax.inject.Inject;
 import jonathanfinerty.once.Once;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -107,16 +106,12 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
     }
 
     private void initFlow() {
-        mFlow = FlowBuilder.from(State.Start)
-                .transit(on(Event.Initialize).to(State.Initializing)
-                        .transit(on(Event.Finish).finish(State.Transaction),
-                                on(Event.Pause).to(State.Wait4InitializedAndResume)
-                                        .transit(on(Event.Resume).to(State.Initializing),
-                                                on(Event.Finish).to(State.Wait4Resume)
-                                                        .transit(on(Event.Resume).finish(
-                                                                State.Transaction)))))
-                .executor(new UiThreadExecutor());
+        createFlow();
 
+        initFlowEvent();
+    }
+
+    private void initFlowEvent() {
         mFlow.whenEnter(State.Start, new ContextHandler<StatefulContext>() {
             @Override
             public void call(final StatefulContext context) {
@@ -161,9 +156,19 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         subscriber.onNext(true);
                         subscriber.onCompleted();
                     }
-                }).subscribeOn(Schedulers.io()).subscribe(new Action1<Boolean>() {
+                }).subscribeOn(Schedulers.io()).subscribe(new Subscriber<Boolean>() {
                     @Override
-                    public void call(final Boolean aBoolean) {
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
                         try {
                             mFlow.trigger(Event.Finish, mStatefulContext);
                         } catch (LogicViolationError logicViolationError) {
@@ -183,6 +188,18 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         .commit();
             }
         });
+    }
+
+    private void createFlow() {
+        mFlow = FlowBuilder.from(State.Start)
+                .transit(on(Event.Initialize).to(State.Initializing)
+                        .transit(on(Event.Finish).finish(State.Transaction),
+                                on(Event.Pause).to(State.Wait4InitializedAndResume)
+                                        .transit(on(Event.Resume).to(State.Initializing),
+                                                on(Event.Finish).to(State.Wait4Resume)
+                                                        .transit(on(Event.Resume).finish(
+                                                                State.Transaction)))))
+                .executor(new UiThreadExecutor());
     }
 
     @Override

@@ -36,7 +36,7 @@ ext {
     xLogVersion = '2.1.1'
     retrolambdaVersion = '2.0.5'
     stethoVersion = '1.1.1'
-    fabricVersion = '2.5.0'
+    fabricVersion = '2.5.2'
     leakCanaryVersion = '1.3.1'
     timberVersion = '3.1.0'
 

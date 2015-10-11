@@ -1,2 +1,4 @@
 #!/bin/sh
-./gradlew :presentation:clean :presentation:check --stacktrace && adb shell setprop dalvik.vm.dexopt-flags v=n,o=v && adb shell stop installd && adb shell start installd && ./gradlew :presentation:connectedAndroidTest --stacktrace
+./gradlew :presentation:clean :presentation:check --stacktrace
+# emulator will hang when running espresso test, so disable it in ci
+# && buildsystem/checkEspresso.sh

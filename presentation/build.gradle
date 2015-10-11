@@ -191,8 +191,8 @@ dependencies {
     compile presentationDependencies.leakCanary
     retrolambdaConfig presentationDependencies.retrolambda
     compile presentationDependencies.stetho
-    compile(presentationDependencies.fabric) {
-        transitive = true;
+    compile (presentationDependencies.fabric) {
+        transitive = true
     }
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

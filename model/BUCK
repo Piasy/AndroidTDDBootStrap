@@ -24,15 +24,15 @@ android_library(
 		':res',
 		':build_config',
 
-		'//common:src',
 		'//common-android:src',
 		'//common-android:res',
+		'//common:src',
 
 		'//.okbuck/model:all-jars',
 	],
 	exported_deps = [
-		'//common:src',
 		'//common-android:src',
+		'//common:src',
 
 		'//.okbuck/model:all-jars',
 	],
@@ -46,8 +46,8 @@ android_library(
 		'dagger.internal.codegen.ComponentProcessor',
 	],
 	annotation_processor_deps = [
-		'//common:src',
 		'//common-android:src',
+		'//common:src',
 		'//.okbuck/model:all-jars',
 		'//.okbuck/model:all-aars',
 		'//.okbuck/annotation_processor_deps:all-jars',
