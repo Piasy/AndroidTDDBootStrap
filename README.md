@@ -71,7 +71,9 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 
 ## Build tips
 +  Sign key config
-Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.  
+
+    Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.
++  To clone all submodules, please use `git clone --recursive git@github.com:Piasy/AndroidTDDBootStrap.git`  
 
 ## Dev tips
 +  Create utils
