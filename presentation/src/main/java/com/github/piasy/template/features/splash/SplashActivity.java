@@ -163,12 +163,12 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
+                    public void onError(final Throwable e) {
+                        Timber.e(e.getMessage());
                     }
 
                     @Override
-                    public void onNext(Boolean aBoolean) {
+                    public void onNext(final Boolean aBoolean) {
                         try {
                             mFlow.trigger(Event.Finish, mStatefulContext);
                         } catch (LogicViolationError logicViolationError) {
