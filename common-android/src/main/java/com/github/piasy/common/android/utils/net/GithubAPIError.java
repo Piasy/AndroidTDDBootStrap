@@ -29,12 +29,11 @@ import android.support.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
-import retrofit.converter.ConversionException;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
  */
-public class GithubAPIError extends ConversionException {
+public class GithubAPIError extends Throwable {
 
     @Expose
     @SerializedName("message")
@@ -47,34 +46,6 @@ public class GithubAPIError extends ConversionException {
     @Expose
     @SerializedName("errors")
     private List<GithubError> mErrors;
-
-    /**
-     * Create a {@link GithubAPIError} with message.
-     *
-     * @param message the error message.
-     */
-    public GithubAPIError(final String message) {
-        super(message);
-    }
-
-    /**
-     * Create a {@link GithubAPIError} with message and throwable.
-     *
-     * @param message the error message.
-     * @param throwable the error throwable.
-     */
-    public GithubAPIError(final String message, final Throwable throwable) {
-        super(message, throwable);
-    }
-
-    /**
-     * Create a {@link GithubAPIError} with throwable.
-     *
-     * @param throwable the error throwable.
-     */
-    public GithubAPIError(final Throwable throwable) {
-        super(throwable);
-    }
 
     /**
      * Get Error message for this API error.

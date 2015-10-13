@@ -27,7 +27,7 @@ package com.github.piasy.model.rest.github;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import retrofit.RestAdapter;
+import retrofit.Retrofit;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -38,14 +38,14 @@ import retrofit.RestAdapter;
 public class GithubAPIModule {
 
     /**
-     * Provide {@link GithubAPI} with the {@link RestAdapter}.
+     * Provide {@link GithubAPI} with the {@link Retrofit}.
      *
-     * @param restAdapter rest adapter to create api instance.
+     * @param retrofit Retrofit to create api instance.
      * @return {@link GithubAPI} instance.
      */
     @Singleton
     @Provides
-    GithubAPI provideGithubAPI(final RestAdapter restAdapter) {
-        return restAdapter.create(GithubAPI.class);
+    GithubAPI provideGithubAPI(final Retrofit retrofit) {
+        return retrofit.create(GithubAPI.class);
     }
 }

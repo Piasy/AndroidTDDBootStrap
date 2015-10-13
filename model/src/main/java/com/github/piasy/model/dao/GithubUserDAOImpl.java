@@ -122,7 +122,8 @@ public final class GithubUserDAOImpl implements GithubUserDAO {
                 Constants.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .map(new Func1<GithubUserSearchResult, List<GithubUser>>() {
                     @Override
-                    public List<GithubUser> call(final GithubUserSearchResult githubUserSearchResult) {
+                    public List<GithubUser> call(
+                            final GithubUserSearchResult githubUserSearchResult) {
                         return githubUserSearchResult.items();
                     }
                 });

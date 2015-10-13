@@ -26,11 +26,12 @@ package com.github.piasy.common.android.provider;
 
 import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.google.gson.Gson;
+import com.squareup.okhttp.OkHttpClient;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
 import javax.inject.Singleton;
-import retrofit.RestAdapter;
+import retrofit.Retrofit;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/6.
@@ -65,15 +66,26 @@ public class ProviderModule {
     }
 
     /**
-     * Provide the {@link RestAdapter} singleton.
+     * Provide the {@link Retrofit} singleton.
      *
      * @param delegate to initialize the JSR-310 library.
-     * @return the {@link RestAdapter} singleton.
+     * @return the {@link Retrofit} singleton.
      */
     @Singleton
     @Provides
-    RestAdapter provideRestAdapter(final ThreeTenABPDelegate delegate) {
+    Retrofit provideRetrofit(final ThreeTenABPDelegate delegate) {
         delegate.init();
-        return RestProvider.provideRestAdapter();
+        return RestProvider.provideRetrofit();
+    }
+
+    /**
+     * Provide the {@link OkHttpClient} singleton.
+     *
+     * @return the {@link OkHttpClient} singleton.
+     */
+    @Singleton
+    @Provides
+    OkHttpClient provideHttpClient() {
+        return HttpClientProvider.provideHttpClient();
     }
 }

@@ -63,7 +63,8 @@ public interface AppComponent {
     VisitorComponent plus(VisitorModule visitorModule);
 
     /**
-     * Create a sub appComponent for authenticated user. Sub appComponent will extends all objects in
+     * Create a sub appComponent for authenticated user. Sub appComponent will extends all objects
+     * in
      * super appComponent.
      *
      * @param userModule the extra module needed to compose this sub appComponent.

@@ -91,6 +91,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 +  ~~Espresso test of presentation module~~
 +  ~~re-arch AppComponent~~
 +  ~~facebook [BUCK](http://buckbuild.com) integration~~ integrate with [OkBuck](https://github.com/Piasy/OkBuck)
++  Update dependencies
 +  NDK integrate
 +  MVP source generator
 +  MVVM branch

@@ -25,13 +25,14 @@
 package com.github.piasy.common.android.provider;
 
 import com.github.piasy.common.Constants;
-import retrofit.RestAdapter;
-import retrofit.converter.GsonConverter;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  *
- * A singleton provider providing {@link retrofit.RestAdapter}.
+ * A singleton provider providing {@link Retrofit}.
  */
 final class RestProvider {
 
@@ -40,20 +41,22 @@ final class RestProvider {
     }
 
     /**
-     * Provide the {@link RestAdapter} singleton instance.
+     * Provide the {@link Retrofit} singleton instance.
      *
-     * @return the singleton {@link RestAdapter}.
+     * @return the singleton {@link Retrofit}.
      */
-    static RestAdapter provideRestAdapter() {
-        return RestAdapterHolder.sRestAdapter;
+    static Retrofit provideRetrofit() {
+        return RestAdapterHolder.sRetrofit;
     }
 
     private static class RestAdapterHolder {
         // lazy instantiate
-        private static volatile RestAdapter sRestAdapter =
-                new RestAdapter.Builder().setEndpoint(Constants.GITHUB_SERVER_ENDPOINT)
-                        .setConverter(new GsonConverter(GsonProvider.provideGson()))
-                        .setLogLevel(RestAdapter.LogLevel.FULL)
+        private static volatile Retrofit sRetrofit =
+                new Retrofit.Builder().baseUrl(Constants.GITHUB_SERVER_ENDPOINT)
+                        .client(HttpClientProvider.provideHttpClient())
+                        .addConverterFactory(
+                                GsonConverterFactory.create(GsonProvider.provideGson()))
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                         .build();
     }
 }

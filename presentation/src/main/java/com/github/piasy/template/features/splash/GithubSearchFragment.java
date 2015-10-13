@@ -70,7 +70,6 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
 
     private static final int SEARCH_DELAY_MILLIS = 500;
     private static final int SPAN_COUNT = 3;
-
     @Inject
     EmailUtil mEmailUtil;
     @Inject
@@ -79,10 +78,8 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
     AppCompatActivity mActivity;
     @Inject
     Resources mResources;
-
     @Inject
     MiUIUtil mMiUIUtil;
-
     private RecyclerView mRvSearchResult;
     private Toolbar mToolBar;
     private GithubSearchUserResultAdapter mAdapter;

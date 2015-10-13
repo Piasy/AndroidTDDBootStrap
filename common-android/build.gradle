@@ -46,6 +46,10 @@ dependencies {
     compile project(':common')
 
     compile commonAndroidDependencies.retrofit
+    compile commonAndroidDependencies.gsonConverter
+    compile commonAndroidDependencies.retrofitRx
+    compile commonAndroidDependencies.stetho
+    compile commonAndroidDependencies.stethoOkhttp
     compile commonAndroidDependencies.eventBus
     provided commonAndroidDependencies.daggerCompiler
     compile commonAndroidDependencies.javaxAnnotation

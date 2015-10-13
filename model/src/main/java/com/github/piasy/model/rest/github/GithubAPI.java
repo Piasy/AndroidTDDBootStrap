@@ -51,7 +51,7 @@ public interface GithubAPI {
      * or {@link com.github.piasy.common.Constants#GITHUB_API_PARAMS_SEARCH_ORDER_DESC}.
      * @return the search result.
      */
-    @GET("/search/users")
+    @GET("search/users")
     Observable<GithubUserSearchResult> searchGithubUsers(@Query("q") String query,
             @Query("sort") String sort, @Query("order") String order);
 
@@ -61,6 +61,6 @@ public interface GithubAPI {
      * @param username username of the user.
      * @return full user info.
      */
-    @GET("/users/{username}")
+    @GET("users/{username}")
     Observable<GithubUser> getGithubUser(@Path("username") String username);
 }

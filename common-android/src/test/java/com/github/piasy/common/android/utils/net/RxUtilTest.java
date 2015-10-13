@@ -29,7 +29,6 @@ import org.junit.Test;
 
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.only;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/9.
@@ -55,17 +54,5 @@ public class RxUtilTest {
 
         // then
         then(mGithubAPIErrorProcessor).shouldHaveZeroInteractions();
-    }
-
-    @Test
-    public void testRxErrorProcessorCallAPIError() {
-        // given
-        final GithubAPIError githubAPIError = new GithubAPIError(new Throwable());
-
-        // when
-        mRxUtil.getRxErrorProcessor().call(githubAPIError);
-
-        // then
-        then(mGithubAPIErrorProcessor).should(only()).process(githubAPIError);
     }
 }

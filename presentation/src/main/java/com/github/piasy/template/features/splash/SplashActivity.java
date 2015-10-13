@@ -75,22 +75,13 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
     private static final String GITHUB_SEARCH_FRAGMENT = "GithubSearchFragment";
     private static final int TIME = 10000;
     private static final String TAG = "SplashActivity";
-
     @Inject
     TemplateApp mApp;
+    private final StatefulContext mStatefulContext = new StatefulContext();
     private SplashComponent mSplashComponent;
     private FragmentManager mFragmentManager;
     private EasyFlow<StatefulContext> mFlow;
-    private final StatefulContext mStatefulContext = new StatefulContext();
     private boolean mIsPaused;
-
-    @Override
-    protected void initializeInjector() {
-        mSplashComponent = TemplateApp.get(this)
-                .visitorComponent()
-                .plus(getActivityModule(), new SplashModule());
-        mSplashComponent.inject(this);
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -103,6 +94,14 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
 
         initFlow();
         mFlow/*.trace()*/.start(mStatefulContext);
+    }
+
+    @Override
+    protected void initializeInjector() {
+        mSplashComponent = TemplateApp.get(this)
+                .visitorComponent()
+                .plus(getActivityModule(), new SplashModule());
+        mSplashComponent.inject(this);
     }
 
     private void initFlow() {

@@ -42,7 +42,8 @@ public abstract class BaseActivityTest {
      */
     protected MockAppComponent setMockAppComponent() {
         final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        final TemplateApp app = (TemplateApp) instrumentation.getTargetContext().getApplicationContext();
+        final TemplateApp app =
+                (TemplateApp) instrumentation.getTargetContext().getApplicationContext();
         final MockAppComponent component = DaggerMockAppComponent.builder()
                 .appModule(new AppModule(app))
                 .androidUtilsModule(new AndroidUtilsModule(app))

@@ -37,7 +37,7 @@ public final class Constants {
     /**
      * Server endpoint, github service endpoint.
      */
-    public static final String GITHUB_SERVER_ENDPOINT = "https://api.github.com";
+    public static final String GITHUB_SERVER_ENDPOINT = "https://api.github.com/";
     // ============= begin Server Endpoint =============
 
     // ============= begin GithubAPIParams =============

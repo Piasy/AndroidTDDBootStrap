@@ -28,15 +28,14 @@ import android.os.Bundle;
 import com.github.piasy.common.di.HasComponent;
 import com.github.piasy.template.app.TemplateApp;
 import com.github.piasy.template.base.BaseActivity;
+import com.github.piasy.template.features.splash.GithubSearchFragment;
 import com.github.piasy.template.features.user.di.GithubUserComponent;
 import com.github.piasy.template.features.user.di.GithubUserModule;
-import com.github.piasy.template.features.splash.GithubSearchFragment;
 
 /**
  * Activity for search github user feature.
  */
-public class GithubUserActivity extends BaseActivity
-        implements HasComponent<GithubUserComponent> {
+public class GithubUserActivity extends BaseActivity implements HasComponent<GithubUserComponent> {
 
     private GithubUserComponent mGithubUserComponent;
 

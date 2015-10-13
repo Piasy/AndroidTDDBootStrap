@@ -12,9 +12,8 @@ ext {
     rxJavaVersion = '1.0.14'
     rxAndroidVersion = '1.0.1'
     javaxAnnotationVersion = '10.0-b28'
-    okHttpVersion = '2.3.0'
     androidAnnotationsVersion = '20.0.0'
-    retrofitVersion = '1.9.0'
+    retrofitVersion = '2.0.0-beta2'
     gsonVersion = '2.3.1'
     autoParcelVersion = '0.3.1'
     mvpVersion = '1.3.0'
@@ -71,6 +70,10 @@ ext {
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             javaxAnnotation          : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             retrofit                 : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            gsonConverter            : "com.squareup.retrofit:converter-gson:${retrofitVersion}",
+            retrofitRx               : "com.squareup.retrofit:adapter-rxjava:${retrofitVersion}",
+            stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
+            stethoOkhttp             : "com.facebook.stetho:stetho-okhttp:${stethoVersion}",
             eventBus                 : "de.greenrobot:eventbus:${eventBusVersion}",
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
@@ -134,7 +137,6 @@ ext {
             xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
             xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
-            stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
             fabric                   : "com.crashlytics.sdk.android:crashlytics:${fabricVersion}@aar",
             leakCanary               : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
             leakCanaryIdle           : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",

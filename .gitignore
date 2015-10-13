@@ -27,3 +27,6 @@ bintray.properties
 /buck-out/
 /.buckd/
 /.okbuck/
+
+.buckconfig
+**/BUCK

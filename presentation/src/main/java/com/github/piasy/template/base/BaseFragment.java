@@ -55,10 +55,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         BaseMvpComponent<V, P>>
         extends MvpFragment<V, P> implements FragmentLifecycleProvider {
 
-    private C mComponent;
-
     // ============= copy from com.trello.rxlifecycle.components.RxFragment =============
     private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
+    private C mComponent;
 
     @Override
     public final Observable<FragmentEvent> lifecycle() {
@@ -75,70 +74,6 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         return RxLifecycle.bindFragment(mLifecycleSubject);
     }
 
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-        mLifecycleSubject.onNext(FragmentEvent.ATTACH);
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mLifecycleSubject.onNext(FragmentEvent.CREATE);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mLifecycleSubject.onNext(FragmentEvent.START);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mLifecycleSubject.onNext(FragmentEvent.RESUME);
-    }
-
-    @Override
-    public void onPause() {
-        mLifecycleSubject.onNext(FragmentEvent.PAUSE);
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        mLifecycleSubject.onNext(FragmentEvent.STOP);
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        mLifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        mLifecycleSubject.onNext(FragmentEvent.DESTROY);
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        mLifecycleSubject.onNext(FragmentEvent.DETACH);
-        super.onDetach();
-    }
-    // ============= end copy from com.trello.rxlifecycle.components.RxFragment =============
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void injectDependencies() {
-        mComponent = ((HasComponent<C>) getActivity()).getComponent();
-        presenter = mComponent.presenter();
-        setPresenter(presenter);
-        this.inject();
-    }
-
     /**
      * inject dependencies.
      */
@@ -150,23 +85,87 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mLifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
     }
 
+    @Override
+    public void onDestroyView() {
+        mLifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLifecycleSubject.onNext(FragmentEvent.CREATE);
+    }
+
+    @Override
+    public void onDestroy() {
+        mLifecycleSubject.onNext(FragmentEvent.DESTROY);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        mLifecycleSubject.onNext(FragmentEvent.PAUSE);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLifecycleSubject.onNext(FragmentEvent.RESUME);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mLifecycleSubject.onNext(FragmentEvent.START);
+    }
+    // ============= end copy from com.trello.rxlifecycle.components.RxFragment =============
+
+    @Override
+    public void onStop() {
+        mLifecycleSubject.onNext(FragmentEvent.STOP);
+        super.onStop();
+    }
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        mLifecycleSubject.onNext(FragmentEvent.ATTACH);
+    }
+
+    @Override
+    public void onDetach() {
+        mLifecycleSubject.onNext(FragmentEvent.DETACH);
+        super.onDetach();
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void injectDependencies() {
+        mComponent = ((HasComponent<C>) getActivity()).getComponent();
+        presenter = mComponent.presenter();
+        setPresenter(presenter);
+        this.inject();
+    }
+
     protected C getComponent() {
         return mComponent;
     }
-    
+
     /**
      * Show progress feedback with default text hint.
      * forward to host Activity.

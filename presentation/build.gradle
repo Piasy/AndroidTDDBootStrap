@@ -190,7 +190,6 @@ dependencies {
     productCompile presentationDependencies.leakCanaryIdle*/
     compile presentationDependencies.leakCanary
     retrolambdaConfig presentationDependencies.retrolambda
-    compile presentationDependencies.stetho
     compile (presentationDependencies.fabric) {
         transitive = true
     }

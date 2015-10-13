@@ -39,13 +39,12 @@ import dagger.Subcomponent;
 @Subcomponent(modules = UserModule.class)
 public interface UserComponent {
     /**
-     * Create a sub appComponent for authenticated user. Sub appComponent will extends all objects in
-     * super appComponent.
+     * Create a sub appComponent for authenticated user. Sub appComponent will extends all objects
+     * in super appComponent.
      *
      * @param activityModule the extra module needed to compose this sub appComponent.
      * @param githubUserModule the extra module needed to compose this sub appComponent.
      * @return sub appComponent for github search activity.
      */
-    GithubUserComponent plus(ActivityModule activityModule,
-            GithubUserModule githubUserModule);
+    GithubUserComponent plus(ActivityModule activityModule, GithubUserModule githubUserModule);
 }

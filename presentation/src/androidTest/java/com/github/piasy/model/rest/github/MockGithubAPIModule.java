@@ -24,7 +24,7 @@
 
 package com.github.piasy.model.rest.github;
 
-import retrofit.RestAdapter;
+import retrofit.Retrofit;
 
 import static org.mockito.Mockito.mock;
 
@@ -35,12 +35,12 @@ import static org.mockito.Mockito.mock;
  */
 public class MockGithubAPIModule extends GithubAPIModule {
     /**
-     * Provide mock {@link GithubAPI} with the {@link RestAdapter}.
+     * Provide mock {@link GithubAPI} with the {@link Retrofit}.
      *
-     * @param restAdapter rest adapter to create api instance.
+     * @param retrofit Retrofit to create api instance.
      * @return mock {@link GithubAPI} instance.
      */
-    GithubAPI provideGithubAPI(final RestAdapter restAdapter) {
+    GithubAPI provideGithubAPI(final Retrofit retrofit) {
         return mock(GithubAPI.class);
     }
 }

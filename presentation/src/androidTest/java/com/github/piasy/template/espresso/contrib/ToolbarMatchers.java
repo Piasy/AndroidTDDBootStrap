@@ -100,8 +100,7 @@ public final class ToolbarMatchers {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Matcher<View> withToolbarTitle(final Matcher<String> textMatcher) {
-        return new BoundedMatcher<View, android.widget.Toolbar>(
-                android.widget.Toolbar.class) {
+        return new BoundedMatcher<View, android.widget.Toolbar>(android.widget.Toolbar.class) {
             @Override
             public boolean matchesSafely(final android.widget.Toolbar toolbar) {
                 return textMatcher.matches(toolbar.getTitle().toString());

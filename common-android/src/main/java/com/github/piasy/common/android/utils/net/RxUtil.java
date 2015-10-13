@@ -81,6 +81,7 @@ public class RxUtil {
         @Override
         public void call(final Throwable throwable) {
             // intercept error process
+            // TODO where to process API error
             if (throwable instanceof GithubAPIError) {
                 mAPIErrorProcessor.process((GithubAPIError) throwable);
             } // else ignored

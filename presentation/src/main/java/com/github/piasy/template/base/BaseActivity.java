@@ -164,12 +164,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * But when the host Activity is FragmentActivity, it's ok.
      */
     private static class MemorySafeHandler extends Handler {
-        private LoadToast mLoadToast;
         @ColorInt
         private final int mTextColor;
         private final int mShowYPos;
-        private boolean mIsLoadToastShowing;
         private final WeakReference<Activity> mActivityWeakReference;
+        private LoadToast mLoadToast;
+        private boolean mIsLoadToastShowing;
 
         public MemorySafeHandler(@ColorInt final int textColor, final int showYPos,
                 final Activity activity) {
@@ -179,7 +179,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             mActivityWeakReference = new WeakReference<>(activity);
         }
 
-        @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.NullAssignment"})
+        @SuppressWarnings({ "PMD.OnlyOneReturn", "PMD.NullAssignment" })
         @Override
         public void handleMessage(@NonNull final Message msg) {
             if (mActivityWeakReference.get() == null) {

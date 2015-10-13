@@ -26,7 +26,7 @@ package com.github.piasy.common.android.provider;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import retrofit.RestAdapter;
+import retrofit.Retrofit;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
@@ -34,12 +34,12 @@ import retrofit.RestAdapter;
 
 public class RestProviderTest {
 
-    private RestAdapter one, two;
+    private Retrofit one, two;
 
     @Test
     public void testProvideRestAdapter() {
-        one = RestProvider.provideRestAdapter();
-        two = RestProvider.provideRestAdapter();
+        one = RestProvider.provideRetrofit();
+        two = RestProvider.provideRetrofit();
 
         Assert.assertTrue(one.equals(two));
     }
@@ -49,14 +49,14 @@ public class RestProviderTest {
         final Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                one = RestProvider.provideRestAdapter();
+                one = RestProvider.provideRetrofit();
             }
         });
 
         final Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                two = RestProvider.provideRestAdapter();
+                two = RestProvider.provideRetrofit();
             }
         });
 

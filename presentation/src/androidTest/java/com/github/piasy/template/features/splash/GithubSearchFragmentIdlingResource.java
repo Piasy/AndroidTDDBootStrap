@@ -40,8 +40,8 @@ import android.support.v7.app.AppCompatActivity;
 @Deprecated
 public class GithubSearchFragmentIdlingResource implements IdlingResource {
 
-    private ResourceCallback mResourceCallback;
     private final AppCompatActivity mActivity;
+    private ResourceCallback mResourceCallback;
 
     public GithubSearchFragmentIdlingResource(final AppCompatActivity activity) {
         mActivity = activity;

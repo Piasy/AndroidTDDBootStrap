@@ -22,37 +22,39 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.template.features.user.di;
+package com.github.piasy.common.android.provider;
 
-import com.github.piasy.common.di.ActivityScope;
-import com.github.piasy.template.base.di.ActivityModule;
-import com.github.piasy.template.base.di.BaseMvpComponent;
-import com.github.piasy.template.features.splash.GithubSearchFragment;
-import com.github.piasy.template.features.user.GithubUserActivity;
-import com.github.piasy.template.features.user.mvp.GithubUserPresenter;
-import com.github.piasy.template.features.user.mvp.GithubUserView;
-import dagger.Subcomponent;
+import com.facebook.stetho.okhttp.StethoInterceptor;
+import com.squareup.okhttp.OkHttpClient;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
  *
- * DI Component for {@link GithubUserActivity}.
+ * A singleton provider providing {@link OkHttpClient}.
  */
-@ActivityScope
-@Subcomponent(modules = { ActivityModule.class, GithubUserModule.class })
-public interface GithubUserComponent extends BaseMvpComponent<GithubUserView, GithubUserPresenter> {
+final class HttpClientProvider {
+
+    private HttpClientProvider() {
+        // singleton
+    }
 
     /**
-     * Inject dependency into {@link GithubUserActivity}.
+     * Provide the {@link OkHttpClient} singleton instance. Should be only called in test cases,
+     * besides {@link ProviderModule}.
      *
-     * @param activity {@link GithubUserActivity}.
+     * @return the singleton {@link OkHttpClient}.
      */
-    void inject(GithubUserActivity activity);
+    static OkHttpClient provideHttpClient() {
+        return OkHttpClientHolder.sOkHttpClient;
+    }
 
-    /**
-     * Inject dependency into {@link GithubSearchFragment}.
-     *
-     * @param fragment {@link GithubSearchFragment}.
-     */
-    void inject(GithubSearchFragment fragment);
+    private static class OkHttpClientHolder {
+        // lazy instantiate
+        private static volatile OkHttpClient sOkHttpClient;
+
+        static {
+            sOkHttpClient = new OkHttpClient();
+            sOkHttpClient.networkInterceptors().add(new StethoInterceptor());
+        }
+    }
 }

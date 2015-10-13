@@ -86,12 +86,10 @@ public class SplashActivityTest extends BaseActivityTest {
     @Rule
     public ActivityTestRule<SplashActivity> mActivityTestRule =
             new ActivityTestRule<>(SplashActivity.class, true, false);
-
     @Inject
     GithubAPI mGithubAPI;
     @Inject
     Gson mGson;
-
     private GithubUserSearchResult mSingleResult;
 
     @Before

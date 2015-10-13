@@ -116,8 +116,8 @@ public final class GithubSearchUserResultAdapter
         private final IconTextView mTvUsername;
         private final CardView mCardView;
         private final Resources mResources;
-        private GithubUser mGithubUser;
         private final Action mAction;
+        private GithubUser mGithubUser;
 
         /**
          * create view holder.
