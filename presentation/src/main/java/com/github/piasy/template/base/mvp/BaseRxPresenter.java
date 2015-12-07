@@ -81,7 +81,7 @@ public abstract class BaseRxPresenter<V extends MvpView> extends MvpBasePresente
             try {
                 getEventBus().register(this);
             } catch (EventBusException e) {
-                Timber.d("No subscriber at " + this.getClass().getName());
+                Timber.w(e, "No subscriber at %s", this.getClass().getName());
             }
         }
     }

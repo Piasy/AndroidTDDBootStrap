@@ -19,7 +19,7 @@ public class GithubUserIntegrateTest extends BaseThreeTenBPTest {
 
     @Before
     public void setUp() {
-        initThreeTenABP();
+        initThreeTenBP();
         mGson = GsonProviderExposure.exposeGson();
     }
 

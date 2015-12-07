@@ -15,5 +15,86 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--keepattributes SourceFile, LineNumberTable
--keep class com.joanzapata.** { *; }
+-dontobfuscate
+
+# butterknife
+-keepattributes *Annotation*
+-keep class butterknife.** { *; }
+-keep class **$$ViewInjector { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+-dontwarn butterknife.internal.**
+
+
+# retrofit
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.google.gson.** { *; }
+-keep class com.google.inject.** { *; }
+-keep class org.apache.http.** { *; }
+-keep class org.apache.james.mime4j.** { *; }
+-keep class javax.inject.** { *; }
+-keep class retrofit.** { *; }
+-dontwarn retrofit.**
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit.http.* <methods>;
+}
+-dontwarn com.squareup.okhttp.internal.huc.**
+-dontwarn retrofit.appengine.UrlFetchClient
+-dontwarn rx.**
+-dontwarn okio.**
+-keep class java.lang.invoke.** { *; }
+-keep class java.lang.reflect.** { *; }
+
+
+# dagger
+-keepclassmembers,allowobfuscation class * {
+    @javax.inject.* *;
+    @dagger.* *;
+    <init>();
+}
+
+-keep class javax.inject.** { *; }
+-keep class **$$ModuleAdapter
+-keep class **$$InjectAdapter
+-keep class **$$StaticInjection
+-keep class dagger.** { *; }
+-dontwarn dagger.internal.codegen.**
+
+
+# eventbus
+-keepclassmembers, includedescriptorclasses class ** {
+    public void onEvent*(**);
+}
+-keepclassmembers, includedescriptorclasses class ** {
+    public void onEventMainThread*(**);
+}
+
+
+# xlog
+-keep class com.promegu.xlog.** { *; }
+-dontwarn javax.lang.**
+-dontwarn javax.tools.**
+
+
+# stetho
+-dontwarn org.apache.http.**
+-keep class com.facebook.stetho.dumpapp.** { *; }
+-keep class com.facebook.stetho.server.** { *; }
+-dontwarn com.facebook.stetho.dumpapp.**
+-dontwarn com.facebook.stetho.server.**
+
+
+# kotlin
+-dontwarn org.w3c.dom.events.**
+
+
+# leak canary
+-dontwarn com.squareup.leakcanary.**

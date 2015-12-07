@@ -72,7 +72,7 @@ public final class RomUtil {
             line = input.readLine();
             input.close();
         } catch (IOException ex) {
-            Timber.e(TAG, "Unable to read sysprop " + propName, ex);
+            Timber.e(ex, "[%s] Unable to read sysprop %s ", TAG, propName);
         } finally {
             IOUtils.closeQuietly(input);
         }

@@ -36,7 +36,6 @@ import au.com.ds.ef.err.LogicViolationError;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
-import com.github.piasy.common.Constants;
 import com.github.piasy.common.di.HasComponent;
 import com.github.piasy.template.BuildConfig;
 import com.github.piasy.template.R;
@@ -121,7 +120,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         try {
                             mFlow.trigger(Event.Initialize, mStatefulContext);
                         } catch (LogicViolationError logicViolationError) {
-                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+                            Timber.e(logicViolationError, TAG);
                         }
                         if (BuildConfig.DEBUG) {
                             Timber.plant(new Timber.DebugTree());
@@ -139,7 +138,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         try {
                             Thread.sleep(TIME);
                         } catch (InterruptedException e) {
-                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, e);
+                            Timber.e(e, TAG);
                         }
                         Stetho.initialize(Stetho.newInitializerBuilder(mApp)
                                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(mApp))
@@ -171,7 +170,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         try {
                             mFlow.trigger(Event.Finish, mStatefulContext);
                         } catch (LogicViolationError logicViolationError) {
-                            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+                            Timber.e(logicViolationError, TAG);
                         }
                     }
                 });
@@ -208,7 +207,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
             try {
                 mFlow.trigger(Event.Resume, mStatefulContext);
             } catch (LogicViolationError logicViolationError) {
-                Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+                Timber.e(logicViolationError, TAG);
             }
         }
     }
@@ -220,7 +219,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
         try {
             mFlow.trigger(Event.Pause, mStatefulContext);
         } catch (LogicViolationError logicViolationError) {
-            Timber.e(Constants.ERROR_LOG_FORMAT, TAG, logicViolationError);
+            Timber.e(logicViolationError, TAG);
         }
     }
 

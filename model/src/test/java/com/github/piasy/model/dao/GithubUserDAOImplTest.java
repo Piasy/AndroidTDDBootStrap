@@ -45,7 +45,7 @@ public class GithubUserDAOImplTest extends BaseThreeTenBPTest {
 
     @Before
     public void setUp() {
-        initThreeTenABP();
+        initThreeTenBP();
         final Gson gson = GsonProviderExposure.exposeGson();
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
                 new TypeToken<GithubUserSearchResult>() {}.getType());

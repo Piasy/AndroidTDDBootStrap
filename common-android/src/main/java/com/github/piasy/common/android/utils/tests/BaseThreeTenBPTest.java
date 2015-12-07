@@ -45,7 +45,7 @@ public class BaseThreeTenBPTest {
         // design to be extended
     }
 
-    protected void initThreeTenABP() {
+    protected void initThreeTenBP() {
         if (initialized.getAndSet(true)) {
             return;
         }

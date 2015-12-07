@@ -39,7 +39,7 @@ public class GsonProviderTest extends BaseThreeTenBPTest {
 
     @Before
     public void setUp() {
-        initThreeTenABP();
+        initThreeTenBP();
     }
 
     @Test

@@ -7,37 +7,39 @@ ext {
     androidSupportSdkVersion = '23.0.1'
 
     // Libraries
-    daggerVersion = '2.0.1'
+    daggerVersion = '2.0.2'
     butterKnifeVersion = '7.0.1'
-    rxJavaVersion = '1.0.14'
+    rxJavaVersion = '1.0.16'
     rxAndroidVersion = '1.0.1'
     javaxAnnotationVersion = '10.0-b28'
     androidAnnotationsVersion = '20.0.0'
     retrofitVersion = '2.0.0-beta2'
-    gsonVersion = '2.3.1'
+    okhttpVersion = '2.5.0'
+    okhttpMockWebServerVersion = '2.6.0'
+    gsonVersion = '2.5'
     autoParcelVersion = '0.3.1'
     mvpVersion = '1.3.0'
     eventBusVersion = '3.0.0-beta1'
-    storIOVersion = '1.4.0'
+    storIOVersion = '1.6.1'
     apacheCommonsIOVersion = '1.3.2'
-    threetenabpVersion = '1.0.2'
-    onceVersion = '0.4.0'
-    rxBindingVersion = '0.2.0'
+    threetenabpVersion = '1.0.3'
+    onceVersion = '0.4.1'
+    rxBindingVersion = '0.3.0'
     rxLifeCycleVersion = '0.3.0'
 
     // UI
-    loadToastVersion = '1.0.8'
-    frescoVersion = '0.7.0'
-    iconifyVersion = '2.0.9'
+    loadToastVersion = '1.0.9'
+    frescoVersion = '0.8.1'
+    iconifyVersion = '2.1.1'
     mugenVersion = '1.0.2'
 
     // Developer
     xLogVersion = '2.1.1'
-    retrolambdaVersion = '2.0.5'
-    stethoVersion = '1.1.1'
+    retrolambdaVersion = '2.0.6'
+    stethoVersion = '1.2.0'
     fabricVersion = '2.5.2'
     leakCanaryVersion = '1.3.1'
-    timberVersion = '3.1.0'
+    timberVersion = '4.1.0'
 
     // Testing
     jUnitVersion = '4.12'
@@ -87,9 +89,12 @@ ext {
     ]
 
     commonAndroidTestDependencies = [
-            junit     : "junit:junit:${jUnitVersion}",
-            mockito   : "org.mockito:mockito-core:${mockitoVersion}",
-            jsonAssert: "org.skyscreamer:jsonassert:${jsonAssertVersion}",
+            junit               : "junit:junit:${jUnitVersion}",
+            mockito             : "org.mockito:mockito-core:${mockitoVersion}",
+            jsonAssert          : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
+            mockWebService      : "com.squareup.okhttp:mockwebserver:${okhttpMockWebServerVersion}",
+            retrofitMock        : "com.squareup.retrofit:retrofit-mock:${retrofitVersion}",
+            adapterRxJavaMock   : "com.squareup.retrofit:adapter-rxjava-mock:${retrofitVersion}",
     ]
 
     modelDependencies = [

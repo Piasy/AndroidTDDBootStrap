@@ -24,7 +24,7 @@ public abstract class BaseService extends Service {
             try {
                 mBus.register(this);
             } catch (EventBusException e) {
-                Timber.d("No subscriber at " + this.getClass().getName());
+                Timber.w(e, "No subscriber at %s", this.getClass().getName());
             }
         }
     }

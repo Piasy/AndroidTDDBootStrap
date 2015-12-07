@@ -49,7 +49,7 @@ public class ZonedDateTimeConvertTest extends BaseThreeTenBPTest {
 
     @Before
     public void setUp() {
-        initThreeTenABP();
+        initThreeTenBP();
         mDateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
                 .append(DateTimeFormatter.ISO_LOCAL_DATE)
                 .appendLiteral('T')

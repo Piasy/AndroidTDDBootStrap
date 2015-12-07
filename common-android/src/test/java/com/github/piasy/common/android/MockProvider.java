@@ -44,4 +44,8 @@ public final class MockProvider {
         return "{\"message\":\"Validation Failed\",\"errors\":[{\"resource\":\"Issue\"," +
                 "\"field\":\"title\",\"code\":\"missing_field\"}]}";
     }
+
+    public static String providePersonStr() {
+        return "{\"name\":\"Piasy\",\"age\":22}";
+    }
 }

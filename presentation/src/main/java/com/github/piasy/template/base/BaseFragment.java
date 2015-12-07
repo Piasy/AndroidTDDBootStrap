@@ -55,9 +55,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         BaseMvpComponent<V, P>>
         extends MvpFragment<V, P> implements FragmentLifecycleProvider {
 
+    private C mComponent;
     // ============= copy from com.trello.rxlifecycle.components.RxFragment =============
     private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
-    private C mComponent;
 
     @Override
     public final Observable<FragmentEvent> lifecycle() {

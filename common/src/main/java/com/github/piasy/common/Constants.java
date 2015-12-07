@@ -94,11 +94,6 @@ public final class Constants {
     public static final String ICONIFY_ICONS_ORG = "{md-people}";
     // ============= end IconifyIcons =============
 
-    /**
-     * Error log format, {tag} {error message}
-     */
-    public static final String ERROR_LOG_FORMAT = "%s %s";
-
     private Constants() {
         // no instance
     }
