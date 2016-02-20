@@ -26,12 +26,12 @@ package com.github.piasy.common.android.provider;
 
 import com.github.piasy.common.android.jsr310.ThreeTenABPDelegate;
 import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 import javax.inject.Singleton;
-import retrofit.Retrofit;
+import okhttp3.OkHttpClient;
+import org.greenrobot.eventbus.EventBus;
+import retrofit2.Retrofit;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/6.

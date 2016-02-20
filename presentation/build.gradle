@@ -153,6 +153,7 @@ dependencies {
     }
     compile (presentationDependencies.rxBinding) {
         exclude module: 'support-annotations'
+        exclude module: 'rxjava'
     }
     compile (presentationDependencies.rxBindingAppCompatV7) {
         exclude module: 'appcompat-v7'
@@ -160,12 +161,13 @@ dependencies {
     }
     compile (presentationDependencies.rxLifeCycle) {
         exclude module: 'rxbinding'
+        exclude module: 'rxjava'
     }
     compile (presentationDependencies.rxLifeCycleComponent) {
         exclude module: 'rxlifecycle'
         exclude module: 'appcompat-v7'
+        exclude module: 'rxjava'
     }
-    provided presentationDependencies.eventBusProcessor
 
     // UI library
     compile (presentationDependencies.recyclerViewV7) {
@@ -185,39 +187,43 @@ dependencies {
     }
 
     // Developer
-    /*developCompile presentationDependencies.xLogAndroid
-    productCompile presentationDependencies.xLogAndroidIdle*/
-    compile presentationDependencies.xLogAndroid
-    /*developCompile presentationDependencies.leakCanary
-    productCompile presentationDependencies.leakCanaryIdle*/
-    compile presentationDependencies.leakCanary
+    developCompile (presentationDependencies.xLogAndroid) {
+        exclude module: 'gson'
+    }
+    productCompile presentationDependencies.xLogAndroidIdle
+    developCompile presentationDependencies.leakCanary
+    productCompile presentationDependencies.leakCanaryIdle
     retrolambdaConfig presentationDependencies.retrolambda
     compile (presentationDependencies.fabric) {
         transitive = true
     }
 
     androidTestCompile (presentationTestDependencies.mockito) {
-        exclude module: "hamcrest-core"
+        exclude module: 'hamcrest-core'
     }
     androidTestCompile presentationTestDependencies.hamcrestLibrary
     androidTestCompile presentationTestDependencies.dexmaker
     androidTestCompile (presentationTestDependencies.dexmakerMockito) {
-        exclude module: "hamcrest-core"
-        exclude module: "mockito-core"
+        exclude module: 'hamcrest-core'
+        exclude module: 'mockito-core'
     }
     androidTestCompile (presentationTestDependencies.espresso) {
-        exclude module: "hamcrest-library"
-        exclude module: "rules"
-        exclude module: "runner"
+        exclude module: 'hamcrest-library'
+        exclude module: 'rules'
+        exclude module: 'runner'
     }
     androidTestCompile (presentationTestDependencies.espessoContrib) {
-        exclude module: "espresso-core"
+        exclude module: 'espresso-core'
         exclude module: 'support-v4'
         exclude module: 'recyclerview-v7'
+        exclude module: 'hamcrest-core'
     }
     androidTestCompile (presentationTestDependencies.espressoIntents) {
-        exclude module: "espresso-core"
+        exclude module: 'espresso-core'
     }
-    androidTestCompile presentationTestDependencies.androidJUnit4Rules
+    androidTestCompile (presentationTestDependencies.androidJUnit4Rules) {
+        exclude module: 'support-annotations'
+        exclude module: 'hamcrest-core'
+    }
     androidTestApt presentationDependencies.daggerCompiler
 }

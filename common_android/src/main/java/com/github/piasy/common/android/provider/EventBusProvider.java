@@ -24,7 +24,7 @@
 
 package com.github.piasy.common.android.provider;
 
-import de.greenrobot.event.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/24.

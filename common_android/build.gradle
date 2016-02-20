@@ -69,5 +69,4 @@ dependencies {
     testCompile commonAndroidTestDependencies.jsonAssert
     testCompile commonAndroidTestDependencies.mockWebService
     testCompile commonAndroidTestDependencies.retrofitMock
-    testCompile commonAndroidTestDependencies.adapterRxJavaMock
 }

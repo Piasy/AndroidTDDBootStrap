@@ -32,27 +32,10 @@
 
 
 # retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
 -keepattributes Signature
--keepattributes *Annotation*
--keep class com.google.gson.** { *; }
--keep class com.google.inject.** { *; }
--keep class org.apache.http.** { *; }
--keep class org.apache.james.mime4j.** { *; }
--keep class javax.inject.** { *; }
--keep class retrofit.** { *; }
--dontwarn retrofit.**
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
--keepclasseswithmembers class * {
-    @retrofit.http.* <methods>;
-}
--dontwarn com.squareup.okhttp.internal.huc.**
--dontwarn retrofit.appengine.UrlFetchClient
--dontwarn rx.**
--dontwarn okio.**
--keep class java.lang.invoke.** { *; }
--keep class java.lang.reflect.** { *; }
-
+-keepattributes Exceptions
 
 # dagger
 -keepclassmembers,allowobfuscation class * {

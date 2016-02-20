@@ -3,9 +3,9 @@ package com.github.piasy.template.base;
 import android.app.Service;
 import com.github.piasy.template.app.di.AppComponent;
 import com.github.piasy.template.app.di.IApplication;
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.EventBusException;
 import javax.inject.Inject;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
 import timber.log.Timber;
 
 /**

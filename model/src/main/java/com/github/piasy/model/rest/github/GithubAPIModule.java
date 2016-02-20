@@ -27,7 +27,7 @@ package com.github.piasy.model.rest.github;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import retrofit.Retrofit;
+import retrofit2.Retrofit;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.

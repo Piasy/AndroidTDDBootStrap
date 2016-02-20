@@ -26,9 +26,9 @@ package com.github.piasy.model.rest.github;
 
 import com.github.piasy.model.entities.GithubUser;
 import com.github.piasy.model.entities.GithubUserSearchResult;
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**

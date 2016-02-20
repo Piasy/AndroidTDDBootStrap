@@ -26,6 +26,7 @@ package com.github.piasy.template.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,8 @@ import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.trello.rxlifecycle.FragmentEvent;
+import com.trello.rxlifecycle.FragmentLifecycleProvider;
 import com.trello.rxlifecycle.RxLifecycle;
-import com.trello.rxlifecycle.components.FragmentLifecycleProvider;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
@@ -60,6 +61,75 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
     private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
 
     @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        mLifecycleSubject.onNext(FragmentEvent.ATTACH);
+    }
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLifecycleSubject.onNext(FragmentEvent.CREATE);
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        return inflater.inflate(getLayoutRes(), container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
+        injectDependencies();
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        mLifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mLifecycleSubject.onNext(FragmentEvent.START);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLifecycleSubject.onNext(FragmentEvent.RESUME);
+    }
+
+    @Override
+    public void onPause() {
+        mLifecycleSubject.onNext(FragmentEvent.PAUSE);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        mLifecycleSubject.onNext(FragmentEvent.STOP);
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mLifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        mLifecycleSubject.onNext(FragmentEvent.DESTROY);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        mLifecycleSubject.onNext(FragmentEvent.DETACH);
+        super.onDetach();
+    }
+
+    @Override
     public final Observable<FragmentEvent> lifecycle() {
         return mLifecycleSubject.asObservable();
     }
@@ -74,6 +144,8 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         return RxLifecycle.bindFragment(mLifecycleSubject);
     }
 
+    // ============= end copy from com.trello.rxlifecycle.components.RxFragment =============
+
     /**
      * inject dependencies.
      */
@@ -84,78 +156,15 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>,
         return presenter;
     }
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-        mLifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
-    }
-
-    @Override
-    public void onDestroyView() {
-        mLifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mLifecycleSubject.onNext(FragmentEvent.CREATE);
-    }
-
-    @Override
-    public void onDestroy() {
-        mLifecycleSubject.onNext(FragmentEvent.DESTROY);
-        super.onDestroy();
-    }
-
-    @Override
-    public void onPause() {
-        mLifecycleSubject.onNext(FragmentEvent.PAUSE);
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mLifecycleSubject.onNext(FragmentEvent.RESUME);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mLifecycleSubject.onNext(FragmentEvent.START);
-    }
-    // ============= end copy from com.trello.rxlifecycle.components.RxFragment =============
-
-    @Override
-    public void onStop() {
-        mLifecycleSubject.onNext(FragmentEvent.STOP);
-        super.onStop();
-    }
-
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-        mLifecycleSubject.onNext(FragmentEvent.ATTACH);
-    }
-
-    @Override
-    public void onDetach() {
-        mLifecycleSubject.onNext(FragmentEvent.DETACH);
-        super.onDetach();
-    }
-
-    @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
+    /**
+     * layout resource id
+     * @return layout resource id
+     */
+    @LayoutRes
+    protected abstract int getLayoutRes();
 
     @SuppressWarnings("unchecked")
-    @Override
-    protected void injectDependencies() {
+    private void injectDependencies() {
         mComponent = ((HasComponent<C>) getActivity()).getComponent();
         presenter = mComponent.presenter();
         setPresenter(presenter);

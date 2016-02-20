@@ -32,7 +32,7 @@ import com.github.piasy.template.features.splash.mvp.SplashPresenter;
 import com.github.piasy.template.features.splash.mvp.SplashPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.

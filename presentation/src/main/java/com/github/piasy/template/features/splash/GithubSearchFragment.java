@@ -26,6 +26,7 @@ package com.github.piasy.template.features.splash;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -168,6 +169,7 @@ public class GithubSearchFragment extends BaseFragment<SplashView, SplashPresent
                 });
     }
 
+    @LayoutRes
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_github_search;

@@ -25,9 +25,9 @@
 package com.github.piasy.common.android.provider;
 
 import com.github.piasy.common.Constants;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.

@@ -24,8 +24,7 @@
 
 package com.github.piasy.common.android.provider;
 
-import com.facebook.stetho.okhttp.StethoInterceptor;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -54,7 +53,7 @@ final class HttpClientProvider {
 
         static {
             sOkHttpClient = new OkHttpClient();
-            sOkHttpClient.networkInterceptors().add(new StethoInterceptor());
+            //sOkHttpClient.networkInterceptors().add(new StethoInterceptor());
         }
     }
 }

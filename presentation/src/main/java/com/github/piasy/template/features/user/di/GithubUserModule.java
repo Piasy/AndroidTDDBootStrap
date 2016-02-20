@@ -32,7 +32,7 @@ import com.github.piasy.template.features.user.mvp.GithubUserPresenter;
 import com.github.piasy.template.features.user.mvp.GithubUserPresenterImpl;
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.

@@ -55,7 +55,9 @@ dependencies {
 
     apt modelDependencies.autoParcelProcessor
 
-    compile modelDependencies.storIOSQLite
+    compile (modelDependencies.storIOSQLite) {
+        exclude module: 'support-annotations'
+    }
     compile modelDependencies.storIOSQLiteAnnotation
     apt modelDependencies.storIOSQLiteAnnotationProcessor
 
@@ -65,5 +67,7 @@ dependencies {
     testCompile modelTestDependencies.mockito
     testCompile modelTestDependencies.junit
     testCompile modelTestDependencies.jsonAssert
-    androidTestCompile modelTestDependencies.androidJUnitRunner
+    androidTestCompile (modelTestDependencies.androidJUnitRunner) {
+        exclude module: 'support-annotations'
+    }
 }
