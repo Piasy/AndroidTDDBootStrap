@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
@@ -30,6 +29,14 @@ android {
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
+        applicationId "com.github.piasy.template"
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        //multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "boolean", "REPORT_CRASH", "false"
@@ -135,6 +142,7 @@ dependencies {
 
     apt presentationDependencies.daggerCompiler
 
+    compile presentationDependencies.supportAnnotation
     compile (presentationDependencies.mvp) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
@@ -188,8 +196,6 @@ dependencies {
         transitive = true
     }
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     androidTestCompile (presentationTestDependencies.mockito) {
         exclude module: "hamcrest-core"
     }
@@ -214,17 +220,4 @@ dependencies {
     }
     androidTestCompile presentationTestDependencies.androidJUnit4Rules
     androidTestApt presentationDependencies.daggerCompiler
-}
-buildscript {
-    ext.kotlin_version = '0.12.1230'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
 }

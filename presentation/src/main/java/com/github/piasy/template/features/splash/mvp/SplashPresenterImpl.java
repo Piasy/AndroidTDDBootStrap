@@ -31,7 +31,6 @@ import com.github.piasy.model.entities.GithubUser;
 import com.github.piasy.template.base.mvp.BaseRxPresenter;
 import de.greenrobot.event.EventBus;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -69,7 +68,7 @@ public class SplashPresenterImpl extends BaseRxPresenter<SplashView> implements 
     }
 
     @Override
-    public void searchUser(@NotNull final String query) {
+    public void searchUser(@NonNull final String query) {
         // load user from dao, dao take responsibility for where to get the real data
         addSubscription(mGithubUserDAO.searchUser(query)
                 .subscribeOn(Schedulers.io())

@@ -56,7 +56,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 ## Project structure
 +  common
   +  Pure java library, provide common functionality.
-+  common-android
++  common_android
   +  Android library, provide common functionality.
 +  model
   +  Android library, define network API, data object, DAO...
@@ -77,7 +77,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 
 ## Dev tips
 +  Create utils
-  +  Create util class in common/common-android module
+  +  Create util class in common/common_android module
   +  Add @Provides annotated provider method in corresponding Module class(UtilsModule.java/AndroidUtilsModule.java)
   +  ~~Add expose method in AppComponent.java~~
 +  Create Activity

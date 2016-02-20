@@ -5,6 +5,8 @@ ext {
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
     androidSupportSdkVersion = '23.0.1'
+    versionCode = 1
+    versionName = '1.0.0'
 
     // Libraries
     daggerVersion = '2.0.2'
@@ -117,6 +119,7 @@ ext {
     presentationDependencies = [
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
             supportDesignLibrary     : "com.android.support:design:${androidSupportSdkVersion}",
+            supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
             recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",

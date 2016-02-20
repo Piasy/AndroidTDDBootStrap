@@ -49,7 +49,7 @@ dependencies {
     def modelDependencies = rootProject.ext.modelDependencies
     def modelTestDependencies = rootProject.ext.modelTestDependencies
 
-    compile project(':common-android')
+    compile project(':common_android')
 
     provided modelDependencies.daggerCompiler
 

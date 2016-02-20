@@ -15,12 +15,20 @@ if '{0}versionName'.format(package) not in root.attrib:
 	root.attrib['{0}versionName'.format(package)] = versionName
 if '{0}versionCode'.format(package) not in root.attrib:
 	root.attrib['{0}versionCode'.format(package)] = versionCode
-if len(root.findall("./uses-sdk")) == 0:
+if len(root.findall('./uses-sdk')) == 0:
 	ET.SubElement(root, 'uses-sdk', {
 		'{0}targetSdkVersion'.format(package): targetSdk,
 		'{0}minSdkVersion'.format(package): minSdk,
 	})
-application = root.find("./application")
+application = root.find('./application')
 if '{0}debuggable'.format(package) not in application.attrib:
 	application.attrib['{0}debuggable'.format(package)] = debuggable
 manifest.write(sys.argv[2])
+f = open(sys.argv[2], 'r')
+content = f.read()
+f.close()
+content = content.replace('ns0:', 'android:')
+content = content.replace('xmlns:ns0=', 'xmlns:android=')
+f = open(sys.argv[2], 'w')
+f.write(content)
+f.close()

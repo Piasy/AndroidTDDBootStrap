@@ -24,8 +24,8 @@
 
 package com.github.piasy.template.features.splash.mvp;
 
+import android.support.annotation.NonNull;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/24.
@@ -39,5 +39,5 @@ public interface SplashPresenter extends MvpPresenter<SplashView> {
      *
      * @param query the search query.
      */
-    void searchUser(@NotNull String query);
+    void searchUser(@NonNull String query);
 }
