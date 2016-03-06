@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
@@ -33,6 +33,15 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
     }
 }
 
@@ -49,24 +58,21 @@ dependencies {
     def modelDependencies = rootProject.ext.modelDependencies
     def modelTestDependencies = rootProject.ext.modelTestDependencies
 
-    compile project(':common_android')
+    compile project(':base')
 
-    provided modelDependencies.daggerCompiler
-
+    apt modelDependencies.daggerCompiler
     apt modelDependencies.autoParcelProcessor
-
-    compile (modelDependencies.storIOSQLite) {
-        exclude module: 'support-annotations'
-    }
-    compile modelDependencies.storIOSQLiteAnnotation
     apt modelDependencies.storIOSQLiteAnnotationProcessor
 
     // Developer
     retrolambdaConfig modelDependencies.retrolambda
 
+    testCompile project(':testbase')
     testCompile modelTestDependencies.mockito
     testCompile modelTestDependencies.junit
     testCompile modelTestDependencies.jsonAssert
+
+    androidTestCompile project(':testbase')
     androidTestCompile (modelTestDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }

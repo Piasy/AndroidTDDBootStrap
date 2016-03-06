@@ -1,0 +1,133 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'de.mobilej.unmock'
+apply plugin: 'com.ofg.uptodate'
+apply from: '../AndroidCodeQualityConfig/quality.gradle'
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
+    }
+}
+
+unMock {
+    // URI to download the android-all.jar from. e.g. https://oss.sonatype
+    // .org/content/groups/public/org/robolectric/android-all/
+    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4' +
+            '.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
+
+    keep "android.os.Looper"
+    keepStartingWith "android.util."
+}
+
+dependencies {
+    def baseDependencies = rootProject.ext.baseDependencies
+    def baseTestDependencies = rootProject.ext.baseTestDependencies
+
+    compile baseDependencies.supportAnnotation
+
+    compile(baseDependencies.mvp) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    compile baseDependencies.fragmentargs
+    apt baseDependencies.fragmentargsApt
+
+    compile (baseDependencies.storIOSQLite) {
+        exclude module: 'support-annotations'
+    }
+    compile baseDependencies.storIOSQLiteAnnotation
+    apt baseDependencies.storIOSQLiteAnnotationProcessor
+    compile baseDependencies.threetenabp
+    compile baseDependencies.gson
+    compile baseDependencies.rxJava
+    compile (baseDependencies.rxAndroid) {
+        exclude module: 'rxjava'
+    }
+    compile baseDependencies.eventBus
+    compile baseDependencies.retrofit
+    compile baseDependencies.retrofitGsonConverter
+    compile baseDependencies.retrofitRxJavaAdapter
+
+    compile baseDependencies.autoParcel
+    apt baseDependencies.autoParcelProcessor
+
+    compile baseDependencies.dagger
+    apt baseDependencies.daggerCompiler
+    compile baseDependencies.javaxAnnotation
+    compile baseDependencies.butterKnife
+
+    compile baseDependencies.androidSupportAppCompatV7
+    compile (baseDependencies.rxBindingAppCompatV7) {
+        exclude module: 'support-annotations'
+        exclude module: 'rxjava'
+    }
+    compile(baseDependencies.rxLifeCycle) {
+        exclude module: 'rxbinding'
+        exclude module: 'rxjava'
+    }
+    compile(baseDependencies.rxLifeCycleComponent) {
+        exclude module: 'rxlifecycle'
+        exclude module: 'appcompat-v7'
+        exclude module: 'rxjava'
+    }
+    compile baseDependencies.loadToast
+
+    compile baseDependencies.apacheCommonsIO
+    compile baseDependencies.xLogCompiler
+    compile baseDependencies.timber
+
+    testCompile project(':testbase')
+    testCompile baseTestDependencies.junit
+    testCompile baseTestDependencies.mockito
+}

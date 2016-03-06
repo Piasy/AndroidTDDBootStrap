@@ -1,2 +1,2 @@
 #!/bin/sh
-buildsystem/checkCommon.sh && buildsystem/checkCommonAndroid.sh && buildsystem/checkModel.sh && buildsystem/checkPresentation.sh && buildsystem/checkBuck.sh
+buildsystem/checkBase.sh && buildsystem/checkModel.sh && buildsystem/checkApp.sh && buildsystem/checkBuck.sh

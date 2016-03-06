@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew :model:clean :model:check :model:connectedAndroidTest --stacktrace
+./gradlew clean :model:check :model:cAT :model:jacocoReport --stacktrace

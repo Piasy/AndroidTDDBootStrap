@@ -1,1 +1,1 @@
-include ':presentation', ':common_android', ":common", ":model", ":EasyFlow"
+include ':base', ':testbase', ":model", ':app', ":EasyFlow"
