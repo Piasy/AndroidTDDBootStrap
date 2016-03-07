@@ -37,7 +37,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
   +  [Codestyle](https://github.com/Piasy/java-code-styles), Customized base on [Square java-code-styles](https://github.com/square/java-code-styles).
   +  [Android Unmock Gradle Plugin](https://github.com/bjoernQ/unmock-plugin), Gradle plugin to be used in combination with the new unit testing feature of the Gradle Plugin / Android Studio to use real classes for e.g. SparseArray.
 +  Unit test
-  +  Junit && Android Junit && Robolectric(Only used for submodule 'once')
+  +  Junit && Android Junit
   +  Following the [Square Way](http://www.philosophicalhacker.com/2015/04/10/against-android-unit-tests/)
 +  Integrate test
   +  [Espresso](https://code.google.com/p/android-test-kit/)
@@ -50,23 +50,19 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
   +  [PMD](https://github.com/pmd/pmd), PMD is a source code analyzer.
   +  Lint, [Android Lint Summary](https://github.com/passy/android-lint-summary), View your Android lint issues with style.
 +  Code coverage
-  +  Jacoco & [Codecov](https://codecov.io)
-+  [Kotlin](http://kotlinlang.org/), Statically typed programming language for the JVM, Android and the browser.
+  +  Jacoco && [Codecov](https://codecov.io)
 
 ## Project structure
-+  common
-  +  Pure java library, provide common functionality.
-+  common_android
-  +  Android library, provide common functionality.
++  base
+  +  The so called architecture part, and base classes, best practice, etc.
 +  model
-  +  Android library, define network API, data object, DAO...
-+  presentation
-  +  Android application, app functionality.
+  +  Business related data layer, entities, APIs, DAOs, etc.
++  app
+  +  App functionality.
 +  package organization
   +  package by layer v.s. package by feature, read more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), and [Package by feature, not layer](http://www.javapractices.com/topic/TopicAction.do?Id=205).
   +  package by layer + package by feature
-    +  network API, data object, DAO are organized in the single `model` library module
-    +  common utils and base code are organized together
+    +  network API, data object, DAO are organized in the single `model` library module, but inside model module, classes are organized by feature
     +  app functionality are organized by feature, mvp, di, ui code are organized together
 
 ## Build tips
@@ -94,7 +90,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 +  ~~Update dependencies~~
 +  refactor modules
 +  NDK integrate
-+  MVP source generator
++  MVP source generator plugin
 +  MVVM branch
 +  react native branch
 +  kotlin branch
