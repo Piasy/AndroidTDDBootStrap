@@ -29,6 +29,7 @@ ext {
     rxBindingVersion = '0.4.0'
     rxLifeCycleVersion = '0.4.0'
     fragmentargsVersion = '3.0.1'
+    easyFlowVersion = '1.3.2'
 
     // UI
     loadToastVersion = '1.0.10'
@@ -136,6 +137,7 @@ ext {
             rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
             mvp                      : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
             once                     : "com.jonathanfinerty.once:once:${onceVersion}",
+            easyFlow                 : "com.github.piasy:easyflow:${easyFlowVersion}",
 
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
             iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
@@ -172,7 +174,6 @@ ext {
 
     // jacoco config
     ignoredByJacoco = [
-            'EasyFlow',
             'testbase'
     ]
 

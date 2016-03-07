@@ -164,7 +164,7 @@ dependencies {
     def appTestDependencies = rootProject.ext.appTestDependencies
 
     compile project(':model')
-    compile project(':EasyFlow')
+    compile appDependencies.easyFlow
     compile(appDependencies.fabric) {
         transitive = true
     }

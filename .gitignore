@@ -17,9 +17,6 @@
 # Fabric appSecrit
 fabric.properties
 
-# bintray secrets
-bintray.properties
-
 # inspect
 .buildProfile/
 
@@ -27,6 +24,7 @@ bintray.properties
 /buck-out/
 /.buckd/
 /.okbuck/
+/okbuck-scripts/
 
 .buckconfig
 **/BUCK
