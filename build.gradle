@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.0'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath "com.github.piasy:okbuck-gradle-plugin:1.0.0-beta7"
+        classpath "com.github.piasy:okbuck-gradle-plugin:1.0.0-beta8"
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0"
     }
 }
@@ -47,10 +47,18 @@ okbuck {
     target "android-23"
     overwrite true
     resPackages = [
-            'base': 'com.github.piasy.base',
-            'model': 'com.github.piasy.model',
-            'app': 'com.github.piasy.app',
+            'base'    : 'com.github.piasy.base',
+            'model'   : 'com.github.piasy.model',
+            'app'     : 'com.github.piasy.app',
             'testbase': 'com.github.piasy.base.test',
+    ]
+    linearAllocHardLimit = [
+            app: 7194304
+    ]
+    primaryDexPatterns = [
+            app: [
+                    '^com/github/piasy/app/BootstrapApp^',
+            ]
     ]
 }
 

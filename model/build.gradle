@@ -1,9 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
+
+def isTravis = "true".equals(System.getenv("TRAVIS"))
+def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -15,6 +18,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+        multiDexEnabled true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
@@ -23,6 +27,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
     }
 
     compileOptions {
@@ -34,6 +44,8 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
     }
 
     testOptions.unitTests.all {
@@ -59,13 +71,14 @@ dependencies {
     def modelTestDependencies = rootProject.ext.modelTestDependencies
 
     compile project(':base')
+    compile modelDependencies.multiDex
 
     apt modelDependencies.daggerCompiler
     apt modelDependencies.autoParcelProcessor
     apt modelDependencies.storIOSQLiteAnnotationProcessor
 
     // Developer
-    retrolambdaConfig modelDependencies.retrolambda
+    //retrolambdaConfig modelDependencies.retrolambda
 
     testCompile project(':testbase')
     testCompile modelTestDependencies.mockito
@@ -73,6 +86,7 @@ dependencies {
     testCompile modelTestDependencies.jsonAssert
 
     androidTestCompile project(':testbase')
+    androidTestCompile modelTestDependencies.multidexInstrumentation
     androidTestCompile (modelTestDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }

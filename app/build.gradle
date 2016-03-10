@@ -59,9 +59,8 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        //multiDexEnabled true
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        testInstrumentationRunner "com.github.piasy.app.CustomTestRunner"
 
         buildConfigField "boolean", "REPORT_CRASH", "true"
         buildConfigField "boolean", "INSTALL_LEAK_CANARY", "false"
@@ -81,6 +80,11 @@ android {
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !isTravis
+        javaMaxHeapSize "4g"
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
     }
 
     signingConfigs {
@@ -133,12 +137,9 @@ android {
             buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
         }
     }
+
     sourceSets {
         test.java.srcDirs += 'build/generated/source/apt/develop/debug'
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     testOptions.unitTests.all {
@@ -168,12 +169,38 @@ dependencies {
     compile(appDependencies.fabric) {
         transitive = true
     }
-    compile appDependencies.fresco
-    compile appDependencies.iconifyMD
-    compile appDependencies.once
+    compile (appDependencies.fresco) {
+        exclude module: 'support-v4'
+    }
+    compile (appDependencies.iconifyMD) {
+        exclude module: 'support-v4'
+    }
+    compile (appDependencies.once) {
+        exclude module: 'support-annotations'
+    }
     compile appDependencies.stetho
     compile appDependencies.leakCanary
     apt appDependencies.daggerCompiler
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
+
+    androidTestCompile project(':testbase')
+    androidTestCompile (appTestDependencies.androidJUnitRunner) {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile (appTestDependencies.mockito) {
+        exclude module: 'hamcrest-core'
+    }
+    androidTestCompile appTestDependencies.dexmaker
+    androidTestCompile (appTestDependencies.dexmakerMockito) {
+        exclude module: 'hamcrest-core'
+        exclude module: 'mockito-core'
+    }
+    androidTestCompile (appTestDependencies.androidJUnit4Rules) {
+        exclude module: 'support-annotations'
+        exclude module: 'hamcrest-core'
+    }
+    androidTestApt (appDependencies.daggerCompiler) {
+        exclude module: 'dagger'
+    }
 }

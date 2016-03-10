@@ -24,54 +24,58 @@
 
 package com.github.piasy.app;
 
-import android.app.Application;
-import android.support.annotation.NonNull;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.piasy.app.di.AppComponent;
 import com.github.piasy.app.di.AppModule;
-import com.github.piasy.app.di.DaggerAppComponent;
-import com.github.piasy.app.di.IApplication;
+import com.github.piasy.app.di.DaggerMockAppComponent;
+import com.github.piasy.app.di.MockAppComponent;
+import com.github.piasy.app.di.MockProviderConfigModule;
 import com.github.piasy.base.utils.UtilsModule;
+import com.google.gson.Gson;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.MaterialModule;
+import javax.inject.Inject;
+import jonathanfinerty.once.Once;
+import timber.log.Timber;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Custom application class, providing APP wild utility, singleton, state control functions.
+ * Created by Piasy{github.com/Piasy} on 3/7/16.
  */
-public class BootstrapApp extends Application implements IApplication {
+public class MockBootstrapApp extends BootstrapApp {
 
-    private static BootstrapApp sInstance;
+    private static MockBootstrapApp sInstance;
 
-    private AppComponent mAppComponent;
+    @Inject
+    public Gson mGson;
 
-    public static BootstrapApp get() {
-        return sInstance;
+    private static void setInstance(final MockBootstrapApp instance) {
+        sInstance = instance;
     }
 
-    private static void setInstance(final BootstrapApp instance) {
-        sInstance = instance;
+    public static MockBootstrapApp get() {
+        return sInstance;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        setInstance(this);
-        mAppComponent = createComponent();
 
-        // TODO if de-comment this line, ClassNotFoundException will be thrown for
-        // "RetrofitProvider$RestAdapterHolder"
-        //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
+        Timber.plant(new Timber.DebugTree());
+        Fresco.initialize(this);
+        Iconify.with(new MaterialModule());
+        Once.initialise(this);
+
+        setInstance(this);
     }
 
+    @Override
     protected AppComponent createComponent() {
-        return DaggerAppComponent.builder()
+        final MockAppComponent appComponent = DaggerMockAppComponent.builder()
                 .appModule(new AppModule(this))
                 .utilsModule(new UtilsModule(this))
+                .providerConfigModule(new MockProviderConfigModule())
                 .build();
-    }
-
-    @NonNull
-    @Override
-    public AppComponent appComponent() {
-        return mAppComponent;
+        appComponent.inject(this);
+        return appComponent;
     }
 }

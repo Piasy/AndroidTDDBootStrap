@@ -1,9 +1,9 @@
 .DS_Store
 
 # Android studio project file
-/*/*.iml
-/*.iml
-
+AndroidTDDBootStrap.iml
+app/app.iml
+model/model.iml
 # Gradle files
 /.gradle/
 /build/

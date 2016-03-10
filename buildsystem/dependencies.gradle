@@ -4,7 +4,7 @@ ext {
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
-    androidSupportSdkVersion = '23.2.0'
+    androidSupportSdkVersion = '23.1.1'
     versionCode = 1
     versionName = '1.0.0'
 
@@ -14,10 +14,10 @@ ext {
     rxJavaVersion = '1.1.1'
     rxAndroidVersion = '1.1.0'
     javaxAnnotationVersion = '10.0-b28'
+    multiDexVersion = '1.0.1'
     androidAnnotationsVersion = '20.0.0'
     retrofitVersion = '2.0.0-beta4'
-    okHttpVersion = '3.1.2'
-    okHttpMockWebServerVersion = '2.7.4'
+    okHttpVersion = '3.2.0'
     gsonVersion = '2.6.1'
     autoParcelVersion = '0.3.1'
     mvpVersion = '2.0.1'
@@ -107,6 +107,7 @@ ext {
     ]
 
     modelDependencies = [
+            multiDex                       : "com.android.support:multidex:${multiDexVersion}",
             daggerCompiler                 : "com.google.dagger:dagger-compiler:${daggerVersion}",
             storIOSQLite                   : "com.pushtorefresh.storio:sqlite:${storIOVersion}",
             storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
@@ -117,10 +118,11 @@ ext {
     ]
 
     modelTestDependencies = [
-            junit             : "junit:junit:${jUnitVersion}",
-            mockito           : "org.mockito:mockito-core:${mockitoVersion}",
-            jsonAssert        : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
-            androidJUnitRunner: "com.android.support.test:runner:${testSupportLibVersion}",
+            junit                  : "junit:junit:${jUnitVersion}",
+            mockito                : "org.mockito:mockito-core:${mockitoVersion}",
+            jsonAssert             : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
+            androidJUnitRunner     : "com.android.support.test:runner:${testSupportLibVersion}",
+            multidexInstrumentation: "com.android.support:multidex-instrumentation:${multiDexVersion}",
     ]
 
     appDependencies = [
@@ -159,6 +161,8 @@ ext {
     ]
 
     appTestDependencies = [
+            junit                : "junit:junit:${jUnitVersion}",
+            hamcrestLibrary      : "org.hamcrest:hamcrest-library:${hamcrestVersion}",
             mockito              : "org.mockito:mockito-core:${mockitoDexmakerVersion}",
             dexmaker             : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
             dexmakerMockito      : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
@@ -169,7 +173,8 @@ ext {
             espessoIdlingResource: "com.android.support.test.espresso:espresso-idling-resource:${espressoVersion}",
             androidJUnitRunner   : "com.android.support.test:runner:${testSupportLibVersion}",
             androidJUnit4Rules   : "com.android.support.test:rules:${testSupportLibVersion}",
-            hamcrestLibrary      : "org.hamcrest:hamcrest-library:${hamcrestVersion}",
+
+            okhttpMockWebServer  : "com.squareup.okhttp3:mockwebserver:${okHttpVersion}",
     ]
 
     // jacoco config

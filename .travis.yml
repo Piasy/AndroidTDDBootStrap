@@ -34,7 +34,6 @@ script:
   - sh buildsystem/ci.sh
 
 after_success:
-  - ./gradlew jacocoFullReport
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:

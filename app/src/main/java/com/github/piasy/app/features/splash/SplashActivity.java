@@ -171,6 +171,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
             public void call(final StatefulContext context) {
                 context.setState(State.Transaction);
                 startActivity(new Intent(SplashActivity.this, SearchActivity.class));
+                finish();
             }
         });
     }
