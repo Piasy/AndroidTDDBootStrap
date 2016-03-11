@@ -25,6 +25,8 @@ fabric.properties
 /.buckd/
 /.okbuck/
 /okbuck-scripts/
+*/BUCK
+.buckconfig
 
 .buckconfig
 **/BUCK

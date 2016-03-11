@@ -16,13 +16,13 @@ jdk: oraclejdk8
 android:
   components:
     - android-23
-    - build-tools-23.0.2
+    - build-tools-23.0.1
     - extra-android-m2repository
     - extra-android-support
 
 # Emulator Management: Create, Start and Wait
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-23 --abi x86
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
