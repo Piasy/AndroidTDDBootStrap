@@ -22,7 +22,7 @@ import org.threeten.bp.ZonedDateTime;
  * Created by piasy on 15/8/11.
  */
 @RunWith(AndroidJUnit4.class)
-public class GithubUserDBIntegrateTest extends BaseThreeTenBPAndroidTest {
+public class GithubUserDbIntegrateTest extends BaseThreeTenBPAndroidTest {
     private static final String LOGIN = "Piasy";
     private static final String AVATAR = "avatar";
     private static final String TYPE = "User";
