@@ -23,6 +23,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.frogermcs.androiddevmetrics'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'

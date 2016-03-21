@@ -36,6 +36,7 @@ import au.com.ds.ef.err.LogicViolationError;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.piasy.app.BootstrapApp;
 import com.github.piasy.app.BuildConfig;
 import com.github.piasy.app.R;
@@ -115,6 +116,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
                         }
                         if (BuildConfig.DEBUG) {
                             Timber.plant(new Timber.DebugTree());
+                            AndroidDevMetrics.initWith(app);
                         } else {
                             Timber.plant(new Timber.DebugTree());
                         }

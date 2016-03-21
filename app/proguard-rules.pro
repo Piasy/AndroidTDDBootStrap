@@ -15,7 +15,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--dontobfuscate
+
+# app compat-v7
+-keep class android.support.v7.widget.SearchView { *; }
 
 # ButterKnife 7
 -keep class butterknife.** { *; }
@@ -76,7 +78,9 @@
 
 
 # leak canary
--dontwarn com.squareup.leakcanary.**
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+-dontwarn android.app.Notification
 
 
 # fabric
@@ -84,4 +88,5 @@
 
 
 # rx
--dontwarn rx.internal.util.unsafe.**
+-keep class rx.internal.util.unsafe.** { *; }
+-dontwarn sun.misc.**
