@@ -26,6 +26,8 @@ package com.github.piasy.app;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import com.facebook.stetho.Stetho;
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.piasy.app.di.AppComponent;
 import com.github.piasy.app.di.AppModule;
 import com.github.piasy.app.di.DaggerAppComponent;
@@ -55,11 +57,17 @@ public class BootstrapApp extends Application implements IApplication {
     public void onCreate() {
         super.onCreate();
         setInstance(this);
-        mAppComponent = createComponent();
 
-        // TODO if de-comment this line, ClassNotFoundException will be thrown for
-        // "RetrofitProvider$RestAdapterHolder"
-        //XLogConfig.config(XLogConfig.newConfigBuilder(this).build());
+        if ("debug".equals(BuildConfig.BUILD_TYPE)) {
+            // developer tools
+            AndroidDevMetrics.initWith(this);
+            Stetho.initialize(Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                    .build());
+        }
+
+        mAppComponent = createComponent();
     }
 
     protected AppComponent createComponent() {

@@ -19,17 +19,29 @@
 # app compat-v7
 -keep class android.support.v7.widget.SearchView { *; }
 
+
 # ButterKnife 7
 -keep class butterknife.** { *; }
 -keep class **$$ViewBinder { *; }
 -dontwarn butterknife.internal.**
-
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
 }
-
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
+}
+
+
+# FragmentArgs
+-keep class com.hannesdorfmann.fragmentargs.** { *; }
+
+
+# Gson
+-keepattributes Signature
+-keepattributes *Annotation*
+# http://stackoverflow.com/a/23365501/3077508
+-keepclassmembers class **AutoParcel_** {
+    private <fields>;
 }
 
 
@@ -39,13 +51,13 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
+
 # dagger
 -keepclassmembers,allowobfuscation class * {
     @javax.inject.* *;
     @dagger.* *;
     <init>();
 }
-
 -keep class javax.inject.** { *; }
 -keep class **$$ModuleAdapter
 -keep class **$$InjectAdapter

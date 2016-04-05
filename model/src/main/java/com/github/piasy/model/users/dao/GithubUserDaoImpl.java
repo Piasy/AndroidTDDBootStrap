@@ -32,6 +32,7 @@ import java.util.List;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import timber.log.Timber;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/5.
@@ -59,6 +60,7 @@ public final class GithubUserDaoImpl implements GithubUserDao {
                     @Override
                     public List<GithubUser> call(
                             final GithubUserSearchResult githubUserSearchResult) {
+                        Timber.d("RxErrorProcessor: " + githubUserSearchResult.toString());
                         return githubUserSearchResult.items();
                     }
                 })

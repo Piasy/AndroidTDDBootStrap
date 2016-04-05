@@ -24,43 +24,32 @@
 
 package com.github.piasy.model.errors;
 
-import rx.functions.Action1;
+import android.text.TextUtils;
+import com.crashlytics.android.Crashlytics;
 import timber.log.Timber;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/24.
- *
- * used for Rx network error handling
- * Usage: Observable.subscribe(onNext, RxErrorProcessor.NetErrorProcessor)
- * run in the observeOn() thread
- * onErrorReturn run in subscribeOn thread (retrofit run in background thread, not good for
- * error handling)
- *
- * Note: if you handle onError for the net request, than you should call it manually:
- * RxErrorProcessor.NetErrorProcessor.call(throwable);
- * Otherwise this method won't be invoked
+ * Created by guyacong on 2015/4/11.
  */
-public class RxErrorProcessor implements Action1<Throwable> {
+public class CrashReportingTree extends Timber.Tree {
 
-    private final ApiErrorProcessor mApiErrorProcessor;
-
-    /**
-     * Create instance with the given {@link ApiErrorProcessor}. Only called by {@link
-     * RxErrorProcessor}.
-     *
-     * @param apiErrorProcessor the given {@link ApiErrorProcessor}.
-     */
-    RxErrorProcessor(final ApiErrorProcessor apiErrorProcessor) {
-        mApiErrorProcessor = apiErrorProcessor;
+    @Override
+    public void e(final String message, final Object... args) {
+        if (!TextUtils.isEmpty(message)) {
+            Crashlytics.log(message);
+        }
     }
 
     @Override
-    public void call(final Throwable throwable) {
-        // intercept error process
-        if (throwable instanceof ApiError) {
-            mApiErrorProcessor.process((ApiError) throwable);
-        } else {
-            Timber.e(throwable, "RxErrorProcessor");
+    public void e(final Throwable t, final String message, final Object... args) {
+        if (t != null) {
+            Crashlytics.logException(t);
         }
+    }
+
+    @Override
+    protected void log(final int priority, final String tag, final String message,
+            final Throwable t) {
+        // do nothing
     }
 }

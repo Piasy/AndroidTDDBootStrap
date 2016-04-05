@@ -166,10 +166,6 @@ dependencies {
     def appTestDependencies = rootProject.ext.appTestDependencies
 
     compile project(':model')
-    compile appDependencies.easyFlow
-    compile(appDependencies.fabric) {
-        transitive = true
-    }
     compile (appDependencies.fresco) {
         exclude module: 'support-v4'
     }
@@ -184,6 +180,10 @@ dependencies {
     apt appDependencies.daggerCompiler
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
+
+    compile(appDependencies.fabricAnswer) {
+        transitive = true;
+    }
 
     androidTestCompile project(':testbase')
     androidTestCompile (appTestDependencies.androidJUnitRunner) {

@@ -124,7 +124,7 @@ public class SearchActivityTest extends BaseEspressoTest {
         onView(isAssignableFrom(EditText.class)).perform(typeText("piasy"),
                 pressKey(KeyEvent.KEYCODE_ENTER));
         closeSoftKeyboard();
-        sleep(1000);
+        sleep(1500);
 
         // then, boilerplate code to get, cast view, then get property, then assert it...
         final RecyclerView recyclerView = ButterKnife.findById(activity, R.id.mRvSearchResult);

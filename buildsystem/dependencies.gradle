@@ -16,7 +16,7 @@ ext {
     javaxAnnotationVersion = '10.0-b28'
     multiDexVersion = '1.0.1'
     androidAnnotationsVersion = '20.0.0'
-    retrofitVersion = '2.0.0'
+    retrofitVersion = '2.0.1'
     okHttpVersion = '3.2.0'
     gsonVersion = '2.6.1'
     autoParcelVersion = '0.3.1'
@@ -29,7 +29,6 @@ ext {
     rxBindingVersion = '0.4.0'
     rxLifeCycleVersion = '0.4.0'
     fragmentargsVersion = '3.0.1'
-    easyFlowVersion = '1.3.2'
 
     // UI
     loadToastVersion = '1.0.10'
@@ -38,10 +37,10 @@ ext {
     mugenVersion = '1.0.2'
 
     // Developer
-    xLogVersion = '2.1.1'
     retrolambdaVersion = '2.1.0'
-    stethoVersion = '1.3.0'
-    fabricVersion = '2.5.5'
+    stethoVersion = '1.3.1'
+    fabricCrashlyticsVersion = '2.5.5'
+    fabricAnswerVersion = '1.3.6'
     leakCanaryVersion = '1.3.1'
     timberVersion = '4.1.1'
 
@@ -75,6 +74,8 @@ ext {
             rxAndroid                      : "io.reactivex:rxandroid:${rxAndroidVersion}",
             eventBus                       : "org.greenrobot:eventbus:${eventBusVersion}",
             okHttp                         : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            okHttpLogging                  : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            stethoOkhttp                   : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
             retrofit                       : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitGsonConverter          : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             retrofitRxJavaAdapter          : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
@@ -86,8 +87,6 @@ ext {
             storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
 
             apacheCommonsIO                : "org.apache.commons:commons-io:${apacheCommonsIOVersion}",
-
-            xLogCompiler                   : "com.github.promeg:xlog-compiler:${xLogVersion}",
 
             androidSupportAppCompatV7      : "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
             supportV4                      : "com.android.support:support-v4:${androidSupportSdkVersion}",
@@ -115,6 +114,7 @@ ext {
             autoParcelProcessor            : "com.github.frankiesardo:auto-parcel-processor:${autoParcelVersion}",
 
             retrolambda                    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
+            fabricCrashlytics              : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
     ]
 
     modelTestDependencies = [
@@ -139,7 +139,6 @@ ext {
             rxAndroid                : "io.reactivex:rxandroid:${rxAndroidVersion}",
             mvp                      : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
             once                     : "com.jonathanfinerty.once:once:${onceVersion}",
-            easyFlow                 : "com.github.piasy:easyflow:${easyFlowVersion}",
 
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
             iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
@@ -150,12 +149,10 @@ ext {
             rxLifeCycle              : "com.trello:rxlifecycle:${rxLifeCycleVersion}",
             rxLifeCycleComponent     : "com.trello:rxlifecycle-components:${rxLifeCycleVersion}",
 
+            fabricAnswer             : "com.crashlytics.sdk.android:answers:${fabricAnswerVersion}@aar",
+
             stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
-            stethoOkhttp             : "com.facebook.stetho:stetho-okhttp:${stethoVersion}",
-            xLogAndroid              : "com.github.promeg:xlog-android:${xLogVersion}",
-            xLogAndroidIdle          : "com.github.promeg:xlog-android-idle:${xLogVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
-            fabric                   : "com.crashlytics.sdk.android:crashlytics:${fabricVersion}@aar",
             leakCanary               : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
             leakCanaryIdle           : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
     ]

@@ -73,6 +73,10 @@ dependencies {
     compile project(':base')
     compile modelDependencies.multiDex
 
+    compile(modelDependencies.fabricCrashlytics) {
+        transitive = true
+    }
+
     apt modelDependencies.daggerCompiler
     apt modelDependencies.autoParcelProcessor
     apt modelDependencies.storIOSQLiteAnnotationProcessor

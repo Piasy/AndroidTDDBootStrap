@@ -28,6 +28,7 @@ import com.github.piasy.app.BuildConfig;
 import com.github.piasy.base.model.jsr310.ThreeTenABPDelegate;
 import com.github.piasy.base.model.provider.EventBusProvider;
 import com.github.piasy.base.model.provider.GsonProvider;
+import com.github.piasy.base.model.provider.HttpClientProvider;
 import com.github.piasy.base.model.provider.RetrofitProvider;
 import dagger.Module;
 import dagger.Provides;
@@ -48,6 +49,14 @@ import org.threeten.bp.temporal.ChronoField;
 public class ProviderConfigModule {
 
     private static final String TIME_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+    @Singleton
+    @Provides
+    HttpClientProvider.Config provideHttpClientConfig() {
+        return HttpClientProvider.Config.builder()
+                .enableLog("debug".equals(BuildConfig.BUILD_TYPE))
+                .build();
+    }
 
     @Singleton
     @Provides
