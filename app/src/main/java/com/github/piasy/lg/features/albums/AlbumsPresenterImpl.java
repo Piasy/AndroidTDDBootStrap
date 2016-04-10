@@ -31,6 +31,7 @@ import com.github.piasy.model.errors.RxNetErrorProcessor;
 import com.github.piasy.model.ligui.LGAlbum;
 import com.github.piasy.model.ligui.LGDataManager;
 import java.util.List;
+import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -42,7 +43,8 @@ public class AlbumsPresenterImpl extends NullObjRxBasePresenter<AlbumsView>
     private final LGDataManager mLGDataManager;
     private final RxNetErrorProcessor mRxNetErrorProcessor;
 
-    public AlbumsPresenterImpl(LGDataManager lgDataManager,
+    @Inject
+    public AlbumsPresenterImpl(final LGDataManager lgDataManager,
             final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
         mLGDataManager = lgDataManager;
@@ -55,7 +57,7 @@ public class AlbumsPresenterImpl extends NullObjRxBasePresenter<AlbumsView>
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<LGAlbum>>() {
                     @Override
-                    public void call(List<LGAlbum> albums) {
+                    public void call(final List<LGAlbum> albums) {
                         getView().showAlbums(albums);
                     }
                 }, mRxNetErrorProcessor));

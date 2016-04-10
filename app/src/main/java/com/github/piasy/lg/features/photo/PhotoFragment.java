@@ -22,38 +22,46 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg.features.albums;
+package com.github.piasy.lg.features.photo;
 
 import android.content.res.Resources;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import butterknife.ButterKnife;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.github.piasy.base.android.BaseMvpFragment;
 import com.github.piasy.lg.R;
-import com.github.piasy.lg.features.albums.di.AlbumsComponent;
-import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
-import com.github.piasy.lg.features.albums.mvp.AlbumsView;
-import com.github.piasy.lg.features.photo.PhotoActivity;
-import com.github.piasy.model.ligui.LGAlbum;
-import com.github.piasy.safelyandroid.activity.StartActivityDelegate;
-import java.util.List;
+import com.github.piasy.lg.features.photo.di.PhotoComponent;
+import com.github.piasy.lg.features.photo.mvp.PhotoPresenter;
+import com.github.piasy.lg.features.photo.mvp.PhotoView;
+import com.hannesdorfmann.fragmentargs.annotation.Arg;
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import java.io.File;
 import javax.inject.Inject;
+
+import static butterknife.ButterKnife.findById;
 
 /**
  * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
-public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter, AlbumsComponent>
-        implements AlbumsView {
+@FragmentWithArgs
+public class PhotoFragment extends BaseMvpFragment<PhotoView, PhotoPresenter, PhotoComponent>
+        implements PhotoView {
 
     @Inject
     Resources mResources;
+    @Arg
+    String mPhotoUrl;
 
-    private AlbumsAdapter mAdapter;
+    private SubsamplingScaleImageView mPhotoView;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.albums_fragment;
+        return R.layout.photo_fragment;
+    }
+
+    @Override
+    protected boolean hasArgs() {
+        return true;
     }
 
     @Override
@@ -63,26 +71,22 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
 
     @Override
     protected void bindView(final View rootView) {
-        final RecyclerView rvAlbums = ButterKnife.findById(rootView, R.id.mRvAlbums);
-        mAdapter = new AlbumsAdapter(new AlbumsAdapter.Action() {
-            @Override
-            public void openAlbum(final LGAlbum album) {
-                StartActivityDelegate.startActivitySafely(getContext(),
-                        PhotoActivity.viewPhoto(getContext(), album.cover()));
-            }
-        });
-        rvAlbums.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvAlbums.setAdapter(mAdapter);
+        mPhotoView = findById(rootView, R.id.mPhotoView);
     }
 
     @Override
     protected void startBusiness() {
         super.startBusiness();
-        mPresenter.loadAlbums();
+        mPresenter.loadPhoto(mPhotoUrl);
     }
 
     @Override
-    public void showAlbums(final List<LGAlbum> albums) {
-        mAdapter.showAlbums(albums);
+    public void showPhoto(final File photo) {
+        mPhotoView.setImage(ImageSource.uri(photo.getAbsolutePath()));
+    }
+
+    @Override
+    public void loadPhotoFail() {
+
     }
 }

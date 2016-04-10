@@ -58,10 +58,10 @@ ext {
 
     baseDependencies = [
             supportAnnotation              : "com.android.support:support-annotations:${androidSupportSdkVersion}",
+            safelyAndroid                  : "com.github.piasy:safelyandroid:1.0.2",
 
             mvp                            : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
             fragmentargs                   : "com.hannesdorfmann.fragmentargs:annotation:${fragmentargsVersion}",
-            fragmentargsApt                : "com.hannesdorfmann.fragmentargs:processor:${fragmentargsVersion}",
 
             javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             dagger                         : "com.google.dagger:dagger:${daggerVersion}",
@@ -132,6 +132,7 @@ ext {
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
             recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
+            fragmentargsApt          : "com.hannesdorfmann.fragmentargs:processor:${fragmentargsVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger                   : "com.google.dagger:dagger:${daggerVersion}",
             butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",

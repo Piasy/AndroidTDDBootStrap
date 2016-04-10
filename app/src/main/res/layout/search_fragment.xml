@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2016 Piasy
+  ~ Copyright (c) 2015 Piasy
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,13 @@
               android:orientation="vertical"
         >
 
+    <include
+            layout="@layout/ui_toolbar"
+            android:id="@+id/mToolBar"
+            />
+
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvAlbums"
+            android:id="@+id/mRvSearchResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/activity_horizontal_margin"

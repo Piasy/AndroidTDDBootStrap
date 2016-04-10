@@ -30,6 +30,7 @@ import com.f2prateek.rx.preferences.RxSharedPreferences;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
 import rx.Observable;
 import rx.Single;
 import rx.functions.Func1;
@@ -43,7 +44,8 @@ public class LGDataManagerImpl implements LGDataManager {
     private final LGApi mLGApi;
     private final Preference<Integer> mLGVersion;
 
-    public LGDataManagerImpl(LGApi lgApi, RxSharedPreferences rxSharedPreferences) {
+    @Inject
+    public LGDataManagerImpl(final LGApi lgApi, final RxSharedPreferences rxSharedPreferences) {
         mLGApi = lgApi;
         mLGVersion = rxSharedPreferences.getInteger(LGMeta.PREF_KEY_VERSION);
     }
@@ -53,24 +55,25 @@ public class LGDataManagerImpl implements LGDataManager {
         // todo get notified
         return mLGApi.meta().subscribeOn(Schedulers.io()).map(new Func1<LGMeta, List<String>>() {
             @Override
-            public List<String> call(LGMeta lgMeta) {
+            public List<String> call(final LGMeta lgMeta) {
                 return lgMeta.parts();
             }
         }).flatMap(new Func1<List<String>, Observable<String>>() {
             @Override
-            public Observable<String> call(List<String> parts) {
+            public Observable<String> call(final List<String> parts) {
                 return Observable.from(parts);
             }
         }).flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
             @Override
-            public Observable<List<LGAlbum>> call(String onePart) {
+            public Observable<List<LGAlbum>> call(final String onePart) {
                 return mLGApi.onePart(onePart);
             }
         }).toList().map(new Func1<List<List<LGAlbum>>, List<LGAlbum>>() {
             @Override
-            public List<LGAlbum> call(List<List<LGAlbum>> albumLists) {
-                List<LGAlbum> albums = new ArrayList<>();
-                for (int i = 0, size = albumLists.size(); i < size; i++) {
+            public List<LGAlbum> call(final List<List<LGAlbum>> albumLists) {
+                final List<LGAlbum> albums = new ArrayList<>();
+                final int size = albumLists.size();
+                for (int i = 0; i < size; i++) {
                     albums.addAll(albumLists.get(i));
                 }
                 return albums;
@@ -82,7 +85,7 @@ public class LGDataManagerImpl implements LGDataManager {
     public Single<Boolean> refresh() {
         return Observable.zip(version(), mLGApi.meta(), new Func2<Integer, LGMeta, List<String>>() {
             @Override
-            public List<String> call(Integer localVersion, LGMeta lgMeta) {
+            public List<String> call(final Integer localVersion, final LGMeta lgMeta) {
                 if (lgMeta.version() > localVersion) {
                     mLGVersion.set(lgMeta.version());
                     return lgMeta.parts();
@@ -91,19 +94,20 @@ public class LGDataManagerImpl implements LGDataManager {
             }
         }).flatMap(new Func1<List<String>, Observable<String>>() {
             @Override
-            public Observable<String> call(List<String> parts) {
+            public Observable<String> call(final List<String> parts) {
                 return Observable.from(parts);
             }
         }).flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
             @Override
-            public Observable<List<LGAlbum>> call(String onePart) {
+            public Observable<List<LGAlbum>> call(final String onePart) {
                 return mLGApi.onePart(onePart);
             }
         }).toList().map(new Func1<List<List<LGAlbum>>, Boolean>() {
             @Override
-            public Boolean call(List<List<LGAlbum>> albumLists) {
-                List<LGAlbum> albums = new ArrayList<>();
-                for (int i = 0, size = albumLists.size(); i < size; i++) {
+            public Boolean call(final List<List<LGAlbum>> albumLists) {
+                final List<LGAlbum> albums = new ArrayList<>();
+                final int size = albumLists.size();
+                for (int i = 0; i < size; i++) {
                     albums.addAll(albumLists.get(i));
                 }
                 // todo save and notify

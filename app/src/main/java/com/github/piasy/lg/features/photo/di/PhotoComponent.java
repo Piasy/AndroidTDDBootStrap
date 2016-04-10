@@ -22,23 +22,23 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg.features.splash;
+package com.github.piasy.lg.features.photo.di;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import java.util.concurrent.Executor;
+import com.github.piasy.base.di.ActivityModule;
+import com.github.piasy.base.di.ActivityScope;
+import com.github.piasy.base.di.BaseMvpComponent;
+import com.github.piasy.lg.features.photo.PhotoFragment;
+import com.github.piasy.lg.features.photo.mvp.PhotoPresenter;
+import com.github.piasy.lg.features.photo.mvp.PhotoView;
+import dagger.Subcomponent;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/10/1.
- *
- * Execute command in UI thread.
+ * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
-public class UiThreadExecutor implements Executor {
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
-
-    @Override
-    public void execute(@NonNull final Runnable command) {
-        mHandler.post(command);
-    }
+@ActivityScope
+@Subcomponent(modules = {
+        ActivityModule.class, PhotoModule.class
+})
+public interface PhotoComponent extends BaseMvpComponent<PhotoView, PhotoPresenter> {
+    void inject(PhotoFragment fragment);
 }

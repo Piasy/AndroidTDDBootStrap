@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2015 Piasy
+  ~ Copyright (c) 2016 Piasy
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -22,24 +22,15 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/mLlContainer"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@color/white"
         >
-
-    <include
-            layout="@layout/ui_toolbar"
-            android:id="@+id/mToolBar"
-            />
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvSearchResult"
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+            android:id="@+id/mPhotoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             />
-</LinearLayout>
+</FrameLayout>

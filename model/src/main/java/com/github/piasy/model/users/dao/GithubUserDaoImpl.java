@@ -29,6 +29,7 @@ import com.github.piasy.model.users.GithubUser;
 import com.github.piasy.model.users.GithubUserAPI;
 import com.github.piasy.model.users.GithubUserSearchResult;
 import java.util.List;
+import javax.inject.Inject;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -43,6 +44,7 @@ public final class GithubUserDaoImpl implements GithubUserDao {
     private final DbUserDelegate mDbUserDelegate;
     private final GithubUserAPI mGithubUserAPI;
 
+    @Inject
     public GithubUserDaoImpl(final DbUserDelegate dbUserDelegate,
             final GithubUserAPI githubUserAPI) {
         mDbUserDelegate = dbUserDelegate;

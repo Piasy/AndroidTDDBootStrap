@@ -29,6 +29,7 @@ import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.operations.delete.DeleteResult;
 import com.pushtorefresh.storio.sqlite.operations.put.PutResults;
 import java.util.List;
+import javax.inject.Inject;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -45,6 +46,7 @@ public final class DbUserDelegateImpl implements DbUserDelegate {
      *
      * @param mStorIOSQLite the {@link StorIOSQLite} to delegate.
      */
+    @Inject
     public DbUserDelegateImpl(final StorIOSQLite mStorIOSQLite) {
         this.mStorIOSQLite = mStorIOSQLite;
     }

@@ -24,7 +24,6 @@
 
 package com.github.piasy.model.ligui;
 
-import com.f2prateek.rx.preferences.RxSharedPreferences;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -40,8 +39,7 @@ public class LGModule {
     }
 
     @Provides
-    LGDataManager provideLGDataManager(final LGApi lgApi,
-            final RxSharedPreferences rxSharedPreferences) {
-        return new LGDataManagerImpl(lgApi, rxSharedPreferences);
+    LGDataManager provideLGDataManager(final LGDataManagerImpl lgDataManager) {
+        return lgDataManager;
     }
 }

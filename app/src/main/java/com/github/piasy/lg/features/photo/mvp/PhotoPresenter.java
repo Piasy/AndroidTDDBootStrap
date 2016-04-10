@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Piasy
+ * Copyright (c) 2016 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,34 +22,13 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.model.users;
+package com.github.piasy.lg.features.photo.mvp;
 
-import com.github.piasy.model.users.dao.DbUserDelegate;
-import com.github.piasy.model.users.dao.DbUserDelegateImpl;
-import com.github.piasy.model.users.dao.GithubUserDao;
-import com.github.piasy.model.users.dao.GithubUserDaoImpl;
-import dagger.Module;
-import dagger.Provides;
-import retrofit2.Retrofit;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/5.
+ * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
-@Module
-public class UsersModule {
-
-    @Provides
-    GithubUserDao provideGithubUserDAO(final GithubUserDaoImpl githubUserDao) {
-        return githubUserDao;
-    }
-
-    @Provides
-    GithubUserAPI provideGithubAPI(final Retrofit retrofit) {
-        return retrofit.create(GithubUserAPI.class);
-    }
-
-    @Provides
-    DbUserDelegate provideDbUserDelegate(final DbUserDelegateImpl dbUserDelegate) {
-        return dbUserDelegate;
-    }
+public interface PhotoPresenter extends MvpPresenter<PhotoView> {
+    void loadPhoto(final String url);
 }

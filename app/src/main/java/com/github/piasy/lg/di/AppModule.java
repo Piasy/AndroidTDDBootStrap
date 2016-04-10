@@ -29,8 +29,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import com.f2prateek.rx.preferences.RxSharedPreferences;
+import com.facebook.cache.disk.DiskStorageCache;
+import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.core.ImagePipelineFactory;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
@@ -70,5 +75,31 @@ public class AppModule {
     RxSharedPreferences provideRxSharedPreferences() {
         return RxSharedPreferences.create(
                 PreferenceManager.getDefaultSharedPreferences(mApplication));
+    }
+
+    @Singleton
+    @Provides
+    ImagePipeline provideImagePipeline() {
+        return ImagePipelineFactory.getInstance().getImagePipeline();
+    }
+
+    @Singleton
+    @Provides
+    DefaultCacheKeyFactory provideCacheKeyFactory() {
+        return DefaultCacheKeyFactory.getInstance();
+    }
+
+    @Singleton
+    @Provides
+    @Named("MainDiskCache")
+    DiskStorageCache provideMainDiskCache() {
+        return ImagePipelineFactory.getInstance().getMainDiskStorageCache();
+    }
+
+    @Singleton
+    @Provides
+    @Named("SmallDiskCache")
+    DiskStorageCache provideSmallDiskCache() {
+        return ImagePipelineFactory.getInstance().getSmallImageDiskStorageCache();
     }
 }

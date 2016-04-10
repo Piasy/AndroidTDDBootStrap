@@ -180,6 +180,7 @@ dependencies {
     compile appDependencies.stetho
     compile appDependencies.leakCanary
     apt appDependencies.daggerCompiler
+    apt appDependencies.fragmentargsApt
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
     compile appDependencies.flexLayout

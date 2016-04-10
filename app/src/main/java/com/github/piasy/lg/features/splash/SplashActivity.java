@@ -74,7 +74,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
     protected void onCreate(final Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.splash_activity);
 
         initialize();
     }
@@ -102,13 +102,13 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
 
                 Iconify.with(new MaterialModule());
                 Once.initialise(app);
-                File cacheDir =
+                final File cacheDir =
                         new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 File.separator + BuildConfig.APPLICATION_ID);
                 if (!cacheDir.exists()) {
                     cacheDir.mkdir();
                 }
-                ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
+                final ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
                         .setMainDiskCacheConfig(DiskCacheConfig.newBuilder(app)
                                 .setBaseDirectoryPath(cacheDir)
                                 .build())

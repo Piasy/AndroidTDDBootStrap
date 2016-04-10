@@ -30,6 +30,8 @@ import com.github.piasy.base.model.provider.ProviderModule;
 import com.github.piasy.base.utils.UtilsModule;
 import com.github.piasy.lg.features.albums.di.AlbumsComponent;
 import com.github.piasy.lg.features.albums.di.AlbumsModule;
+import com.github.piasy.lg.features.photo.di.PhotoComponent;
+import com.github.piasy.lg.features.photo.di.PhotoModule;
 import com.github.piasy.lg.features.search.di.SearchComponent;
 import com.github.piasy.lg.features.search.di.SearchModule;
 import com.github.piasy.lg.features.splash.di.SplashComponent;
@@ -65,4 +67,6 @@ public interface AppComponent {
     SearchComponent plus(ActivityModule activityModule, SearchModule searchModule);
 
     AlbumsComponent plus(ActivityModule activityModule, AlbumsModule albumsModule);
+
+    PhotoComponent plus(ActivityModule activityModule, PhotoModule photoModule);
 }
