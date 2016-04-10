@@ -78,6 +78,24 @@ public class SearchFragment
     }
 
     @Override
+    protected void bindView(final View rootView) {
+        final RecyclerView rvSearchResult = ButterKnife.findById(rootView, R.id.mRvSearchResult);
+        final Toolbar toolBar = ButterKnife.findById(rootView, R.id.mToolBar);
+
+        toolBar.setTitle(R.string.search);
+        mActivity.setSupportActionBar(toolBar);
+        mAdapter = new SearchUserResultAdapter(mResources, new SearchUserResultAdapter.Action() {
+            @Override
+            public void userDetail(final GithubUser user) {
+                mToastUtil.makeToast("Clicked: " + user.login());
+            }
+        });
+        rvSearchResult.setLayoutManager(
+                new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
+        rvSearchResult.setAdapter(mAdapter);
+    }
+
+    @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search_github_user, menu);
         final MenuItem search = menu.findItem(R.id.mActionSearch);
@@ -97,25 +115,6 @@ public class SearchFragment
     @Override
     protected void inject() {
         getComponent().inject(this);
-    }
-
-    @Override
-    protected void bindView(final View rootView) {
-        final RecyclerView rvSearchResult = ButterKnife.findById(rootView, R.id.mRvSearchResult);
-        final Toolbar toolBar = ButterKnife.findById(rootView, R.id.mToolBar);
-
-        toolBar.setTitle(R.string.search);
-        mActivity.setSupportActionBar(toolBar);
-        mAdapter = new SearchUserResultAdapter(mResources,
-                new SearchUserResultAdapter.Action() {
-                    @Override
-                    public void userDetail(final GithubUser user) {
-                        mToastUtil.makeToast("Clicked: " + user.login());
-                    }
-                });
-        rvSearchResult.setLayoutManager(
-                new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
-        rvSearchResult.setAdapter(mAdapter);
     }
 
     @Override

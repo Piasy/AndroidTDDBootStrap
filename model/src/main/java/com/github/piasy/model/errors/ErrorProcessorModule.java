@@ -36,7 +36,7 @@ import javax.inject.Singleton;
 public class ErrorProcessorModule {
     @Singleton
     @Provides
-    RxErrorProcessor provideRxErrorProcessor(final ToastUtil toastUtil) {
-        return new RxErrorProcessor(new ApiErrorProcessor(toastUtil));
+    RxNetErrorProcessor provideRxErrorProcessor(final ToastUtil toastUtil) {
+        return new RxNetErrorProcessor(new ApiErrorProcessor(toastUtil));
     }
 }

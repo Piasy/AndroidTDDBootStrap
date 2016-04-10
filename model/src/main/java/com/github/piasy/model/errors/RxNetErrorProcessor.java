@@ -31,26 +31,26 @@ import timber.log.Timber;
  * Created by Piasy{github.com/Piasy} on 15/7/24.
  *
  * used for Rx network error handling
- * Usage: Observable.subscribe(onNext, RxErrorProcessor.NetErrorProcessor)
+ * Usage: Observable.subscribe(onNext, RxNetErrorProcessor.NetErrorProcessor)
  * run in the observeOn() thread
  * onErrorReturn run in subscribeOn thread (retrofit run in background thread, not good for
  * error handling)
  *
  * Note: if you handle onError for the net request, than you should call it manually:
- * RxErrorProcessor.NetErrorProcessor.call(throwable);
+ * RxNetErrorProcessor.NetErrorProcessor.call(throwable);
  * Otherwise this method won't be invoked
  */
-public class RxErrorProcessor implements Action1<Throwable> {
+public class RxNetErrorProcessor implements Action1<Throwable> {
 
     private final ApiErrorProcessor mApiErrorProcessor;
 
     /**
      * Create instance with the given {@link ApiErrorProcessor}. Only called by {@link
-     * RxErrorProcessor}.
+     * RxNetErrorProcessor}.
      *
      * @param apiErrorProcessor the given {@link ApiErrorProcessor}.
      */
-    RxErrorProcessor(final ApiErrorProcessor apiErrorProcessor) {
+    RxNetErrorProcessor(final ApiErrorProcessor apiErrorProcessor) {
         mApiErrorProcessor = apiErrorProcessor;
     }
 
@@ -60,7 +60,7 @@ public class RxErrorProcessor implements Action1<Throwable> {
         if (throwable instanceof ApiError) {
             mApiErrorProcessor.process((ApiError) throwable);
         } else {
-            Timber.e(throwable, "RxErrorProcessor");
+            Timber.e(throwable, "RxNetErrorProcessor");
         }
     }
 }

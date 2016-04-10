@@ -52,13 +52,8 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name="com.github.piasy.lg.features.search.SearchActivity"
-                />
-
-        <activity
-                android:name="com.github.piasy.lg.features.albums.AlbumsActivity"
-                />
+        <activity android:name=".features.search.SearchActivity"/>
+        <activity android:name="com.github.piasy.lg.features.albums.AlbumsActivity"/>
     </application>
 
 </manifest>

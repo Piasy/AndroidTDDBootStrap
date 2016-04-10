@@ -26,7 +26,7 @@ package com.github.piasy.lg.features.search.di;
 
 import com.github.piasy.lg.features.search.SearchPresenterImpl;
 import com.github.piasy.lg.features.search.mvp.SearchPresenter;
-import com.github.piasy.model.errors.RxErrorProcessor;
+import com.github.piasy.model.errors.RxNetErrorProcessor;
 import com.github.piasy.model.users.dao.GithubUserDao;
 import dagger.Module;
 import dagger.Provides;
@@ -38,7 +38,7 @@ import dagger.Provides;
 public class SearchModule {
     @Provides
     SearchPresenter provideSearchPresenter(final GithubUserDao githubUserDao,
-            final RxErrorProcessor rxErrorProcessor) {
-        return new SearchPresenterImpl(githubUserDao, rxErrorProcessor);
+            final RxNetErrorProcessor rxNetErrorProcessor) {
+        return new SearchPresenterImpl(githubUserDao, rxNetErrorProcessor);
     }
 }

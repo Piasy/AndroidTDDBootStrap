@@ -25,11 +25,10 @@
 package com.github.piasy.lg.features.search;
 
 import android.os.Bundle;
-import com.github.piasy.lg.LGApp;
-import com.github.piasy.lg.features.search.di.SearchComponent;
-import com.github.piasy.lg.features.search.di.SearchModule;
 import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.base.di.HasComponent;
+import com.github.piasy.lg.features.search.di.SearchComponent;
+import com.github.piasy.lg.features.search.di.SearchModule;
 
 public class SearchActivity extends BaseActivity implements HasComponent<SearchComponent> {
 
@@ -45,8 +44,8 @@ public class SearchActivity extends BaseActivity implements HasComponent<SearchC
 
     @Override
     protected void initializeInjector() {
-        mSearchComponent = LGApp.get().appComponent()
-                .plus(getActivityModule(), new SearchModule());
+        mSearchComponent =
+                BootstrapApp.get().appComponent().plus(getActivityModule(), new SearchModule());
     }
 
     @Override

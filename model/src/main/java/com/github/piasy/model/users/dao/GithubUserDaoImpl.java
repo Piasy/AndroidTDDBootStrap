@@ -43,8 +43,8 @@ public final class GithubUserDaoImpl implements GithubUserDao {
     private final DbUserDelegate mDbUserDelegate;
     private final GithubUserAPI mGithubUserAPI;
 
-    public GithubUserDaoImpl(final DbUserDelegate dbUserDelegate, final GithubUserAPI
-            githubUserAPI) {
+    public GithubUserDaoImpl(final DbUserDelegate dbUserDelegate,
+            final GithubUserAPI githubUserAPI) {
         mDbUserDelegate = dbUserDelegate;
         mGithubUserAPI = githubUserAPI;
     }
