@@ -26,8 +26,11 @@ package com.github.piasy.lg.features.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.base.di.HasComponent;
 import com.github.piasy.base.utils.RxUtil;
@@ -41,6 +44,7 @@ import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
 import com.squareup.leakcanary.LeakCanary;
 import io.fabric.sdk.android.Fabric;
+import java.io.File;
 import jonathanfinerty.once.Once;
 import rx.Observable;
 import rx.Subscriber;
@@ -98,7 +102,18 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
 
                 Iconify.with(new MaterialModule());
                 Once.initialise(app);
-                Fresco.initialize(app);
+                File cacheDir =
+                        new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                File.separator + BuildConfig.APPLICATION_ID);
+                if (!cacheDir.exists()) {
+                    cacheDir.mkdir();
+                }
+                ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
+                        .setMainDiskCacheConfig(DiskCacheConfig.newBuilder(app)
+                                .setBaseDirectoryPath(cacheDir)
+                                .build())
+                        .build();
+                Fresco.initialize(app, config);
 
                 // Developer tools
                 if (BuildConfig.INSTALL_LEAK_CANARY) {

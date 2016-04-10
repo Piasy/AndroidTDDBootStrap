@@ -35,6 +35,8 @@ import java.util.List;
 @AutoParcel
 @AutoGson(autoClass = AutoParcel_LGMeta.class)
 public abstract class LGMeta implements Parcelable {
+    public static final String PREF_KEY_VERSION = "lg_meta_version";
+
     public abstract int version();
 
     public abstract List<String> parts();

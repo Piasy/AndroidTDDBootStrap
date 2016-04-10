@@ -180,6 +180,8 @@ dependencies {
     apt appDependencies.daggerCompiler
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
+    compile appDependencies.flexLayout
+    compile appDependencies.SSIV
 
     compile(appDependencies.fabricAnswer) {
         transitive = true;

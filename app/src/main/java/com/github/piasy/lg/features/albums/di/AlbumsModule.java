@@ -26,8 +26,8 @@ package com.github.piasy.lg.features.albums.di;
 
 import com.github.piasy.lg.features.albums.AlbumsPresenterImpl;
 import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
-import com.github.piasy.model.errors.RxErrorProcessor;
-import com.github.piasy.model.ligui.LGApi;
+import com.github.piasy.model.errors.RxNetErrorProcessor;
+import com.github.piasy.model.ligui.LGDataManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -37,8 +37,8 @@ import dagger.Provides;
 @Module
 public class AlbumsModule {
     @Provides
-    AlbumsPresenter provideAlbumsPresenter(final LGApi lgApi,
-            final RxErrorProcessor rxErrorProcessor) {
-        return new AlbumsPresenterImpl(lgApi, rxErrorProcessor);
+    AlbumsPresenter provideAlbumsPresenter(final LGDataManager lgDataManager,
+            final RxNetErrorProcessor rxNetErrorProcessor) {
+        return new AlbumsPresenterImpl(lgDataManager, rxNetErrorProcessor);
     }
 }

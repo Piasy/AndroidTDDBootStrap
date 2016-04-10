@@ -32,7 +32,7 @@ import rx.Observable;
 /**
  * Created by Piasy{github.com/Piasy} on 4/7/16.
  */
-public interface LGApi {
+interface LGApi {
     @GET("ligui-pics-meta.json")
     Observable<LGMeta> meta();
 

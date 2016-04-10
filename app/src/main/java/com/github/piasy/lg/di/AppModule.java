@@ -27,6 +27,8 @@ package com.github.piasy.lg.di;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
+import com.f2prateek.rx.preferences.RxSharedPreferences;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -61,5 +63,12 @@ public class AppModule {
     @Provides
     Context provideContext() {
         return mApplication;
+    }
+
+    @Singleton
+    @Provides
+    RxSharedPreferences provideRxSharedPreferences() {
+        return RxSharedPreferences.create(
+                PreferenceManager.getDefaultSharedPreferences(mApplication));
     }
 }

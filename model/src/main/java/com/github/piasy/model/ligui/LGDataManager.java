@@ -24,9 +24,23 @@
 
 package com.github.piasy.model.ligui;
 
+import java.util.List;
+import rx.Observable;
+import rx.Single;
+
 /**
  * Created by Piasy{github.com/Piasy} on 4/8/16.
  */
-public class LGDataManager {
+public interface LGDataManager {
+    /**
+     * Get the list of {@link LGAlbum} reactively. To refresh, you should call {@link #refresh()},
+     * which will cause the returned {@link Observable} emit a new item.
+     * */
+    Observable<List<LGAlbum>> albums();
 
+    /**
+     * Refresh {@link LGAlbum}, and will cause the returned {@link Observable} of {@link #albums()}
+     * emit a new item.
+     * */
+    Single<Boolean> refresh();
 }

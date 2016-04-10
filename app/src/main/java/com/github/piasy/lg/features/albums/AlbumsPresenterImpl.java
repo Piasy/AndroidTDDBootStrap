@@ -27,52 +27,37 @@ package com.github.piasy.lg.features.albums;
 import com.github.piasy.base.mvp.NullObjRxBasePresenter;
 import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
 import com.github.piasy.lg.features.albums.mvp.AlbumsView;
-import com.github.piasy.model.errors.RxErrorProcessor;
+import com.github.piasy.model.errors.RxNetErrorProcessor;
 import com.github.piasy.model.ligui.LGAlbum;
-import com.github.piasy.model.ligui.LGApi;
-import com.github.piasy.model.ligui.LGMeta;
+import com.github.piasy.model.ligui.LGDataManager;
 import java.util.List;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 public class AlbumsPresenterImpl extends NullObjRxBasePresenter<AlbumsView>
         implements AlbumsPresenter {
-    private final LGApi mLGApi;
-    private final RxErrorProcessor mRxErrorProcessor;
+    private final LGDataManager mLGDataManager;
+    private final RxNetErrorProcessor mRxNetErrorProcessor;
 
-    public AlbumsPresenterImpl(final LGApi lgApi, final RxErrorProcessor rxErrorProcessor) {
+    public AlbumsPresenterImpl(LGDataManager lgDataManager,
+            final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
-        mLGApi = lgApi;
-        mRxErrorProcessor = rxErrorProcessor;
+        mLGDataManager = lgDataManager;
+        mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
     @Override
     public void loadAlbums() {
-        addSubscription(mLGApi.meta().map(new Func1<LGMeta, List<String>>() {
-            @Override
-            public List<String> call(LGMeta lgMeta) {
-                return lgMeta.parts();
-            }
-        }).flatMap(new Func1<List<String>, Observable<String>>() {
-            @Override
-            public Observable<String> call(List<String> parts) {
-                return Observable.from(parts);
-            }
-        }).flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
-            @Override
-            public Observable<List<LGAlbum>> call(String onePart) {
-                return mLGApi.onePart(onePart);
-            }
-        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<LGAlbum>>() {
-            @Override
-            public void call(List<LGAlbum> albums) {
-                getView().showAlbums(albums);
-            }
-        }, mRxErrorProcessor));
+        addSubscription(mLGDataManager.albums()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<LGAlbum>>() {
+                    @Override
+                    public void call(List<LGAlbum> albums) {
+                        getView().showAlbums(albums);
+                    }
+                }, mRxNetErrorProcessor));
     }
 }

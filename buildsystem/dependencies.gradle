@@ -112,6 +112,7 @@ ext {
             storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
             storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
             autoParcelProcessor            : "com.github.frankiesardo:auto-parcel-processor:${autoParcelVersion}",
+            rxPreferences                  : "com.f2prateek.rx.preferences:rx-preferences:1.0.1",
 
             retrolambda                    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
             fabricCrashlytics              : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
@@ -143,6 +144,8 @@ ext {
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
             iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
             mugen                    : "com.vinaysshenoy:mugen:${mugenVersion}",
+            flexLayout               : "com.github.mmin18:flexlayout:1.2.1",
+            SSIV                     : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
 
             rxBinding                : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxBindingAppCompatV7     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}",

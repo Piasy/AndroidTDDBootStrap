@@ -25,8 +25,8 @@
 package com.github.piasy.lg.features.albums;
 
 import android.content.res.Resources;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import butterknife.ButterKnife;
 import com.github.piasy.base.android.BaseMvpFragment;
@@ -35,15 +35,12 @@ import com.github.piasy.lg.features.albums.di.AlbumsComponent;
 import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
 import com.github.piasy.lg.features.albums.mvp.AlbumsView;
 import com.github.piasy.model.ligui.LGAlbum;
-import com.github.piasy.model.users.GithubUser;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
 
 public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter, AlbumsComponent>
         implements AlbumsView {
-
-    private static final int SPAN_COUNT = 3;
 
     @Inject
     Resources mResources;
@@ -52,7 +49,7 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_search;
+        return R.layout.albums_fragment;
     }
 
     @Override
@@ -62,15 +59,15 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
 
     @Override
     protected void bindView(final View rootView) {
-        final RecyclerView rvSearchResult = ButterKnife.findById(rootView, R.id.mRvSearchResult);
-        mAdapter = new AlbumsAdapter(mResources, new AlbumsAdapter.Action() {
+        final RecyclerView rvAlbums = ButterKnife.findById(rootView, R.id.mRvAlbums);
+        mAdapter = new AlbumsAdapter(new AlbumsAdapter.Action() {
             @Override
-            public void userDetail(final GithubUser user) {
+            public void openAlbum(final LGAlbum album) {
+                Timber.d("open: " + album.name());
             }
         });
-        rvSearchResult.setLayoutManager(
-                new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
-        rvSearchResult.setAdapter(mAdapter);
+        rvAlbums.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvAlbums.setAdapter(mAdapter);
     }
 
     @Override
@@ -81,9 +78,6 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
 
     @Override
     public void showAlbums(final List<LGAlbum> albums) {
-        for (LGAlbum album : albums) {
-            Timber.d(album.name());
-        }
-        //mAdapter.showUsers(users);
+        mAdapter.showAlbums(albums);
     }
 }

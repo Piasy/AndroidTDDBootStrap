@@ -81,6 +81,8 @@ dependencies {
     apt modelDependencies.autoParcelProcessor
     apt modelDependencies.storIOSQLiteAnnotationProcessor
 
+    compile modelDependencies.rxPreferences
+
     // Developer
     //retrolambdaConfig modelDependencies.retrolambda
 

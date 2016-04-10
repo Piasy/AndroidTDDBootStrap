@@ -24,7 +24,6 @@
 
 package com.github.piasy.lg.features.albums;
 
-import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -32,11 +31,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.piasy.lg.R;
-import com.github.piasy.model.users.GithubUser;
-import com.joanzapata.iconify.widget.IconTextView;
+import com.github.piasy.model.ligui.LGAlbum;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,51 +44,46 @@ import java.util.List;
  *
  * Recycler view adapter.
  */
-public final class AlbumsAdapter
-        extends RecyclerView.Adapter<AlbumsAdapter.GithubSearchResultVH> {
+public final class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.AlbumVH> {
 
-    private final List<GithubUser> mGithubUsers = new ArrayList<>();
-    private final Resources mResources;
+    private final List<LGAlbum> mAlbums = new ArrayList<>();
     private final Action mAction;
 
     /**
      * create adapter with needed dependencies.
      *
-     * @param resources {@link Resources} to access resource.
      * @param action used to perform action.
      */
-    public AlbumsAdapter(final Resources resources, final Action action) {
+    public AlbumsAdapter(final Action action) {
         super();
-        mResources = resources;
         mAction = action;
     }
 
     /**
-     * add users
+     * add albums
      *
-     * @param users to be added.
+     * @param albums to be added.
      */
-    public void showUsers(@NonNull final List<GithubUser> users) {
-        mGithubUsers.clear();
-        mGithubUsers.addAll(users);
+    public void showAlbums(@NonNull final List<LGAlbum> albums) {
+        mAlbums.clear();
+        mAlbums.addAll(albums);
         notifyDataSetChanged();
     }
 
     @Override
-    public GithubSearchResultVH onCreateViewHolder(final ViewGroup parent, final int type) {
-        return new GithubSearchResultVH(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.ui_github_search_user_result_item, parent, false), mResources,
-                mAction);
+    public AlbumVH onCreateViewHolder(final ViewGroup parent, final int type) {
+        return new AlbumVH(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.albums_item, parent, false), mAction);
     }
 
     @Override
-    public void onBindViewHolder(final GithubSearchResultVH vh, final int position) {
-        vh.bind(mGithubUsers.get(position));
+    public void onBindViewHolder(final AlbumVH vh, final int position) {
+        vh.bind(mAlbums.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mGithubUsers.size();
+        return mAlbums.size();
     }
 
     /**
@@ -100,38 +94,34 @@ public final class AlbumsAdapter
         /**
          * view the detail info.
          *
-         * @param user user to view detail info.
+         * @param album album to view detail info.
          */
-        void userDetail(GithubUser user);
+        void openAlbum(LGAlbum album);
     }
 
     /**
      * View holder to hold the item view of RecyclerView.
      */
-    static class GithubSearchResultVH extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    static class AlbumVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final SimpleDraweeView mIvAvatar;
-        private final IconTextView mTvUsername;
+        private final SimpleDraweeView mIvCover;
+        private final TextView mTvName;
         private final CardView mCardView;
-        private final Resources mResources;
         private final Action mAction;
-        private GithubUser mGithubUser;
+        private LGAlbum mAlbum;
 
         /**
          * create view holder.
          *
          * @param itemView view to hold.
-         * @param resources to access resource.
          * @param action to perform action.
          */
-        GithubSearchResultVH(final View itemView, final Resources resources, final Action action) {
+        AlbumVH(final View itemView, final Action action) {
             super(itemView);
-            mResources = resources;
             mAction = action;
             ButterKnife.bind(this, itemView);
-            mIvAvatar = ButterKnife.findById(itemView, R.id.mIvAvatar);
-            mTvUsername = ButterKnife.findById(itemView, R.id.mTvUsername);
+            mIvCover = ButterKnife.findById(itemView, R.id.mIvCover);
+            mTvName = ButterKnife.findById(itemView, R.id.mTvName);
             mCardView = ButterKnife.findById(itemView, R.id.mCardView);
             mCardView.setOnClickListener(this);
         }
@@ -139,26 +129,17 @@ public final class AlbumsAdapter
         /**
          * bind the GithubUser to the view.
          *
-         * @param user GithubUser to bind.
+         * @param album GithubUser to bind.
          */
-        void bind(final GithubUser user) {
-            mGithubUser = user;
-            mIvAvatar.setImageURI(Uri.parse(mGithubUser.avatar_url()));
-
-            if (GithubUser.GITHUB_USER_TYPE_ORGANIZATION.equals(mGithubUser.type())) {
-                mTvUsername.setText(
-                        String.format(mResources.getString(R.string.github_username_formatter),
-                                GithubUser.ICONIFY_ICONS_ORG, mGithubUser.login()));
-            } else if (GithubUser.GITHUB_USER_TYPE_USER.equals(mGithubUser.type())) {
-                mTvUsername.setText(
-                        String.format(mResources.getString(R.string.github_username_formatter),
-                                GithubUser.ICONIFY_ICONS_USER, mGithubUser.login()));
-            }
+        void bind(final LGAlbum album) {
+            mAlbum = album;
+            mIvCover.setImageURI(Uri.parse(mAlbum.cover() == null ? "" : mAlbum.cover()));
+            mTvName.setText(mAlbum.name());
         }
 
         @Override
         public void onClick(@NonNull final View v) {
-            mAction.userDetail(mGithubUser);
+            mAction.openAlbum(mAlbum);
         }
     }
 }
