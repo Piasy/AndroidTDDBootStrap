@@ -23,7 +23,7 @@
   -->
 
 <resources>
-    <string name="app_name">AndroidTDDBootStrap</string>
+    <string name="app_name">LiGui</string>
 
     <!-- GithubSearch -->
     <string name="github_user_followers_formatter" formatted="false">%d Followers</string>

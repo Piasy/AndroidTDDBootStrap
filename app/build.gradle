@@ -54,14 +54,14 @@ android {
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "com.github.piasy.bootstrap"
+        applicationId "com.github.piasy.lg"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
         multiDexEnabled true
-        testInstrumentationRunner "com.github.piasy.app.CustomTestRunner"
+        testInstrumentationRunner "com.github.piasy.lg.CustomTestRunner"
 
         buildConfigField "boolean", "REPORT_CRASH", "true"
         buildConfigField "boolean", "INSTALL_LEAK_CANARY", "false"
@@ -131,11 +131,11 @@ android {
             buildConfigField "boolean", "REPORT_CRASH", "false"
             buildConfigField "boolean", "INSTALL_LEAK_CANARY", "true"
             // this maybe different with product flavor for real app dev
-            buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+            buildConfigField "String", "API_BASE_URL", "\"http://7xsouz.com2.z0.glb.clouddn.com/\""
         }
 
         product {
-            buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+            buildConfigField "String", "API_BASE_URL", "\"http://7xsouz.com2.z0.glb.clouddn.com/\""
         }
     }
 
