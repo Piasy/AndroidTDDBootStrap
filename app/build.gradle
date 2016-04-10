@@ -21,6 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import static org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS
+import static org.apache.tools.ant.taskdefs.condition.Os.isFamily
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.frogermcs.androiddevmetrics'
@@ -32,19 +34,19 @@ apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
-/*def keyConfigPath
+def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
     keyConfigPath = System.getenv('USERPROFILE') + File.separator + ".ssh" + File.separator +
-            "TemplateKeyStore.properties"
+            "piasyPrivate.properties"
 } else {
     keyConfigPath = System.getenv('HOME') + File.separator + ".ssh" + File.separator +
-            "TemplateKeyStore.properties"
+            "piasyPrivate.properties"
 }
 
 Properties props = new Properties()
 if (new File(keyConfigPath).exists()) {
     props.load(new FileInputStream(file(keyConfigPath)))
-}*/
+}
 
 def isTravis = "true".equals(System.getenv("TRAVIS"))
 def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
@@ -96,12 +98,12 @@ android {
             keyPassword '123456'
         }
 
-        /*production {
+        production {
             storeFile file(props['keystore'])
             storePassword props['keystore.password']
             keyAlias props['key.alias']
             keyPassword props['key.password']
-        }*/
+        }
     }
 
     buildTypes {
@@ -115,7 +117,7 @@ android {
             minifyEnabled true
             debuggable false
             shrinkResources true
-            signingConfig signingConfigs.develop
+            signingConfig signingConfigs.production
             //signingConfig signingConfigs.production
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
                     'proguard-fresco.pro'
