@@ -70,7 +70,7 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
     protected void onCreate(final Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.splash_activity);
 
         initialize();
     }

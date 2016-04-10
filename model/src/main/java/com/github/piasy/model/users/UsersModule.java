@@ -28,7 +28,6 @@ import com.github.piasy.model.users.dao.DbUserDelegate;
 import com.github.piasy.model.users.dao.DbUserDelegateImpl;
 import com.github.piasy.model.users.dao.GithubUserDao;
 import com.github.piasy.model.users.dao.GithubUserDaoImpl;
-import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -40,9 +39,8 @@ import retrofit2.Retrofit;
 public class UsersModule {
 
     @Provides
-    GithubUserDao provideGithubUserDAO(final DbUserDelegate dbUserDelegate,
-            final GithubUserAPI githubUserAPI) {
-        return new GithubUserDaoImpl(dbUserDelegate, githubUserAPI);
+    GithubUserDao provideGithubUserDAO(final GithubUserDaoImpl githubUserDao) {
+        return githubUserDao;
     }
 
     @Provides
@@ -51,7 +49,7 @@ public class UsersModule {
     }
 
     @Provides
-    DbUserDelegate provideDbUserDelegate(final StorIOSQLite storIOSQLite) {
-        return new DbUserDelegateImpl(storIOSQLite);
+    DbUserDelegate provideDbUserDelegate(final DbUserDelegateImpl dbUserDelegate) {
+        return dbUserDelegate;
     }
 }

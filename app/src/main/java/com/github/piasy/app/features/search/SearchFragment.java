@@ -69,7 +69,7 @@ public class SearchFragment
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_search;
+        return R.layout.search_fragment;
     }
 
     @Override

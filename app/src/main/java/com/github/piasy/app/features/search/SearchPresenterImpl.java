@@ -33,6 +33,7 @@ import com.github.piasy.model.users.GithubUser;
 import com.github.piasy.model.users.dao.GithubUserDao;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -46,6 +47,7 @@ public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
     private final RxNetErrorProcessor mRxNetErrorProcessor;
     private String mQuery;
 
+    @Inject
     public SearchPresenterImpl(final GithubUserDao githubUserDao,
             final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
