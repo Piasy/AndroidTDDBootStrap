@@ -45,8 +45,8 @@ public class SearchActivity extends BaseActivity implements HasComponent<SearchC
 
     @Override
     protected void initializeInjector() {
-        mSearchComponent = BootstrapApp.get().appComponent()
-                .plus(getActivityModule(), new SearchModule());
+        mSearchComponent =
+                BootstrapApp.get().appComponent().plus(getActivityModule(), new SearchModule());
     }
 
     @Override

@@ -30,7 +30,7 @@ import com.github.piasy.base.utils.ToastUtil;
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 public final class ErrorProcessorModuleExposure {
-    public static RxErrorProcessor exposeRxErrorProcessor(final ToastUtil toastUtil) {
-        return new RxErrorProcessor(new ApiErrorProcessor(toastUtil));
+    public static RxNetErrorProcessor exposeRxErrorProcessor(final ToastUtil toastUtil) {
+        return new RxNetErrorProcessor(new ApiErrorProcessor(toastUtil));
     }
 }

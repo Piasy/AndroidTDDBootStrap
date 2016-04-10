@@ -28,7 +28,7 @@ import android.text.TextUtils;
 import com.github.piasy.app.features.search.mvp.SearchPresenter;
 import com.github.piasy.app.features.search.mvp.SearchUserView;
 import com.github.piasy.base.mvp.NullObjRxBasePresenter;
-import com.github.piasy.model.errors.RxErrorProcessor;
+import com.github.piasy.model.errors.RxNetErrorProcessor;
 import com.github.piasy.model.users.GithubUser;
 import com.github.piasy.model.users.dao.GithubUserDao;
 import java.util.Collections;
@@ -43,14 +43,14 @@ import rx.schedulers.Schedulers;
 public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
         implements SearchPresenter {
     private final GithubUserDao mGithubUserDao;
-    private final RxErrorProcessor mRxErrorProcessor;
+    private final RxNetErrorProcessor mRxNetErrorProcessor;
     private String mQuery;
 
     public SearchPresenterImpl(final GithubUserDao githubUserDao,
-            final RxErrorProcessor rxErrorProcessor) {
+            final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
         mGithubUserDao = githubUserDao;
-        mRxErrorProcessor = rxErrorProcessor;
+        mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
                             public void call(final List<GithubUser> users) {
                                 getView().showSearchResult(users);
                             }
-                        }, mRxErrorProcessor));
+                        }, mRxNetErrorProcessor));
             }
         }
     }
