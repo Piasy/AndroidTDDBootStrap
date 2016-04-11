@@ -9,7 +9,7 @@ ext {
     versionName = '1.0.0'
 
     // Libraries
-    daggerVersion = '2.3'
+    daggerVersion = '2.2'
     butterKnifeVersion = '7.0.1'
     rxJavaVersion = '1.1.3'
     rxAndroidVersion = '1.1.0'
@@ -28,7 +28,7 @@ ext {
     onceVersion = '1.0.3'
     rxBindingVersion = '0.4.0'
     rxLifeCycleVersion = '0.5.0'
-    fragmentargsVersion = '3.0.2'
+    autoBundleVersion = '1.0.2'
 
     // UI
     loadToastVersion = '1.0.10'
@@ -61,7 +61,7 @@ ext {
             safelyAndroid                  : "com.github.piasy:safelyandroid:1.0.2",
 
             mvp                            : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
-            fragmentargs                   : "com.hannesdorfmann.fragmentargs:annotation:${fragmentargsVersion}",
+            autoBundle                     : "com.github.yatatsu:autobundle:${autoBundleVersion}",
 
             javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             dagger                         : "com.google.dagger:dagger:${daggerVersion}",
@@ -132,7 +132,7 @@ ext {
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
             recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
-            fragmentargsApt          : "com.hannesdorfmann.fragmentargs:processor:${fragmentargsVersion}",
+            autoBundleApt            : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger                   : "com.google.dagger:dagger:${daggerVersion}",
             butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",

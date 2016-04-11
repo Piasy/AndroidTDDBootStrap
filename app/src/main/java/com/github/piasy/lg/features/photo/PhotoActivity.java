@@ -24,37 +24,30 @@
 
 package com.github.piasy.lg.features.photo;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.base.di.HasComponent;
 import com.github.piasy.lg.LGApp;
 import com.github.piasy.lg.features.photo.di.PhotoComponent;
 import com.github.piasy.lg.features.photo.di.PhotoModule;
+import com.yatatsu.autobundle.AutoBundleField;
 
 /**
  * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
 public class PhotoActivity extends BaseActivity implements HasComponent<PhotoComponent> {
 
-    private static final String INTENT_KEY_URL = "INTENT_KEY_URL";
+    @AutoBundleField
+    String mPhotoUrl;
 
     private PhotoComponent mPhotoComponent;
-
-    public static Intent viewPhoto(final Context context, final String url) {
-        final Intent intent = new Intent(context, PhotoActivity.class);
-        intent.putExtra(INTENT_KEY_URL, url);
-        return intent;
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final String url = getIntent().getStringExtra(INTENT_KEY_URL);
         getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content, PhotoFragmentBuilder.newPhotoFragment(url))
-                .commit();
+                .add(android.R.id.content,
+                        PhotoFragmentAutoBundle.createFragmentBuilder(mPhotoUrl).build()).commit();
     }
 
     @Override

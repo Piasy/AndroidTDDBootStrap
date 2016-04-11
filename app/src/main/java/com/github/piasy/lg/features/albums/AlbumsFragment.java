@@ -34,7 +34,7 @@ import com.github.piasy.lg.R;
 import com.github.piasy.lg.features.albums.di.AlbumsComponent;
 import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
 import com.github.piasy.lg.features.albums.mvp.AlbumsView;
-import com.github.piasy.lg.features.photo.PhotoActivity;
+import com.github.piasy.lg.features.photo.PhotoActivityAutoBundle;
 import com.github.piasy.model.ligui.LGAlbum;
 import com.github.piasy.safelyandroid.activity.StartActivityDelegate;
 import java.util.List;
@@ -68,7 +68,8 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
             @Override
             public void openAlbum(final LGAlbum album) {
                 StartActivityDelegate.startActivitySafely(getContext(),
-                        PhotoActivity.viewPhoto(getContext(), album.cover()));
+                        PhotoActivityAutoBundle.createIntentBuilder(album.cover())
+                                .build(getContext()));
             }
         });
         rvAlbums.setLayoutManager(new LinearLayoutManager(getContext()));

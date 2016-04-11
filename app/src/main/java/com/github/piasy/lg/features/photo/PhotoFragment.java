@@ -33,8 +33,7 @@ import com.github.piasy.lg.R;
 import com.github.piasy.lg.features.photo.di.PhotoComponent;
 import com.github.piasy.lg.features.photo.mvp.PhotoPresenter;
 import com.github.piasy.lg.features.photo.mvp.PhotoView;
-import com.hannesdorfmann.fragmentargs.annotation.Arg;
-import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.yatatsu.autobundle.AutoBundleField;
 import java.io.File;
 import javax.inject.Inject;
 
@@ -43,13 +42,12 @@ import static butterknife.ButterKnife.findById;
 /**
  * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
-@FragmentWithArgs
 public class PhotoFragment extends BaseMvpFragment<PhotoView, PhotoPresenter, PhotoComponent>
         implements PhotoView {
 
     @Inject
     Resources mResources;
-    @Arg
+    @AutoBundleField
     String mPhotoUrl;
 
     private SubsamplingScaleImageView mPhotoView;
