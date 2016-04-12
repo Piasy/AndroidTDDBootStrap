@@ -62,7 +62,7 @@ public class LGDataManagerImpl implements LGDataManager {
                 .flatMap(new Func1<LGMeta, Observable<List<LGAlbum>>>() {
                     @Override
                     public Observable<List<LGAlbum>> call(final LGMeta lgMeta) {
-                        if (lgMeta.version() > version()) {
+                        if (lgMeta.version() > readVersion()) {
                             return loadCloudAlbums(lgMeta);
                         } else {
                             return Observable.just(readAlbums());
@@ -95,13 +95,18 @@ public class LGDataManagerImpl implements LGDataManager {
                 .doOnNext(new Action1<List<LGAlbum>>() {
                     @Override
                     public void call(final List<LGAlbum> albums) {
+                        writeVersion(lgMeta.version());
                         writeAlbums(albums);
                     }
                 });
     }
 
-    private int version() {
+    private int readVersion() {
         return mLGVersion.get();
+    }
+
+    private void writeVersion(int version) {
+        mLGVersion.set(version);
     }
 
     private List<LGAlbum> readAlbums() {

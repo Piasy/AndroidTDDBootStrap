@@ -43,6 +43,9 @@ import rx.observers.TestSubscriber;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 /**
@@ -82,10 +85,12 @@ public class LGDataManagerImplTest extends BaseThreeTenBPAndroidTest {
         final LGDataManager lgDataManager =
                 new LGDataManagerImpl(mLGApi, mRxSharedPreferences, mGson);
 
-        when(mLGApi.meta()).thenReturn(Observable.just(mLGMetaV1), Observable.just(mLGMetaV2));
+        when(mLGApi.meta()).thenReturn(Observable.just(mLGMetaV1), Observable.just(mLGMetaV1),
+                Observable.just(mLGMetaV2));
         when(mLGApi.onePart(anyString())).thenReturn(Observable.just(mAlbumsV1),
                 Observable.just(mAlbumsV2));
 
+        // first time, no history version, should load from cloud
         TestSubscriber<List<LGAlbum>> subscriber = new TestSubscriber<>();
         lgDataManager.albums().subscribe(subscriber);
         subscriber.awaitTerminalEvent();
@@ -93,7 +98,23 @@ public class LGDataManagerImplTest extends BaseThreeTenBPAndroidTest {
         subscriber.assertCompleted();
         subscriber.assertNoErrors();
         subscriber.assertReceivedOnNext(Collections.singletonList(mAlbumsV1));
+        verify(mLGApi, times(1)).meta();
+        verify(mLGApi, times(1)).onePart(anyString());
+        verifyNoMoreInteractions(mLGApi);
 
+        // second time, no new version, should not load from cloud
+        subscriber = new TestSubscriber<>();
+        lgDataManager.albums().subscribe(subscriber);
+        subscriber.awaitTerminalEvent();
+
+        subscriber.assertCompleted();
+        subscriber.assertNoErrors();
+        subscriber.assertReceivedOnNext(Collections.singletonList(mAlbumsV1));
+        verify(mLGApi, times(2)).meta();
+        verify(mLGApi, times(1)).onePart(anyString());
+        verifyNoMoreInteractions(mLGApi);
+
+        // third time, new version, should load from cloud
         subscriber = new TestSubscriber<>();
         lgDataManager.albums().subscribe(subscriber);
         subscriber.awaitTerminalEvent();
@@ -101,5 +122,8 @@ public class LGDataManagerImplTest extends BaseThreeTenBPAndroidTest {
         subscriber.assertCompleted();
         subscriber.assertNoErrors();
         subscriber.assertReceivedOnNext(Collections.singletonList(mAlbumsV2));
+        verify(mLGApi, times(3)).meta();
+        verify(mLGApi, times(2)).onePart(anyString());
+        verifyNoMoreInteractions(mLGApi);
     }
 }
