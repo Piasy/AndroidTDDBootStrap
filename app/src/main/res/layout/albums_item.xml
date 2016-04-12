@@ -29,6 +29,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="240dp"
                                     android:layout_margin="5dp"
+                                    app:cardCornerRadius="5dp"
         >
 
     <FrameLayout
@@ -37,14 +38,10 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             >
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
                 android:id="@+id/mIvCover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:roundedCornerRadius="5dp"
-                app:actualImageScaleType="centerCrop"
-                app:placeholderImage="@drawable/default_album_cover"
-                app:placeholderImageScaleType="centerCrop"
                 />
         <TextView
                 android:id="@+id/mTvName"

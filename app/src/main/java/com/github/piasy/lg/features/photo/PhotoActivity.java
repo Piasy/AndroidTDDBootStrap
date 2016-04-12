@@ -43,6 +43,11 @@ public class PhotoActivity extends BaseActivity implements HasComponent<PhotoCom
     private PhotoComponent mPhotoComponent;
 
     @Override
+    protected boolean hasArgs() {
+        return true;
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportFragmentManager().beginTransaction()

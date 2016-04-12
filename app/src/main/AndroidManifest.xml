@@ -41,6 +41,9 @@
                 android:value="03bc0f690add9fe0b29a06fa9f3aace1ac45d998"
                 />
 
+        <meta-data
+                android:name="com.github.piasy.lg.glide.LgGlideModule"
+                android:value="GlideModule" />
         <activity
                 android:name="com.github.piasy.lg.features.splash.SplashActivity"
                 android:theme="@style/AppTheme.Launcher"

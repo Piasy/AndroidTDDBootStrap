@@ -119,8 +119,7 @@ android {
             shrinkResources true
             signingConfig signingConfigs.production
             //signingConfig signingConfigs.production
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
-                    'proguard-fresco.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -169,6 +168,9 @@ dependencies {
 
     compile project(':model')
     compile (appDependencies.fresco) {
+        exclude module: 'support-v4'
+    }
+    compile (appDependencies.glide) {
         exclude module: 'support-v4'
     }
     compile (appDependencies.iconifyMD) {

@@ -30,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import butterknife.ButterKnife;
 import com.github.piasy.base.android.BaseMvpFragment;
+import com.github.piasy.base.utils.ScreenUtil;
 import com.github.piasy.lg.R;
 import com.github.piasy.lg.features.albums.di.AlbumsComponent;
 import com.github.piasy.lg.features.albums.mvp.AlbumsPresenter;
@@ -48,6 +49,8 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
 
     @Inject
     Resources mResources;
+    @Inject
+    ScreenUtil mScreenUtil;
 
     private AlbumsAdapter mAdapter;
 
@@ -71,7 +74,7 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
                         PhotoActivityAutoBundle.createIntentBuilder(album.cover())
                                 .build(getContext()));
             }
-        });
+        }, getContext(), mScreenUtil);
         rvAlbums.setLayoutManager(new LinearLayoutManager(getContext()));
         rvAlbums.setAdapter(mAdapter);
     }

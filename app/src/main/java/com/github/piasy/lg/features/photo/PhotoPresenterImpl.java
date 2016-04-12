@@ -24,120 +24,68 @@
 
 package com.github.piasy.lg.features.photo;
 
-import android.support.annotation.Nullable;
-import com.facebook.binaryresource.FileBinaryResource;
-import com.facebook.cache.common.CacheKey;
-import com.facebook.cache.disk.DiskStorageCache;
-import com.facebook.common.executors.CallerThreadExecutor;
-import com.facebook.datasource.BaseDataSubscriber;
-import com.facebook.datasource.DataSource;
-import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
-import com.facebook.imagepipeline.core.ImagePipeline;
-import com.facebook.imagepipeline.request.ImageRequest;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.piasy.base.mvp.NullObjRxBasePresenter;
 import com.github.piasy.base.utils.RxUtil;
 import com.github.piasy.lg.features.photo.mvp.PhotoPresenter;
 import com.github.piasy.lg.features.photo.mvp.PhotoView;
 import java.io.File;
 import javax.inject.Inject;
-import javax.inject.Named;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Piasy{github.com/Piasy} on 4/10/16.
  */
 public class PhotoPresenterImpl extends NullObjRxBasePresenter<PhotoView>
         implements PhotoPresenter {
-    private final ImagePipeline mImagePipeline;
-    private final DefaultCacheKeyFactory mCacheKeyFactory;
-    private final DiskStorageCache mMainDiskCache;
-    private final DiskStorageCache mSmallDiskCache;
+
+    private final Context mContext;
 
     @Inject
-    public PhotoPresenterImpl(final ImagePipeline imagePipeline,
-            final DefaultCacheKeyFactory cacheKeyFactory,
-            @Named("MainDiskCache") final DiskStorageCache mainDiskCache,
-            @Named("SmallDiskCache") final DiskStorageCache smallDiskCache) {
+    public PhotoPresenterImpl(final Context context) {
         super();
-        mImagePipeline = imagePipeline;
-        mCacheKeyFactory = cacheKeyFactory;
-        mMainDiskCache = mainDiskCache;
-        mSmallDiskCache = smallDiskCache;
+        mContext = context;
     }
 
     @Override
     public void loadPhoto(final String url) {
-        addSubscription(Observable.just(url)
-                .subscribeOn(Schedulers.io())
-                .map(new Func1<String, ImageRequest>() {
-                    @Override
-                    public ImageRequest call(final String photoUrl) {
-                        return ImageRequest.fromUri(photoUrl);
-                    }
-                })
-                .flatMap(fetch())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<File>() {
-                    @Override
-                    public void call(final File photo) {
-                        getView().showPhoto(photo);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(final Throwable throwable) {
-                        getView().loadPhotoFail();
-                        RxUtil.OnErrorLogger.call(throwable);
-                    }
-                }));
+        addSubscription(fetch(url).subscribe(new Action1<File>() {
+            @Override
+            public void call(final File photo) {
+                getView().showPhoto(photo);
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(final Throwable throwable) {
+                getView().loadPhotoFail();
+                RxUtil.OnErrorLogger.call(throwable);
+            }
+        }));
     }
 
-    private Func1<ImageRequest, Observable<File>> fetch() {
-        return new Func1<ImageRequest, Observable<File>>() {
+    private Observable<File> fetch(final String photoUrl) {
+        return Observable.create(new Observable.OnSubscribe<File>() {
             @Override
-            public Observable<File> call(final ImageRequest request) {
-                return Observable.create(new Observable.OnSubscribe<File>() {
+            public void call(final Subscriber<? super File> subscriber) {
+                Glide.with(mContext).load(photoUrl).downloadOnly(new SimpleTarget<File>() {
                     @Override
-                    public void call(final Subscriber<? super File> subscriber) {
-                        final DataSource<Void> dataSource =
-                                mImagePipeline.prefetchToDiskCache(request,
-                                        PhotoPresenterImpl.this);
-                        dataSource.subscribe(new BaseDataSubscriber<Void>() {
-                            @Override
-                            protected void onNewResultImpl(final DataSource<Void> dataSource) {
-                                final File cacheFile = getCacheFile(request);
-                                if (cacheFile == null) {
-                                    subscriber.onError(new UnknownError("cache file is null"));
-                                } else {
-                                    subscriber.onNext(cacheFile);
-                                }
-                            }
+                    public void onLoadFailed(final Exception e, final Drawable errorDrawable) {
+                        subscriber.onError(e);
+                    }
 
-                            @Override
-                            protected void onFailureImpl(final DataSource<Void> dataSource) {
-                                subscriber.onError(new UnknownError("fetch image fail"));
-                            }
-                        }, CallerThreadExecutor.getInstance());
+                    @Override
+                    public void onResourceReady(final File resource,
+                            final GlideAnimation<? super File> glideAnimation) {
+                        subscriber.onNext(resource);
                     }
                 });
             }
-        };
-    }
-
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
-    @Nullable
-    private File getCacheFile(final ImageRequest request) {
-        final CacheKey cacheKey = mCacheKeyFactory.getEncodedCacheKey(request);
-        File cacheFile = null;
-        if (mMainDiskCache.hasKey(cacheKey)) {
-            cacheFile = ((FileBinaryResource) mMainDiskCache.getResource(cacheKey)).getFile();
-        } else if (mSmallDiskCache.hasKey(cacheKey)) {
-            cacheFile = ((FileBinaryResource) mSmallDiskCache.getResource(cacheKey)).getFile();
-        }
-        return cacheFile;
+        });
     }
 }
