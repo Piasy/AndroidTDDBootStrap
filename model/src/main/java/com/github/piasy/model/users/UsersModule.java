@@ -44,8 +44,8 @@ public class UsersModule {
     }
 
     @Provides
-    GithubUserAPI provideGithubAPI(final Retrofit retrofit) {
-        return retrofit.create(GithubUserAPI.class);
+    GithubUserApi provideGithubAPI(final Retrofit retrofit) {
+        return retrofit.create(GithubUserApi.class);
     }
 
     @Provides

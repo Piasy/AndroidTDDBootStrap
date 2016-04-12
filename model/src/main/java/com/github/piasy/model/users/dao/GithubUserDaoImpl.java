@@ -26,7 +26,7 @@ package com.github.piasy.model.users.dao;
 
 import android.support.annotation.NonNull;
 import com.github.piasy.model.users.GithubUser;
-import com.github.piasy.model.users.GithubUserAPI;
+import com.github.piasy.model.users.GithubUserApi;
 import com.github.piasy.model.users.GithubUserSearchResult;
 import java.util.List;
 import javax.inject.Inject;
@@ -42,21 +42,21 @@ import rx.functions.Func1;
 public final class GithubUserDaoImpl implements GithubUserDao {
 
     private final DbUserDelegate mDbUserDelegate;
-    private final GithubUserAPI mGithubUserAPI;
+    private final GithubUserApi mGithubUserApi;
 
     @Inject
     public GithubUserDaoImpl(final DbUserDelegate dbUserDelegate,
-            final GithubUserAPI githubUserAPI) {
+            final GithubUserApi githubUserApi) {
         mDbUserDelegate = dbUserDelegate;
-        mGithubUserAPI = githubUserAPI;
+        mGithubUserApi = githubUserApi;
     }
 
     @NonNull
     @Override
     public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
-        return mGithubUserAPI.searchGithubUsers(query,
-                GithubUserAPI.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
-                GithubUserAPI.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
+        return mGithubUserApi.searchGithubUsers(query,
+                GithubUserApi.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
+                GithubUserApi.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .map(new Func1<GithubUserSearchResult, List<GithubUser>>() {
                     @Override
                     public List<GithubUser> call(

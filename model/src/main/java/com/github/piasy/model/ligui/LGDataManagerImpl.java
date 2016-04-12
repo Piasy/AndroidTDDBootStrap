@@ -24,17 +24,17 @@
 
 package com.github.piasy.model.ligui;
 
-import android.support.annotation.NonNull;
 import com.f2prateek.rx.preferences.Preference;
 import com.f2prateek.rx.preferences.RxSharedPreferences;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Single;
+import rx.functions.Action1;
 import rx.functions.Func1;
-import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 /**
@@ -43,81 +43,72 @@ import rx.schedulers.Schedulers;
 public class LGDataManagerImpl implements LGDataManager {
     private final LGApi mLGApi;
     private final Preference<Integer> mLGVersion;
+    private final Preference<String> mLGAlbums;
+    private final Gson mGson;
 
     @Inject
-    public LGDataManagerImpl(final LGApi lgApi, final RxSharedPreferences rxSharedPreferences) {
+    public LGDataManagerImpl(final LGApi lgApi, final RxSharedPreferences rxSharedPreferences,
+            Gson gson) {
         mLGApi = lgApi;
+        mGson = gson;
         mLGVersion = rxSharedPreferences.getInteger(LGMeta.PREF_KEY_VERSION);
+        mLGAlbums = rxSharedPreferences.getString(LGAlbum.PREF_KEY_ALBUMS, "[]");
     }
 
     @Override
-    public Observable<List<LGAlbum>> albums() {
-        // todo get notified
-        return mLGApi.meta().subscribeOn(Schedulers.io()).map(new Func1<LGMeta, List<String>>() {
-            @Override
-            public List<String> call(final LGMeta lgMeta) {
-                return lgMeta.parts();
-            }
-        }).flatMap(new Func1<List<String>, Observable<String>>() {
-            @Override
-            public Observable<String> call(final List<String> parts) {
-                return Observable.from(parts);
-            }
-        }).flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
-            @Override
-            public Observable<List<LGAlbum>> call(final String onePart) {
-                return mLGApi.onePart(onePart);
-            }
-        }).toList().map(new Func1<List<List<LGAlbum>>, List<LGAlbum>>() {
-            @Override
-            public List<LGAlbum> call(final List<List<LGAlbum>> albumLists) {
-                final List<LGAlbum> albums = new ArrayList<>();
-                final int size = albumLists.size();
-                for (int i = 0; i < size; i++) {
-                    albums.addAll(albumLists.get(i));
-                }
-                return albums;
-            }
-        });
+    public Single<List<LGAlbum>> albums() {
+        return mLGApi.meta()
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Func1<LGMeta, Observable<List<LGAlbum>>>() {
+                    @Override
+                    public Observable<List<LGAlbum>> call(LGMeta lgMeta) {
+                        if (lgMeta.version() > version()) {
+                            return loadCloudAlbums(lgMeta);
+                        } else {
+                            return Observable.just(readAlbums());
+                        }
+                    }
+                })
+                .toSingle();
     }
 
-    @Override
-    public Single<Boolean> refresh() {
-        return Observable.zip(version(), mLGApi.meta(), new Func2<Integer, LGMeta, List<String>>() {
-            @Override
-            public List<String> call(final Integer localVersion, final LGMeta lgMeta) {
-                if (lgMeta.version() > localVersion) {
-                    mLGVersion.set(lgMeta.version());
-                    return lgMeta.parts();
-                }
-                return Collections.emptyList();
-            }
-        }).flatMap(new Func1<List<String>, Observable<String>>() {
-            @Override
-            public Observable<String> call(final List<String> parts) {
-                return Observable.from(parts);
-            }
-        }).flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
-            @Override
-            public Observable<List<LGAlbum>> call(final String onePart) {
-                return mLGApi.onePart(onePart);
-            }
-        }).toList().map(new Func1<List<List<LGAlbum>>, Boolean>() {
-            @Override
-            public Boolean call(final List<List<LGAlbum>> albumLists) {
-                final List<LGAlbum> albums = new ArrayList<>();
-                final int size = albumLists.size();
-                for (int i = 0; i < size; i++) {
-                    albums.addAll(albumLists.get(i));
-                }
-                // todo save and notify
-                return true;
-            }
-        }).toSingle();
+    public Observable<List<LGAlbum>> loadCloudAlbums(LGMeta lgMeta) {
+        return Observable.from(lgMeta.parts())
+                .flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
+                    @Override
+                    public Observable<List<LGAlbum>> call(final String onePart) {
+                        return mLGApi.onePart(onePart);
+                    }
+                })
+                .toList()
+                .map(new Func1<List<List<LGAlbum>>, List<LGAlbum>>() {
+                    @Override
+                    public List<LGAlbum> call(final List<List<LGAlbum>> albumLists) {
+                        final List<LGAlbum> albums = new ArrayList<>();
+                        final int size = albumLists.size();
+                        for (int i = 0; i < size; i++) {
+                            albums.addAll(albumLists.get(i));
+                        }
+                        return albums;
+                    }
+                })
+                .doOnNext(new Action1<List<LGAlbum>>() {
+                    @Override
+                    public void call(List<LGAlbum> albums) {
+                        writeAlbums(albums);
+                    }
+                });
     }
 
-    @NonNull
-    private Observable<Integer> version() {
-        return mLGVersion.asObservable().first();
+    private int version() {
+        return mLGVersion.get();
+    }
+
+    private List<LGAlbum> readAlbums() {
+        return mGson.fromJson(mLGAlbums.get(), new TypeToken<List<LGAlbum>>() {}.getType());
+    }
+
+    private void writeAlbums(List<LGAlbum> albums) {
+        mLGAlbums.set(mGson.toJson(albums));
     }
 }

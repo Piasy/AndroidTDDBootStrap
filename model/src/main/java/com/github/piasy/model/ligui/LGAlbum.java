@@ -35,6 +35,8 @@ import java.util.List;
 @AutoParcel
 @AutoGson(autoClass = AutoParcel_LGAlbum.class)
 public abstract class LGAlbum implements Parcelable {
+    public static final String PREF_KEY_ALBUMS = "lg_albums";
+
     public abstract String name();
 
     public abstract String cover();
