@@ -48,7 +48,7 @@ public class LGDataManagerImpl implements LGDataManager {
 
     @Inject
     public LGDataManagerImpl(final LGApi lgApi, final RxSharedPreferences rxSharedPreferences,
-            Gson gson) {
+            final Gson gson) {
         mLGApi = lgApi;
         mGson = gson;
         mLGVersion = rxSharedPreferences.getInteger(LGMeta.PREF_KEY_VERSION);
@@ -61,7 +61,7 @@ public class LGDataManagerImpl implements LGDataManager {
                 .subscribeOn(Schedulers.io())
                 .flatMap(new Func1<LGMeta, Observable<List<LGAlbum>>>() {
                     @Override
-                    public Observable<List<LGAlbum>> call(LGMeta lgMeta) {
+                    public Observable<List<LGAlbum>> call(final LGMeta lgMeta) {
                         if (lgMeta.version() > version()) {
                             return loadCloudAlbums(lgMeta);
                         } else {
@@ -72,7 +72,7 @@ public class LGDataManagerImpl implements LGDataManager {
                 .toSingle();
     }
 
-    public Observable<List<LGAlbum>> loadCloudAlbums(LGMeta lgMeta) {
+    public Observable<List<LGAlbum>> loadCloudAlbums(final LGMeta lgMeta) {
         return Observable.from(lgMeta.parts())
                 .flatMap(new Func1<String, Observable<List<LGAlbum>>>() {
                     @Override
@@ -94,7 +94,7 @@ public class LGDataManagerImpl implements LGDataManager {
                 })
                 .doOnNext(new Action1<List<LGAlbum>>() {
                     @Override
-                    public void call(List<LGAlbum> albums) {
+                    public void call(final List<LGAlbum> albums) {
                         writeAlbums(albums);
                     }
                 });
@@ -108,7 +108,7 @@ public class LGDataManagerImpl implements LGDataManager {
         return mGson.fromJson(mLGAlbums.get(), new TypeToken<List<LGAlbum>>() {}.getType());
     }
 
-    private void writeAlbums(List<LGAlbum> albums) {
+    private void writeAlbums(final List<LGAlbum> albums) {
         mLGAlbums.set(mGson.toJson(albums));
     }
 }

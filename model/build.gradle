@@ -93,6 +93,15 @@ dependencies {
 
     androidTestCompile project(':testbase')
     androidTestCompile modelTestDependencies.multidexInstrumentation
+    androidTestCompile (modelTestDependencies.mockito) {
+        exclude module: 'hamcrest-core'
+    }
+    androidTestCompile modelTestDependencies.dexmaker
+    androidTestCompile (modelTestDependencies.dexmakerMockito) {
+        exclude module: 'hamcrest-core'
+        exclude module: 'mockito-core'
+    }
+    androidTestCompile modelTestDependencies.jsonAssert
     androidTestCompile (modelTestDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }

@@ -23,6 +23,7 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
@@ -90,7 +91,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
         subscriber.awaitTerminalEvent();
 
         // then
-        then(mDbUserDelegate).shouldHaveZeroInteractions();
+        verifyZeroInteractions(mDbUserDelegate);
         subscriber.assertNoValues();
         subscriber.assertError(ApiError.class);
 
