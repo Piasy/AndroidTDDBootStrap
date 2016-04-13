@@ -22,46 +22,42 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg.features.photo;
+package com.github.piasy.lg;
 
-import android.os.Bundle;
-import com.github.piasy.base.di.HasComponent;
-import com.github.piasy.lg.LGActivity;
-import com.github.piasy.lg.LGApp;
-import com.github.piasy.lg.features.photo.di.PhotoComponent;
-import com.github.piasy.lg.features.photo.di.PhotoModule;
-import com.yatatsu.autobundle.AutoBundleField;
+import android.view.MotionEvent;
+import com.bugtags.library.Bugtags;
+import com.github.piasy.base.android.BaseActivity;
+import com.github.piasy.lg.features.splash.SplashActivity;
 
 /**
- * Created by Piasy{github.com/Piasy} on 4/10/16.
+ * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public class PhotoActivity extends LGActivity implements HasComponent<PhotoComponent> {
-
-    @AutoBundleField
-    String mPhotoUrl;
-
-    private PhotoComponent mPhotoComponent;
-
+public abstract class LGActivity extends BaseActivity {
     @Override
-    protected boolean hasArgs() {
-        return true;
+    protected void onResume() {
+        super.onResume();
+        if (isTrack()) {
+            Bugtags.onResume(this);
+        }
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content,
-                        PhotoFragmentAutoBundle.createFragmentBuilder(mPhotoUrl).build()).commit();
+    protected void onPause() {
+        super.onPause();
+        if (isTrack()) {
+            Bugtags.onPause(this);
+        }
     }
 
     @Override
-    protected void initializeInjector() {
-        mPhotoComponent = LGApp.get().appComponent().plus(getActivityModule(), new PhotoModule());
+    public boolean dispatchTouchEvent(final MotionEvent ev) {
+        if (isTrack()) {
+            Bugtags.onDispatchTouchEvent(this, ev);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
-    @Override
-    public PhotoComponent getComponent() {
-        return mPhotoComponent;
+    private boolean isTrack() {
+        return !(this instanceof SplashActivity);
     }
 }

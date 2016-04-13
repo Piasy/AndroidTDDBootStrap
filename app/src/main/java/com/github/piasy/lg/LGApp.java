@@ -33,6 +33,7 @@ import com.github.piasy.lg.di.AppModule;
 import com.github.piasy.lg.di.DaggerAppComponent;
 import com.github.piasy.lg.di.IApplication;
 import com.github.piasy.base.utils.UtilsModule;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -65,6 +66,7 @@ public class LGApp extends Application implements IApplication {
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                     .build());
+            LeakCanary.install(this);
         }
 
         mAppComponent = createComponent();

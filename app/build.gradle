@@ -33,6 +33,8 @@ apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
+apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'android-git-sha'
 
 def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -65,8 +67,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "com.github.piasy.lg.CustomTestRunner"
 
-        buildConfigField "boolean", "REPORT_CRASH", "true"
-        buildConfigField "boolean", "INSTALL_LEAK_CANARY", "false"
+        buildConfigField "String", "API_BASE_URL", "\"http://7xsouz.com2.z0.glb.clouddn.com/\""
     }
 
     compileOptions {
@@ -123,20 +124,13 @@ android {
         }
     }
 
-    productFlavors.whenObjectAdded { flavor ->
-        def flavorData = rootProject.ext[flavor.name]
-    }
-
     productFlavors {
-        develop {
-            buildConfigField "boolean", "REPORT_CRASH", "false"
-            buildConfigField "boolean", "INSTALL_LEAK_CANARY", "true"
-            // this maybe different with product flavor for real app dev
-            buildConfigField "String", "API_BASE_URL", "\"http://7xsouz.com2.z0.glb.clouddn.com/\""
+        dev {
+            // inherit from default config
         }
 
-        product {
-            buildConfigField "String", "API_BASE_URL", "\"http://7xsouz.com2.z0.glb.clouddn.com/\""
+        prod {
+            // inherit from default config
         }
     }
 
@@ -162,21 +156,32 @@ unMock {
     keep "android.text.TextUtils"
 }
 
+bugtags {
+    appKey "82cdb5f7f8925829ccc4a6e7d5d12216"
+    appSecret BUG_TAGS_API_SECRET
+}
+
+gitSha {
+    buildTypeMatcher = 'release'
+    flavorMatcher = '.*'
+    abortIfGitDirty = true
+}
+
 dependencies {
     def appDependencies = rootProject.ext.appDependencies
     def appTestDependencies = rootProject.ext.appTestDependencies
 
     compile project(':model')
-    compile (appDependencies.fresco) {
+    compile(appDependencies.fresco) {
         exclude module: 'support-v4'
     }
-    compile (appDependencies.glide) {
+    compile(appDependencies.glide) {
         exclude module: 'support-v4'
     }
-    compile (appDependencies.iconifyMD) {
+    compile(appDependencies.iconifyMD) {
         exclude module: 'support-v4'
     }
-    compile (appDependencies.once) {
+    compile(appDependencies.once) {
         exclude module: 'support-annotations'
     }
     compile appDependencies.stetho
@@ -187,28 +192,30 @@ dependencies {
     compile appDependencies.cardViewV7
     compile appDependencies.flexLayout
     compile appDependencies.SSIV
-
-    compile(appDependencies.fabricAnswer) {
-        transitive = true;
+    compile(appDependencies.slidr) {
+        exclude module: 'support-v4'
     }
+
+    compile appDependencies.bugTags
+    compile appDependencies.gitSha
 
     androidTestCompile project(':testbase')
-    androidTestCompile (appTestDependencies.androidJUnitRunner) {
+    androidTestCompile(appTestDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }
-    androidTestCompile (appTestDependencies.mockito) {
+    androidTestCompile(appTestDependencies.mockito) {
         exclude module: 'hamcrest-core'
     }
     androidTestCompile appTestDependencies.dexmaker
-    androidTestCompile (appTestDependencies.dexmakerMockito) {
+    androidTestCompile(appTestDependencies.dexmakerMockito) {
         exclude module: 'hamcrest-core'
         exclude module: 'mockito-core'
     }
-    androidTestCompile (appTestDependencies.androidJUnit4Rules) {
+    androidTestCompile(appTestDependencies.androidJUnit4Rules) {
         exclude module: 'support-annotations'
         exclude module: 'hamcrest-core'
     }
-    androidTestApt (appDependencies.daggerCompiler) {
+    androidTestApt(appDependencies.daggerCompiler) {
         exclude module: 'dagger'
     }
 }

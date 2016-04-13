@@ -1,10 +1,10 @@
 ext {
     // Android
-    androidBuildToolsVersion = '23.0.1'
+    androidBuildToolsVersion = '23.0.3'
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
-    androidSupportSdkVersion = '23.1.1'
+    androidSupportSdkVersion = '23.3.0'
     versionCode = 1
     versionName = '1.0.0'
 
@@ -115,7 +115,6 @@ ext {
             rxPreferences                  : "com.f2prateek.rx.preferences:rx-preferences:1.0.1",
 
             retrolambda                    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
-            fabricCrashlytics              : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
     ]
 
     modelTestDependencies = [
@@ -150,13 +149,17 @@ ext {
             mugen                    : "com.vinaysshenoy:mugen:${mugenVersion}",
             flexLayout               : "com.github.mmin18:flexlayout:1.2.1",
             SSIV                     : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
+            slidr                    : "com.r0adkll:slidableactivity:2.0.5",
 
             rxBinding                : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxBindingAppCompatV7     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}",
             rxLifeCycle              : "com.trello:rxlifecycle:${rxLifeCycleVersion}",
             rxLifeCycleComponent     : "com.trello:rxlifecycle-components:${rxLifeCycleVersion}",
 
+            fabricCrashlytics        : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
             fabricAnswer             : "com.crashlytics.sdk.android:answers:${fabricAnswerVersion}@aar",
+            bugTags                  : "com.bugtags.library:bugtags-lib:1.2.3",
+            gitSha                   : "com.github.promeg:android-git-sha-lib:1.0.0",
 
             stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",

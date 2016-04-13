@@ -16,6 +16,7 @@ model/model.iml
 
 # Fabric appSecrit
 fabric.properties
+gradle.properties
 
 # inspect
 .buildProfile/

@@ -22,10 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.model.errors;
+package com.github.piasy.lg.analytics;
 
 import android.text.TextUtils;
-import com.crashlytics.android.Crashlytics;
+import android.util.Log;
+import com.bugtags.library.Bugtags;
 import timber.log.Timber;
 
 /**
@@ -34,22 +35,15 @@ import timber.log.Timber;
 public class CrashReportingTree extends Timber.Tree {
 
     @Override
-    public void e(final String message, final Object... args) {
-        if (!TextUtils.isEmpty(message)) {
-            Crashlytics.log(message);
-        }
-    }
-
-    @Override
-    public void e(final Throwable t, final String message, final Object... args) {
-        if (t != null) {
-            Crashlytics.logException(t);
-        }
-    }
-
-    @Override
     protected void log(final int priority, final String tag, final String message,
             final Throwable t) {
-        // do nothing
+        if (priority == Log.ERROR) {
+            if (t != null) {
+                Bugtags.sendException(t);
+            }
+            if (!TextUtils.isEmpty(message)) {
+                Bugtags.log(tag + " >>> " + message);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+
 /*
  * The MIT License (MIT)
  *
@@ -22,35 +23,22 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg.features.albums;
-
-import android.os.Bundle;
-import com.github.piasy.base.di.HasComponent;
-import com.github.piasy.lg.LGActivity;
-import com.github.piasy.lg.LGApp;
-import com.github.piasy.lg.features.albums.di.AlbumsComponent;
-import com.github.piasy.lg.features.albums.di.AlbumsModule;
-
-public class AlbumsActivity extends LGActivity implements HasComponent<AlbumsComponent> {
-
-    private AlbumsComponent mAlbumsComponent;
-
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content, new AlbumsFragment())
-                .commit();
-    }
-
-    @Override
-    protected void initializeInjector() {
-        mAlbumsComponent = LGApp.get().appComponent()
-                .plus(getActivityModule(), new AlbumsModule());
-    }
-
-    @Override
-    public AlbumsComponent getComponent() {
-        return mAlbumsComponent;
-    }
+apply plugin: 'com.github.piasy.okbuck-gradle-plugin'
+okbuck {
+    target "android-23"
+    overwrite true
+    resPackages = [
+            'base'    : 'com.github.piasy.base',
+            'model'   : 'com.github.piasy.model',
+            'app'     : 'com.github.piasy.app',
+            'testbase': 'com.github.piasy.base.test',
+    ]
+    linearAllocHardLimit = [
+            app: 7194304
+    ]
+    primaryDexPatterns = [
+            app: [
+                    '^com/github/piasy/app/BootstrapApp^',
+            ]
+    ]
 }
