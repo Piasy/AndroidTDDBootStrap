@@ -31,9 +31,7 @@ import android.support.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.anrwatchdog.ANRWatchDog;
-import com.github.moduth.blockcanary.BlockCanary;
 import com.github.piasy.base.utils.UtilsModule;
-import com.github.piasy.lg.analytics.LGBlockCanaryContext;
 import com.github.piasy.lg.di.AppComponent;
 import com.github.piasy.lg.di.AppModule;
 import com.github.piasy.lg.di.DaggerAppComponent;
@@ -93,8 +91,6 @@ public class LGApp extends Application implements IApplication {
             });
 
             new ANRWatchDog().start();
-
-            BlockCanary.install(this, new LGBlockCanaryContext()).start();
         }
 
         mAppComponent = createComponent();

@@ -186,7 +186,6 @@ dependencies {
     compile appDependencies.stetho
     compile appDependencies.leakCanary
     compile appDependencies.strictmodeNotifier
-    compile appDependencies.blockCanary
     compile appDependencies.anrWatchDog
 
     apt appDependencies.daggerCompiler
