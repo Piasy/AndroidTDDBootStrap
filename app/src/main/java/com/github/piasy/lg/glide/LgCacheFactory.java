@@ -42,8 +42,8 @@ public class LgCacheFactory extends DiskLruCacheFactory {
             @Override
             public File getCacheDirectory() {
                 final File cacheDirectory =
-                        new File(Environment.getExternalStorageDirectory() + File.separator +
-                                BuildConfig.APPLICATION_ID);
+                        new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                File.separator + BuildConfig.APPLICATION_ID);
                 if (!cacheDirectory.exists() && !cacheDirectory.mkdir()) {
                     return null;
                 }

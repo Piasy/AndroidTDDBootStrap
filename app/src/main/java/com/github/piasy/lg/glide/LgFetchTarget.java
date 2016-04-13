@@ -22,42 +22,33 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg;
+package com.github.piasy.lg.glide;
 
-import android.view.MotionEvent;
-import com.bugtags.library.Bugtags;
-import com.github.piasy.base.android.BaseActivity;
-import com.github.piasy.lg.features.splash.SplashActivity;
+import android.graphics.drawable.Drawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import java.io.File;
+import rx.Subscriber;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public abstract class LGActivity extends BaseActivity {
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isTrack()) {
-            Bugtags.onResume(this);
-        }
+public class LgFetchTarget extends SimpleTarget<File> {
+
+    private final Subscriber<? super File> mSubscriber;
+
+    public LgFetchTarget(final Subscriber<? super File> subscriber) {
+        mSubscriber = subscriber;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (isTrack()) {
-            Bugtags.onPause(this);
-        }
+    public void onLoadFailed(final Exception e, final Drawable errorDrawable) {
+        mSubscriber.onError(e);
     }
 
     @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        if (isTrack()) {
-            Bugtags.onDispatchTouchEvent(this, ev);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isTrack() {
-        return "release".equals(BuildConfig.BUILD_TYPE) && !(this instanceof SplashActivity);
+    public void onResourceReady(final File resource,
+            final GlideAnimation<? super File> glideAnimation) {
+        mSubscriber.onNext(resource);
     }
 }

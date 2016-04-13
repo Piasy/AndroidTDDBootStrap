@@ -26,7 +26,6 @@ import static org.apache.tools.ant.taskdefs.condition.Os.isFamily
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.frogermcs.androiddevmetrics'
-apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
@@ -184,8 +183,13 @@ dependencies {
     compile(appDependencies.once) {
         exclude module: 'support-annotations'
     }
+
     compile appDependencies.stetho
     compile appDependencies.leakCanary
+    compile appDependencies.strictmodeNotifier
+    compile appDependencies.blockCanary
+    compile appDependencies.anrWatchDog
+
     apt appDependencies.daggerCompiler
     apt appDependencies.autoBundleApt
     compile appDependencies.recyclerViewV7
@@ -194,6 +198,12 @@ dependencies {
     compile appDependencies.SSIV
     compile(appDependencies.slidr) {
         exclude module: 'support-v4'
+    }
+    compile(appDependencies.recyclerViewPager) {
+        exclude module: 'recyclerview-v7'
+    }
+    compile(appDependencies.statusBarUtil) {
+        exclude module: 'appcompat-v7'
     }
 
     compile appDependencies.bugTags

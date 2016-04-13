@@ -69,7 +69,7 @@ public class AlbumsFragment extends BaseMvpFragment<AlbumsView, AlbumsPresenter,
         mAdapter = new AlbumsAdapter(new AlbumsAdapter.Action() {
             @Override
             public void openAlbum(final LGAlbum album) {
-                startActivitySafely(PhotoActivityAutoBundle.createIntentBuilder(album.cover())
+                startActivitySafely(PhotoActivityAutoBundle.createIntentBuilder(album)
                         .build(getContext()));
             }
         }, getContext(), mScreenUtil);

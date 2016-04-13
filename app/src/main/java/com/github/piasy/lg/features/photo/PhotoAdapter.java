@@ -22,42 +22,50 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg;
+package com.github.piasy.lg.features.photo;
 
-import android.view.MotionEvent;
-import com.bugtags.library.Bugtags;
-import com.github.piasy.base.android.BaseActivity;
-import com.github.piasy.lg.features.splash.SplashActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import com.github.piasy.lg.R;
+import java.util.List;
+
+import static butterknife.ButterKnife.findById;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public abstract class LGActivity extends BaseActivity {
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isTrack()) {
-            Bugtags.onResume(this);
-        }
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoVH> {
+
+    private final List<String> mPhotos;
+
+    public PhotoAdapter(final List<String> photos) {
+        mPhotos = photos;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (isTrack()) {
-            Bugtags.onPause(this);
-        }
+    public PhotoVH onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        return new PhotoVH(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.photo_item, parent, false));
     }
 
     @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        if (isTrack()) {
-            Bugtags.onDispatchTouchEvent(this, ev);
-        }
-        return super.dispatchTouchEvent(ev);
+    public void onBindViewHolder(final PhotoVH holder, final int position) {
+        holder.mPhotoView.loadPhoto(mPhotos.get(position));
     }
 
-    private boolean isTrack() {
-        return "release".equals(BuildConfig.BUILD_TYPE) && !(this instanceof SplashActivity);
+    @Override
+    public int getItemCount() {
+        return mPhotos.size();
+    }
+
+    static class PhotoVH extends RecyclerView.ViewHolder {
+        private final LGPhotoView mPhotoView;
+
+        PhotoVH(final View view) {
+            super(view);
+            mPhotoView = findById(view, R.id.mPhoto);
+        }
     }
 }

@@ -139,3 +139,7 @@
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.AndroidHttpClient
 -dontwarn com.bugtags.library.**
+
+# RecyclerViewPager
+-keep class com.lsjwzh.widget.recyclerviewpager.**
+-dontwarn com.lsjwzh.widget.recyclerviewpager.**

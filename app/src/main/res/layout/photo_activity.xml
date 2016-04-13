@@ -22,19 +22,15 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/mLlContainer"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@android:color/white"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/black"
         >
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvAlbums"
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
+            android:id="@+id/mRvPhoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             />
-</LinearLayout>
+</FrameLayout>

@@ -25,12 +25,19 @@
 package com.github.piasy.lg.features.photo;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import com.github.piasy.base.di.HasComponent;
 import com.github.piasy.lg.LGActivity;
 import com.github.piasy.lg.LGApp;
+import com.github.piasy.lg.R;
 import com.github.piasy.lg.features.photo.di.PhotoComponent;
 import com.github.piasy.lg.features.photo.di.PhotoModule;
+import com.github.piasy.model.ligui.LGAlbum;
+import com.jaeger.library.StatusBarUtil;
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.yatatsu.autobundle.AutoBundleField;
+
+import static butterknife.ButterKnife.findById;
 
 /**
  * Created by Piasy{github.com/Piasy} on 4/10/16.
@@ -38,7 +45,7 @@ import com.yatatsu.autobundle.AutoBundleField;
 public class PhotoActivity extends LGActivity implements HasComponent<PhotoComponent> {
 
     @AutoBundleField
-    String mPhotoUrl;
+    LGAlbum mAlbum;
 
     private PhotoComponent mPhotoComponent;
 
@@ -50,9 +57,13 @@ public class PhotoActivity extends LGActivity implements HasComponent<PhotoCompo
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content,
-                        PhotoFragmentAutoBundle.createFragmentBuilder(mPhotoUrl).build()).commit();
+        setContentView(R.layout.photo_activity);
+        StatusBarUtil.setTranslucent(this);
+        RecyclerViewPager rvPhoto = findById(this, R.id.mRvPhoto);
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvPhoto.setLayoutManager(layoutManager);
+        rvPhoto.setAdapter(new PhotoAdapter(mAlbum.pics()));
     }
 
     @Override

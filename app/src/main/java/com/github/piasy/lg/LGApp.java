@@ -25,14 +25,20 @@
 package com.github.piasy.lg;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+import com.github.anrwatchdog.ANRWatchDog;
+import com.github.moduth.blockcanary.BlockCanary;
+import com.github.piasy.base.utils.UtilsModule;
+import com.github.piasy.lg.analytics.LGBlockCanaryContext;
 import com.github.piasy.lg.di.AppComponent;
 import com.github.piasy.lg.di.AppModule;
 import com.github.piasy.lg.di.DaggerAppComponent;
 import com.github.piasy.lg.di.IApplication;
-import com.github.piasy.base.utils.UtilsModule;
+import com.nshmura.strictmodenotifier.StrictModeNotifier;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -67,6 +73,28 @@ public class LGApp extends Application implements IApplication {
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                     .build());
             LeakCanary.install(this);
+
+            StrictModeNotifier.install(this);
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    StrictMode.ThreadPolicy threadPolicy =
+                            new StrictMode.ThreadPolicy.Builder().detectAll()
+                                    .permitDiskReads()
+                                    .permitDiskWrites().penaltyLog() // Must!
+                                    .build();
+                    StrictMode.setThreadPolicy(threadPolicy);
+
+                    StrictMode.VmPolicy vmPolicy =
+                            new StrictMode.VmPolicy.Builder().detectAll().penaltyLog() // Must!
+                                    .build();
+                    StrictMode.setVmPolicy(vmPolicy);
+                }
+            });
+
+            new ANRWatchDog().start();
+
+            BlockCanary.install(this, new LGBlockCanaryContext()).start();
         }
 
         mAppComponent = createComponent();

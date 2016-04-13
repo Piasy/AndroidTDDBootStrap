@@ -22,42 +22,33 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.lg;
+package com.github.piasy.lg.analytics;
 
-import android.view.MotionEvent;
-import com.bugtags.library.Bugtags;
-import com.github.piasy.base.android.BaseActivity;
-import com.github.piasy.lg.features.splash.SplashActivity;
+import android.os.Environment;
+import com.github.moduth.blockcanary.BlockCanaryContext;
+import com.github.piasy.lg.BuildConfig;
+import java.io.File;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public abstract class LGActivity extends BaseActivity {
+public class LGBlockCanaryContext extends BlockCanaryContext {
+
+    public static final int THRESHOLD = 500;
+
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (isTrack()) {
-            Bugtags.onResume(this);
-        }
+    public int getConfigBlockThreshold() {
+        return THRESHOLD;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (isTrack()) {
-            Bugtags.onPause(this);
-        }
+    public boolean isNeedDisplay() {
+        return "debug".equals(BuildConfig.BUILD_TYPE);
     }
 
     @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        if (isTrack()) {
-            Bugtags.onDispatchTouchEvent(this, ev);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    private boolean isTrack() {
-        return "release".equals(BuildConfig.BUILD_TYPE) && !(this instanceof SplashActivity);
+    public String getLogPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                BuildConfig.APPLICATION_ID + File.separator + "performance";
     }
 }

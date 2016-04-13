@@ -22,19 +22,9 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/mLlContainer"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@android:color/white"
-        >
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvAlbums"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            />
-</LinearLayout>
+<com.github.piasy.lg.features.photo.LGPhotoView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />

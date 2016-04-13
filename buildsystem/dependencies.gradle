@@ -150,6 +150,8 @@ ext {
             flexLayout               : "com.github.mmin18:flexlayout:1.2.1",
             SSIV                     : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
             slidr                    : "com.r0adkll:slidableactivity:2.0.5",
+            recyclerViewPager        : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
+            statusBarUtil            : "com.jaeger.statusbaruitl:library:1.0.0",
 
             rxBinding                : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxBindingAppCompatV7     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}",
@@ -160,6 +162,9 @@ ext {
             fabricAnswer             : "com.crashlytics.sdk.android:answers:${fabricAnswerVersion}@aar",
             bugTags                  : "com.bugtags.library:bugtags-lib:1.2.3",
             gitSha                   : "com.github.promeg:android-git-sha-lib:1.0.0",
+            strictmodeNotifier       : "com.nshmura:strictmode-notifier:0.9.0",
+            blockCanary              : "com.github.moduth:blockcanary-ui:1.2.0",
+            anrWatchDog              : "com.github.anrwatchdog:anrwatchdog:1.2.0",
 
             stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",

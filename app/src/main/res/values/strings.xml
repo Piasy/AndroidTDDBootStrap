@@ -23,7 +23,7 @@
   -->
 
 <resources>
-    <string name="app_name">LiGui</string>
+    <string name="app_name">丝足</string>
 
     <!-- GithubSearch -->
     <string name="github_user_followers_formatter" formatted="false">%d Followers</string>
