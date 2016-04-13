@@ -26,6 +26,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+
         <item name="colorPrimary">@color/gross_green</item>
         <item name="colorPrimaryDark">@color/gross_green_dark</item>
         <item name="colorAccent">@color/white</item>
