@@ -38,5 +38,6 @@
             android:layout_gravity="center"
             android:textSize="35sp"
             android:textColor="@color/black"
+            android:visibility="gone"
             />
 </LinearLayout>

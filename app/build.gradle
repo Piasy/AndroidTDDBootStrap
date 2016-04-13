@@ -118,7 +118,6 @@ android {
             debuggable false
             shrinkResources true
             signingConfig signingConfigs.production
-            //signingConfig signingConfigs.production
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

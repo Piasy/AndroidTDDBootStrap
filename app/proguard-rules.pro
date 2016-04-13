@@ -39,10 +39,6 @@
 # Gson
 -keepattributes Signature
 -keepattributes *Annotation*
-# http://stackoverflow.com/a/23365501/3077508
--keepclassmembers class **AutoParcel_** {
-    private <fields>;
-}
 
 
 # retrofit
@@ -143,3 +139,17 @@
 # RecyclerViewPager
 -keep class com.lsjwzh.widget.recyclerviewpager.**
 -dontwarn com.lsjwzh.widget.recyclerviewpager.**
+
+
+# AutoBundle
+-keepclasseswithmembernames class * {
+    @com.yatatsu.autobundle.AutoBundleField <fields>;
+}
+
+
+# AutoParcel
+# http://stackoverflow.com/a/23365501/3077508
+-keepclassmembers class **AutoParcel_** {
+    private <fields>;
+}
+-keep class **AutoParcel_**$* { *; }
