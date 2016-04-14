@@ -1,0 +1,20 @@
+
+apply plugin: 'com.github.piasy.okbuck-gradle-plugin'
+okbuck {
+    target "android-23"
+    overwrite true
+    resPackages = [
+            'base'    : 'com.github.piasy.base',
+            'model'   : 'com.github.piasy.model',
+            'app'     : 'com.github.piasy.app',
+            'testbase': 'com.github.piasy.base.test',
+    ]
+    linearAllocHardLimit = [
+            app: 7194304
+    ]
+    primaryDexPatterns = [
+            app: [
+                    '^com/github/piasy/app/BootstrapApp^',
+            ]
+    ]
+}

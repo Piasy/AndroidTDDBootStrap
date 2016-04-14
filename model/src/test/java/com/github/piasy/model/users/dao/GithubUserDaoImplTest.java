@@ -5,7 +5,7 @@ import com.github.piasy.base.test.BaseThreeTenBPTest;
 import com.github.piasy.base.test.MockProvider;
 import com.github.piasy.model.errors.ApiError;
 import com.github.piasy.model.users.GithubUser;
-import com.github.piasy.model.users.GithubUserAPI;
+import com.github.piasy.model.users.GithubUserApi;
 import com.github.piasy.model.users.GithubUserSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +23,7 @@ import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
@@ -30,7 +31,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
 
     private DbUserDelegate mDbUserDelegate;
-    private GithubUserAPI mGithubUserApi;
+    private GithubUserApi mGithubUserApi;
     private GithubUserDao mGithubUserDao;
 
     private GithubUserSearchResult mEmptyResult;
@@ -43,7 +44,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
                 new TypeToken<GithubUserSearchResult>() {}.getType());
 
         mDbUserDelegate = mock(DbUserDelegate.class);
-        mGithubUserApi = mock(GithubUserAPI.class);
+        mGithubUserApi = mock(GithubUserApi.class);
 
         mGithubUserDao = new GithubUserDaoImpl(mDbUserDelegate, mGithubUserApi);
     }
@@ -90,7 +91,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
         subscriber.awaitTerminalEvent();
 
         // then
-        then(mDbUserDelegate).shouldHaveZeroInteractions();
+        verifyZeroInteractions(mDbUserDelegate);
         subscriber.assertNoValues();
         subscriber.assertError(ApiError.class);
 

@@ -39,10 +39,6 @@
 # Gson
 -keepattributes Signature
 -keepattributes *Annotation*
-# http://stackoverflow.com/a/23365501/3077508
--keepclassmembers class **AutoParcel_** {
-    private <fields>;
-}
 
 
 # retrofit
@@ -102,3 +98,58 @@
 # rx
 -keep class rx.internal.util.unsafe.** { *; }
 -dontwarn sun.misc.**
+
+
+# glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+
+# fresco
+# Keep our interfaces so they can be used by other ProGuard rules.
+# See http://sourceforge.net/p/proguard/bugs/466/
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+
+# Do not strip any method/class that is annotated with @DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
+
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+
+
+# BugTags
+-keepattributes LineNumberTable,SourceFile
+
+-keep class com.bugtags.library.** {*;}
+-dontwarn org.apache.http.**
+-dontwarn android.net.http.AndroidHttpClient
+-dontwarn com.bugtags.library.**
+
+# RecyclerViewPager
+-keep class com.lsjwzh.widget.recyclerviewpager.**
+-dontwarn com.lsjwzh.widget.recyclerviewpager.**
+
+
+# AutoBundle
+-keepclasseswithmembernames class * {
+    @com.yatatsu.autobundle.AutoBundleField <fields>;
+}
+
+
+# AutoParcel
+# http://stackoverflow.com/a/23365501/3077508
+-keepclassmembers class **AutoParcel_** {
+    private <fields>;
+}
+-keep class **AutoParcel_**$* { *; }

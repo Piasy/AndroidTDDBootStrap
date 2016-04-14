@@ -24,6 +24,7 @@
 
 package com.github.piasy.model.users;
 
+import com.github.piasy.base.di.ActivityScope;
 import com.github.piasy.model.users.dao.DbUserDelegate;
 import com.github.piasy.model.users.dao.DbUserDelegateImpl;
 import com.github.piasy.model.users.dao.GithubUserDao;
@@ -38,16 +39,19 @@ import retrofit2.Retrofit;
 @Module
 public class UsersModule {
 
+    @ActivityScope
     @Provides
     GithubUserDao provideGithubUserDAO(final GithubUserDaoImpl githubUserDao) {
         return githubUserDao;
     }
 
+    @ActivityScope
     @Provides
-    GithubUserAPI provideGithubAPI(final Retrofit retrofit) {
-        return retrofit.create(GithubUserAPI.class);
+    GithubUserApi provideGithubAPI(final Retrofit retrofit) {
+        return retrofit.create(GithubUserApi.class);
     }
 
+    @ActivityScope
     @Provides
     DbUserDelegate provideDbUserDelegate(final DbUserDelegateImpl dbUserDelegate) {
         return dbUserDelegate;

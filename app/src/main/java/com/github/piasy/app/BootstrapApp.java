@@ -25,14 +25,19 @@
 package com.github.piasy.app;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+import com.github.anrwatchdog.ANRWatchDog;
 import com.github.piasy.app.di.AppComponent;
 import com.github.piasy.app.di.AppModule;
 import com.github.piasy.app.di.DaggerAppComponent;
 import com.github.piasy.app.di.IApplication;
 import com.github.piasy.base.utils.UtilsModule;
+import com.nshmura.strictmodenotifier.StrictModeNotifier;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -65,7 +70,29 @@ public class BootstrapApp extends Application implements IApplication {
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                     .build());
+            LeakCanary.install(this);
+
+            StrictModeNotifier.install(this);
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    StrictMode.ThreadPolicy threadPolicy =
+                            new StrictMode.ThreadPolicy.Builder().detectAll()
+                                    .permitDiskReads()
+                                    .permitDiskWrites().penaltyLog() // Must!
+                                    .build();
+                    StrictMode.setThreadPolicy(threadPolicy);
+
+                    StrictMode.VmPolicy vmPolicy =
+                            new StrictMode.VmPolicy.Builder().detectAll().penaltyLog() // Must!
+                                    .build();
+                    StrictMode.setVmPolicy(vmPolicy);
+                }
+            });
+
+            new ANRWatchDog().start();
         }
+
 
         mAppComponent = createComponent();
     }

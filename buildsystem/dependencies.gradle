@@ -1,15 +1,15 @@
 ext {
     // Android
-    androidBuildToolsVersion = '23.0.1'
+    androidBuildToolsVersion = '23.0.3'
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
-    androidSupportSdkVersion = '23.1.1'
+    androidSupportSdkVersion = '23.3.0'
     versionCode = 1
     versionName = '1.0.0'
 
     // Libraries
-    daggerVersion = '2.3'
+    daggerVersion = '2.2'
     butterKnifeVersion = '7.0.1'
     rxJavaVersion = '1.1.3'
     rxAndroidVersion = '1.1.0'
@@ -28,11 +28,12 @@ ext {
     onceVersion = '1.0.3'
     rxBindingVersion = '0.4.0'
     rxLifeCycleVersion = '0.5.0'
-    fragmentargsVersion = '3.0.2'
+    autoBundleVersion = '1.0.2'
 
     // UI
     loadToastVersion = '1.0.10'
     frescoVersion = '0.9.0'
+    glideVersion = '3.7.0'
     iconifyVersion = '2.2.2'
     mugenVersion = '1.0.2'
 
@@ -46,8 +47,7 @@ ext {
 
     // Testing
     jUnitVersion = '4.12'
-    mockitoVersion = '2.0.31-beta'
-    mockitoDexmakerVersion = '1.9.5'
+    mockitoVersion = '1.10.19'
     dexmakerVersion = '1.2'
     jsonAssertVersion = '1.3.0'
     jacocoVersion = '0.7.4.201502262128'
@@ -61,7 +61,7 @@ ext {
             safelyAndroid                  : "com.github.piasy:safelyandroid:1.0.2",
 
             mvp                            : "com.hannesdorfmann.mosby:mvp:${mvpVersion}",
-            fragmentargs                   : "com.hannesdorfmann.fragmentargs:annotation:${fragmentargsVersion}",
+            autoBundle                     : "com.github.yatatsu:autobundle:${autoBundleVersion}",
 
             javaxAnnotation                : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
             dagger                         : "com.google.dagger:dagger:${daggerVersion}",
@@ -112,9 +112,9 @@ ext {
             storIOSQLiteAnnotation         : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
             storIOSQLiteAnnotationProcessor: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
             autoParcelProcessor            : "com.github.frankiesardo:auto-parcel-processor:${autoParcelVersion}",
+            rxPreferences                  : "com.f2prateek.rx.preferences:rx-preferences:1.0.1",
 
             retrolambda                    : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
-            fabricCrashlytics              : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
     ]
 
     modelTestDependencies = [
@@ -123,6 +123,8 @@ ext {
             jsonAssert             : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
             androidJUnitRunner     : "com.android.support.test:runner:${testSupportLibVersion}",
             multidexInstrumentation: "com.android.support:multidex-instrumentation:${multiDexVersion}",
+            dexmaker               : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito        : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
     ]
 
     appDependencies = [
@@ -131,7 +133,7 @@ ext {
             supportAnnotation        : "com.android.support:support-annotations:${androidSupportSdkVersion}",
             recyclerViewV7           : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
             cardViewV7               : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
-            fragmentargsApt          : "com.hannesdorfmann.fragmentargs:processor:${fragmentargsVersion}",
+            autoBundleApt            : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
             daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger                   : "com.google.dagger:dagger:${daggerVersion}",
             butterKnife              : "com.jakewharton:butterknife:${butterKnifeVersion}",
@@ -142,15 +144,27 @@ ext {
             once                     : "com.jonathanfinerty.once:once:${onceVersion}",
 
             fresco                   : "com.facebook.fresco:fresco:${frescoVersion}",
+            glide                    : "com.github.bumptech.glide:glide:${glideVersion}",
             iconifyMD                : "com.joanzapata.iconify:android-iconify-material:${iconifyVersion}",
             mugen                    : "com.vinaysshenoy:mugen:${mugenVersion}",
+            flexLayout               : "com.github.mmin18:flexlayout:1.2.1",
+            SSIV                     : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
+            slidr                    : "com.r0adkll:slidableactivity:2.0.5",
+            recyclerViewPager        : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
+            statusBarUtil            : "com.jaeger.statusbaruitl:library:1.0.0",
 
             rxBinding                : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxBindingAppCompatV7     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}",
             rxLifeCycle              : "com.trello:rxlifecycle:${rxLifeCycleVersion}",
             rxLifeCycleComponent     : "com.trello:rxlifecycle-components:${rxLifeCycleVersion}",
 
+            fabricCrashlytics        : "com.crashlytics.sdk.android:crashlytics:${fabricCrashlyticsVersion}@aar",
             fabricAnswer             : "com.crashlytics.sdk.android:answers:${fabricAnswerVersion}@aar",
+            bugTags                  : "com.bugtags.library:bugtags-lib:1.2.3",
+            gitSha                   : "com.github.promeg:android-git-sha-lib:1.0.0",
+            strictmodeNotifier       : "com.nshmura:strictmode-notifier:0.9.0",
+            blockCanary              : "com.github.moduth:blockcanary-ui:1.2.0",
+            anrWatchDog              : "com.github.anrwatchdog:anrwatchdog:1.2.0",
 
             stetho                   : "com.facebook.stetho:stetho:${stethoVersion}",
             retrolambda              : "net.orfjackal.retrolambda:retrolambda:${retrolambdaVersion}",
@@ -161,7 +175,7 @@ ext {
     appTestDependencies = [
             junit                : "junit:junit:${jUnitVersion}",
             hamcrestLibrary      : "org.hamcrest:hamcrest-library:${hamcrestVersion}",
-            mockito              : "org.mockito:mockito-core:${mockitoDexmakerVersion}",
+            mockito              : "org.mockito:mockito-core:${mockitoVersion}",
             dexmaker             : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
             dexmakerMockito      : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
             espresso             : "com.android.support.test.espresso:espresso-core:${espressoVersion}",

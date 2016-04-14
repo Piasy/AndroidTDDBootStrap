@@ -26,25 +26,25 @@ package com.github.piasy.app.features.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.crashlytics.android.Crashlytics;
+import com.bugtags.library.Bugtags;
+import com.bugtags.library.BugtagsOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.piasy.app.BootstrapApp;
 import com.github.piasy.app.BuildConfig;
+import com.github.piasy.app.BootstrapActivity;
 import com.github.piasy.app.R;
+import com.github.piasy.app.analytics.CrashReportingTree;
 import com.github.piasy.app.features.search.SearchActivity;
 import com.github.piasy.app.features.splash.di.SplashComponent;
-import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.base.di.HasComponent;
 import com.github.piasy.base.utils.RxUtil;
-import com.github.piasy.model.errors.CrashReportingTree;
+import com.github.promeg.androidgitsha.lib.GitShaUtils;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
-import com.squareup.leakcanary.LeakCanary;
-import io.fabric.sdk.android.Fabric;
 import jonathanfinerty.once.Once;
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -60,7 +60,7 @@ import timber.log.Timber;
         "PMD.CyclomaticComplexity", "PMD.StdCyclomaticComplexity",
         "PMD.ModifiedCyclomaticComplexity"
 })
-public class SplashActivity extends BaseActivity implements HasComponent<SplashComponent> {
+public class SplashActivity extends BootstrapActivity implements HasComponent<SplashComponent> {
 
     private static final String TAG = "SplashActivity";
 
@@ -82,30 +82,29 @@ public class SplashActivity extends BaseActivity implements HasComponent<SplashC
     }
 
     private void initialize() {
-        Observable.create(new Observable.OnSubscribe<Boolean>() {
+        Observable.defer(new Func0<Observable<Boolean>>() {
             @Override
-            public void call(final Subscriber<? super Boolean> subscriber) {
+            public Observable<Boolean> call() {
                 final BootstrapApp app = BootstrapApp.get();
-                if (BuildConfig.REPORT_CRASH) {
-                    Fabric.with(app, new Crashlytics());
-                    //Crashlytics.setString();
-                }
-                if ("debug".equals(BuildConfig.BUILD_TYPE)) {
-                    Timber.plant(new Timber.DebugTree());
-                } else {
+                if ("release".equals(BuildConfig.BUILD_TYPE)) {
                     Timber.plant(new CrashReportingTree());
+                    BugtagsOptions options = new BugtagsOptions.Builder().trackingLocation(false)
+                            .trackingCrashLog(true)
+                            .trackingConsoleLog(true)
+                            .trackingUserSteps(true)
+                            .build();
+                    Bugtags.start("82cdb5f7f8925829ccc4a6e7d5d12216", app,
+                            Bugtags.BTGInvocationEventShake, options);
+                    Bugtags.setUserData("git_sha", GitShaUtils.getGitSha(app));
+                } else {
+                    Timber.plant(new Timber.DebugTree());
                 }
 
                 Iconify.with(new MaterialModule());
                 Once.initialise(app);
                 Fresco.initialize(app);
 
-                // Developer tools
-                if (BuildConfig.INSTALL_LEAK_CANARY) {
-                    LeakCanary.install(app);
-                }
-                subscriber.onNext(true);
-                subscriber.onCompleted();
+                return Observable.just(true);
             }
         }).subscribeOn(Schedulers.io()).subscribe(new Action1<Boolean>() {
             @Override

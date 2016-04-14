@@ -24,6 +24,7 @@
 
 package com.github.piasy.model.users.dao;
 
+import com.github.piasy.base.di.ActivityScope;
 import com.github.piasy.model.users.GithubUser;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.operations.delete.DeleteResult;
@@ -38,6 +39,7 @@ import rx.schedulers.Schedulers;
  *
  * Implementation of {@link DbUserDelegate}.
  */
+@ActivityScope
 public final class DbUserDelegateImpl implements DbUserDelegate {
     private final StorIOSQLite mStorIOSQLite;
 

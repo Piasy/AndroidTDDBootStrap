@@ -31,6 +31,8 @@ apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
+apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'android-git-sha'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -63,8 +65,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "com.github.piasy.app.CustomTestRunner"
 
-        buildConfigField "boolean", "REPORT_CRASH", "true"
-        buildConfigField "boolean", "INSTALL_LEAK_CANARY", "false"
+        buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
     }
 
     compileOptions {
@@ -117,25 +118,17 @@ android {
             shrinkResources true
             signingConfig signingConfigs.develop
             //signingConfig signingConfigs.production
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
-                    'proguard-fresco.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    productFlavors.whenObjectAdded { flavor ->
-        def flavorData = rootProject.ext[flavor.name]
     }
 
     productFlavors {
-        develop {
-            buildConfigField "boolean", "REPORT_CRASH", "false"
-            buildConfigField "boolean", "INSTALL_LEAK_CANARY", "true"
-            // this maybe different with product flavor for real app dev
-            buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+        dev {
+            // inherit from default config
         }
 
-        product {
-            buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+        prod {
+            // inherit from default config
         }
     }
 
@@ -161,6 +154,17 @@ unMock {
     keep "android.text.TextUtils"
 }
 
+bugtags {
+    appKey "82cdb5f7f8925829ccc4a6e7d5d12216"
+    appSecret BUG_TAGS_API_SECRET
+}
+
+gitSha {
+    buildTypeMatcher = 'release'
+    flavorMatcher = '.*'
+    abortIfGitDirty = true
+}
+
 dependencies {
     def appDependencies = rootProject.ext.appDependencies
     def appTestDependencies = rootProject.ext.appTestDependencies
@@ -175,16 +179,26 @@ dependencies {
     compile (appDependencies.once) {
         exclude module: 'support-annotations'
     }
+    compile(appDependencies.statusBarUtil) {
+        exclude module: 'appcompat-v7'
+    }
+
     compile appDependencies.stetho
     compile appDependencies.leakCanary
+    compile appDependencies.strictmodeNotifier
+    compile appDependencies.anrWatchDog
+
     apt appDependencies.daggerCompiler
-    apt appDependencies.fragmentargsApt
+    apt appDependencies.autoBundleApt
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
 
     compile(appDependencies.fabricAnswer) {
         transitive = true;
     }
+
+    compile appDependencies.bugTags
+    compile appDependencies.gitSha
 
     androidTestCompile project(':testbase')
     androidTestCompile (appTestDependencies.androidJUnitRunner) {

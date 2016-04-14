@@ -33,7 +33,7 @@ import rx.Observable;
  *
  * Definition of Github API.
  */
-public interface GithubUserAPI {
+public interface GithubUserApi {
 
     String GITHUB_API_PARAMS_SEARCH_SORT_REPO = "repositories";
     String GITHUB_API_PARAMS_SEARCH_SORT_JOINED = "joined";

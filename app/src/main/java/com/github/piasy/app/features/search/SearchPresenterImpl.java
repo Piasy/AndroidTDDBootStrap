@@ -27,6 +27,7 @@ package com.github.piasy.app.features.search;
 import android.text.TextUtils;
 import com.github.piasy.app.features.search.mvp.SearchPresenter;
 import com.github.piasy.app.features.search.mvp.SearchUserView;
+import com.github.piasy.base.di.ActivityScope;
 import com.github.piasy.base.mvp.NullObjRxBasePresenter;
 import com.github.piasy.model.errors.RxNetErrorProcessor;
 import com.github.piasy.model.users.GithubUser;
@@ -41,6 +42,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
+@ActivityScope
 public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
         implements SearchPresenter {
     private final GithubUserDao mGithubUserDao;

@@ -26,12 +26,12 @@ package com.github.piasy.app.features.search;
 
 import android.os.Bundle;
 import com.github.piasy.app.BootstrapApp;
+import com.github.piasy.app.BootstrapActivity;
 import com.github.piasy.app.features.search.di.SearchComponent;
 import com.github.piasy.app.features.search.di.SearchModule;
-import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.base.di.HasComponent;
 
-public class SearchActivity extends BaseActivity implements HasComponent<SearchComponent> {
+public class SearchActivity extends BootstrapActivity implements HasComponent<SearchComponent> {
 
     private SearchComponent mSearchComponent;
 

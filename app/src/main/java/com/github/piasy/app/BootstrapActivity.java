@@ -22,34 +22,42 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.model.errors;
+package com.github.piasy.app;
 
-import android.text.TextUtils;
-import com.crashlytics.android.Crashlytics;
-import timber.log.Timber;
+import android.view.MotionEvent;
+import com.bugtags.library.Bugtags;
+import com.github.piasy.base.android.BaseActivity;
+import com.github.piasy.app.features.splash.SplashActivity;
 
 /**
- * Created by guyacong on 2015/4/11.
+ * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public class CrashReportingTree extends Timber.Tree {
-
+public abstract class BootstrapActivity extends BaseActivity {
     @Override
-    public void e(final String message, final Object... args) {
-        if (!TextUtils.isEmpty(message)) {
-            Crashlytics.log(message);
+    protected void onResume() {
+        super.onResume();
+        if (isTrack()) {
+            Bugtags.onResume(this);
         }
     }
 
     @Override
-    public void e(final Throwable t, final String message, final Object... args) {
-        if (t != null) {
-            Crashlytics.logException(t);
+    protected void onPause() {
+        super.onPause();
+        if (isTrack()) {
+            Bugtags.onPause(this);
         }
     }
 
     @Override
-    protected void log(final int priority, final String tag, final String message,
-            final Throwable t) {
-        // do nothing
+    public boolean dispatchTouchEvent(final MotionEvent ev) {
+        if (isTrack()) {
+            Bugtags.onDispatchTouchEvent(this, ev);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isTrack() {
+        return "release".equals(BuildConfig.BUILD_TYPE) && !(this instanceof SplashActivity);
     }
 }

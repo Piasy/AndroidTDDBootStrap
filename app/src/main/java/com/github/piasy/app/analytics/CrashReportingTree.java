@@ -22,23 +22,28 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.app.features.splash;
+package com.github.piasy.app.analytics;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import java.util.concurrent.Executor;
+import android.text.TextUtils;
+import android.util.Log;
+import com.bugtags.library.Bugtags;
+import timber.log.Timber;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/10/1.
- *
- * Execute command in UI thread.
+ * Created by guyacong on 2015/4/11.
  */
-public class UiThreadExecutor implements Executor {
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
+public class CrashReportingTree extends Timber.Tree {
 
     @Override
-    public void execute(@NonNull final Runnable command) {
-        mHandler.post(command);
+    protected void log(final int priority, final String tag, final String message,
+            final Throwable t) {
+        if (priority == Log.ERROR) {
+            if (t != null) {
+                Bugtags.sendException(t);
+            }
+            if (!TextUtils.isEmpty(message)) {
+                Bugtags.log(tag + " >>> " + message);
+            }
+        }
     }
 }

@@ -1,6 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'buildsystem/dependencies.gradle'
-apply from: 'buildsystem/variants.gradle'
 
 buildscript {
     repositories {
@@ -24,6 +23,8 @@ buildscript {
         classpath "com.github.piasy:okbuck-gradle-plugin:1.0.0-beta8"
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
+        classpath 'com.bugtags.library:bugtags-gradle:1.2.2'
+        classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
     }
 }
 
@@ -42,26 +43,7 @@ allprojects {
 }
 
 apply from: 'AndroidCodeQualityConfig/jacoco.gradle'
-
-apply plugin: 'com.github.piasy.okbuck-gradle-plugin'
-okbuck {
-    target "android-23"
-    overwrite true
-    resPackages = [
-            'base'    : 'com.github.piasy.base',
-            'model'   : 'com.github.piasy.model',
-            'app'     : 'com.github.piasy.app',
-            'testbase': 'com.github.piasy.base.test',
-    ]
-    linearAllocHardLimit = [
-            app: 7194304
-    ]
-    primaryDexPatterns = [
-            app: [
-                    '^com/github/piasy/app/BootstrapApp^',
-            ]
-    ]
-}
+apply from: 'buildsystem/okbuck.gradle'
 
 apply plugin: "build-time-tracker"
 buildtimetracker {
