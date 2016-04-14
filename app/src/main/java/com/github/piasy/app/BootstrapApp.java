@@ -76,14 +76,14 @@ public class BootstrapApp extends Application implements IApplication {
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    StrictMode.ThreadPolicy threadPolicy =
+                    final StrictMode.ThreadPolicy threadPolicy =
                             new StrictMode.ThreadPolicy.Builder().detectAll()
                                     .permitDiskReads()
                                     .permitDiskWrites().penaltyLog() // Must!
                                     .build();
                     StrictMode.setThreadPolicy(threadPolicy);
 
-                    StrictMode.VmPolicy vmPolicy =
+                    final StrictMode.VmPolicy vmPolicy =
                             new StrictMode.VmPolicy.Builder().detectAll().penaltyLog() // Must!
                                     .build();
                     StrictMode.setVmPolicy(vmPolicy);

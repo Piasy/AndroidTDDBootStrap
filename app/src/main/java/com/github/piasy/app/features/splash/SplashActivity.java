@@ -29,9 +29,9 @@ import android.os.Bundle;
 import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.github.piasy.app.BootstrapActivity;
 import com.github.piasy.app.BootstrapApp;
 import com.github.piasy.app.BuildConfig;
-import com.github.piasy.app.BootstrapActivity;
 import com.github.piasy.app.R;
 import com.github.piasy.app.analytics.CrashReportingTree;
 import com.github.piasy.app.features.search.SearchActivity;
@@ -62,8 +62,6 @@ import timber.log.Timber;
 })
 public class SplashActivity extends BootstrapActivity implements HasComponent<SplashComponent> {
 
-    private static final String TAG = "SplashActivity";
-
     private SplashComponent mSplashComponent;
 
     @Override
@@ -88,11 +86,12 @@ public class SplashActivity extends BootstrapActivity implements HasComponent<Sp
                 final BootstrapApp app = BootstrapApp.get();
                 if ("release".equals(BuildConfig.BUILD_TYPE)) {
                     Timber.plant(new CrashReportingTree());
-                    BugtagsOptions options = new BugtagsOptions.Builder().trackingLocation(false)
-                            .trackingCrashLog(true)
-                            .trackingConsoleLog(true)
-                            .trackingUserSteps(true)
-                            .build();
+                    final BugtagsOptions options =
+                            new BugtagsOptions.Builder().trackingLocation(false)
+                                    .trackingCrashLog(true)
+                                    .trackingConsoleLog(true)
+                                    .trackingUserSteps(true)
+                                    .build();
                     Bugtags.start("82cdb5f7f8925829ccc4a6e7d5d12216", app,
                             Bugtags.BTGInvocationEventShake, options);
                     Bugtags.setUserData("git_sha", GitShaUtils.getGitSha(app));
