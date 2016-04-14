@@ -1,1 +1,3 @@
 /build
+.bugtags.log
+gradle.properties
