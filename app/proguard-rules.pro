@@ -15,6 +15,19 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# base option from *App Dev Note*
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
+-dontpreverify
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-keepattributes SourceFile,LineNumberTable
+
+-keepclasseswithmembernames class * {
+  native <methods>;
+}
+
 
 # app compat-v7
 -keep class android.support.v7.widget.SearchView { *; }
