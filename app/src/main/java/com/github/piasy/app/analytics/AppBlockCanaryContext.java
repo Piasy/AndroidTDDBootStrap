@@ -22,33 +22,38 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.app;
+package com.github.piasy.app.analytics;
 
-import android.app.Application;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.multidex.MultiDex;
-import android.support.test.runner.AndroidJUnitRunner;
-import io.appflate.restmock.RESTMockServerStarter;
-import io.appflate.restmock.android.AndroidAssetsFileParser;
-import io.appflate.restmock.android.AndroidLogger;
+import android.os.Environment;
+import com.github.moduth.blockcanary.BlockCanaryContext;
+import com.github.piasy.app.BuildConfig;
+import java.io.File;
 
 /**
- * Created by Piasy{github.com/Piasy} on 3/7/16.
+ * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public class CustomTestRunner extends AndroidJUnitRunner {
+public class AppBlockCanaryContext extends BlockCanaryContext {
+
+    public static final int THRESHOLD = 500;
+
     @Override
-    public Application newApplication(final ClassLoader cl, final String className,
-            final Context context)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return super.newApplication(cl, MockBootstrapApp.class.getName(), context);
+    public int getConfigBlockThreshold() {
+        return THRESHOLD;
     }
 
     @Override
-    public void onCreate(final Bundle arguments) {
-        MultiDex.install(this.getTargetContext());
-        super.onCreate(arguments);
-        RESTMockServerStarter.startSync(new AndroidAssetsFileParser(getContext()),
-                new AndroidLogger());
+    public boolean isNeedDisplay() {
+        return "debug".equals(BuildConfig.BUILD_TYPE);
+    }
+
+    @Override
+    public String getLogPath() {
+        final File dir = new File(
+                Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+                        BuildConfig.APPLICATION_ID + File.separator + "performance");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir.getAbsolutePath();
     }
 }

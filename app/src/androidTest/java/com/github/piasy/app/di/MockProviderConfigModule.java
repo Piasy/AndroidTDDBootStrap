@@ -25,7 +25,7 @@
 package com.github.piasy.app.di;
 
 import com.github.piasy.base.model.provider.RetrofitProvider;
-import com.github.piasy.base.test.BaseEspressoTest;
+import io.appflate.restmock.RESTMockServer;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/7/16.
@@ -35,7 +35,7 @@ public class MockProviderConfigModule extends ProviderConfigModule {
     @Override
     RetrofitProvider.Config provideRestConfig() {
         return RetrofitProvider.Config.builder()
-                .baseUrl("http://localhost:" + BaseEspressoTest.MOCK_WEB_SERVER_PORT + "/")
+                .baseUrl(RESTMockServer.getUrl())
                 .build();
     }
 }

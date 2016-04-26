@@ -31,6 +31,8 @@ import android.support.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.anrwatchdog.ANRWatchDog;
+import com.github.moduth.blockcanary.BlockCanary;
+import com.github.piasy.app.analytics.AppBlockCanaryContext;
 import com.github.piasy.app.di.AppComponent;
 import com.github.piasy.app.di.AppModule;
 import com.github.piasy.app.di.DaggerAppComponent;
@@ -91,6 +93,7 @@ public class BootstrapApp extends Application implements IApplication {
             });
 
             new ANRWatchDog().start();
+            BlockCanary.install(this, new AppBlockCanaryContext()).start();
         }
 
 

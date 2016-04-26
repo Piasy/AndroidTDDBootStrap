@@ -45,10 +45,8 @@ import com.github.piasy.model.users.GithubUserSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.joanzapata.iconify.widget.IconTextView;
+import io.appflate.restmock.RESTMockServer;
 import java.io.IOException;
-import okhttp3.mockwebserver.Dispatcher;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,6 +62,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.github.piasy.app.espresso.contrib.ToolbarMatchers.onSupportToolbar;
 import static com.github.piasy.app.espresso.contrib.ToolbarMatchers.withSupportToolbarTitle;
+import static io.appflate.restmock.utils.RequestMatchers.pathStartsWith;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -74,7 +73,6 @@ import static org.junit.Assert.assertTrue;
  * Created by Piasy{github.com/Piasy} on 3/8/16.
  */
 @RunWith(AndroidJUnit4.class)
-@SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
 public class SearchActivityTest extends BaseEspressoTest {
     @Rule
     public ActivityTestRule<SearchActivity> mActivityTestRule =
@@ -88,23 +86,8 @@ public class SearchActivityTest extends BaseEspressoTest {
         final Gson gson = MockBootstrapApp.get().mGson;
         mSingleResult = gson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
                 new TypeToken<GithubUserSearchResult>() {}.getType());
-    }
-
-    @Override
-    protected Dispatcher createDispatcher() {
-        return new Dispatcher() {
-            @Override
-            public MockResponse dispatch(final RecordedRequest request)
-                    throws InterruptedException {
-                final String path = request.getPath();
-                if (path.startsWith("/search/users?")) {
-                    return new MockResponse().setBody(
-                            MockProvider.provideSimplifiedGithubUserSearchResultStr());
-                } else {
-                    return new MockResponse();
-                }
-            }
-        };
+        RESTMockServer.whenGET(pathStartsWith("/search/users?"))
+                .thenReturnString(200, MockProvider.provideSimplifiedGithubUserSearchResultStr());
     }
 
     @Test
