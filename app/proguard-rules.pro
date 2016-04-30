@@ -15,6 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
 # base option from *App Dev Note*
 -optimizationpasses 5
 -dontusemixedcaseclassnames
@@ -24,25 +25,17 @@
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 -keepattributes SourceFile,LineNumberTable
 
--keepclasseswithmembernames class * {
-  native <methods>;
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
 }
 
 
 # app compat-v7
 -keep class android.support.v7.widget.SearchView { *; }
-
-
-# ButterKnife 7
--keep class butterknife.** { *; }
--keep class **$$ViewBinder { *; }
--dontwarn butterknife.internal.**
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
 
 
 # FragmentArgs
@@ -57,7 +50,6 @@
 # retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
--keepattributes Signature
 -keepattributes Exceptions
 
 
@@ -73,15 +65,6 @@
 -keep class **$$StaticInjection
 -keep class dagger.** { *; }
 -dontwarn dagger.internal.codegen.**
-
-
-# eventbus
--keepclassmembers, includedescriptorclasses class ** {
-    public void onEvent*(**);
-}
--keepclassmembers, includedescriptorclasses class ** {
-    public void onEventMainThread*(**);
-}
 
 
 # xlog
@@ -132,10 +115,6 @@
     @com.facebook.common.internal.DoNotStrip *;
 }
 
-# Keep native methods
--keepclassmembers class * {
-    native <methods>;
-}
 
 -dontwarn okio.**
 -dontwarn javax.annotation.**
@@ -158,11 +137,3 @@
 -keepclasseswithmembernames class * {
     @com.yatatsu.autobundle.AutoBundleField <fields>;
 }
-
-
-# AutoParcel
-# http://stackoverflow.com/a/23365501/3077508
--keepclassmembers class **AutoParcel_** {
-    private <fields>;
-}
--keep class **AutoParcel_**$* { *; }

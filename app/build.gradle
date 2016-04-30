@@ -161,61 +161,67 @@ bugtags {
 gitSha {
     buildTypeMatcher = 'release'
     flavorMatcher = '.*'
-    abortIfGitDirty = true
+    abortIfGitDirty = false
 }
 
 dependencies {
     def appDependencies = rootProject.ext.appDependencies
-    def appTestDependencies = rootProject.ext.appTestDependencies
+    def aptDependencies = rootProject.ext.aptDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    compile appDependencies.recyclerViewV7
+    compile appDependencies.cardViewV7
 
     compile project(':model')
+
+    compile appDependencies.rxJavaProGuardRules
+
+    compile(appDependencies.once) {
+        exclude module: 'support-annotations'
+    }
+
     compile(appDependencies.fresco) {
         exclude module: 'support-v4'
     }
     compile(appDependencies.iconifyMD) {
         exclude module: 'support-v4'
     }
-    compile(appDependencies.once) {
-        exclude module: 'support-annotations'
-    }
     compile(appDependencies.statusBarUtil) {
         exclude module: 'appcompat-v7'
     }
 
-    compile appDependencies.stetho
-    compile appDependencies.leakCanary
-    compile appDependencies.strictmodeNotifier
-    compile appDependencies.anrWatchDog
-    compile appDependencies.blockCanary
-
-    apt appDependencies.daggerCompiler
-    apt appDependencies.autoBundleApt
-    apt appDependencies.butterKnifeCompiler
-    compile appDependencies.recyclerViewV7
-    compile appDependencies.cardViewV7
-
     compile(appDependencies.bugTags) {
         exclude module: 'support-v4'
     }
+
     compile appDependencies.gitSha
+    compile appDependencies.stetho
+    compile appDependencies.strictmodeNotifier
+    compile appDependencies.anrWatchDog
+    compile appDependencies.blockCanary
+    compile appDependencies.leakCanary
+
+    apt aptDependencies.daggerApt
+    apt aptDependencies.autoBundleApt
+    apt aptDependencies.butterKnifeApt
 
     androidTestCompile project(':testbase')
-    androidTestCompile(appTestDependencies.androidJUnitRunner) {
+    androidTestCompile(testDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }
-    androidTestCompile(appTestDependencies.mockito) {
+    androidTestCompile(testDependencies.mockito) {
         exclude module: 'hamcrest-core'
     }
-    androidTestCompile appTestDependencies.dexmaker
-    androidTestCompile(appTestDependencies.dexmakerMockito) {
+    androidTestCompile testDependencies.dexmaker
+    androidTestCompile(testDependencies.dexmakerMockito) {
         exclude module: 'hamcrest-core'
         exclude module: 'mockito-core'
     }
-    androidTestCompile(appTestDependencies.androidJUnit4Rules) {
+    androidTestCompile(testDependencies.androidJUnit4Rules) {
         exclude module: 'support-annotations'
         exclude module: 'hamcrest-core'
     }
-    androidTestApt(appDependencies.daggerCompiler) {
+    androidTestApt(aptDependencies.daggerApt) {
         exclude module: 'dagger'
     }
 }

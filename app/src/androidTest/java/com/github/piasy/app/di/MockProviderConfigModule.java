@@ -34,8 +34,6 @@ public class MockProviderConfigModule extends ProviderConfigModule {
 
     @Override
     RetrofitProvider.Config provideRestConfig() {
-        return RetrofitProvider.Config.builder()
-                .baseUrl(RESTMockServer.getUrl())
-                .build();
+        return RetrofitProvider.Config.builder().baseUrl(RESTMockServer.getUrl()).build();
     }
 }

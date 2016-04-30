@@ -27,8 +27,8 @@ package com.github.piasy.model.users;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import auto.parcel.AutoParcel;
-import com.github.piasy.base.model.gson.AutoGson;
+import com.google.auto.value.AutoValue;
+import com.ryanharter.auto.value.gson.annotations.AutoGson;
 import org.threeten.bp.ZonedDateTime;
 
 /**
@@ -37,8 +37,8 @@ import org.threeten.bp.ZonedDateTime;
  * Github User representation, immutable.
  */
 @SuppressWarnings("PMD.TooManyMethods")
-@AutoParcel
-@AutoGson(autoClass = AutoParcel_GithubUser.class)
+@AutoValue
+@AutoGson(AutoValue_GithubUser.GsonTypeAdapter.class)
 public abstract class GithubUser implements Parcelable {
 
     public static final String GITHUB_USER_TYPE_USER = "User";
@@ -54,7 +54,7 @@ public abstract class GithubUser implements Parcelable {
      */
     @NonNull
     public static Builder builder() {
-        return new AutoParcel_GithubUser.Builder();
+        return new AutoValue_GithubUser.Builder();
     }
 
     /**
@@ -94,7 +94,7 @@ public abstract class GithubUser implements Parcelable {
     /**
      * The builder class to build {@link GithubUser} instance.
      */
-    @AutoParcel.Builder
+    @AutoValue.Builder
     public abstract static class Builder {
 
         /**

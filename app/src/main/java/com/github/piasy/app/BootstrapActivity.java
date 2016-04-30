@@ -26,8 +26,8 @@ package com.github.piasy.app;
 
 import android.view.MotionEvent;
 import com.bugtags.library.Bugtags;
-import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.app.features.splash.SplashActivity;
+import com.github.piasy.base.android.BaseActivity;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.

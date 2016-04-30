@@ -81,7 +81,8 @@ public class BootstrapApp extends Application implements IApplication {
                     final StrictMode.ThreadPolicy threadPolicy =
                             new StrictMode.ThreadPolicy.Builder().detectAll()
                                     .permitDiskReads()
-                                    .permitDiskWrites().penaltyLog() // Must!
+                                    .permitDiskWrites()
+                                    .penaltyLog() // Must!
                                     .build();
                     StrictMode.setThreadPolicy(threadPolicy);
 
@@ -95,7 +96,6 @@ public class BootstrapApp extends Application implements IApplication {
             new ANRWatchDog().start();
             BlockCanary.install(this, new AppBlockCanaryContext()).start();
         }
-
 
         mAppComponent = createComponent();
     }

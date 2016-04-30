@@ -47,8 +47,8 @@ public class UsersModule {
 
     @ActivityScope
     @Provides
-    GithubUserApi provideGithubAPI(final Retrofit retrofit) {
-        return retrofit.create(GithubUserApi.class);
+    GithubApi provideGithubAPI(final Retrofit retrofit) {
+        return retrofit.create(GithubApi.class);
     }
 
     @ActivityScope

@@ -2,8 +2,8 @@ package com.github.piasy.model.users;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import auto.parcel.AutoParcel;
-import com.github.piasy.base.model.gson.AutoGson;
+import com.google.auto.value.AutoValue;
+import com.ryanharter.auto.value.gson.annotations.AutoGson;
 import java.util.List;
 
 /**
@@ -11,8 +11,8 @@ import java.util.List;
  *
  * Github user search result presentation, immutable object.
  */
-@AutoParcel
-@AutoGson(autoClass = AutoParcel_GithubUserSearchResult.class)
+@AutoValue
+@AutoGson(AutoValue_GithubUserSearchResult.GsonTypeAdapter.class)
 public abstract class GithubUserSearchResult implements Parcelable {
 
     /**

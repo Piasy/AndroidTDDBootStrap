@@ -25,8 +25,8 @@
 package com.github.piasy.app.features.search;
 
 import android.os.Bundle;
-import com.github.piasy.app.BootstrapApp;
 import com.github.piasy.app.BootstrapActivity;
+import com.github.piasy.app.BootstrapApp;
 import com.github.piasy.app.features.search.di.SearchComponent;
 import com.github.piasy.app.features.search.di.SearchModule;
 import com.github.piasy.base.di.HasComponent;
