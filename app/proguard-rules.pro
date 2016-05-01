@@ -23,14 +23,11 @@
 -dontskipnonpubliclibraryclassmembers
 -dontpreverify
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
--keepattributes SourceFile,LineNumberTable
+-keepattributes LineNumberTable,SourceFile,Signature,*Annotation*,Exceptions
 
 # Keep native methods
 -keepclassmembers class * {
     native <methods>;
-}
--keepclassmembers class * implements android.os.Parcelable {
-    static ** CREATOR;
 }
 
 
@@ -43,14 +40,12 @@
 
 
 # Gson
--keepattributes Signature
--keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
 
 
 # retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
--keepattributes Exceptions
 
 
 # dagger
@@ -121,8 +116,6 @@
 
 
 # BugTags
--keepattributes LineNumberTable,SourceFile
-
 -keep class com.bugtags.library.** {*;}
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.AndroidHttpClient
@@ -136,4 +129,17 @@
 # AutoBundle
 -keepclasseswithmembernames class * {
     @com.yatatsu.autobundle.AutoBundleField <fields>;
+}
+
+
+# AutoGson
+-keepclassmembers class **$AutoValue_*$GsonTypeAdapter {
+    void <init>(com.google.gson.Gson);
+}
+
+
+# AutoParcel
+-keep class **AutoValue_*$1 { }
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
 }

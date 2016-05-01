@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.ButterKnife;
 import com.github.piasy.app.R;
+import com.github.piasy.app.features.profile.ProfileActivityAutoBundle;
 import com.github.piasy.app.features.search.di.SearchComponent;
 import com.github.piasy.app.features.search.mvp.SearchPresenter;
 import com.github.piasy.app.features.search.mvp.SearchUserView;
@@ -87,7 +88,8 @@ public class SearchFragment
         mAdapter = new SearchUserResultAdapter(mResources, new SearchUserResultAdapter.Action() {
             @Override
             public void userDetail(final GithubUser user) {
-                mToastUtil.makeToast("Clicked: " + user.login());
+                startActivitySafely(
+                        ProfileActivityAutoBundle.createIntentBuilder(user).build(getContext()));
             }
         });
         rvSearchResult.setLayoutManager(
