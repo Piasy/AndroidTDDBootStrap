@@ -1,6 +1,6 @@
 ext {
     // Android
-    androidBuildToolsVersion = '23.0.3'
+    androidBuildToolsVersion = '23.0.1'
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
@@ -90,7 +90,7 @@ ext {
             recyclerViewPager   : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
             statusBarUtil       : "com.jaeger.statusbaruitl:library:1.0.0",
 
-            bugTags             : "com.bugtags.library:bugtags-lib:1.2.4",
+            bugTags             : "com.bugtags.library:bugtags-lib:1.2.5",
 
             gitSha              : "com.github.promeg:android-git-sha-lib:1.0.0",
             stetho              : "com.facebook.stetho:stetho:${stethoVersion}",
