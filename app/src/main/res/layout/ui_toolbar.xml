@@ -22,8 +22,9 @@
   ~ SOFTWARE.
   -->
 
-<android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
                                    android:layout_width="match_parent"
                                    android:layout_height="wrap_content"
                                    android:id="@+id/mToolBar"
@@ -33,4 +34,5 @@
                                    android:foregroundGravity="center_vertical"
                                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                                   tools:ignore="Overdraw"
         />
