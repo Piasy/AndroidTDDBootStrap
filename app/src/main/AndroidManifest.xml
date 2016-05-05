@@ -22,7 +22,8 @@
   ~ SOFTWARE.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.github.piasy.app"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.github.piasy.gh"
         >
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -30,10 +31,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
-            android:name=".BootstrapApp"
+            android:name="com.github.piasy.gh.BootstrapApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
+            tools:replace="label"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             >
@@ -43,7 +45,7 @@
                 />
 
         <activity
-                android:name=".features.splash.SplashActivity"
+                android:name="com.github.piasy.gh.features.splash.SplashActivity"
                 android:theme="@style/AppTheme.Launcher"
                 >
             <intent-filter>
@@ -52,8 +54,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".features.search.SearchActivity"/>
-        <activity android:name=".features.profile.ProfileActivity"></activity>
+        <activity android:name="com.github.piasy.gh.features.search.SearchActivity"/>
+        <activity android:name="com.github.piasy.gh.features.profile.ProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@ ext {
 
     okHttpVersion = '3.2.0'
     retrofitVersion = '2.0.2'
-    storIOVersion = '1.8.0'
 
     autoGsonVersion = '0.2.5-og'
 
@@ -31,8 +30,7 @@ ext {
     jsonAssertVersion = '1.3.0'
 
     espressoVersion = '2.2.1'
-    testSupportLibVersion = '0.4.1'
-    restMockVersion = '0.0.4'
+    testSupportLibVersion = '0.5'
 
     baseDependencies = [
             androidSupportAppCompatV7: "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
@@ -54,8 +52,7 @@ ext {
             retrofit                 : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitGsonConverter    : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             retrofitRxJavaAdapter    : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
-            storIOSQLite             : "com.pushtorefresh.storio:sqlite:${storIOVersion}",
-            storIOSQLiteAnnotation   : "com.pushtorefresh.storio:sqlite-annotations:${storIOVersion}",
+            sqlBrite                 : 'com.squareup.sqlbrite:sqlbrite:0.6.3',
 
             autoGsonAnnotation       : "com.github.piasy:auto-value-gson-annotations:${autoGsonVersion}",
 
@@ -64,6 +61,7 @@ ext {
 
             timber                   : "com.jakewharton.timber:timber:4.1.2",
             okHttpLogging            : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            ok2Curl                  : 'com.github.mrmike:ok2curl:0.2.3',
             stethoOkhttp             : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
     ]
 
@@ -73,38 +71,36 @@ ext {
     ]
 
     appDependencies = [
-            recyclerViewV7      : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
-            cardViewV7          : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
+            recyclerViewV7     : "com.android.support:recyclerview-v7:${androidSupportSdkVersion}",
+            cardViewV7         : "com.android.support:cardview-v7:${androidSupportSdkVersion}",
 
-            rxJavaProGuardRules : "com.artemzin.rxjava:proguard-rules:1.1.3.0",
+            rxJavaProGuardRules: "com.artemzin.rxjava:proguard-rules:1.1.3.0",
 
-            once                : "com.jonathanfinerty.once:once:1.0.3",
+            once               : "com.jonathanfinerty.once:once:1.0.3",
 
-            fresco              : "com.facebook.fresco:fresco:0.10.0",
-            glide               : "com.github.bumptech.glide:glide:3.7.0",
-            iconifyMD           : "com.joanzapata.iconify:android-iconify-material:2.2.2",
-            mugen               : "com.vinaysshenoy:mugen:1.0.2",
-            flexLayout          : "com.github.mmin18:flexlayout:1.2.1",
-            SSIV                : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
-            slidr               : "com.r0adkll:slidableactivity:2.0.5",
-            recyclerViewPager   : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
-            statusBarUtil       : "com.jaeger.statusbaruitl:library:1.0.0",
+            fresco             : "com.facebook.fresco:fresco:0.10.0",
+            glide              : "com.github.bumptech.glide:glide:3.7.0",
+            iconifyMD          : "com.joanzapata.iconify:android-iconify-material:2.2.2",
+            mugen              : "com.vinaysshenoy:mugen:1.0.2",
+            flexLayout         : "com.github.mmin18:flexlayout:1.2.1",
+            SSIV               : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
+            slidr              : "com.r0adkll:slidableactivity:2.0.5",
+            recyclerViewPager  : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
+            statusBarUtil      : "com.jaeger.statusbaruitl:library:1.0.0",
 
-            bugTags             : "com.bugtags.library:bugtags-lib:1.2.5",
+            bugTags            : "com.bugtags.library:bugtags-lib:1.2.5",
 
-            gitSha              : "com.github.promeg:android-git-sha-lib:1.0.0",
-            stetho              : "com.facebook.stetho:stetho:${stethoVersion}",
-            strictmodeNotifier  : "com.nshmura:strictmode-notifier:0.9.0",
-            blockCanary         : "com.github.moduth:blockcanary-android:1.2.1",
-            anrWatchDog         : "com.github.anrwatchdog:anrwatchdog:1.2.0",
-            leakCanary          : "com.squareup.leakcanary:leakcanary-android:1.3.1",
+            gitSha             : "com.github.promeg:android-git-sha-lib:1.0.0",
+            stetho             : "com.facebook.stetho:stetho:${stethoVersion}",
+            strictmodeNotifier : "com.nshmura:strictmode-notifier:0.9.0",
+            blockCanary        : "com.github.moduth:blockcanary-android:1.2.1",
+            anrWatchDog        : "com.github.anrwatchdog:anrwatchdog:1.2.0",
+            leakCanary         : "com.squareup.leakcanary:leakcanary-android:1.3.1",
     ]
 
     aptDependencies = [
             daggerApt      : "com.google.dagger:dagger-compiler:${daggerVersion}",
             butterKnifeApt : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-
-            storIOSQLiteApt: "com.pushtorefresh.storio:sqlite-annotations-processor:${storIOVersion}",
 
             autoValue      : "com.google.auto.value:auto-value:1.2",
             autoParcelApt  : "com.ryanharter.auto.value:auto-value-parcel:0.2.1",
@@ -131,8 +127,7 @@ ext {
             hamcrestLibrary        : "org.hamcrest:hamcrest-library:1.3",
             jsonAssert             : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
 
-            restMockAndroid        : "com.github.andrzejchm.RESTMock:android:${restMockVersion}",
-            restMockCore           : "com.github.andrzejchm.RESTMock:core:${restMockVersion}",
+            restMockAndroid        : "com.github.andrzejchm.RESTMock:android:0.0.4",
     ]
 
     // jacoco config

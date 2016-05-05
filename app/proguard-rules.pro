@@ -23,11 +23,19 @@
 -dontskipnonpubliclibraryclassmembers
 -dontpreverify
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
--keepattributes LineNumberTable,SourceFile,Signature,*Annotation*,Exceptions
+-keepattributes LineNumberTable,SourceFile,Signature,*Annotation*,Exceptions,InnerClasses
 
 # Keep native methods
 -keepclassmembers class * {
     native <methods>;
+}
+
+# remove log call
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+}
+-assumenosideeffects class timber.log.Timber {
+    public static *** d(...);
 }
 
 
@@ -88,7 +96,8 @@
 
 # rx
 -keep class rx.internal.util.unsafe.** { *; }
--dontwarn sun.misc.**
+-dontwarn sun.misc.Unsafe
+-dontwarn java.lang.invoke.*
 
 
 # glide

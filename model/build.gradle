@@ -3,6 +3,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
+apply plugin: 'net.ltgt.errorprone'
+apply plugin: 'com.squareup.sqldelight'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
 def isTravis = "true".equals(System.getenv("TRAVIS"))
@@ -11,6 +13,11 @@ def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion rootProject.ext.androidMinSdkVersion
@@ -35,8 +42,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -74,7 +81,6 @@ dependencies {
     compile modelDependencies.multiDex
 
     apt aptDependencies.daggerApt
-    apt aptDependencies.storIOSQLiteApt
     provided aptDependencies.autoValue  // used for AndroidStudio sync
     apt aptDependencies.autoParcelApt
     apt aptDependencies.autoGsonApt

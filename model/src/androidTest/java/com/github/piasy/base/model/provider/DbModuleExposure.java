@@ -25,7 +25,7 @@
 package com.github.piasy.base.model.provider;
 
 import android.support.annotation.NonNull;
-import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.squareup.sqlbrite.BriteDatabase;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/19.
@@ -37,8 +37,7 @@ public final class DbModuleExposure {
         // no instance
     }
 
-    public static StorIOSQLite exposeStorIOSQLite(
-            @NonNull final StorIOSQLiteProvider.Config config) {
-        return StorIOSQLiteProvider.provideStorIOSQLite(config);
+    public static BriteDatabase exposeBriteDb(@NonNull final BriteDbProvider.Config config) {
+        return BriteDbProvider.provideBriteDb(config);
     }
 }

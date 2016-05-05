@@ -4,6 +4,7 @@ apply from: 'buildsystem/dependencies.gradle'
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         maven {
             // For fabric
             url 'https://maven.fabric.io/public'
@@ -20,11 +21,13 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.0'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath "com.github.piasy:okbuck-gradle-plugin:1.0.0-beta8"
+        classpath "com.github.piasy:okbuck-gradle-plugin:1.0.0-beta9"
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
         classpath 'com.bugtags.library:bugtags-gradle:1.2.2'
         classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.3.1'
     }
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
@@ -32,6 +35,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         maven {
             // For icepick
             url 'https://clojars.org/repo/'
@@ -43,6 +47,20 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven {
             url  "http://dl.bintray.com/piasy/maven"
+        }
+    }
+}
+
+subprojects {
+    afterEvaluate {
+        // Log instrumentation tests results.
+        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+            task.doFirst {
+                logging.level = LogLevel.INFO
+            }
+            task.doLast {
+                logging.level = LogLevel.LIFECYCLE
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
 apply plugin: 'com.bugtags.library.plugin'
 apply plugin: 'android-git-sha'
+apply plugin: 'net.ltgt.errorprone'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -54,6 +55,11 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.github.piasy.bootstrap"
         minSdkVersion rootProject.ext.androidMinSdkVersion
@@ -62,14 +68,14 @@ android {
         versionName rootProject.ext.versionName
 
         multiDexEnabled true
-        testInstrumentationRunner "com.github.piasy.app.CustomTestRunner"
+        testInstrumentationRunner "com.github.piasy.gh.CustomTestRunner"
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -81,6 +87,8 @@ android {
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !isTravis
+        incremental true
+        maxProcessCount 4
         javaMaxHeapSize "4g"
     }
 

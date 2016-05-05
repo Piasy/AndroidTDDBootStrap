@@ -1,8 +1,8 @@
-
 apply plugin: 'com.github.piasy.okbuck-gradle-plugin'
 okbuck {
     target "android-23"
     overwrite true
+    enableRetroLambda true
     resPackages = [
             'base'    : 'com.github.piasy.base',
             'model'   : 'com.github.piasy.model',
