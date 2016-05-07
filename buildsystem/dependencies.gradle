@@ -29,7 +29,7 @@ ext {
     dexmakerVersion = '1.2'
     jsonAssertVersion = '1.3.0'
 
-    espressoVersion = '2.2.1'
+    espressoVersion = '2.2.2'
     testSupportLibVersion = '0.5'
 
     baseDependencies = [
@@ -127,7 +127,7 @@ ext {
             hamcrestLibrary        : "org.hamcrest:hamcrest-library:1.3",
             jsonAssert             : "org.skyscreamer:jsonassert:${jsonAssertVersion}",
 
-            restMockAndroid        : "com.github.andrzejchm.RESTMock:android:0.0.4",
+            restMockAndroid        : "com.github.andrzejchm.RESTMock:android:0.0.5",
     ]
 
     // jacoco config
