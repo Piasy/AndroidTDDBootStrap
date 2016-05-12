@@ -61,7 +61,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.github.piasy.bootstrap"
+        applicationId "com.github.piasy.gh"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -153,10 +153,7 @@ android {
 }
 
 unMock {
-    // URI to download the android-all.jar from. e.g. https://oss.sonatype
-    // .org/content/groups/public/org/robolectric/android-all/
-    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/4' +
-            '.3_r2-robolectric-0/android-all-4.3_r2-robolectric-0.jar'
+    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/6.0.0_r1-robolectric-0/android-all-6.0.0_r1-robolectric-0.jar'
 
     keep "android.text.TextUtils"
 }
@@ -212,6 +209,8 @@ dependencies {
     apt aptDependencies.daggerApt
     apt aptDependencies.autoBundleApt
     apt aptDependencies.butterKnifeApt
+    retrolambdaConfig aptDependencies.retrolambda
+    errorprone aptDependencies.errorprone
 
     androidTestCompile project(':testbase')
     androidTestCompile(testDependencies.androidJUnitRunner) {

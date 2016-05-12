@@ -26,7 +26,7 @@ package com.github.piasy.gh.model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import com.github.piasy.base.model.provider.BriteDbProvider;
+import com.github.piasy.base.model.provider.BriteDbConfig;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/19.
@@ -38,8 +38,8 @@ public final class DaoModuleExposure {
         // no instance
     }
 
-    public static BriteDbProvider.Config exposeBriteDbConfig(@NonNull final Context context) {
-        return BriteDbProvider.Config.builder()
+    public static BriteDbConfig exposeBriteDbConfig(@NonNull final Context context) {
+        return BriteDbConfig.builder()
                 .sqliteOpenHelper(new DbOpenHelper(context))
                 .enableLogging(true)
                 .build();

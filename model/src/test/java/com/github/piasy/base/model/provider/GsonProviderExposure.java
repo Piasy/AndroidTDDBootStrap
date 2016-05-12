@@ -55,7 +55,7 @@ public final class GsonProviderExposure {
                     .withResolverStyle(ResolverStyle.STRICT)
                     .withChronology(IsoChronology.INSTANCE)
                     .withZone(ZoneId.systemDefault());
-    private static final GsonProvider.Config CONFIG = GsonProvider.Config.builder()
+    private static final GsonConfig CONFIG = GsonConfig.builder()
             .dateTimeFormatter(DATE_TIME_FORMATTER)
             .dateFormatString(TIME_FORMAT_ISO_8601)
             .build();
@@ -70,6 +70,6 @@ public final class GsonProviderExposure {
      * @return exposed gson.
      */
     public static Gson exposeGson() {
-        return GsonProvider.provideGson(CONFIG);
+        return new ProviderModule().provideGson(CONFIG);
     }
 }

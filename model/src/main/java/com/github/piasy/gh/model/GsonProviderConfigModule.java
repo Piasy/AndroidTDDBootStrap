@@ -25,7 +25,7 @@
 package com.github.piasy.gh.model;
 
 import com.github.piasy.base.model.jsr310.ThreeTenABPDelegate;
-import com.github.piasy.base.model.provider.GsonProvider;
+import com.github.piasy.base.model.provider.GsonConfig;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -41,9 +41,9 @@ public class GsonProviderConfigModule {
 
     @Singleton
     @Provides
-    GsonProvider.Config provideGsonConfig(final ThreeTenABPDelegate delegate) {
+    GsonConfig provideGsonConfig(final ThreeTenABPDelegate delegate) {
         delegate.init();
-        return GsonProvider.Config.builder()
+        return GsonConfig.builder()
                 .dateFormatString(TIME_FORMAT_ISO_8601)
                 .dateTimeFormatter(DateTimeFormatterProvider.provideDateTimeFormatter())
                 .build();

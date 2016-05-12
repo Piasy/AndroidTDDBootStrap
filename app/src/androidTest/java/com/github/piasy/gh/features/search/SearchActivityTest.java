@@ -37,15 +37,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.ButterKnife;
-import com.github.piasy.gh.MockBootstrapApp;
-import com.github.piasy.gh.R;
 import com.github.piasy.base.test.BaseEspressoTest;
 import com.github.piasy.base.test.MockProvider;
+import com.github.piasy.gh.MockBootstrapApp;
+import com.github.piasy.gh.R;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.joanzapata.iconify.widget.IconTextView;
 import io.appflate.restmock.RESTMockServer;
+import io.appflate.restmock.RequestsVerifier;
 import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -118,5 +119,6 @@ public class SearchActivityTest extends BaseEspressoTest {
         // after setText into IconTextView, the content will be parsed as icon, the original text
         // won't exist anymore.
         assertTrue(tvUsername.getText().toString().endsWith(mSingleResult.items().get(0).login()));
+        RequestsVerifier.verifyRequest(pathStartsWith("/search/users?")).exactly(1);
     }
 }

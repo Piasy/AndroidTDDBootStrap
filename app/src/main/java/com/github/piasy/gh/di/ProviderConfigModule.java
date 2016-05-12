@@ -25,10 +25,10 @@
 package com.github.piasy.gh.di;
 
 import android.support.annotation.NonNull;
-import com.github.piasy.base.model.provider.BriteDbProvider;
-import com.github.piasy.base.model.provider.EventBusProvider;
-import com.github.piasy.base.model.provider.HttpClientProvider;
-import com.github.piasy.base.model.provider.RetrofitProvider;
+import com.github.piasy.base.model.provider.BriteDbConfig;
+import com.github.piasy.base.model.provider.EventBusConfig;
+import com.github.piasy.base.model.provider.HttpClientConfig;
+import com.github.piasy.base.model.provider.RetrofitConfig;
 import com.github.piasy.gh.BuildConfig;
 import com.github.piasy.gh.model.DbOpenHelper;
 import dagger.Module;
@@ -47,20 +47,20 @@ public class ProviderConfigModule {
 
     @Singleton
     @Provides
-    HttpClientProvider.Config provideHttpClientConfig() {
-        return HttpClientProvider.Config.builder().enableLog(DEBUG).build();
+    HttpClientConfig provideHttpClientConfig() {
+        return HttpClientConfig.builder().enableLog(DEBUG).build();
     }
 
     @Singleton
     @Provides
-    RetrofitProvider.Config provideRestConfig() {
-        return RetrofitProvider.Config.builder().baseUrl(BuildConfig.API_BASE_URL).build();
+    RetrofitConfig provideRestConfig() {
+        return RetrofitConfig.builder().baseUrl(BuildConfig.API_BASE_URL).build();
     }
 
     @Singleton
     @Provides
-    EventBusProvider.Config provideEventBusConfig() {
-        return EventBusProvider.Config.builder()
+    EventBusConfig provideEventBusConfig() {
+        return EventBusConfig.builder()
                 .logNoSubscriberMessages(DEBUG)
                 .sendNoSubscriberEvent(DEBUG)
                 .eventInheritance(true)
@@ -70,8 +70,8 @@ public class ProviderConfigModule {
 
     @Provides
     @Singleton
-    BriteDbProvider.Config provideBriteDbConfig(@NonNull final DbOpenHelper dbOpenHelper) {
-        return BriteDbProvider.Config.builder()
+    BriteDbConfig provideBriteDbConfig(@NonNull final DbOpenHelper dbOpenHelper) {
+        return BriteDbConfig.builder()
                 .sqliteOpenHelper(dbOpenHelper)
                 .enableLogging(DEBUG)
                 .build();

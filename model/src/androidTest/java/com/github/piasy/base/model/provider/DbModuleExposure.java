@@ -37,7 +37,7 @@ public final class DbModuleExposure {
         // no instance
     }
 
-    public static BriteDatabase exposeBriteDb(@NonNull final BriteDbProvider.Config config) {
-        return BriteDbProvider.provideBriteDb(config);
+    public static BriteDatabase exposeBriteDb(@NonNull final BriteDbConfig config) {
+        return new ProviderModule().provideBriteDb(config);
     }
 }

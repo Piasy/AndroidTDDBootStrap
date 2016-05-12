@@ -24,7 +24,7 @@
 
 package com.github.piasy.gh.di;
 
-import com.github.piasy.base.model.provider.RetrofitProvider;
+import com.github.piasy.base.model.provider.RetrofitConfig;
 import io.appflate.restmock.RESTMockServer;
 
 /**
@@ -33,7 +33,7 @@ import io.appflate.restmock.RESTMockServer;
 public class MockProviderConfigModule extends ProviderConfigModule {
 
     @Override
-    RetrofitProvider.Config provideRestConfig() {
-        return RetrofitProvider.Config.builder().baseUrl(RESTMockServer.getUrl()).build();
+    RetrofitConfig provideRestConfig() {
+        return RetrofitConfig.builder().baseUrl(RESTMockServer.getUrl()).build();
     }
 }
