@@ -26,4 +26,10 @@ public class ProfileActivity extends BaseActivity {
     protected void initializeInjector() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+    }
 }

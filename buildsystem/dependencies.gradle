@@ -22,6 +22,7 @@ ext {
     autoGsonVersion = '0.2.5-og'
 
     autoBundleVersion = '1.0.2'
+    onActivityResultVersion = '0.4.0'
 
     // Developer
     stethoVersion = '1.3.1'
@@ -62,6 +63,7 @@ ext {
 
              threetenabp              : "com.jakewharton.threetenabp:threetenabp:1.0.3",
              autoBundle               : "com.github.yatatsu:autobundle:${autoBundleVersion}",
+             onActivityResult         : "com.vanniktech:onactivityresult:${onActivityResultVersion}",
 
              timber                   : "com.jakewharton.timber:timber:4.1.2",
              okHttpLogging            : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
@@ -98,16 +100,17 @@ ext {
              anrWatchDog        : "com.github.anrwatchdog:anrwatchdog:1.2.0",
              leakCanary         : "com.squareup.leakcanary:leakcanary-android:1.3.1",]
 
-    aptDependencies = [daggerApt     : "com.google.dagger:dagger-compiler:${daggerVersion}",
-                       butterKnifeApt: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+    aptDependencies = [daggerApt          : "com.google.dagger:dagger-compiler:${daggerVersion}",
+                       butterKnifeApt     : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
 
-                       autoValue     : "com.google.auto.value:auto-value:1.2",
-                       autoParcelApt : "com.ryanharter.auto.value:auto-value-parcel:0.2.1",
-                       autoGsonApt   : "com.github.piasy:auto-value-gson-processor:${autoGsonVersion}",
-                       autoBundleApt : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
+                       autoValue          : "com.google.auto.value:auto-value:1.2",
+                       autoParcelApt      : "com.ryanharter.auto.value:auto-value-parcel:0.2.1",
+                       autoGsonApt        : "com.github.piasy:auto-value-gson-processor:${autoGsonVersion}",
+                       autoBundleApt      : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
+                       onActivityResultApt: "com.vanniktech:onactivityresult-compiler:${onActivityResultVersion}",
 
-                       retrolambda   : "net.orfjackal.retrolambda:retrolambda:2.3.0",
-                       errorprone    : "com.google.errorprone:error_prone_core:2.0.9",]
+                       retrolambda        : "net.orfjackal.retrolambda:retrolambda:2.3.0",
+                       errorprone         : "com.google.errorprone:error_prone_core:2.0.9",]
 
     testDependencies = [junit                  : "junit:junit:4.12",
                         mockito                : "org.mockito:mockito-core:1.10.19",

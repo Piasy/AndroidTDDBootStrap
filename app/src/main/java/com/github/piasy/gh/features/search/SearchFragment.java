@@ -24,6 +24,7 @@
 
 package com.github.piasy.gh.features.search;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,7 @@ import com.trello.rxlifecycle.FragmentEvent;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import onactivityresult.OnActivityResult;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class SearchFragment
@@ -57,6 +59,7 @@ public class SearchFragment
 
     private static final int SEARCH_DELAY_MILLIS = 500;
     private static final int SPAN_COUNT = 3;
+    private static final int CODE_DETAIL = 1000;
 
     @Inject
     Resources mResources;
@@ -84,11 +87,17 @@ public class SearchFragment
 
         toolBar.setTitle(R.string.search);
         mActivity.setSupportActionBar(toolBar);
-        mAdapter = new SearchUserResultAdapter(mResources, user -> startActivitySafely(
-                ProfileActivityAutoBundle.createIntentBuilder(user).build(getContext())));
+        mAdapter = new SearchUserResultAdapter(mResources, user -> startActivityForResultSafely(
+                ProfileActivityAutoBundle.createIntentBuilder(user).build(getContext()),
+                CODE_DETAIL));
         rvSearchResult.setLayoutManager(
                 new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
         rvSearchResult.setAdapter(mAdapter);
+    }
+
+    @OnActivityResult(requestCode = CODE_DETAIL, resultCodes = { Activity.RESULT_OK })
+    void onDetailOk() {
+        mToastUtil.makeToast("onDetailOk");
     }
 
     @Override

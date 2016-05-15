@@ -88,8 +88,8 @@ android {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !isTravis
         incremental true
-        maxProcessCount 4
-        javaMaxHeapSize "4g"
+        maxProcessCount 8
+        javaMaxHeapSize "6g"
     }
 
     aaptOptions {
@@ -209,6 +209,7 @@ dependencies {
     apt aptDependencies.daggerApt
     apt aptDependencies.autoBundleApt
     apt aptDependencies.butterKnifeApt
+    apt aptDependencies.onActivityResultApt
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
