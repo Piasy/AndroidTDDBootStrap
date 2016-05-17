@@ -27,7 +27,8 @@ package com.github.piasy.gh.model.errors;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
-import com.ryanharter.auto.value.gson.annotations.AutoGson;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import java.util.List;
 
 /**
@@ -35,7 +36,6 @@ import java.util.List;
  */
 @SuppressWarnings("PMD.MethodNamingConventions")
 @AutoValue
-@AutoGson(AutoValue_ApiError.GsonTypeAdapter.class)
 public abstract class ApiError implements Parcelable {
 
     public abstract String message();
@@ -46,8 +46,11 @@ public abstract class ApiError implements Parcelable {
     @Nullable
     public abstract List<Detail> errors();
 
+    public static TypeAdapter<ApiError> typeAdapter(final Gson gson) {
+        return new AutoValue_ApiError.GsonTypeAdapter(gson);
+    }
+
     @AutoValue
-    @AutoGson(AutoValue_ApiError_Detail.GsonTypeAdapter.class)
     public abstract static class Detail implements Parcelable {
 
         public abstract String resource();
@@ -55,5 +58,9 @@ public abstract class ApiError implements Parcelable {
         public abstract String field();
 
         public abstract String code();
+
+        public static TypeAdapter<Detail> typeAdapter(final Gson gson) {
+            return new AutoValue_ApiError_Detail.GsonTypeAdapter(gson);
+        }
     }
 }

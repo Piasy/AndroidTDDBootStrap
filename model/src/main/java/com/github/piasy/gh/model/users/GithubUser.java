@@ -30,7 +30,8 @@ import android.support.annotation.Nullable;
 import com.github.piasy.base.model.jsr310.ZonedDateTimeDelightAdapter;
 import com.github.piasy.gh.model.DateTimeFormatterProvider;
 import com.google.auto.value.AutoValue;
-import com.ryanharter.auto.value.gson.annotations.AutoGson;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import org.threeten.bp.ZonedDateTime;
 
 /**
@@ -38,7 +39,6 @@ import org.threeten.bp.ZonedDateTime;
  */
 @SuppressWarnings("PMD.MethodNamingConventions")
 @AutoValue
-@AutoGson(AutoValue_GithubUser.GsonTypeAdapter.class)
 public abstract class GithubUser implements GithubUserModel, Parcelable {
 
     public static final String GITHUB_USER_TYPE_USER = "User";
@@ -54,6 +54,10 @@ public abstract class GithubUser implements GithubUserModel, Parcelable {
 
     static {
         MAPPER = new Mapper<>(AutoValue_GithubUser::new, ZONED_DATE_TIME_DELIGHT_ADAPTER);
+    }
+
+    public static TypeAdapter<GithubUser> typeAdapter(final Gson gson) {
+        return new AutoValue_GithubUser.GsonTypeAdapter(gson);
     }
 
     @NonNull

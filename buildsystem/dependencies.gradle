@@ -19,8 +19,6 @@ ext {
     rxBindingVersion = '0.4.0'
     rxLifeCycleVersion = '0.6.1'
 
-    autoGsonVersion = '0.2.5-og'
-
     autoBundleVersion = '1.0.2'
     onActivityResultVersion = '0.4.0'
 
@@ -58,8 +56,6 @@ ext {
              retrofitGsonConverter    : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
              retrofitRxJavaAdapter    : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
              sqlBrite                 : 'com.squareup.sqlbrite:sqlbrite:0.6.3',
-
-             autoGsonAnnotation       : "com.github.piasy:auto-value-gson-annotations:${autoGsonVersion}",
 
              threetenabp              : "com.jakewharton.threetenabp:threetenabp:1.0.3",
              autoBundle               : "com.github.yatatsu:autobundle:${autoBundleVersion}",
@@ -105,7 +101,7 @@ ext {
 
                        autoValue          : "com.google.auto.value:auto-value:1.2",
                        autoParcelApt      : "com.ryanharter.auto.value:auto-value-parcel:0.2.1",
-                       autoGsonApt        : "com.github.piasy:auto-value-gson-processor:${autoGsonVersion}",
+                       autoGsonApt        : "com.ryanharter.auto.value:auto-value-gson:0.3.0",
                        autoBundleApt      : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
                        onActivityResultApt: "com.vanniktech:onactivityresult-compiler:${onActivityResultVersion}",
 

@@ -2,7 +2,8 @@ package com.github.piasy.gh.model.users;
 
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;
-import com.ryanharter.auto.value.gson.annotations.AutoGson;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import java.util.List;
 
 /**
@@ -10,7 +11,6 @@ import java.util.List;
  */
 @SuppressWarnings("PMD.MethodNamingConventions")
 @AutoValue
-@AutoGson(AutoValue_GithubUserSearchResult.GsonTypeAdapter.class)
 public abstract class GithubUserSearchResult implements Parcelable {
 
     public abstract int total_count();
@@ -18,4 +18,8 @@ public abstract class GithubUserSearchResult implements Parcelable {
     public abstract boolean incomplete_results();
 
     public abstract List<GithubUser> items();
+
+    public static TypeAdapter<GithubUserSearchResult> typeAdapter(final Gson gson) {
+        return new AutoValue_GithubUserSearchResult.GsonTypeAdapter(gson);
+    }
 }
