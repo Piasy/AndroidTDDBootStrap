@@ -1,14 +1,5 @@
-apply plugin: 'com.github.piasy.okbuck-gradle-plugin'
+apply plugin: 'com.github.okbuilds.okbuck-gradle-plugin'
 okbuck {
-    target "android-23"
-    overwrite true
-    enableRetroLambda true
-    resPackages = [
-            'base'    : 'com.github.piasy.base',
-            'model'   : 'com.github.piasy.model',
-            'app'     : 'com.github.piasy.app',
-            'testbase': 'com.github.piasy.base.test',
-    ]
     linearAllocHardLimit = [
             app: 7194304
     ]
