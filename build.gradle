@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.0'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath 'com.github.okbuilds:okbuild-gradle-plugin:2.0.0-alpha1'
+        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.1.4'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
         classpath 'com.bugtags.library:bugtags-gradle:1.2.2'
