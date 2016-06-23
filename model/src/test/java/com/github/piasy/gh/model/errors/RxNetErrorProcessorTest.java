@@ -5,10 +5,11 @@ import com.github.piasy.base.test.BaseThreeTenBPTest;
 import com.github.piasy.base.test.MockProvider;
 import com.github.piasy.gh.model.ApiErrorUtil;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import rx.functions.Action1;
 
 import static org.junit.Assert.assertFalse;
@@ -21,10 +22,12 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Piasy{github.com/Piasy} on 5/5/16.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class RxNetErrorProcessorTest extends BaseThreeTenBPTest {
+    @Rule
+    public MockitoRule mMockitoRule = MockitoJUnit.rule();
+
     @Mock
-    Action1<ApiError> mApiErrorHandler;
+    private Action1<ApiError> mApiErrorHandler;
 
     @Before
     public void setUp() {

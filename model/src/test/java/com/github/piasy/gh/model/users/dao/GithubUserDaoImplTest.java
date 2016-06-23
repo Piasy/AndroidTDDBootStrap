@@ -11,7 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
@@ -21,7 +25,6 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -31,7 +34,12 @@ import static org.mockito.Mockito.verifyZeroInteractions;
  */
 public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
 
+    @Rule
+    public MockitoRule mMockitoRule = MockitoJUnit.rule();
+
+    @Mock
     private DbUserDelegate mDbUserDelegate;
+    @Mock
     private GithubApi mGithubApi;
     private GithubUserDao mGithubUserDao;
 
@@ -43,9 +51,6 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
         final Gson gson = GsonProviderExposure.exposeGson();
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
                 new TypeToken<GithubUserSearchResult>() {}.getType());
-
-        mDbUserDelegate = mock(DbUserDelegate.class);
-        mGithubApi = mock(GithubApi.class);
 
         mGithubUserDao = new GithubUserDaoImpl(mDbUserDelegate, mGithubApi);
     }
