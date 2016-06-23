@@ -89,7 +89,7 @@ android {
         preDexLibraries = preDexEnabled && !isTravis
         incremental true
         maxProcessCount 8
-        javaMaxHeapSize "6g"
+        javaMaxHeapSize = isTravis ? "2g" : "6g"
     }
 
     aaptOptions {
