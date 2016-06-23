@@ -8,7 +8,6 @@ apply plugin: 'com.squareup.sqldelight'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
 def isTravis = "true".equals(System.getenv("TRAVIS"))
-def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -59,6 +58,12 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             outputs.upToDateWhen { false }
             showStandardStreams = true
+        }
+    }
+
+    if (isTravis) {
+        lintOptions {
+            abortOnError false
         }
     }
 }

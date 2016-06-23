@@ -150,6 +150,12 @@ android {
             showStandardStreams = true
         }
     }
+
+    if (isTravis) {
+        lintOptions {
+            abortOnError false
+        }
+    }
 }
 
 unMock {
