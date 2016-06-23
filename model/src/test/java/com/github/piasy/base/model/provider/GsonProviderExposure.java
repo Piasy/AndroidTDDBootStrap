@@ -25,6 +25,7 @@
 package com.github.piasy.base.model.provider;
 
 import com.google.gson.Gson;
+import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.chrono.IsoChronology;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -58,6 +59,7 @@ public final class GsonProviderExposure {
     private static final GsonConfig CONFIG = GsonConfig.builder()
             .dateTimeFormatter(DATE_TIME_FORMATTER)
             .dateFormatString(TIME_FORMAT_ISO_8601)
+            .autoGsonTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
             .build();
 
     private GsonProviderExposure() {

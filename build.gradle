@@ -14,20 +14,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.0'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.1.4'
+        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.1.7'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
         classpath 'com.bugtags.library:bugtags-gradle:1.2.2'
         classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
-        classpath 'com.squareup.sqldelight:gradle-plugin:0.3.2'
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.4.2'
     }
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }

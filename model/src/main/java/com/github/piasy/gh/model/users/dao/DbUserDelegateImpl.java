@@ -57,9 +57,9 @@ public final class DbUserDelegateImpl implements DbUserDelegate {
     public void putAllGithubUser(final List<GithubUser> users) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
         try {
-            final GithubUser.Marshal marshal = new GithubUser.Marshal();
             for (int i = 0, size = users.size(); i < size; i++) {
-                mBriteDb.insert(GithubUser.TABLE_NAME, marshal.of(users.get(i)).asContentValues(),
+                mBriteDb.insert(GithubUser.TABLE_NAME,
+                        GithubUser.FACTORY.marshal(users.get(i)).asContentValues(),
                         SQLiteDatabase.CONFLICT_REPLACE);
             }
             transaction.markSuccessful();

@@ -1,9 +1,11 @@
+import org.threeten.bp.ZonedDateTime;
+
 CREATE TABLE GithubUsers (
   id INTEGER PRIMARY KEY,
   login TEXT NOT NULL,
   avatar_url TEXT NOT NULL,
   type TEXT NOT NULL,
-  created_at TEXT AS 'org.threeten.bp.ZonedDateTime' NULL
+  created_at TEXT AS ZonedDateTime NULL
 );
 
 delete_all:

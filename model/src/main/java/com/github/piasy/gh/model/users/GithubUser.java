@@ -32,6 +32,7 @@ import com.github.piasy.gh.model.DateTimeFormatterProvider;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+import com.squareup.sqldelight.RowMapper;
 import org.threeten.bp.ZonedDateTime;
 
 /**
@@ -47,14 +48,10 @@ public abstract class GithubUser implements GithubUserModel, Parcelable {
     public static final String ICONIFY_ICONS_USER = "{md-person}";
     public static final String ICONIFY_ICONS_ORG = "{md-people}";
 
-    public static final Mapper<GithubUser> MAPPER;
+    public static final Factory<GithubUser> FACTORY = new Factory<>(AutoValue_GithubUser::new,
+            new ZonedDateTimeDelightAdapter(DateTimeFormatterProvider.provideDateTimeFormatter()));
 
-    private static final ZonedDateTimeDelightAdapter ZONED_DATE_TIME_DELIGHT_ADAPTER =
-            new ZonedDateTimeDelightAdapter(DateTimeFormatterProvider.provideDateTimeFormatter());
-
-    static {
-        MAPPER = new Mapper<>(AutoValue_GithubUser::new, ZONED_DATE_TIME_DELIGHT_ADAPTER);
-    }
+    public static final RowMapper<GithubUser> MAPPER = FACTORY.get_allMapper();
 
     public static TypeAdapter<GithubUser> typeAdapter(final Gson gson) {
         return new AutoValue_GithubUser.GsonTypeAdapter(gson);
@@ -79,33 +76,5 @@ public abstract class GithubUser implements GithubUserModel, Parcelable {
         public abstract Builder created_at(@Nullable ZonedDateTime createdAt);
 
         public abstract GithubUser build();
-    }
-
-    public static class Marshal extends GithubUserMarshal<Marshal> {
-
-        public Marshal(final GithubUser user) {
-            super(user, ZONED_DATE_TIME_DELIGHT_ADAPTER);
-        }
-
-        public Marshal() {
-            super(ZONED_DATE_TIME_DELIGHT_ADAPTER);
-        }
-
-        public Marshal of(final GithubUser copy) {
-            this.id(copy.id());
-            this.login(copy.login());
-            this.avatar_url(copy.avatar_url());
-            this.type(copy.type());
-            this.created_at(copy.created_at());
-            return this;
-        }
-
-        @Override
-        public Marshal created_at(@Nullable final ZonedDateTime createdAt) {
-            if (createdAt == null) {
-                return this;
-            }
-            return super.created_at(createdAt);
-        }
     }
 }

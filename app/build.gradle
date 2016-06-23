@@ -158,9 +158,11 @@ unMock {
     keep "android.text.TextUtils"
 }
 
-bugtags {
-    appKey "82cdb5f7f8925829ccc4a6e7d5d12216"
-    appSecret BUG_TAGS_API_SECRET
+if (!isTravis) {
+    bugtags {
+        appKey "82cdb5f7f8925829ccc4a6e7d5d12216"
+        appSecret BUG_TAGS_API_SECRET
+    }
 }
 
 gitSha {
