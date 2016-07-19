@@ -30,12 +30,10 @@ import com.github.piasy.base.mvp.NullObjRxBasePresenter;
 import com.github.piasy.gh.features.search.mvp.SearchPresenter;
 import com.github.piasy.gh.features.search.mvp.SearchUserView;
 import com.github.piasy.gh.model.errors.RxNetErrorProcessor;
-import com.github.piasy.gh.model.users.GithubUser;
-import com.github.piasy.gh.model.users.dao.GithubUserDao;
+import com.github.piasy.gh.model.users.GithubUserRepo;
 import java.util.Collections;
 import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
@@ -43,15 +41,15 @@ import rx.schedulers.Schedulers;
 @ActivityScope
 public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
         implements SearchPresenter {
-    private final GithubUserDao mGithubUserDao;
+    private final GithubUserRepo mGithubUserRepo;
     private final RxNetErrorProcessor mRxNetErrorProcessor;
     private String mQuery;
 
     @Inject
-    public SearchPresenterImpl(final GithubUserDao githubUserDao,
+    public SearchPresenterImpl(final GithubUserRepo githubUserRepo,
             final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
-        mGithubUserDao = githubUserDao;
+        mGithubUserRepo = githubUserRepo;
         mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
@@ -60,12 +58,11 @@ public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
         if (!TextUtils.equals(mQuery, query)) {
             mQuery = query;
             if (TextUtils.isEmpty(mQuery)) {
-                getView().showSearchResult(Collections.<GithubUser>emptyList());
+                getView().showSearchResult(Collections.emptyList());
             } else {
-                addSubscription(mGithubUserDao.searchUser(query)
-                        .subscribeOn(Schedulers.io())
+                addSubscription(mGithubUserRepo.searchUser(query)
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(users -> getView().showSearchResult(users),
+                        .subscribe(getView()::showSearchResult,
                                 t -> mRxNetErrorProcessor.tryWithApiError(t,
                                         e -> getView().showError(e.message()))));
             }

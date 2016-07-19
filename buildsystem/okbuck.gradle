@@ -1,11 +1,24 @@
 apply plugin: 'com.github.okbuilds.okbuck-gradle-plugin'
 okbuck {
+    projectTargets = [
+            'app': 'devDebug',
+    ]
     linearAllocHardLimit = [
             app: 7194304
     ]
     primaryDexPatterns = [
             app: [
-                    '^com/github/piasy/app/BootstrapApp^',
+                    '^com/github/piasy/gh/BootstrapApp^',
+                    '^com/github/piasy/gh/BuildConfig^',
+                    '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
+                    '^android/support/v4/app/NotificationCompat$Builder^',
+                    '^com/facebook/stetho/Stetho^',
+                    '^com/squareup/leakcanary/LeakCanary^',
+                    '^com/squareup/leakcanary/AnalysisResult^',
+                    '^com/squareup/leakcanary/ExcludedRefs^',
+                    '^com/nshmura/strictmodenotifier/StrictModeNotifier^',
+                    '^com/github/anrwatchdog/ANRWatchDog^',
+                    '^com/github/piasy/gh/analytics/AppBlockCanaryContext^',
             ]
     ]
 }

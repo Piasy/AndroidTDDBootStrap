@@ -22,40 +22,23 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.model.users.dao;
+package com.github.piasy.gh.model.users;
 
-import android.support.annotation.NonNull;
-import com.github.piasy.base.di.ActivityScope;
-import com.github.piasy.gh.model.users.GithubApi;
 import com.github.piasy.gh.model.users.GithubUser;
-import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import java.util.List;
-import javax.inject.Inject;
 import rx.Observable;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/8/5.
+ * Created by Piasy{github.com/Piasy} on 15/8/14.
  *
- * Implementation of {@link GithubUserDao}.
+ * An delegate (abstraction) over DB.
+ * This layer let us do unit test on JVM instead of Android VM, which is much faster and cleaner.
  */
-@ActivityScope
-public final class GithubUserDaoImpl implements GithubUserDao {
+public interface DbUserDelegate {
 
-    private final DbUserDelegate mDbUserDelegate;
-    private final GithubApi mGithubApi;
+    void deleteAllGithubUser();
 
-    @Inject
-    public GithubUserDaoImpl(final DbUserDelegate dbUserDelegate, final GithubApi githubApi) {
-        mDbUserDelegate = dbUserDelegate;
-        mGithubApi = githubApi;
-    }
+    void putAllGithubUser(List<GithubUser> users);
 
-    @NonNull
-    @Override
-    public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
-        return mGithubApi.searchGithubUsers(query, GithubApi.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
-                GithubApi.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
-                .map(GithubUserSearchResult::items)
-                .doOnNext(mDbUserDelegate::putAllGithubUser);
-    }
+    Observable<List<GithubUser>> getAllGithubUser();
 }

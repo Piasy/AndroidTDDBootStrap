@@ -70,6 +70,7 @@ android {
 
 unMock {
     downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/6.0.0_r1-robolectric-0/android-all-6.0.0_r1-robolectric-0.jar'
+    downloadTo "${System.getenv('HOME')}/.gradle/caches/"
 
     keep "android.text.TextUtils"
 }
@@ -88,6 +89,9 @@ dependencies {
     apt aptDependencies.autoGsonApt
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
+
+    // for SqlDelight support of OkBuck
+    provided aptDependencies.sqlDelightBin
     
     testCompile project(':testbase')
     testCompile testDependencies.mockito

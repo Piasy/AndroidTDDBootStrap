@@ -22,19 +22,28 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.model.users.dao;
+package com.github.piasy.gh.model.users;
 
 import android.support.annotation.NonNull;
-import com.github.piasy.gh.model.users.GithubUser;
+import com.github.piasy.base.di.ActivityScope;
 import java.util.List;
+import javax.inject.Inject;
 import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/5.
- *
- * DAO interface for {@link GithubUser}.
  */
-public interface GithubUserDao {
+@ActivityScope
+public class GithubUserRepo {
+    private final DbUserDelegate mDbUserDelegate;
+    private final GithubApi mGithubApi;
+
+    @Inject
+    public GithubUserRepo(final DbUserDelegate dbUserDelegate, final GithubApi githubApi) {
+        mDbUserDelegate = dbUserDelegate;
+        mGithubApi = githubApi;
+    }
+
     /**
      * search github user.
      *
@@ -42,5 +51,10 @@ public interface GithubUserDao {
      * @return search result observable.
      */
     @NonNull
-    Observable<List<GithubUser>> searchUser(@NonNull String query);
+    public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
+        return mGithubApi.searchGithubUsers(query, GithubApi.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
+                GithubApi.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
+                .map(GithubUserSearchResult::items)
+                .doOnNext(mDbUserDelegate::putAllGithubUser);
+    }
 }

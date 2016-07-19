@@ -5,8 +5,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.github.piasy.base.model.provider.DbModuleExposure;
 import com.github.piasy.base.test.BaseThreeTenBPAndroidTest;
 import com.github.piasy.gh.model.DaoModuleExposure;
-import com.github.piasy.gh.model.users.dao.DbUserDelegate;
-import com.github.piasy.gh.model.users.dao.DbUserDelegateImpl;
 import com.squareup.sqlbrite.BriteDatabase;
 import java.util.ArrayList;
 import java.util.List;

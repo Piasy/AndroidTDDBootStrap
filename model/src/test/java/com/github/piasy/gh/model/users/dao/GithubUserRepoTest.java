@@ -4,8 +4,10 @@ import com.github.piasy.base.model.provider.GsonProviderExposure;
 import com.github.piasy.base.test.BaseThreeTenBPTest;
 import com.github.piasy.base.test.MockProvider;
 import com.github.piasy.gh.model.ApiErrorUtil;
+import com.github.piasy.gh.model.users.DbUserDelegate;
 import com.github.piasy.gh.model.users.GithubApi;
 import com.github.piasy.gh.model.users.GithubUser;
+import com.github.piasy.gh.model.users.GithubUserRepo;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,7 +34,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
-public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
+public class GithubUserRepoTest extends BaseThreeTenBPTest {
 
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
@@ -41,7 +43,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
     private DbUserDelegate mDbUserDelegate;
     @Mock
     private GithubApi mGithubApi;
-    private GithubUserDao mGithubUserDao;
+    private GithubUserRepo mGithubUserRepo;
 
     private GithubUserSearchResult mEmptyResult;
 
@@ -52,7 +54,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
                 new TypeToken<GithubUserSearchResult>() {}.getType());
 
-        mGithubUserDao = new GithubUserDaoImpl(mDbUserDelegate, mGithubApi);
+        mGithubUserRepo = new GithubUserRepo(mDbUserDelegate, mGithubApi);
     }
 
     @Test
@@ -68,7 +70,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
 
         // when
         final TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
-        mGithubUserDao.searchUser("Piasy").subscribe(subscriber);
+        mGithubUserRepo.searchUser("Piasy").subscribe(subscriber);
         subscriber.awaitTerminalEvent();
 
         // then
@@ -90,7 +92,7 @@ public class GithubUserDaoImplTest extends BaseThreeTenBPTest {
 
         // when
         final TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
-        mGithubUserDao.searchUser("Piasy").subscribe(subscriber);
+        mGithubUserRepo.searchUser("Piasy").subscribe(subscriber);
         subscriber.awaitTerminalEvent();
 
         // then

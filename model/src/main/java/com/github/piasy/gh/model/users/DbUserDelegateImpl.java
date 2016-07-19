@@ -22,11 +22,10 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.model.users.dao;
+package com.github.piasy.gh.model.users;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.github.piasy.base.di.ActivityScope;
-import com.github.piasy.gh.model.users.GithubUser;
 import com.squareup.sqlbrite.BriteDatabase;
 import java.util.List;
 import javax.inject.Inject;

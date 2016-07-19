@@ -141,12 +141,6 @@
 }
 
 
-# AutoGson
--keepclassmembers class **$AutoValue_*$GsonTypeAdapter {
-    void <init>(com.google.gson.Gson);
-}
-
-
 # AutoParcel
 -keep class **AutoValue_*$1 { }
 -keepclassmembers class * implements android.os.Parcelable {
