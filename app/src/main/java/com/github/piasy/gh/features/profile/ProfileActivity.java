@@ -24,7 +24,6 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void initializeInjector() {
-
     }
 
     @Override

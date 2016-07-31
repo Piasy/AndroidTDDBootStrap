@@ -5,7 +5,7 @@ import com.github.piasy.base.test.BaseThreeTenBPTest;
 import com.github.piasy.base.test.MockProvider;
 import com.github.piasy.gh.model.ApiErrorUtil;
 import com.github.piasy.gh.model.users.DbUserDelegate;
-import com.github.piasy.gh.model.users.GithubApi;
+import com.github.piasy.gh.model.GithubApi;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.gh.model.users.GithubUserRepo;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;

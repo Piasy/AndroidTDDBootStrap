@@ -36,10 +36,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import com.github.piasy.base.android.BaseMvpFragment;
 import com.github.piasy.base.utils.ToastUtil;
 import com.github.piasy.gh.R;
+import com.github.piasy.gh.R2;
 import com.github.piasy.gh.features.profile.ProfileActivityAutoBundle;
 import com.github.piasy.gh.features.search.di.SearchComponent;
 import com.github.piasy.gh.features.search.mvp.SearchPresenter;
@@ -68,6 +69,11 @@ public class SearchFragment
     @Inject
     ToastUtil mToastUtil;
 
+    @BindView(R2.id.mToolBar)
+    Toolbar mToolBar;
+    @BindView(R2.id.mRvSearchResult)
+    RecyclerView mRvSearchResult;
+
     private SearchUserResultAdapter mAdapter;
 
     @Override
@@ -82,17 +88,15 @@ public class SearchFragment
 
     @Override
     protected void bindView(final View rootView) {
-        final RecyclerView rvSearchResult = ButterKnife.findById(rootView, R.id.mRvSearchResult);
-        final Toolbar toolBar = ButterKnife.findById(rootView, R.id.mToolBar);
-
-        toolBar.setTitle(R.string.search);
-        mActivity.setSupportActionBar(toolBar);
+        super.bindView(rootView);
+        mToolBar.setTitle(R.string.search);
+        mActivity.setSupportActionBar(mToolBar);
         mAdapter = new SearchUserResultAdapter(mResources, user -> startActivityForResultSafely(
                 ProfileActivityAutoBundle.createIntentBuilder(user).build(getContext()),
                 CODE_DETAIL));
-        rvSearchResult.setLayoutManager(
+        mRvSearchResult.setLayoutManager(
                 new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
-        rvSearchResult.setAdapter(mAdapter);
+        mRvSearchResult.setAdapter(mAdapter);
     }
 
     @OnActivityResult(requestCode = CODE_DETAIL, resultCodes = { Activity.RESULT_OK })
@@ -106,7 +110,7 @@ public class SearchFragment
         final MenuItem search = menu.findItem(R.id.mActionSearch);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         RxSearchView.queryTextChanges(searchView)
-                .compose(this.<CharSequence>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+                .compose(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(query -> mPresenter.searchUser(query.toString()));

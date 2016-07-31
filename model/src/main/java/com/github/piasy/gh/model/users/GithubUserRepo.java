@@ -26,6 +26,7 @@ package com.github.piasy.gh.model.users;
 
 import android.support.annotation.NonNull;
 import com.github.piasy.base.di.ActivityScope;
+import com.github.piasy.gh.model.GithubApi;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;

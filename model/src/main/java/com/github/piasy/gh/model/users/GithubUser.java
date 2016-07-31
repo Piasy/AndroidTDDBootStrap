@@ -48,10 +48,10 @@ public abstract class GithubUser implements GithubUserModel, Parcelable {
     public static final String ICONIFY_ICONS_USER = "{md-person}";
     public static final String ICONIFY_ICONS_ORG = "{md-people}";
 
-    public static final Factory<GithubUser> FACTORY = new Factory<>(AutoValue_GithubUser::new,
+    static final Factory<GithubUser> FACTORY = new Factory<>(AutoValue_GithubUser::new,
             new ZonedDateTimeDelightAdapter(DateTimeFormatterProvider.provideDateTimeFormatter()));
 
-    public static final RowMapper<GithubUser> MAPPER = FACTORY.get_allMapper();
+    static final RowMapper<GithubUser> MAPPER = FACTORY.get_allMapper();
 
     public static TypeAdapter<GithubUser> typeAdapter(final Gson gson) {
         return new AutoValue_GithubUser.GsonTypeAdapter(gson);

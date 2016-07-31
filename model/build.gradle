@@ -84,15 +84,20 @@ dependencies {
     compile modelDependencies.multiDex
 
     apt aptDependencies.daggerApt
-    provided aptDependencies.autoValue  // used for AndroidStudio sync
-    apt aptDependencies.autoParcelApt
-    apt aptDependencies.autoGsonApt
+    provided aptDependencies.autoValue // used for AndroidStudio sync
+    apt(aptDependencies.autoParcelApt) {
+        exclude module: 'auto-value'
+    }
+    // used for AndroidStudio sync
+    provided(aptDependencies.autoGsonApt) {
+        exclude module: 'auto-value'
+    }
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
     // for SqlDelight support of OkBuck
     provided aptDependencies.sqlDelightBin
-    
+
     testCompile project(':testbase')
     testCompile testDependencies.mockito
     testCompile testDependencies.junit
@@ -100,16 +105,16 @@ dependencies {
 
     androidTestCompile project(':testbase')
     androidTestCompile testDependencies.multidexInstrumentation
-    androidTestCompile (testDependencies.mockito) {
+    androidTestCompile(testDependencies.mockito) {
         exclude module: 'hamcrest-core'
     }
     androidTestCompile testDependencies.dexmaker
-    androidTestCompile (testDependencies.dexmakerMockito) {
+    androidTestCompile(testDependencies.dexmakerMockito) {
         exclude module: 'hamcrest-core'
         exclude module: 'mockito-core'
     }
     androidTestCompile testDependencies.jsonAssert
-    androidTestCompile (testDependencies.androidJUnitRunner) {
+    androidTestCompile(testDependencies.androidJUnitRunner) {
         exclude module: 'support-annotations'
     }
 }

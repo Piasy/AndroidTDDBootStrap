@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.model.users;
+package com.github.piasy.gh.model;
 
+import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;

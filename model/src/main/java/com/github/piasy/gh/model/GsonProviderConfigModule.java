@@ -26,7 +26,6 @@ package com.github.piasy.gh.model;
 
 import com.github.piasy.base.model.jsr310.ThreeTenABPDelegate;
 import com.github.piasy.base.model.provider.GsonConfig;
-import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -47,7 +46,7 @@ public class GsonProviderConfigModule {
         return GsonConfig.builder()
                 .dateFormatString(TIME_FORMAT_ISO_8601)
                 .dateTimeFormatter(DateTimeFormatterProvider.provideDateTimeFormatter())
-                .autoGsonTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                .autoGsonTypeAdapterFactory(AutoValueGsonAdapterFactory.create())
                 .build();
     }
 }

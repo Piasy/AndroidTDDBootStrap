@@ -2,6 +2,13 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
+    configurations.all {
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute module('com.tunnelvisionlabs:antlr4') with module('org.antlr:antlr4:4.5.3')
+            }
+        }
+    }
     repositories {
         jcenter()
         mavenCentral()
@@ -22,13 +29,14 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.4'
         classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.2.1'
+        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.3.1'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
         classpath 'com.bugtags.library:bugtags-gradle:1.2.6'
         classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.squareup.sqldelight:gradle-plugin:0.4.3'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.2.1'
     }
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
@@ -93,3 +101,6 @@ buildtimetracker {
     }
 }
 
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

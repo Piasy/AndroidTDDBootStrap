@@ -31,7 +31,8 @@ apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
 apply plugin: 'com.bugtags.library.plugin'
-//apply plugin: 'android-git-sha'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
 
 /*def keyConfigPath
@@ -171,11 +172,11 @@ if (!isTravis) {
     }
 }
 
-//gitSha {
-//    buildTypeMatcher = 'release'
-//    flavorMatcher = '.*'
-//    abortIfGitDirty = false
-//}
+gitSha {
+    buildTypeMatcher = 'release'
+    flavorMatcher = '.*'
+    abortIfGitDirty = false
+}
 
 dependencies {
     def appDependencies = rootProject.ext.appDependencies

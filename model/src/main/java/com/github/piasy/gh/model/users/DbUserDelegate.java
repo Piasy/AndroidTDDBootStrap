@@ -24,7 +24,6 @@
 
 package com.github.piasy.gh.model.users;
 
-import com.github.piasy.gh.model.users.GithubUser;
 import java.util.List;
 import rx.Observable;
 

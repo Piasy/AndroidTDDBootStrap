@@ -25,6 +25,7 @@
 package com.github.piasy.gh.model.users;
 
 import com.github.piasy.base.di.ActivityScope;
+import com.github.piasy.gh.model.GithubApi;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;

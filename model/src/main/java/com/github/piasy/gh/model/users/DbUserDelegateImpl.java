@@ -39,7 +39,7 @@ public final class DbUserDelegateImpl implements DbUserDelegate {
     private final BriteDatabase mBriteDb;
 
     @Inject
-    public DbUserDelegateImpl(final BriteDatabase briteDb) {
+    DbUserDelegateImpl(final BriteDatabase briteDb) {
         this.mBriteDb = briteDb;
     }
 
