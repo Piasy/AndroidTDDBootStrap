@@ -1,8 +1,8 @@
 package com.github.piasy.gh.model.users;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.base.test.BaseThreeTenBPTest;
-import com.github.piasy.base.test.MockProvider;
+import com.github.piasy.test.BaseThreeTenBPTest;
+import com.github.piasy.test.mock.MockProvider;
 import com.google.gson.Gson;
 import junit.framework.Assert;
 import org.json.JSONException;

@@ -65,11 +65,11 @@ android {
         applicationId "com.github.piasy.gh"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        versionCode rootProject.ext.releaseVersionCode
+        versionName rootProject.ext.releaseVersionName
 
         multiDexEnabled true
-        testInstrumentationRunner "com.github.piasy.gh.CustomTestRunner"
+        testInstrumentationRunner "com.github.piasy.gh.GhAppRunner"
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
     }
@@ -190,10 +190,6 @@ dependencies {
 
     compile appDependencies.rxJavaProGuardRules
 
-    compile(appDependencies.once) {
-        exclude module: 'support-annotations'
-    }
-
     compile(appDependencies.fresco) {
         exclude module: 'support-v4'
     }
@@ -223,21 +219,6 @@ dependencies {
     errorprone aptDependencies.errorprone
 
     androidTestCompile project(':testbase')
-    androidTestCompile(testDependencies.androidJUnitRunner) {
-        exclude module: 'support-annotations'
-    }
-    androidTestCompile(testDependencies.mockito) {
-        exclude module: 'hamcrest-core'
-    }
-    androidTestCompile testDependencies.dexmaker
-    androidTestCompile(testDependencies.dexmakerMockito) {
-        exclude module: 'hamcrest-core'
-        exclude module: 'mockito-core'
-    }
-    androidTestCompile(testDependencies.androidJUnit4Rules) {
-        exclude module: 'support-annotations'
-        exclude module: 'hamcrest-core'
-    }
     androidTestApt(aptDependencies.daggerApt) {
         exclude module: 'dagger'
     }

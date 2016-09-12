@@ -25,17 +25,16 @@
 package com.github.piasy.gh;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.github.piasy.base.utils.UtilsModule;
 import com.github.piasy.gh.di.AppComponent;
 import com.github.piasy.gh.di.AppModule;
 import com.github.piasy.gh.di.DaggerMockAppComponent;
 import com.github.piasy.gh.di.MockAppComponent;
 import com.github.piasy.gh.di.MockProviderConfigModule;
-import com.github.piasy.base.utils.UtilsModule;
 import com.google.gson.Gson;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
 import javax.inject.Inject;
-import jonathanfinerty.once.Once;
 import timber.log.Timber;
 
 /**
@@ -63,7 +62,6 @@ public class MockBootstrapApp extends BootstrapApp {
         Timber.plant(new Timber.DebugTree());
         Fresco.initialize(this);
         Iconify.with(new MaterialModule());
-        Once.initialise(this);
 
         setInstance(this);
     }

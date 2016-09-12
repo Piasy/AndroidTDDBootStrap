@@ -1,9 +1,8 @@
 package com.github.piasy.gh.model.users;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 import com.github.piasy.base.model.provider.DbModuleExposure;
-import com.github.piasy.base.test.BaseThreeTenBPAndroidTest;
+import com.github.piasy.test.BaseThreeTenBPAndroidTest;
 import com.github.piasy.gh.model.DaoModuleExposure;
 import com.squareup.sqlbrite.BriteDatabase;
 import java.util.ArrayList;
@@ -11,14 +10,12 @@ import java.util.List;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
 /**
  * Created by piasy on 15/8/11.
  */
-@RunWith(AndroidJUnit4.class)
 public class GithubUserDbIntegrateTest extends BaseThreeTenBPAndroidTest {
     private static final String LOGIN = "Piasy";
     private static final String AVATAR = "avatar";

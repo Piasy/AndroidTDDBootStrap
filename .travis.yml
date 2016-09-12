@@ -15,10 +15,15 @@ jdk: oraclejdk8
 
 android:
   components:
-    - android-23
-    - build-tools-23.0.1
+    - android-24
+    - build-tools-24.0.2
     - extra-android-m2repository
     - extra-android-support
+  licenses:
+    - android-sdk-preview-license-84831b94
+    - android-sdk-license-2be07077
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 # Emulator Management: Create, Start and Wait
 before_script:

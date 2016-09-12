@@ -29,8 +29,6 @@
     <item android:drawable="@color/gross_green"/>
     <!-- Your product logo - 144dp color version of your app icon -->
     <item
-            android:width="144dp"
-            android:height="144dp"
             android:top="50dp"
             >
         <bitmap

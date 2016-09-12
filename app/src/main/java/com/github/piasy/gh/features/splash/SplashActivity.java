@@ -41,7 +41,6 @@ import com.github.piasy.gh.features.splash.di.SplashComponent;
 import com.github.promeg.androidgitsha.lib.GitShaUtils;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
-import jonathanfinerty.once.Once;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -95,7 +94,6 @@ public class SplashActivity extends BootstrapActivity implements HasComponent<Sp
             }
 
             Iconify.with(new MaterialModule());
-            Once.initialise(app);
             Fresco.initialize(app);
 
             return Observable.just(true);

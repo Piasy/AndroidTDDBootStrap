@@ -24,7 +24,6 @@
 
 package com.github.piasy.gh.analytics;
 
-import android.os.Environment;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.github.piasy.gh.BuildConfig;
 import java.io.File;
@@ -34,26 +33,20 @@ import java.io.File;
  */
 public class AppBlockCanaryContext extends BlockCanaryContext {
 
-    public static final int THRESHOLD = 500;
+    private static final int THRESHOLD = 500;
 
     @Override
-    public int getConfigBlockThreshold() {
+    public int provideBlockThreshold() {
         return THRESHOLD;
     }
 
     @Override
-    public boolean isNeedDisplay() {
+    public boolean displayNotification() {
         return "debug".equals(BuildConfig.BUILD_TYPE);
     }
 
     @Override
-    public String getLogPath() {
-        final File dir = new File(
-                Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
-                        BuildConfig.APPLICATION_ID + File.separator + "performance");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        return dir.getAbsolutePath();
+    public String providePath() {
+        return File.separator + BuildConfig.APPLICATION_ID + File.separator + "performance";
     }
 }

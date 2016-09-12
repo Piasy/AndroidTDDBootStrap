@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2016 Piasy
+  ~ Copyright (c) 2015 Piasy
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,20 @@
   ~ SOFTWARE.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.github.piasy.model"
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:opacity="opaque"
         >
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-</manifest>
+    <!-- The background color, preferably the same as your normal theme -->
+    <item android:drawable="@color/gross_green"/>
+    <!-- Your product logo - 144dp color version of your app icon -->
+    <item
+            android:width="144dp"
+            android:height="144dp"
+            android:top="50dp"
+            >
+        <bitmap
+                android:src="@mipmap/ic_launcher"
+                android:gravity="top"
+                />
+    </item>
+</layer-list>

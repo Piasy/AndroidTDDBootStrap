@@ -47,7 +47,7 @@ import com.github.piasy.gh.features.search.mvp.SearchPresenter;
 import com.github.piasy.gh.features.search.mvp.SearchUserView;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
-import com.trello.rxlifecycle.FragmentEvent;
+import com.trello.rxlifecycle.android.FragmentEvent;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;

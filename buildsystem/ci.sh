@@ -1,2 +1,2 @@
 #!/bin/sh
-buildsystem/checkBase.sh && buildsystem/checkModel.sh && buildsystem/checkApp.sh #&& buildsystem/checkBuck.sh
+./gradlew clean :base:check :base:jacocoReport :model:check :model:cC :model:jacocoReport :app:check :app:cC :app:jacocoReport --stacktrace

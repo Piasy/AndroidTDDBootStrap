@@ -21,11 +21,11 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        versionCode rootProject.ext.releaseVersionCode
+        versionName rootProject.ext.releaseVersionName
 
         multiDexEnabled true
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'com.github.piasy.test.runner.MultiDexRestMockRunner'
     }
 
     buildTypes {
@@ -73,12 +73,12 @@ unMock {
     downloadTo "${System.getenv('HOME')}/.gradle/caches/"
 
     keep "android.text.TextUtils"
+    keepStartingWith "org.json."
 }
 
 dependencies {
     def modelDependencies = rootProject.ext.modelDependencies
     def aptDependencies = rootProject.ext.aptDependencies
-    def testDependencies = rootProject.ext.testDependencies
 
     compile project(':base')
     compile modelDependencies.multiDex
@@ -99,22 +99,10 @@ dependencies {
     provided aptDependencies.sqlDelightBin
 
     testCompile project(':testbase')
-    testCompile testDependencies.mockito
-    testCompile testDependencies.junit
-    testCompile testDependencies.jsonAssert
 
     androidTestCompile project(':testbase')
-    androidTestCompile testDependencies.multidexInstrumentation
-    androidTestCompile(testDependencies.mockito) {
+    // for IDE work
+    androidTestCompile(testDependencies.junit) {
         exclude module: 'hamcrest-core'
-    }
-    androidTestCompile testDependencies.dexmaker
-    androidTestCompile(testDependencies.dexmakerMockito) {
-        exclude module: 'hamcrest-core'
-        exclude module: 'mockito-core'
-    }
-    androidTestCompile testDependencies.jsonAssert
-    androidTestCompile(testDependencies.androidJUnitRunner) {
-        exclude module: 'support-annotations'
     }
 }

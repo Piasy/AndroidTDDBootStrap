@@ -1,9 +1,9 @@
 package com.github.piasy.gh.model.users.dao;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.base.test.BaseThreeTenBPTest;
-import com.github.piasy.base.test.MockProvider;
-import com.github.piasy.gh.model.ApiErrorUtil;
+import com.github.piasy.test.BaseThreeTenBPTest;
+import com.github.piasy.test.mock.MockProvider;
+import com.github.piasy.test.ApiErrorUtil;
 import com.github.piasy.gh.model.users.DbUserDelegate;
 import com.github.piasy.gh.model.GithubApi;
 import com.github.piasy.gh.model.users.GithubUser;
