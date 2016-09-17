@@ -1,6 +1,6 @@
 ext {
     // Android
-    androidBuildToolsVersion = '24.0.1'
+    androidBuildToolsVersion = '24.0.2'
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
@@ -101,7 +101,6 @@ ext {
                        autoBundleApt      : "com.github.yatatsu:autobundle-processor:${autoBundleVersion}",
                        onActivityResultApt: "com.vanniktech:onactivityresult-compiler:${onActivityResultVersion}",
 
-                       sqlDelightBin      : "com.github.okbuilds:SqlDelightBin:${sqlDelightVersion}",
                        retrolambda        : "net.orfjackal.retrolambda:retrolambda:2.3.0",
                        errorprone         : "com.google.errorprone:error_prone_core:2.0.12",]
 

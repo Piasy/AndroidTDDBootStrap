@@ -29,6 +29,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled isTravis
+        }
         release {
             minifyEnabled false
         }
@@ -94,9 +97,6 @@ dependencies {
     }
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
-
-    // for SqlDelight support of OkBuck
-    provided aptDependencies.sqlDelightBin
 
     testCompile project(':testbase')
 

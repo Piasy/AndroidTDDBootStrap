@@ -29,11 +29,11 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
-apply from: '../AndroidCodeQualityConfig/quality.gradle'
 apply plugin: 'com.bugtags.library.plugin'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
+apply from: '../AndroidCodeQualityConfig/quality.gradle'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -117,6 +117,7 @@ android {
             minifyEnabled false
             debuggable true
             signingConfig signingConfigs.develop
+            testCoverageEnabled isTravis
         }
 
         release {
@@ -148,12 +149,6 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
             outputs.upToDateWhen { false }
             showStandardStreams = true
-        }
-    }
-
-    if (isTravis) {
-        lintOptions {
-            abortOnError false
         }
     }
 }

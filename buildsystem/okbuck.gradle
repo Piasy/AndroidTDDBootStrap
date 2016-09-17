@@ -1,8 +1,5 @@
 apply plugin: 'com.github.okbuilds.okbuck-gradle-plugin'
 okbuck {
-    projectTargets = [
-            'app': 'devDebug',
-    ]
     linearAllocHardLimit = [
             app: 7194304
     ]

@@ -26,4 +26,5 @@ gradle.properties
 /.buckd/
 /.okbuck/
 .buckconfig.local
+.buckconfig
 **/BUCK
