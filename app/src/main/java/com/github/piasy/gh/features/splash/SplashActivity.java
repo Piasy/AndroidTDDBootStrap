@@ -24,26 +24,13 @@
 
 package com.github.piasy.gh.features.splash;
 
-import android.content.Intent;
 import android.os.Bundle;
-import com.bugtags.library.Bugtags;
-import com.bugtags.library.BugtagsOptions;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.github.piasy.base.di.HasComponent;
-import com.github.piasy.base.utils.RxUtil;
 import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
-import com.github.piasy.gh.BuildConfig;
 import com.github.piasy.gh.R;
-import com.github.piasy.gh.analytics.CrashReportingTree;
-import com.github.piasy.gh.features.search.SearchActivity;
-import com.github.piasy.gh.features.splash.di.SplashComponent;
-import com.github.promeg.androidgitsha.lib.GitShaUtils;
-import com.joanzapata.iconify.Iconify;
-import com.joanzapata.iconify.fonts.MaterialModule;
-import rx.Observable;
-import rx.schedulers.Schedulers;
-import timber.log.Timber;
+import com.github.piasy.yamvp.dagger2.BaseComponent;
+
+import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/19.
@@ -53,11 +40,7 @@ import timber.log.Timber;
  * Dagger
  * 2 - graph creation performance</a> to avoid activity state loss.
  */
-@SuppressWarnings({
-        "PMD.CyclomaticComplexity", "PMD.StdCyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity"
-})
-public class SplashActivity extends BootstrapActivity implements HasComponent<SplashComponent> {
+public class SplashActivity extends BootstrapActivity {
 
     private SplashComponent mSplashComponent;
 
@@ -65,46 +48,19 @@ public class SplashActivity extends BootstrapActivity implements HasComponent<Sp
     protected void onCreate(final Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_activity);
 
-        initialize();
+        safeCommit(transaction(getSupportFragmentManager())
+                .add(android.R.id.content, new SplashFragment(), "SplashFragment")
+                .build());
     }
 
     @Override
-    protected void initializeInjector() {
-        mSplashComponent = BootstrapApp.get().appComponent().plus();
-        mSplashComponent.inject(this);
-    }
-
-    private void initialize() {
-        Observable.defer(() -> {
-            final BootstrapApp app = BootstrapApp.get();
-            if ("release".equals(BuildConfig.BUILD_TYPE)) {
-                Timber.plant(new CrashReportingTree());
-                final BugtagsOptions options = new BugtagsOptions.Builder().trackingLocation(false)
-                        .trackingCrashLog(true)
-                        .trackingConsoleLog(true)
-                        .trackingUserSteps(true)
-                        .build();
-                Bugtags.start("82cdb5f7f8925829ccc4a6e7d5d12216", app,
-                        Bugtags.BTGInvocationEventShake, options);
-                Bugtags.setUserData("git_sha", GitShaUtils.getGitSha(app));
-            } else {
-                Timber.plant(new Timber.DebugTree());
-            }
-
-            Iconify.with(new MaterialModule());
-            Fresco.initialize(app);
-
-            return Observable.just(true);
-        }).subscribeOn(Schedulers.io()).subscribe(success -> {
-            startActivity(new Intent(SplashActivity.this, SearchActivity.class));
-            finish();
-        }, RxUtil.OnErrorLogger);
+    protected void initializeDi() {
+        mSplashComponent = BootstrapApp.get().appComponent().splashComponent();
     }
 
     @Override
-    public SplashComponent getComponent() {
+    public BaseComponent getComponent() {
         return mSplashComponent;
     }
 }

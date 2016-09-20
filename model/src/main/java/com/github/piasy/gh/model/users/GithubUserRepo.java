@@ -25,8 +25,8 @@
 package com.github.piasy.gh.model.users;
 
 import android.support.annotation.NonNull;
-import com.github.piasy.base.di.ActivityScope;
 import com.github.piasy.gh.model.GithubApi;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;

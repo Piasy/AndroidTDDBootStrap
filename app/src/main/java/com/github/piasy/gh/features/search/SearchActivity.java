@@ -27,11 +27,8 @@ package com.github.piasy.gh.features.search;
 import android.os.Bundle;
 import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
-import com.github.piasy.gh.features.search.di.SearchComponent;
-import com.github.piasy.gh.features.search.di.SearchModule;
-import com.github.piasy.base.di.HasComponent;
 
-public class SearchActivity extends BootstrapActivity implements HasComponent<SearchComponent> {
+public class SearchActivity extends BootstrapActivity {
 
     private SearchComponent mSearchComponent;
 
@@ -44,9 +41,8 @@ public class SearchActivity extends BootstrapActivity implements HasComponent<Se
     }
 
     @Override
-    protected void initializeInjector() {
-        mSearchComponent =
-                BootstrapApp.get().appComponent().plus(getActivityModule(), new SearchModule());
+    protected void initializeDi() {
+        mSearchComponent = BootstrapApp.get().appComponent().searchComponent(getActivityModule());
     }
 
     @Override

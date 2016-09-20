@@ -22,17 +22,20 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.features.search.mvp;
+package com.github.piasy.gh.features.splash;
 
-import com.github.piasy.gh.model.users.GithubUser;
-import com.hannesdorfmann.mosby.mvp.MvpView;
-import java.util.List;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
+import com.github.piasy.yamvp.dagger2.BaseComponent;
+import dagger.Subcomponent;
 
 /**
- * Created by Piasy{github.com/Piasy} on 3/6/16.
+ * Created by Piasy{github.com/Piasy} on 15/9/19.
+ *
+ * Di appComponent for splash.
  */
-public interface SearchUserView extends MvpView {
-    void showSearchResult(List<GithubUser> users);
+@ActivityScope
+@Subcomponent
+public interface SplashComponent extends BaseComponent<SplashView, SplashPresenter> {
 
-    void showError(String message);
+    void inject(SplashFragment fragment);
 }

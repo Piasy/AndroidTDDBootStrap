@@ -37,28 +37,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
-import com.github.piasy.base.android.BaseMvpFragment;
+import com.github.piasy.base.android.BaseFragment;
 import com.github.piasy.base.utils.ToastUtil;
 import com.github.piasy.gh.R;
 import com.github.piasy.gh.R2;
 import com.github.piasy.gh.features.profile.ProfileActivityAutoBundle;
-import com.github.piasy.gh.features.search.di.SearchComponent;
-import com.github.piasy.gh.features.search.mvp.SearchPresenter;
-import com.github.piasy.gh.features.search.mvp.SearchUserView;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
-import com.trello.rxlifecycle.android.FragmentEvent;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import onactivityresult.OnActivityResult;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Observable;
 
 public class SearchFragment
-        extends BaseMvpFragment<SearchUserView, SearchPresenter, SearchComponent>
+        extends BaseFragment<SearchUserView, SearchPresenter, SearchComponent>
         implements SearchUserView {
 
-    private static final int SEARCH_DELAY_MILLIS = 500;
     private static final int SPAN_COUNT = 3;
     private static final int CODE_DETAIL = 1000;
 
@@ -75,6 +69,7 @@ public class SearchFragment
     RecyclerView mRvSearchResult;
 
     private SearchUserResultAdapter mAdapter;
+    private SearchView mSearchView;
 
     @Override
     protected int getLayoutRes() {
@@ -108,17 +103,13 @@ public class SearchFragment
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search_github_user, menu);
         final MenuItem search = menu.findItem(R.id.mActionSearch);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        RxSearchView.queryTextChanges(searchView)
-                .compose(this.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
-                .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(query -> mPresenter.searchUser(query.toString()));
+        mSearchView = (SearchView) MenuItemCompat.getActionView(search);
+        mPresenter.onViewReady();
     }
 
     @Override
-    protected void inject() {
-        getComponent().inject(this);
+    public Observable<CharSequence> onQueryChanges() {
+        return RxSearchView.queryTextChanges(mSearchView);
     }
 
     @Override
@@ -129,5 +120,10 @@ public class SearchFragment
     @Override
     public void showError(final String message) {
         mToastUtil.makeToast(message);
+    }
+
+    @Override
+    protected void injectDependencies(final SearchComponent component) {
+        component.inject(this);
     }
 }

@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.features.splash.di;
+package com.github.piasy.gh.features.profile;
 
-import com.github.piasy.gh.features.splash.SplashActivity;
-import com.github.piasy.base.di.ActivityScope;
-import com.github.piasy.base.di.BaseComponent;
+import com.github.piasy.base.di.ActivityModule;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
+import com.github.piasy.yamvp.dagger2.BaseComponent;
 import dagger.Subcomponent;
 
 /**
@@ -35,13 +35,8 @@ import dagger.Subcomponent;
  * Di appComponent for splash.
  */
 @ActivityScope
-@Subcomponent
-public interface SplashComponent extends BaseComponent {
-
-    /**
-     * Inject dependency into splash activity.
-     *
-     * @param splashActivity activity to inject dependency.
-     */
-    void inject(SplashActivity splashActivity);
+@Subcomponent(modules = {
+        ActivityModule.class
+})
+public interface ProfileComponent extends BaseComponent<ProfileView, ProfilePresenter> {
 }

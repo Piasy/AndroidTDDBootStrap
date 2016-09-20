@@ -25,47 +25,55 @@
 package com.github.piasy.gh.features.search;
 
 import android.text.TextUtils;
-import com.github.piasy.base.di.ActivityScope;
-import com.github.piasy.base.mvp.NullObjRxBasePresenter;
-import com.github.piasy.gh.features.search.mvp.SearchPresenter;
-import com.github.piasy.gh.features.search.mvp.SearchUserView;
 import com.github.piasy.gh.model.errors.RxNetErrorProcessor;
+import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.gh.model.users.GithubUserRepo;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
+import com.github.piasy.yamvp.rx.YaRxPresenter;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 @ActivityScope
-public class SearchPresenterImpl extends NullObjRxBasePresenter<SearchUserView>
-        implements SearchPresenter {
+public class SearchPresenter extends YaRxPresenter<SearchUserView> {
+    private static final int SEARCH_DELAY_MILLIS = 500;
+
     private final GithubUserRepo mGithubUserRepo;
     private final RxNetErrorProcessor mRxNetErrorProcessor;
     private String mQuery;
 
     @Inject
-    public SearchPresenterImpl(final GithubUserRepo githubUserRepo,
+    SearchPresenter(final GithubUserRepo githubUserRepo,
             final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
         mGithubUserRepo = githubUserRepo;
         mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
-    @Override
-    public void searchUser(final String query) {
-        if (!TextUtils.equals(mQuery, query)) {
-            mQuery = query;
-            if (TextUtils.isEmpty(mQuery)) {
-                getView().showSearchResult(Collections.emptyList());
-            } else {
-                addSubscription(mGithubUserRepo.searchUser(query)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(getView()::showSearchResult,
-                                t -> mRxNetErrorProcessor.tryWithApiError(t,
-                                        e -> getView().showError(e.message()))));
-            }
-        }
+    void onViewReady() {
+        addUtilStop(getView().onQueryChanges()
+                .observeOn(AndroidSchedulers.mainThread())
+                .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
+                .flatMap((Func1<CharSequence, Observable<List<GithubUser>>>) query -> {
+                    if (TextUtils.equals(mQuery, query)) {
+                        return Observable.empty();
+                    }
+                    mQuery = query.toString();
+                    if (TextUtils.isEmpty(mQuery)) {
+                        return Observable.just(Collections.emptyList());
+                    }
+                    return mGithubUserRepo.searchUser(mQuery);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getView()::showSearchResult,
+                        t -> mRxNetErrorProcessor.tryWithApiError(t,
+                                e -> getView().showError(e.message()))));
     }
 }

@@ -28,9 +28,9 @@ import com.github.piasy.base.di.ActivityModule;
 import com.github.piasy.base.model.jsr310.JSR310Module;
 import com.github.piasy.base.model.provider.ProviderModule;
 import com.github.piasy.base.utils.UtilsModule;
-import com.github.piasy.gh.features.search.di.SearchComponent;
-import com.github.piasy.gh.features.search.di.SearchModule;
-import com.github.piasy.gh.features.splash.di.SplashComponent;
+import com.github.piasy.gh.features.profile.ProfileComponent;
+import com.github.piasy.gh.features.search.SearchComponent;
+import com.github.piasy.gh.features.splash.SplashComponent;
 import com.github.piasy.gh.model.GsonProviderConfigModule;
 import dagger.Component;
 import javax.inject.Singleton;
@@ -56,7 +56,9 @@ import javax.inject.Singleton;
                 JSR310Module.class, UtilsModule.class
         })
 public interface AppComponent {
-    SplashComponent plus();
+    SplashComponent splashComponent();
 
-    SearchComponent plus(ActivityModule activityModule, SearchModule searchModule);
+    SearchComponent searchComponent(ActivityModule activityModule);
+
+    ProfileComponent profileComponent(ActivityModule activityModule);
 }

@@ -22,13 +22,20 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.features.search.mvp;
+package com.github.piasy.gh.features.search;
 
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.github.piasy.gh.model.users.GithubUser;
+import com.github.piasy.yamvp.YaView;
+import java.util.List;
+import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
-public interface SearchPresenter extends MvpPresenter<SearchUserView> {
-    void searchUser(String query);
+public interface SearchUserView extends YaView {
+    Observable<CharSequence> onQueryChanges();
+
+    void showSearchResult(List<GithubUser> users);
+
+    void showError(String message);
 }

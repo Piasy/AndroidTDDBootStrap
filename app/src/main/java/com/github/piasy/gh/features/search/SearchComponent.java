@@ -22,20 +22,21 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.gh.features.search.di;
+package com.github.piasy.gh.features.search;
 
-import com.github.piasy.gh.features.search.SearchPresenterImpl;
-import com.github.piasy.gh.features.search.mvp.SearchPresenter;
-import dagger.Module;
-import dagger.Provides;
+import com.github.piasy.base.di.ActivityModule;
+import com.github.piasy.gh.model.users.UsersModule;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
+import com.github.piasy.yamvp.dagger2.BaseComponent;
+import dagger.Subcomponent;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
-@Module
-public class SearchModule {
-    @Provides
-    SearchPresenter provideSearchPresenter(final SearchPresenterImpl presenter) {
-        return presenter;
-    }
+@ActivityScope
+@Subcomponent(modules = {
+        ActivityModule.class, UsersModule.class
+})
+public interface SearchComponent extends BaseComponent<SearchUserView, SearchPresenter> {
+    void inject(SearchFragment searchFragment);
 }
