@@ -13,7 +13,7 @@ Based on the project architecture I'm currently work on, [YOLO](https://www.yolo
 
 ![perfect_android_model_layer](http://blog.piasy.com/img/201605/perfect_android_model_layer.png)
 
-+  MVP: [Mosby](https://github.com/sockeqwe/mosby), A Model-View-Presenter library for modern Android apps.
++  MVP: [YaMvp](https://github.com/Piasy/YaMvp), Yet another Mvp library. Super simple, but with enough functionality.
 +  Dependency injection
   +  [Dagger2](https://github.com/google/dagger), A fast dependency injector for Android and Java.
   +  [ButterKnife](https://github.com/JakeWharton/butterknife), View "injection" library for Android.
