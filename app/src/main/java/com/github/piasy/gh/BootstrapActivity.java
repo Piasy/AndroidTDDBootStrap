@@ -28,11 +28,15 @@ import android.view.MotionEvent;
 import com.bugtags.library.Bugtags;
 import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.gh.features.splash.SplashActivity;
+import com.github.piasy.yamvp.YaPresenter;
+import com.github.piasy.yamvp.YaView;
+import com.github.piasy.yamvp.dagger2.BaseComponent;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public abstract class BootstrapActivity extends BaseActivity {
+public abstract class BootstrapActivity<V extends YaView, P extends YaPresenter<V>, C extends
+        BaseComponent<V, P>> extends BaseActivity<V, P, C> {
     @Override
     protected void onResume() {
         super.onResume();

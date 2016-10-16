@@ -24,6 +24,7 @@
 
 package com.github.piasy.gh;
 
+import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.piasy.base.utils.UtilsModule;
 import com.github.piasy.gh.di.AppComponent;
@@ -47,6 +48,10 @@ public class MockBootstrapApp extends BootstrapApp {
     @Inject
     public Gson mGson;
 
+    public MockBootstrapApp(final Application application) {
+        super(application);
+    }
+
     private static void setInstance(final MockBootstrapApp instance) {
         sInstance = instance;
     }
@@ -60,7 +65,7 @@ public class MockBootstrapApp extends BootstrapApp {
         super.onCreate();
 
         Timber.plant(new Timber.DebugTree());
-        Fresco.initialize(this);
+        Fresco.initialize(mApplication);
         Iconify.with(new MaterialModule());
 
         setInstance(this);
@@ -69,8 +74,8 @@ public class MockBootstrapApp extends BootstrapApp {
     @Override
     protected AppComponent createComponent() {
         final MockAppComponent appComponent = DaggerMockAppComponent.builder()
-                .appModule(new AppModule(this))
-                .utilsModule(new UtilsModule(this))
+                .appModule(new AppModule(mApplication))
+                .utilsModule(new UtilsModule(mApplication))
                 .providerConfigModule(new MockProviderConfigModule())
                 .build();
         appComponent.inject(this);

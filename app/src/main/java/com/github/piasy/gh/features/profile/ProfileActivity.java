@@ -2,21 +2,17 @@ package com.github.piasy.gh.features.profile;
 
 import android.os.Bundle;
 import android.widget.Toast;
-import com.github.piasy.base.android.BaseActivity;
+import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.yatatsu.autobundle.AutoBundleField;
 
-public class ProfileActivity extends BaseActivity<ProfileView, ProfilePresenter, ProfileComponent> {
+public class ProfileActivity extends
+        BootstrapActivity<ProfileView, ProfilePresenter, ProfileComponent> {
 
     @AutoBundleField
     GithubUser mUser;
     private ProfileComponent mProfileComponent;
-
-    @Override
-    protected boolean hasArgs() {
-        return true;
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

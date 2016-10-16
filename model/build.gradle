@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
@@ -86,13 +85,12 @@ dependencies {
     compile project(':base')
     compile modelDependencies.multiDex
 
-    apt aptDependencies.daggerApt
-    provided aptDependencies.autoValue // used for AndroidStudio sync
-    apt(aptDependencies.autoParcelApt) {
+    provided aptDependencies.autoValue
+    provided(aptDependencies.autoGsonApt) {
         exclude module: 'auto-value'
     }
-    // used for AndroidStudio sync
-    provided(aptDependencies.autoGsonApt) {
+    annotationProcessor aptDependencies.daggerApt
+    annotationProcessor(aptDependencies.autoParcelApt) {
         exclude module: 'auto-value'
     }
     retrolambdaConfig aptDependencies.retrolambda

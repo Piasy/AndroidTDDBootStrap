@@ -28,7 +28,8 @@ import android.os.Bundle;
 import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
 
-public class SearchActivity extends BootstrapActivity {
+public class SearchActivity
+        extends BootstrapActivity<SearchUserView, SearchPresenter, SearchComponent> {
 
     private SearchComponent mSearchComponent;
 

@@ -24,7 +24,6 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.frogermcs.androiddevmetrics'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
@@ -34,6 +33,7 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
+apply plugin: 'me.ele.mess'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -68,9 +68,11 @@ android {
         versionName rootProject.ext.releaseVersionName
 
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "com.github.piasy.gh.GhAppRunner"
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+        buildConfigField "int", "EXOPACKAGE_FLAGS", "0"
     }
 
     compileOptions {
@@ -132,6 +134,7 @@ android {
     productFlavors {
         dev {
             // inherit from default config
+            buildConfigField "int", "EXOPACKAGE_FLAGS", "1"
         }
 
         prod {
@@ -175,8 +178,8 @@ gitSha {
 dependencies {
     def appDependencies = rootProject.ext.appDependencies
     def aptDependencies = rootProject.ext.aptDependencies
-    def testDependencies = rootProject.ext.testDependencies
 
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
 
@@ -205,15 +208,15 @@ dependencies {
     compile appDependencies.blockCanary
     compile appDependencies.leakCanary
 
-    apt aptDependencies.daggerApt
-    apt aptDependencies.autoBundleApt
-    apt aptDependencies.butterKnifeApt
-    apt aptDependencies.onActivityResultApt
+    annotationProcessor aptDependencies.daggerApt
+    annotationProcessor aptDependencies.autoBundleApt
+    annotationProcessor aptDependencies.butterKnifeApt
+    annotationProcessor aptDependencies.onActivityResultApt
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
     androidTestCompile project(':testbase')
-    androidTestApt(aptDependencies.daggerApt) {
+    androidTestAnnotationProcessor(aptDependencies.daggerApt) {
         exclude module: 'dagger'
     }
 }

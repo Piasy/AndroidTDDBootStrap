@@ -1,12 +1,18 @@
-apply plugin: 'com.github.okbuilds.okbuck-gradle-plugin'
+apply plugin: 'com.uber.okbuck'
 okbuck {
+    buildToolVersion "24.0.3"
+    target "android-24"
     linearAllocHardLimit = [
             app: 7194304
     ]
     primaryDexPatterns = [
             app: [
+                    '^com/github/piasy/gh/AppShell^',
                     '^com/github/piasy/gh/BootstrapApp^',
                     '^com/github/piasy/gh/BuildConfig^',
+                    '^com/facebook/buck/android/support/exopackage/',
+                    '^android/support/multidex/',
+                    '^com/github/piasy/gh/analytics/AppBlockCanaryContext^',
                     '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
                     '^android/support/v4/app/NotificationCompat$Builder^',
                     '^com/facebook/stetho/Stetho^',
@@ -15,7 +21,23 @@ okbuck {
                     '^com/squareup/leakcanary/ExcludedRefs^',
                     '^com/nshmura/strictmodenotifier/StrictModeNotifier^',
                     '^com/github/anrwatchdog/ANRWatchDog^',
-                    '^com/github/piasy/gh/analytics/AppBlockCanaryContext^',
             ]
     ]
+    exopackage = [
+            app: true
+    ]
+    appLibDependencies = [
+            'appDev': [
+                    'buck-android-support',
+                    'com.android.support:multidex',
+            ]
+    ]
+    wrapper {
+        repo = 'https://github.com/OkBuilds/buck.git'
+        remove = ['.buckconfig.local', "**/BUCK"]
+        keep = [".okbuck/**/BUCK"]
+    }
+    gradleGen {
+        options = ["--offline", "-Dorg.gradle.configureondemand=true", "-Dorg.gradle.parallel=true"]
+    }
 }

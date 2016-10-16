@@ -28,6 +28,7 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import com.facebook.buck.android.support.exopackage.DefaultApplicationLike;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.anrwatchdog.ANRWatchDog;
@@ -46,14 +47,24 @@ import com.squareup.leakcanary.LeakCanary;
  *
  * Custom application class, providing APP wild utility, singleton, state control functions.
  */
-public class BootstrapApp extends Application implements IApplication {
+public class BootstrapApp extends DefaultApplicationLike implements IApplication {
 
     private static BootstrapApp sInstance;
 
+    protected final Application mApplication;
     private AppComponent mAppComponent;
+
+    public BootstrapApp(final Application application) {
+        super();
+        mApplication = application;
+    }
 
     public static BootstrapApp get() {
         return sInstance;
+    }
+
+    public static Application application() {
+        return sInstance.mApplication;
     }
 
     private static void setInstance(final BootstrapApp instance) {
@@ -67,31 +78,31 @@ public class BootstrapApp extends Application implements IApplication {
 
         if ("debug".equals(BuildConfig.BUILD_TYPE)) {
             // developer tools
-            AndroidDevMetrics.initWith(this);
-            Stetho.initialize(Stetho.newInitializerBuilder(this)
-                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+            AndroidDevMetrics.initWith(mApplication);
+            Stetho.initialize(Stetho.newInitializerBuilder(mApplication)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(mApplication))
+                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(mApplication))
                     .build());
-            LeakCanary.install(this);
+            LeakCanary.install(mApplication);
 
-            StrictModeNotifier.install(this);
+            StrictModeNotifier.install(mApplication);
             new Handler().post(() -> {
-                final StrictMode.ThreadPolicy threadPolicy =
-                        new StrictMode.ThreadPolicy.Builder().detectAll()
-                                .permitDiskReads()
-                                .permitDiskWrites()
-                                .penaltyLog() // Must!
-                                .build();
+                final StrictMode.ThreadPolicy threadPolicy
+                        = new StrictMode.ThreadPolicy.Builder().detectAll()
+                        .permitDiskReads()
+                        .permitDiskWrites()
+                        .penaltyLog() // Must!
+                        .build();
                 StrictMode.setThreadPolicy(threadPolicy);
 
-                final StrictMode.VmPolicy vmPolicy =
-                        new StrictMode.VmPolicy.Builder().detectAll().penaltyLog() // Must!
-                                .build();
+                final StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder().detectAll()
+                        .penaltyLog() // Must!
+                        .build();
                 StrictMode.setVmPolicy(vmPolicy);
             });
 
             new ANRWatchDog().start();
-            BlockCanary.install(this, new AppBlockCanaryContext()).start();
+            BlockCanary.install(mApplication, new AppBlockCanaryContext()).start();
         }
 
         mAppComponent = createComponent();
@@ -99,8 +110,8 @@ public class BootstrapApp extends Application implements IApplication {
 
     protected AppComponent createComponent() {
         return DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .utilsModule(new UtilsModule(this))
+                .appModule(new AppModule(mApplication))
+                .utilsModule(new UtilsModule(mApplication))
                 .build();
     }
 

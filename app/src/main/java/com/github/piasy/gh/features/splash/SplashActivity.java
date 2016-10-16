@@ -28,7 +28,6 @@ import android.os.Bundle;
 import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
 import com.github.piasy.gh.R;
-import com.github.piasy.yamvp.dagger2.BaseComponent;
 
 import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
 
@@ -40,7 +39,8 @@ import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransaction
  * Dagger
  * 2 - graph creation performance</a> to avoid activity state loss.
  */
-public class SplashActivity extends BootstrapActivity {
+public class SplashActivity
+        extends BootstrapActivity<SplashView, SplashPresenter, SplashComponent> {
 
     private SplashComponent mSplashComponent;
 
@@ -60,7 +60,7 @@ public class SplashActivity extends BootstrapActivity {
     }
 
     @Override
-    public BaseComponent getComponent() {
+    public SplashComponent getComponent() {
         return mSplashComponent;
     }
 }
