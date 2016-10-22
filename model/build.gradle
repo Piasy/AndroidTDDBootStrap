@@ -24,7 +24,7 @@ android {
         versionName rootProject.ext.releaseVersionName
 
         multiDexEnabled true
-        testInstrumentationRunner 'com.github.piasy.test.runner.MultiDexRestMockRunner'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {

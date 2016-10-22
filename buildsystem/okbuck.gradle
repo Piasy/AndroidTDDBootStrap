@@ -12,6 +12,7 @@ okbuck {
                     '^com/github/piasy/gh/BuildConfig^',
                     '^com/facebook/buck/android/support/exopackage/',
                     '^android/support/multidex/',
+                    '^android/support/annotation/',
                     '^com/github/piasy/gh/analytics/AppBlockCanaryContext^',
                     '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
                     '^android/support/v4/app/NotificationCompat$Builder^',
@@ -30,6 +31,7 @@ okbuck {
             'appDev': [
                     'buck-android-support',
                     'com.android.support:multidex',
+                    'com.android.support:support-annotations',
             ]
     ]
     wrapper {

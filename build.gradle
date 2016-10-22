@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.AndroidTestTask
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'buildsystem/dependencies.gradle'
 
@@ -7,7 +9,8 @@ buildscript {
     configurations.all {
         resolutionStrategy {
             dependencySubstitution {
-                substitute module('com.tunnelvisionlabs:antlr4') with module('org.antlr:antlr4:4.5.3')
+                substitute module('com.tunnelvisionlabs:antlr4') with module(
+                        'org.antlr:antlr4:4.5.3')
             }
         }
     }
@@ -23,21 +26,22 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.4'
-        classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
+
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.2'
-        classpath 'com.uber:okbuck:0.8.4'
+        classpath 'de.mobilej.unmock:UnMockPlugin:0.5.0'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.4'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
-        classpath 'com.bugtags.library:bugtags-gradle:1.2.6'
         classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
+        classpath 'com.uber:okbuck:0.8.4'
+
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0'
+        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
         classpath "com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion"
         classpath "com.jakewharton:butterknife-gradle-plugin:$butterKnifeVersion"
-        classpath 'me.ele:mess-plugin:1.0.1'
+        classpath 'io.fabric.tools:gradle:1.22.0'
     }
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
@@ -56,10 +60,7 @@ allprojects {
         }
         maven { url "https://jitpack.io" }
         maven {
-            url  "http://dl.bintray.com/piasy/maven"
-        }
-        maven {
-            url  "http://dl.bintray.com/okbuild/maven"
+            url "http://dl.bintray.com/piasy/maven"
         }
     }
 }
@@ -67,12 +68,9 @@ allprojects {
 subprojects {
     afterEvaluate {
         // Log instrumentation tests results.
-        tasks.withType(com.android.build.gradle.internal.tasks.AndroidTestTask) { task ->
+        tasks.withType(AndroidTestTask) { task ->
             task.doFirst {
-                logging.level = LogLevel.INFO
-            }
-            task.doLast {
-                logging.level = LogLevel.LIFECYCLE
+                ant.lifecycleLogLevel = org.gradle.api.AntBuilder.AntMessagePriority.DEBUG
             }
         }
     }

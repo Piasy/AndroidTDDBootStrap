@@ -1,2 +1,2 @@
 #!/bin/sh
-adb shell setprop dalvik.vm.dexopt-flags v=n,o=v && adb shell stop installd && adb shell start installd && ./gradlew :app:cC --stacktrace
+adb shell setprop dalvik.vm.dexopt-flags v=n,o=v && ./gradlew :app:cC --stacktrace $1

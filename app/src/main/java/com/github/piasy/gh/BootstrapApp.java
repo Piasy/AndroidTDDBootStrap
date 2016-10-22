@@ -24,10 +24,12 @@
 
 package com.github.piasy.gh;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import com.facebook.buck.android.support.exopackage.DefaultApplicationLike;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
@@ -49,9 +51,12 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class BootstrapApp extends DefaultApplicationLike implements IApplication {
 
+    @SuppressLint("StaticFieldLeak")
     private static BootstrapApp sInstance;
 
-    protected final Application mApplication;
+    @VisibleForTesting
+    final Application mApplication;
+
     private AppComponent mAppComponent;
 
     public BootstrapApp(final Application application) {

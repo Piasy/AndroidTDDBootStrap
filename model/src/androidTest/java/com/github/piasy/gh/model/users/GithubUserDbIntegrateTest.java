@@ -2,13 +2,14 @@ package com.github.piasy.gh.model.users;
 
 import android.support.test.InstrumentationRegistry;
 import com.github.piasy.base.model.provider.DbModuleExposure;
-import com.github.piasy.test.BaseThreeTenBPAndroidTest;
 import com.github.piasy.gh.model.DaoModuleExposure;
+import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.squareup.sqlbrite.BriteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
@@ -16,17 +17,20 @@ import org.threeten.bp.ZonedDateTime;
 /**
  * Created by piasy on 15/8/11.
  */
-public class GithubUserDbIntegrateTest extends BaseThreeTenBPAndroidTest {
+public class GithubUserDbIntegrateTest {
     private static final String LOGIN = "Piasy";
     private static final String AVATAR = "avatar";
     private static final String TYPE = "User";
+
+    @Rule
+    public ThreeTenBPRule mThreeTenBPRule = ThreeTenBPRule.androidTest(
+            InstrumentationRegistry.getContext());
+
     private DbUserDelegate mDbUserDelegate;
     private ZonedDateTime mDate;
 
     @Before
     public void setUp() {
-        initThreeTenABP(InstrumentationRegistry.getContext());
-
         final BriteDatabase briteDb = DbModuleExposure.exposeBriteDb(
                 DaoModuleExposure.exposeBriteDbConfig(InstrumentationRegistry.getContext()));
         mDbUserDelegate = new DbUserDelegateImpl(briteDb);

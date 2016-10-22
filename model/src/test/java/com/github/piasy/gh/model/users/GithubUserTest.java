@@ -1,25 +1,28 @@
 package com.github.piasy.gh.model.users;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.test.BaseThreeTenBPTest;
 import com.github.piasy.test.mock.MockProvider;
+import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.google.gson.Gson;
 import junit.framework.Assert;
 import org.json.JSONException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 /**
  * Created by piasy on 15/8/11.
  */
-public class GithubUserTest extends BaseThreeTenBPTest {
+public class GithubUserTest {
+
+    @Rule
+    public ThreeTenBPRule mThreeTenBPRule = ThreeTenBPRule.junitTest();
 
     private Gson mGson;
 
     @Before
     public void setUp() {
-        initThreeTenBP();
         mGson = GsonProviderExposure.exposeGson();
     }
 

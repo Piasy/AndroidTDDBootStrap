@@ -1,2 +1,5 @@
 [ndk]
   gcc_version = 4.9
+[cache]
+  http_mode = readwrite
+  http_url = http://localhost:6457

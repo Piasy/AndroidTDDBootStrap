@@ -2,17 +2,18 @@ package com.github.piasy.gh;
 
 import android.app.Application;
 import android.content.Context;
-import com.github.piasy.test.runner.MultiDexRestMockRunner;
+import android.support.test.runner.AndroidJUnitRunner;
 
 /**
  * Created by Piasy{github.com/Piasy} on 11/09/2016.
  */
 
-public class GhAppRunner extends MultiDexRestMockRunner {
+public class GhAppRunner extends AndroidJUnitRunner {
     @Override
     public Application newApplication(final ClassLoader cl, final String className,
             final Context context)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return super.newApplication(cl, MockBootstrapApp.class.getName(), context);
+        AppShell.sRealAppName = MockBootstrapApp.class.getCanonicalName();
+        return super.newApplication(cl, AppShell.class.getName(), context);
     }
 }

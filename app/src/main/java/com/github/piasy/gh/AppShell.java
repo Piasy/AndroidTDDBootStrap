@@ -1,5 +1,6 @@
 package com.github.piasy.gh;
 
+import android.support.annotation.VisibleForTesting;
 import android.support.multidex.MultiDex;
 import com.facebook.buck.android.support.exopackage.ExopackageApplication;
 
@@ -8,12 +9,13 @@ import com.facebook.buck.android.support.exopackage.ExopackageApplication;
  */
 public class AppShell extends ExopackageApplication {
 
-    private static final String REAL_APP_NAME = "com.github.piasy.gh.BootstrapApp";
+    @VisibleForTesting
+    static String sRealAppName = "com.github.piasy.gh.BootstrapApp";
 
     private final boolean mIsExoPackage;
 
     public AppShell() {
-        super(REAL_APP_NAME, BuildConfig.EXOPACKAGE_FLAGS != 0);
+        super(sRealAppName, BuildConfig.EXOPACKAGE_FLAGS != 0);
         mIsExoPackage = BuildConfig.EXOPACKAGE_FLAGS != 0;
     }
 

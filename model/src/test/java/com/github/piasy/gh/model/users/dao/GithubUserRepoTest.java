@@ -1,14 +1,14 @@
 package com.github.piasy.gh.model.users.dao;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.test.BaseThreeTenBPTest;
-import com.github.piasy.test.mock.MockProvider;
-import com.github.piasy.test.ApiErrorUtil;
-import com.github.piasy.gh.model.users.DbUserDelegate;
 import com.github.piasy.gh.model.GithubApi;
+import com.github.piasy.gh.model.users.DbUserDelegate;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.gh.model.users.GithubUserRepo;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
+import com.github.piasy.test.TestUtil;
+import com.github.piasy.test.mock.MockProvider;
+import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
@@ -34,8 +34,10 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/12.
  */
-public class GithubUserRepoTest extends BaseThreeTenBPTest {
+public class GithubUserRepoTest {
 
+    @Rule
+    public ThreeTenBPRule mThreeTenBPRule = ThreeTenBPRule.junitTest();
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
@@ -49,10 +51,10 @@ public class GithubUserRepoTest extends BaseThreeTenBPTest {
 
     @Before
     public void setUp() {
-        initThreeTenBP();
         final Gson gson = GsonProviderExposure.exposeGson();
         mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
-                new TypeToken<GithubUserSearchResult>() {}.getType());
+                new TypeToken<GithubUserSearchResult>() {
+                }.getType());
 
         mGithubUserRepo = new GithubUserRepo(mDbUserDelegate, mGithubApi);
     }
@@ -87,7 +89,7 @@ public class GithubUserRepoTest extends BaseThreeTenBPTest {
         // given
         willReturn(Observable.create(
                 (Observable.OnSubscribe<GithubUserSearchResult>) subscriber -> {
-                    subscriber.onError(ApiErrorUtil.apiError());
+                    subscriber.onError(TestUtil.apiError());
                 })).given(mGithubApi).searchGithubUsers(anyString(), anyString(), anyString());
 
         // when

@@ -23,17 +23,16 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.frogermcs.androiddevmetrics'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.frogermcs.androiddevmetrics'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
 apply from: '../AndroidCodeQualityConfig/quality.gradle'
-apply plugin: 'me.ele.mess'
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -119,6 +118,7 @@ android {
             debuggable true
             signingConfig signingConfigs.develop
             testCoverageEnabled isTravis
+            ext.enableCrashlytics = false
         }
 
         release {
@@ -128,6 +128,7 @@ android {
             signingConfig signingConfigs.develop
             //signingConfig signingConfigs.production
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ext.enableCrashlytics = true
         }
     }
 
@@ -162,13 +163,6 @@ unMock {
     keep "android.text.TextUtils"
 }
 
-if (!isTravis) {
-    bugtags {
-        appKey "82cdb5f7f8925829ccc4a6e7d5d12216"
-        appSecret BUG_TAGS_API_SECRET
-    }
-}
-
 gitSha {
     buildTypeMatcher = 'release'
     flavorMatcher = '.*'
@@ -178,6 +172,7 @@ gitSha {
 dependencies {
     def appDependencies = rootProject.ext.appDependencies
     def aptDependencies = rootProject.ext.aptDependencies
+    def testDependencies = rootProject.ext.testDependencies
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile appDependencies.recyclerViewV7
@@ -197,8 +192,11 @@ dependencies {
         exclude module: 'appcompat-v7'
     }
 
-    compile(appDependencies.bugTags) {
-        exclude module: 'support-v4'
+    compile(appDependencies.crashlytics) {
+        transitive = true;
+    }
+    compile(appDependencies.answers) {
+        transitive = true;
     }
 
     compile appDependencies.gitSha
@@ -219,4 +217,6 @@ dependencies {
     androidTestAnnotationProcessor(aptDependencies.daggerApt) {
         exclude module: 'dagger'
     }
+    androidTestProvided testDependencies.restMockAndroid
+    androidTestProvided testDependencies.hamcrestLibrary
 }

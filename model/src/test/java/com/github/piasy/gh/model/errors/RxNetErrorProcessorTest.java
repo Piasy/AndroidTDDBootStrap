@@ -1,10 +1,9 @@
 package com.github.piasy.gh.model.errors;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.test.BaseThreeTenBPTest;
+import com.github.piasy.test.TestUtil;
 import com.github.piasy.test.mock.MockProvider;
-import com.github.piasy.test.ApiErrorUtil;
-import org.junit.Before;
+import com.github.piasy.test.rules.ThreeTenBPRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,17 +21,15 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Piasy{github.com/Piasy} on 5/5/16.
  */
-public class RxNetErrorProcessorTest extends BaseThreeTenBPTest {
+public class RxNetErrorProcessorTest {
+
+    @Rule
+    public ThreeTenBPRule mThreeTenBPRule = ThreeTenBPRule.junitTest();
     @Rule
     public MockitoRule mMockitoRule = MockitoJUnit.rule();
 
     @Mock
     private Action1<ApiError> mApiErrorHandler;
-
-    @Before
-    public void setUp() {
-        initThreeTenBP();
-    }
 
     @Test
     public void testProcessOtherException() {
@@ -48,7 +45,7 @@ public class RxNetErrorProcessorTest extends BaseThreeTenBPTest {
         RxNetErrorProcessor rxNetErrorProcessor =
                 new RxNetErrorProcessor(GsonProviderExposure.exposeGson());
         assertFalse(
-                rxNetErrorProcessor.tryWithApiError(ApiErrorUtil.nonApiError(), mApiErrorHandler));
+                rxNetErrorProcessor.tryWithApiError(TestUtil.nonApiError(), mApiErrorHandler));
         verify(mApiErrorHandler, never()).call(any());
     }
 
@@ -56,7 +53,7 @@ public class RxNetErrorProcessorTest extends BaseThreeTenBPTest {
     public void testProcessInvalidApiError() {
         RxNetErrorProcessor rxNetErrorProcessor =
                 new RxNetErrorProcessor(GsonProviderExposure.exposeGson());
-        assertFalse(rxNetErrorProcessor.tryWithApiError(ApiErrorUtil.invalidApiError(),
+        assertFalse(rxNetErrorProcessor.tryWithApiError(TestUtil.invalidApiError(),
                 mApiErrorHandler));
         verify(mApiErrorHandler, never()).call(any());
     }
@@ -65,7 +62,7 @@ public class RxNetErrorProcessorTest extends BaseThreeTenBPTest {
     public void testProcessApiError() {
         RxNetErrorProcessor rxNetErrorProcessor =
                 new RxNetErrorProcessor(GsonProviderExposure.exposeGson());
-        assertTrue(rxNetErrorProcessor.tryWithApiError(ApiErrorUtil.apiError(), mApiErrorHandler));
+        assertTrue(rxNetErrorProcessor.tryWithApiError(TestUtil.apiError(), mApiErrorHandler));
         ApiError apiError = GsonProviderExposure.exposeGson()
                 .fromJson(MockProvider.provideGithubAPIErrorStr(), ApiError.class);
         verify(mApiErrorHandler, only()).call(apiError);

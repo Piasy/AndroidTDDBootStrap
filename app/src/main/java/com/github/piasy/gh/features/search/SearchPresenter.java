@@ -24,6 +24,7 @@
 
 package com.github.piasy.gh.features.search;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import com.github.piasy.gh.model.errors.RxNetErrorProcessor;
 import com.github.piasy.gh.model.users.GithubUser;
@@ -57,6 +58,8 @@ public class SearchPresenter extends YaRxPresenter<SearchUserView> {
         mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
+    // gradle build will compile code use `Objects.requireNonNull()`
+    @SuppressLint("NewApi")
     void onViewReady() {
         addUtilStop(getView().onQueryChanges()
                 .observeOn(AndroidSchedulers.mainThread())

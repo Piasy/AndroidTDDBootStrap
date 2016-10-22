@@ -24,24 +24,33 @@
 
 package com.github.piasy.gh;
 
-import android.view.MotionEvent;
-import com.bugtags.library.Bugtags;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.github.piasy.base.android.BaseActivity;
 import com.github.piasy.gh.features.splash.SplashActivity;
 import com.github.piasy.yamvp.YaPresenter;
 import com.github.piasy.yamvp.YaView;
 import com.github.piasy.yamvp.dagger2.BaseComponent;
+import org.threeten.bp.Duration;
+import org.threeten.bp.ZonedDateTime;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
 public abstract class BootstrapActivity<V extends YaView, P extends YaPresenter<V>, C extends
         BaseComponent<V, P>> extends BaseActivity<V, P, C> {
+    private ZonedDateTime mResume;
+    private ZonedDateTime mPause;
+
     @Override
     protected void onResume() {
         super.onResume();
         if (isTrack()) {
-            Bugtags.onResume(this);
+            mResume = ZonedDateTime.now();
+            Answers.getInstance()
+                    .logCustom(new CustomEvent("Activity onResume")
+                            .putCustomAttribute("Activity", this.getClass().getName())
+                            .putCustomAttribute("Time", currentTime(mResume)));
         }
     }
 
@@ -49,19 +58,23 @@ public abstract class BootstrapActivity<V extends YaView, P extends YaPresenter<
     protected void onPause() {
         super.onPause();
         if (isTrack()) {
-            Bugtags.onPause(this);
+            mPause = ZonedDateTime.now();
+            Answers.getInstance()
+                    .logCustom(new CustomEvent("Activity onPause")
+                            .putCustomAttribute("Activity", this.getClass().getName())
+                            .putCustomAttribute("Time", currentTime(mPause))
+                            .putCustomAttribute("Duration",
+                                    Duration.between(mResume, mPause).toMinutes()));
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        if (isTrack()) {
-            Bugtags.onDispatchTouchEvent(this, ev);
-        }
-        return super.dispatchTouchEvent(ev);
     }
 
     private boolean isTrack() {
         return "release".equals(BuildConfig.BUILD_TYPE) && !(this instanceof SplashActivity);
+    }
+
+    private String currentTime(final ZonedDateTime dateTime) {
+        return String.format("%d-%d-%d %d:%d:%d", dateTime.getYear(), dateTime.getMonthValue(),
+                dateTime.getDayOfMonth(), dateTime.getHour(), dateTime.getMinute(),
+                dateTime.getSecond());
     }
 }

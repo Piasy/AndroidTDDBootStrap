@@ -27,7 +27,6 @@ package com.github.piasy.gh.features.search;
 import android.content.Intent;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -40,17 +39,19 @@ import butterknife.ButterKnife;
 import com.github.piasy.gh.MockBootstrapApp;
 import com.github.piasy.gh.R;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
-import com.github.piasy.test.BaseEspressoTest;
+import com.github.piasy.test.TestUtil;
 import com.github.piasy.test.mock.MockProvider;
+import com.github.piasy.test.rules.MultiDexRule;
+import com.github.piasy.test.rules.RestMockRule;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.joanzapata.iconify.widget.IconTextView;
 import io.appflate.restmock.RESTMockServer;
 import io.appflate.restmock.RequestsVerifier;
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -73,20 +74,23 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Piasy{github.com/Piasy} on 3/8/16.
  */
-@RunWith(AndroidJUnit4.class)
-public class SearchActivityTest extends BaseEspressoTest {
+public class SearchActivityTest {
+    @Rule
+    public MultiDexRule mMultiDexRule = new MultiDexRule();
+    @Rule
+    public RestMockRule mRestMockRule = new RestMockRule();
     @Rule
     public ActivityTestRule<SearchActivity> mActivityTestRule =
             new ActivityTestRule<>(SearchActivity.class, true, false);
 
     private GithubUserSearchResult mSingleResult;
 
-    @Override
+    @Before
     public void setUp() throws IOException {
-        super.setUp();
         final Gson gson = MockBootstrapApp.get().mGson;
         mSingleResult = gson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
-                new TypeToken<GithubUserSearchResult>() {}.getType());
+                new TypeToken<GithubUserSearchResult>() {
+                }.getType());
         RESTMockServer.whenGET(pathStartsWith("/search/users?"))
                 .thenReturnString(200, MockProvider.provideSimplifiedGithubUserSearchResultStr());
     }
@@ -108,7 +112,7 @@ public class SearchActivityTest extends BaseEspressoTest {
         onView(isAssignableFrom(EditText.class)).perform(typeText("piasy"),
                 pressKey(KeyEvent.KEYCODE_ENTER));
         closeSoftKeyboard();
-        sleep(1500);
+        TestUtil.sleep(1500);
 
         // then, boilerplate code to get, cast view, then get property, then assert it...
         final RecyclerView recyclerView = ButterKnife.findById(activity, R.id.mRvSearchResult);

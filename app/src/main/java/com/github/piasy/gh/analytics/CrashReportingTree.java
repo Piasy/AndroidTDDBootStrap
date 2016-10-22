@@ -26,7 +26,7 @@ package com.github.piasy.gh.analytics;
 
 import android.text.TextUtils;
 import android.util.Log;
-import com.bugtags.library.Bugtags;
+import com.crashlytics.android.Crashlytics;
 import timber.log.Timber;
 
 /**
@@ -39,10 +39,10 @@ public class CrashReportingTree extends Timber.Tree {
             final Throwable t) {
         if (priority == Log.ERROR) {
             if (t != null) {
-                Bugtags.sendException(t);
+                Crashlytics.logException(t);
             }
             if (!TextUtils.isEmpty(message)) {
-                Bugtags.log(tag + " >>> " + message);
+                Crashlytics.log(message);
             }
         }
     }

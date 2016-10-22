@@ -24,6 +24,7 @@
 
 package com.github.piasy.gh.model.users;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import com.github.piasy.gh.model.GithubApi;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
@@ -51,6 +52,8 @@ public class GithubUserRepo {
      * @param query search query.
      * @return search result observable.
      */
+    @SuppressLint("NewApi")
+    // gradle build will compile code use `Objects.requireNonNull(this.mDbUserDelegate)`
     @NonNull
     public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
         return mGithubApi.searchGithubUsers(query, GithubApi.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
