@@ -42,6 +42,8 @@ import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransaction
 public class SplashActivity
         extends BootstrapActivity<SplashView, SplashPresenter, SplashComponent> {
 
+    private static final String SPLASH_FRAGMENT = "SplashFragment";
+
     private SplashComponent mSplashComponent;
 
     @Override
@@ -49,9 +51,12 @@ public class SplashActivity
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
-        safeCommit(transaction(getSupportFragmentManager())
-                .add(android.R.id.content, new SplashFragment(), "SplashFragment")
-                .build());
+        if (savedInstanceState == null
+            || getSupportFragmentManager().findFragmentByTag(SPLASH_FRAGMENT) == null) {
+            safeCommit(transaction(getSupportFragmentManager())
+                    .add(android.R.id.content, new SplashFragment(), SPLASH_FRAGMENT)
+                    .build());
+        }
     }
 
     @Override

@@ -28,17 +28,24 @@ import android.os.Bundle;
 import com.github.piasy.gh.BootstrapActivity;
 import com.github.piasy.gh.BootstrapApp;
 
+import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
+
 public class SearchActivity
         extends BootstrapActivity<SearchUserView, SearchPresenter, SearchComponent> {
 
+    public static final String SEARCH_FRAGMENT = "SearchFragment";
     private SearchComponent mSearchComponent;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
-                .add(android.R.id.content, new SearchFragment())
-                .commit();
+
+        if (savedInstanceState == null
+            || getSupportFragmentManager().findFragmentByTag(SEARCH_FRAGMENT) == null) {
+            safeCommit(transaction(getSupportFragmentManager())
+                    .add(android.R.id.content, new SearchFragment(), SEARCH_FRAGMENT)
+                    .build());
+        }
     }
 
     @Override

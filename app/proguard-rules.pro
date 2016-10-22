@@ -20,6 +20,7 @@
     <init>(android.app.Application);
 }
 
+-keepnames class com.github.piasy.gh.BootstrapApp
 
 # RecyclerViewPager
 -keep class com.lsjwzh.widget.recyclerviewpager.**

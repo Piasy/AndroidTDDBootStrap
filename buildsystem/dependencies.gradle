@@ -17,10 +17,10 @@ ext {
     okHttpVersion = '3.4.1'
     retrofitVersion = '2.1.0'
 
-    sqlDelightVersion = '0.4.4'
+    sqlDelightVersion = '0.5.0'
     autoBundleVersion = '3.1.1'
     onActivityResultVersion = '0.6.0'
-    mvpVersion = '1.0.1'
+    mvpVersion = '1.1.0'
 
     // Developer
     stethoVersion = '1.4.1'
@@ -53,7 +53,7 @@ ext {
              retrofit                 : "com.squareup.retrofit2:retrofit:$retrofitVersion",
              retrofitGsonConverter    : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
              retrofitRxJavaAdapter    : "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
-             sqlBrite                 : 'com.squareup.sqlbrite:sqlbrite:0.7.0',
+             sqlBrite                 : 'com.squareup.sqlbrite:sqlbrite:0.8.0',
              sqlDelightRuntime        : "com.squareup.sqldelight:runtime:$sqlDelightVersion",
 
              threetenabp              : "com.jakewharton.threetenabp:threetenabp:1.0.4",
@@ -82,7 +82,7 @@ ext {
              SSIV               : "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0",
              slidr              : "com.r0adkll:slidableactivity:2.0.5",
              recyclerViewPager  : "com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0-beta5",
-             statusBarUtil      : "com.jaeger.statusbaruitl:library:1.2.7",
+             statusBarUtil      : "com.jaeger.statusbaruitl:library:1.2.8",
 
              crashlytics        : 'com.crashlytics.sdk.android:crashlytics:2.6.5@aar',
              answers        : 'com.crashlytics.sdk.android:answers:1.3.10@aar',
@@ -98,8 +98,8 @@ ext {
                        butterKnifeApt     : "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
 
                        autoValue          : "com.google.auto.value:auto-value:1.3",
-                       autoParcelApt      : "com.ryanharter.auto.value:auto-value-parcel:0.2.3-rc2",
-                       autoGsonApt        : "com.ryanharter.auto.value:auto-value-gson:0.4.2",
+                       autoParcelApt      : "com.ryanharter.auto.value:auto-value-parcel:0.2.5",
+                       autoGsonApt        : "com.ryanharter.auto.value:auto-value-gson:0.4.3",
                        autoBundleApt      : "com.github.yatatsu:autobundle-processor:$autoBundleVersion",
                        onActivityResultApt: "com.vanniktech:onactivityresult-compiler:$onActivityResultVersion",
 
@@ -116,7 +116,7 @@ ext {
                         androidJUnitRunner   : "com.android.support.test:runner:$testSupportLibVersion",
                         androidJUnit4Rules   : "com.android.support.test:rules:$testSupportLibVersion",
 
-                        hamcrestLibrary      : "org.hamcrest:hamcrest-library:1.3",
+                        hamcrestLibrary      : "org.hamcrest:hamcrest-library:1.4-atlassian-1",
                         jsonAssert           : "org.skyscreamer:jsonassert:$jsonAssertVersion",
 
                         mockWebServer        : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
