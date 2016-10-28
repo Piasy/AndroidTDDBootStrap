@@ -33,27 +33,27 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
   +  [RxLifecycle](https://github.com/trello/RxLifecycle), Lifecycle handling APIs for Android apps using RxJava.
 +  Communication between modules: [EventBus](https://github.com/greenrobot/EventBus), Android optimized event bus that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
 +  Image loader: [Fresco](https://github.com/facebook/fresco), An Android library for managing images and the memory they use.
++  Other core libraries
+  +  [SafelyAndroid](https://github.com/Piasy/SafelyAndroid), Build safely Android app, no more Activity not found error and Activity state loss error!
+  +  [RetroLambda](https://github.com/orfjackal/retrolambda), Backport of Java 8's lambda expressions to Java 7, 6 and 5.
+  +  [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP), An adaptation of the JSR-310 backport for Android.
+  +  [AutoBundle](https://github.com/yatatsu/AutoBundle/releases/tag/1.0.2), AutoBundle generates boilerplate code for field binding with android.os.Bundle.
+  +  [FlexLayout](https://github.com/mmin18/FlexLayout), A powerful Android layout view that use java expression in layout params to describe relative positions.
 +  Developer tools
   +  [XLog](https://github.com/promeG/XLog), Method call logging based on dexposed.
-  +  [Android Lint Summary](https://github.com/passy/android-lint-summary), View your Android lint issues with style.
   +  [LeakCanary](https://github.com/square/leakcanary), A memory leak detection library for Android and Java.
   +  [ANR-WatchDog](https://github.com/SalomonBrys/ANR-WatchDog), A simple watchdog that detects Android ANR (Application Not Responding) error and throws a meaningful exception.
-  +  [BlockCanary](https://github.com/moduth/blockcanary), A transparent ui-block detection library for Android.
-  +  [RetroLambda](https://github.com/orfjackal/retrolambda), Backport of Java 8's lambda expressions to Java 7, 6 and 5.
+  +  [AndroidPerformanceMonitor](https://github.com/markzhai/AndroidPerformanceMonitor), A transparent ui-block detection library for Android. (known as BlockCanary)
+  +  [strictmode-notifier](https://github.com/nshmura/strictmode-notifier), Improving StrictMode's report on Android.
   +  [Timber](https://github.com/JakeWharton/timber), A logger with a small, extensible API which provides utility on top of Android's normal Log class.
   +  [OkHttp Logging Interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor), An OkHttp interceptor which logs HTTP request and response data.
   +  [Ok2Curl](https://github.com/mrmike/Ok2Curl), Convert OkHttp requests into curl logs.
   +  [Stetho](https://github.com/facebook/stetho), Stetho is a debug bridge for Android applications, enabling the powerful Chrome Developer Tools and much more.
-  +  [strictmode-notifier](https://github.com/nshmura/strictmode-notifier), Improving StrictMode's report on Android.
   +  [android-git-sha-plugin](https://github.com/promeG/android-git-sha-plugin), Automatically add current GIT SHA value to your apk. It can rise an error if the current git branch is dirty.
   +  [Codestyle](https://github.com/Piasy/java-code-styles), Customized base on [Square java-code-styles](https://github.com/square/java-code-styles).
 +  Others
   +  [Iconfy](https://github.com/JoanZapata/android-iconify), Android integration of multiple icon providers such as FontAwesome, Entypo, Typicons,...
-  +  [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP), An adaptation of the JSR-310 backport for Android.
-  +  [AutoBundle](https://github.com/yatatsu/AutoBundle/releases/tag/1.0.2), AutoBundle generates boilerplate code for field binding with android.os.Bundle.
-  +  [BugTags](https://www.bugtags.com/), Crash report.
-  +  [SafelyAndroid](https://github.com/Piasy/SafelyAndroid), Build safely Android app, no more Activity not found error and Activity state loss error!
-  +  [FlexLayout](https://github.com/mmin18/FlexLayout), A powerful Android layout view that use java expression in layout params to describe relative positions.
+  +  [Fabric](https://fabric.io/), Crash report.
   +  [Once](https://github.com/jonfinerty/Once), A small Android library to manage one-off operations.
 +  Unit test
   +  Junit && Android Junit
@@ -69,7 +69,7 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
   +  [Checkstyle](https://github.com/checkstyle/checkstyle), Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. By default it supports the Google Java Style Guide and Sun Code Conventions, but is highly configurable. It can be invoked with an ANT task and a command line program.
   +  [Find bugs](https://github.com/findbugsproject/findbugs), FindBugs is a defect detection tool for Java that uses static analysis to look for more than 200 bug patterns, such as null pointer dereferences, infinite recursive loops, bad uses of the Java libraries and deadlocks.
   +  [PMD](https://github.com/pmd/pmd), PMD is a source code analyzer.
-  +  Lint, [Android Lint Summary](https://github.com/passy/android-lint-summary), View your Android lint issues with style.
+  +  Lint
 +  Code coverage
   +  Jacoco && [Codecov](https://codecov.io)
 
@@ -77,13 +77,13 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
 +  base
   +  The so called architecture part, and base classes, best practice, etc.
 +  model
-  +  Business related data layer, entities, APIs, DAOs, etc.
+  +  Business related data layer, entities, API, REPO, etc.
 +  app
   +  App functionality.
 +  package organization
   +  package by layer v.s. package by feature, read more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), and [Package by feature, not layer](http://www.javapractices.com/topic/TopicAction.do?Id=205).
   +  package by layer + package by feature
-    +  network API, data object, DAO are organized in the single `model` library module, but inside model module, classes are organized by feature
+    +  network API, data object, REPO are organized in the single `model` library module, but inside model module, classes are organized by feature
     +  app functionality are organized by feature, mvp, di, ui code are organized together
 
 ## Build tips
@@ -96,11 +96,8 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
   +  `debug` enable log and dev tools, disable crash and analytics, `release` against it
 
 ## Dev tips
-+  Create utils
-  +  Create util class in common/common_android module
-  +  Add @Provides annotated provider method in corresponding Module class(UtilsModule.java/AndroidUtilsModule.java)
-  +  ~~Add expose method in AppComponent.java~~
 +  Create Activity
+  +  **TODO** use the MVP feature generator
 +  Unit test
   +  use the check*.sh script in buildsystem dir
 +  Run `./buildsystem/ci.sh` before git push.
@@ -113,7 +110,7 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
 +  ~~facebook [BUCK](http://buckbuild.com) integration~~ integrate with [OkBuck](https://github.com/Piasy/OkBuck)
 +  ~~Update dependencies~~
 +  ~~refactor modules~~
-+  NDK integrate
++  ~~NDK integrate~~ now it's easy to integrate NDK with Android gradle build tools 2.2.2
 +  MVP source generator plugin
 +  MVVM branch
 +  react native branch
