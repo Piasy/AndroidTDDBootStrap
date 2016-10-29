@@ -17,7 +17,7 @@ ext {
     okHttpVersion = '3.4.1'
     retrofitVersion = '2.1.0'
 
-    sqlDelightVersion = '0.5.0'
+    sqlDelightVersion = '0.5.1'
     autoBundleVersion = '3.1.1'
     onActivityResultVersion = '0.6.0'
     mvpVersion = '1.1.0'
@@ -35,7 +35,7 @@ ext {
 
     baseDependencies =
             [androidSupportAppCompatV7: "com.android.support:appcompat-v7:$androidSupportSdkVersion",
-             safelyAndroid            : "com.github.piasy:safelyandroid:1.2.3",
+             safelyAndroid            : "com.github.piasy:safelyandroid:1.2.4",
 
              javaxAnnotation          : "org.glassfish:javax.annotation:10.0-b28",
 
@@ -48,7 +48,7 @@ ext {
              dagger                   : "com.google.dagger:dagger:$daggerVersion",
              butterKnife              : "com.jakewharton:butterknife:$butterKnifeVersion",
 
-             gson                     : "com.google.code.gson:gson:2.7",
+             gson                     : "com.google.code.gson:gson:2.8.0",
              okHttp                   : "com.squareup.okhttp3:okhttp:$okHttpVersion",
              retrofit                 : "com.squareup.retrofit2:retrofit:$retrofitVersion",
              retrofitGsonConverter    : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
@@ -107,7 +107,7 @@ ext {
                        errorprone         : "com.google.errorprone:error_prone_core:2.0.13",]
 
     testDependencies = [junit                : "junit:junit:4.12",
-                        mockito              : "org.mockito:mockito-core:2.2.3",
+                        mockito              : "org.mockito:mockito-core:2.2.9",
                         espresso             : "com.android.support.test.espresso:espresso-core:$espressoVersion",
                         espressoIntents      : "com.android.support.test.espresso:espresso-intents:$espressoVersion",
                         espessoContrib       : "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
