@@ -28,9 +28,10 @@ import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
+import io.reactivex.Flowable;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/14.
@@ -71,8 +72,9 @@ public final class DbUserDelegateImpl implements DbUserDelegate {
     @SuppressLint("NewApi")
     // gradle build will compile code use `Objects.requireNonNull(GithubUser.MAPPER)`
     @Override
-    public Observable<List<GithubUser>> getAllGithubUser() {
-        return mBriteDb.createQuery(GithubUser.TABLE_NAME, GithubUser.GET_ALL)
-                .mapToList(GithubUser.MAPPER::map);
+    public Flowable<List<GithubUser>> getAllGithubUser() {
+        return RxJavaInterop.toV2Flowable(mBriteDb
+                .createQuery(GithubUser.TABLE_NAME, GithubUser.GET_ALL)
+                .mapToList(GithubUser.MAPPER::map));
     }
 }

@@ -44,10 +44,11 @@ import com.github.piasy.gh.R2;
 import com.github.piasy.gh.features.profile.ProfileActivityAutoBundle;
 import com.github.piasy.gh.model.users.GithubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
+import io.reactivex.Flowable;
 import java.util.List;
 import javax.inject.Inject;
 import onactivityresult.OnActivityResult;
-import rx.Observable;
 
 public class SearchFragment
         extends BaseFragment<SearchUserView, SearchPresenter, SearchComponent>
@@ -108,8 +109,8 @@ public class SearchFragment
     }
 
     @Override
-    public Observable<CharSequence> onQueryChanges() {
-        return RxSearchView.queryTextChanges(mSearchView);
+    public Flowable<CharSequence> onQueryChanges() {
+        return RxJavaInterop.toV2Flowable(RxSearchView.queryTextChanges(mSearchView));
     }
 
     @Override

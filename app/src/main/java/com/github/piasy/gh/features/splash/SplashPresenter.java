@@ -14,9 +14,9 @@ import com.github.promeg.androidgitsha.lib.GitShaUtils;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
 import io.fabric.sdk.android.Fabric;
+import io.reactivex.Flowable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
-import rx.Observable;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -33,8 +33,8 @@ public class SplashPresenter extends YaRxPresenter<SplashView> {
     @Override
     public void attachView(final SplashView view) {
         super.attachView(view);
-        addUtilDestroy(Observable
-                .defer(() -> {
+        addUtilDestroy(Flowable
+                .fromCallable(() -> {
                     final Application app = BootstrapApp.application();
                     if ("release".equals(BuildConfig.BUILD_TYPE)) {
                         Timber.plant(new CrashReportingTree());
@@ -47,7 +47,7 @@ public class SplashPresenter extends YaRxPresenter<SplashView> {
                     Iconify.with(new MaterialModule());
                     Fresco.initialize(app);
 
-                    return Observable.just(true);
+                    return true;
                 })
                 .subscribeOn(Schedulers.io())
                 .subscribe(success -> {

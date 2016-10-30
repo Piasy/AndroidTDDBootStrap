@@ -11,6 +11,10 @@ import com.github.piasy.test.mock.MockProvider;
 import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.subscribers.TestSubscriber;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,14 +22,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Observable;
-import rx.Subscriber;
-import rx.observers.TestSubscriber;
 
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -62,13 +62,12 @@ public class GithubUserRepoTest {
     @Test
     public void testSearchUserSuccess() {
         // given
-        willReturn(Observable.create(new Observable.OnSubscribe<GithubUserSearchResult>() {
-            @Override
-            public void call(final Subscriber<? super GithubUserSearchResult> subscriber) {
-                subscriber.onNext(mEmptyResult);
-                subscriber.onCompleted();
-            }
-        })).given(mGithubApi).searchGithubUsers(anyString(), anyString(), anyString());
+        willReturn(Flowable.create(emitter -> {
+            emitter.onNext(mEmptyResult);
+            emitter.onComplete();
+        }, BackpressureStrategy.BUFFER))
+                .given(mGithubApi)
+                .searchGithubUsers(anyString(), anyString(), anyString());
 
         // when
         final TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
@@ -76,7 +75,7 @@ public class GithubUserRepoTest {
         subscriber.awaitTerminalEvent();
 
         // then
-        then(mDbUserDelegate).should(timeout(100)).putAllGithubUser(anyListOf(GithubUser.class));
+        then(mDbUserDelegate).should(timeout(100)).putAllGithubUser(anyList());
         verifyNoMoreInteractions(mDbUserDelegate);
         subscriber.assertNoErrors();
 
@@ -87,10 +86,10 @@ public class GithubUserRepoTest {
     @Test
     public void testSearchUserApiError() {
         // given
-        willReturn(Observable.create(
-                (Observable.OnSubscribe<GithubUserSearchResult>) subscriber -> {
-                    subscriber.onError(TestUtil.apiError());
-                })).given(mGithubApi).searchGithubUsers(anyString(), anyString(), anyString());
+        willReturn(Flowable.create(emitter -> emitter.onError(TestUtil.apiError()),
+                BackpressureStrategy.BUFFER))
+                .given(mGithubApi)
+                .searchGithubUsers(anyString(), anyString(), anyString());
 
         // when
         final TestSubscriber<List<GithubUser>> subscriber = new TestSubscriber<>();
