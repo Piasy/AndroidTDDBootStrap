@@ -28,9 +28,9 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import com.github.piasy.gh.model.GithubApi;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
+import io.reactivex.Flowable;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/5.
@@ -55,7 +55,7 @@ public class GithubUserRepo {
     @SuppressLint("NewApi")
     // gradle build will compile code use `Objects.requireNonNull(this.mDbUserDelegate)`
     @NonNull
-    public Observable<List<GithubUser>> searchUser(@NonNull final String query) {
+    public Flowable<List<GithubUser>> searchUser(@NonNull final String query) {
         return mGithubApi.searchGithubUsers(query, GithubApi.GITHUB_API_PARAMS_SEARCH_SORT_JOINED,
                 GithubApi.GITHUB_API_PARAMS_SEARCH_ORDER_DESC)
                 .map(GithubUserSearchResult::items)

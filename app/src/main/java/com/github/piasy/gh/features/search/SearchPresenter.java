@@ -31,13 +31,12 @@ import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.gh.model.users.GithubUserRepo;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import com.github.piasy.yamvp.rx.YaRxPresenter;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
@@ -64,13 +63,13 @@ public class SearchPresenter extends YaRxPresenter<SearchUserView> {
         addUtilStop(getView().onQueryChanges()
                 .observeOn(AndroidSchedulers.mainThread())
                 .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
-                .flatMap((Func1<CharSequence, Observable<List<GithubUser>>>) query -> {
+                .flatMap(query -> {
                     if (TextUtils.equals(mQuery, query)) {
-                        return Observable.empty();
+                        return Flowable.empty();
                     }
                     mQuery = query.toString();
                     if (TextUtils.isEmpty(mQuery)) {
-                        return Observable.just(Collections.emptyList());
+                        return Flowable.<List<GithubUser>>just(Collections.emptyList());
                     }
                     return mGithubUserRepo.searchUser(mQuery);
                 })

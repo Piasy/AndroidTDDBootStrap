@@ -25,9 +25,9 @@
 package com.github.piasy.gh.model;
 
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
+import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -53,6 +53,6 @@ public interface GithubApi {
      * @return the search result.
      */
     @GET("search/users")
-    Observable<GithubUserSearchResult> searchGithubUsers(@Query("q") String query,
+    Flowable<GithubUserSearchResult> searchGithubUsers(@Query("q") String query,
             @Query("sort") String sort, @Query("order") String order);
 }

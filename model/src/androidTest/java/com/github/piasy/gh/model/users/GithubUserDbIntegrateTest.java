@@ -42,7 +42,7 @@ public class GithubUserDbIntegrateTest {
 
     @Test
     public void testInsert() {
-        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertTrue(storedUsers.isEmpty());
 
         final List<GithubUser> users = new ArrayList<>();
@@ -56,14 +56,14 @@ public class GithubUserDbIntegrateTest {
         users.add(user);
         mDbUserDelegate.putAllGithubUser(users);
 
-        storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertEquals(user, storedUsers.get(0));
     }
 
     @Test
     public void testUpdate() {
-        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertTrue(storedUsers.isEmpty());
 
         final List<GithubUser> users = new ArrayList<>();
@@ -77,7 +77,7 @@ public class GithubUserDbIntegrateTest {
         users.add(user);
         mDbUserDelegate.putAllGithubUser(users);
 
-        storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertEquals(user, storedUsers.get(0));
 
@@ -91,7 +91,7 @@ public class GithubUserDbIntegrateTest {
         users.set(0, altered);
         mDbUserDelegate.putAllGithubUser(users);
 
-        storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertFalse(user.equals(storedUsers.get(0)));
         Assert.assertEquals(altered, storedUsers.get(0));
@@ -99,7 +99,7 @@ public class GithubUserDbIntegrateTest {
 
     @Test
     public void testDelete() {
-        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        List<GithubUser> storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertTrue(storedUsers.isEmpty());
 
         final List<GithubUser> users = new ArrayList<>();
@@ -113,12 +113,12 @@ public class GithubUserDbIntegrateTest {
         users.add(user);
         mDbUserDelegate.putAllGithubUser(users);
 
-        storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertEquals(1, storedUsers.size());
         Assert.assertEquals(user, storedUsers.get(0));
 
         mDbUserDelegate.deleteAllGithubUser();
-        storedUsers = mDbUserDelegate.getAllGithubUser().toBlocking().first();
+        storedUsers = mDbUserDelegate.getAllGithubUser().blockingFirst();
         Assert.assertEquals(0, storedUsers.size());
     }
 }

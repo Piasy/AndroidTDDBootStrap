@@ -26,9 +26,9 @@ package com.github.piasy.gh.model.errors;
 
 import android.text.TextUtils;
 import com.google.gson.Gson;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.functions.Action1;
 import timber.log.Timber;
 

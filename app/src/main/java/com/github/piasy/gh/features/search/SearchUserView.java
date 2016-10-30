@@ -26,14 +26,14 @@ package com.github.piasy.gh.features.search;
 
 import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.yamvp.YaView;
+import io.reactivex.Flowable;
 import java.util.List;
-import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 public interface SearchUserView extends YaView {
-    Observable<CharSequence> onQueryChanges();
+    Flowable<CharSequence> onQueryChanges();
 
     void showSearchResult(List<GithubUser> users);
 

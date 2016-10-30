@@ -24,8 +24,8 @@
 
 package com.github.piasy.gh.model.users;
 
+import io.reactivex.Flowable;
 import java.util.List;
-import rx.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/8/14.
@@ -39,5 +39,5 @@ public interface DbUserDelegate {
 
     void putAllGithubUser(List<GithubUser> users);
 
-    Observable<List<GithubUser>> getAllGithubUser();
+    Flowable<List<GithubUser>> getAllGithubUser();
 }
