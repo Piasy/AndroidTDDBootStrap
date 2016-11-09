@@ -176,7 +176,6 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile appDependencies.recyclerViewV7
     compile appDependencies.cardViewV7
 
     compile project(':model')
