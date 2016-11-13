@@ -2,7 +2,6 @@ package com.github.piasy.gh.model.errors;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
 import com.github.piasy.test.TestUtil;
-import com.github.piasy.test.mock.MockProvider;
 import com.github.piasy.test.rules.ThreeTenBPRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,7 +63,12 @@ public class RxNetErrorProcessorTest {
                 new RxNetErrorProcessor(GsonProviderExposure.exposeGson());
         assertTrue(rxNetErrorProcessor.tryWithApiError(TestUtil.apiError(), mApiErrorHandler));
         ApiError apiError = GsonProviderExposure.exposeGson()
-                .fromJson(MockProvider.provideGithubAPIErrorStr(), ApiError.class);
+                .fromJson(provideGithubAPIErrorStr(), ApiError.class);
         verify(mApiErrorHandler, only()).call(apiError);
+    }
+
+    private String provideGithubAPIErrorStr() {
+        return "{\"message\":\"Validation Failed\",\"errors\":[{\"resource\":\"Issue\"," +
+               "\"field\":\"title\",\"code\":\"missing_field\"}]}";
     }
 }

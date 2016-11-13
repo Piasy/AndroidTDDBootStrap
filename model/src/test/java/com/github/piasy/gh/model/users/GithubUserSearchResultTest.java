@@ -1,7 +1,7 @@
 package com.github.piasy.gh.model.users;
 
 import com.github.piasy.base.model.provider.GsonProviderExposure;
-import com.github.piasy.test.mock.MockProvider;
+import com.github.piasy.bootstrap.mocks.SearchResultMock;
 import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,11 +30,11 @@ public class GithubUserSearchResultTest {
     @Test
     public void testSerialize() {
         final GithubUserSearchResult converted =
-                mGson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
+                mGson.fromJson(SearchResultMock.simplified(),
                         new TypeToken<GithubUserSearchResult>() {
                         }.getType());
         try {
-            JSONAssert.assertEquals(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
+            JSONAssert.assertEquals(SearchResultMock.simplified(),
                     mGson.toJson(converted), false);
             Assert.assertTrue(true);
         } catch (JSONException e) {

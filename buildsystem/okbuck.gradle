@@ -3,7 +3,7 @@ okbuck {
     buildToolVersion "24.0.3"
     target "android-24"
     linearAllocHardLimit = [
-            app: 7194304
+            app: 16 * 1024 * 1024
     ]
     primaryDexPatterns = [
             app: [
@@ -38,8 +38,69 @@ okbuck {
         repo = 'https://github.com/OkBuilds/buck.git'
         remove = ['.buckconfig.local', "**/BUCK"]
         keep = [".okbuck/**/BUCK"]
+        watch += ["**/*.sq"]
     }
-    gradleGen {
-        options = ["--offline", "-Dorg.gradle.configureondemand=true", "-Dorg.gradle.parallel=true"]
+    experimental {
+        retrolambda = true
+    }
+    extraBuckOpts = [
+        'appDebug': [
+            "binary": ["trim_resource_ids = True"]
+        ]
+    ]
+}
+
+Task okbuckTask = project.tasks.getByName("okbuck")
+
+subprojects { project ->
+    afterEvaluate {
+        if (project.plugins.hasPlugin('java')) {
+            addCommonConfigurationForJavaModules(project)
+        } else if (project.plugins.hasPlugin('com.android.application')
+                || project.plugins.hasPlugin('com.android.library')) {
+            addCommonConfigurationForAndroidModules(project, okbuckTask)
+        }
+
+        project.tasks.withType(Test) { Test task ->
+            task.jvmArgs << "-Djava.awt.headless=true"
+        }
+    }
+}
+
+def addCommonConfigurationForJavaModules(Project project) {
+    if (project.plugins.hasPlugin('me.tatarka.retrolambda')) {
+        project.sourceCompatibility = JavaVersion.VERSION_1_8
+        project.targetCompatibility = JavaVersion.VERSION_1_8
+    } else {
+        project.sourceCompatibility = JavaVersion.VERSION_1_7
+        project.targetCompatibility = JavaVersion.VERSION_1_7
+    }
+}
+def addCommonConfigurationForAndroidModules(Project project, Task okbuckTask) {
+    project.android {
+        compileOptions {
+            if (project.plugins.hasPlugin('me.tatarka.retrolambda')) {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            } else {
+                sourceCompatibility JavaVersion.VERSION_1_7
+                targetCompatibility JavaVersion.VERSION_1_7
+            }
+        }
+    }
+
+    def variants
+    if (project.plugins.hasPlugin('com.android.application')) {
+        variants = project.android.applicationVariants
+    } else {
+        variants = project.android.libraryVariants
+    }
+
+    if (project.plugins.hasPlugin('com.squareup.sqldelight')) {
+        variants.all {
+            Task sqlDelightTask = project.tasks.getByName("generate${it.name.capitalize()}SqlDelightInterface")
+            okbuckTask.dependsOn(sqlDelightTask)
+            project.android.sourceSets."${it.name}".java.srcDirs += [sqlDelightTask.outputs.files[0] as String]
+        }
     }
 }

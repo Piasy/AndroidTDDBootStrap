@@ -1,1 +1,1 @@
-include ':base', ':testbase', ":model", ':app'
+include ':base', ':testbase', ':mocks', ":model", ':app'

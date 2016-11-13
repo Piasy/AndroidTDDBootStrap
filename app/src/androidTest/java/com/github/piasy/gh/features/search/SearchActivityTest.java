@@ -36,11 +36,11 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.ButterKnife;
+import com.github.piasy.bootstrap.mocks.SearchResultMock;
 import com.github.piasy.gh.MockBootstrapApp;
 import com.github.piasy.gh.R;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import com.github.piasy.test.TestUtil;
-import com.github.piasy.test.mock.MockProvider;
 import com.github.piasy.test.rules.MultiDexRule;
 import com.github.piasy.test.rules.RestMockRule;
 import com.google.gson.Gson;
@@ -88,11 +88,11 @@ public class SearchActivityTest {
     @Before
     public void setUp() throws IOException {
         final Gson gson = MockBootstrapApp.get().mGson;
-        mSingleResult = gson.fromJson(MockProvider.provideSimplifiedGithubUserSearchResultStr(),
+        mSingleResult = gson.fromJson(SearchResultMock.simplified(),
                 new TypeToken<GithubUserSearchResult>() {
                 }.getType());
         RESTMockServer.whenGET(pathStartsWith("/search/users?"))
-                .thenReturnString(200, MockProvider.provideSimplifiedGithubUserSearchResultStr());
+                .thenReturnString(200, SearchResultMock.simplified());
     }
 
     @Test

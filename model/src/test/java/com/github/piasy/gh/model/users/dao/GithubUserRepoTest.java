@@ -7,7 +7,6 @@ import com.github.piasy.gh.model.users.GithubUser;
 import com.github.piasy.gh.model.users.GithubUserRepo;
 import com.github.piasy.gh.model.users.GithubUserSearchResult;
 import com.github.piasy.test.TestUtil;
-import com.github.piasy.test.mock.MockProvider;
 import com.github.piasy.test.rules.ThreeTenBPRule;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -52,7 +51,7 @@ public class GithubUserRepoTest {
     @Before
     public void setUp() {
         final Gson gson = GsonProviderExposure.exposeGson();
-        mEmptyResult = gson.fromJson(MockProvider.provideEmptyGithubSearchResult(),
+        mEmptyResult = gson.fromJson(provideEmptyGithubSearchResult(),
                 new TypeToken<GithubUserSearchResult>() {
                 }.getType());
 
@@ -103,5 +102,9 @@ public class GithubUserRepoTest {
 
         then(mGithubApi).should(timeout(100).only())
                 .searchGithubUsers(anyString(), anyString(), anyString());
+    }
+
+    private String provideEmptyGithubSearchResult() {
+        return "{\"total_count\":0,\"incomplete_results\":false,\"items\":[]}";
     }
 }

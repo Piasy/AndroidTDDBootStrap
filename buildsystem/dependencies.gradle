@@ -44,9 +44,9 @@ ext {
              yaMvpRx                  : "com.github.piasy:YaMvp-Rx:$mvpVersion",
              rxJava                   : "io.reactivex:rxjava:1.2.2",
              rxAndroid                : "io.reactivex:rxandroid:1.2.1",
-             rxJava2                  : "io.reactivex.rxjava2:rxjava:2.0.0",
-             rxAndroid2               : "io.reactivex.rxjava2:rxandroid:2.0.0",
-             rxJava2Interop           : "com.github.akarnokd:rxjava2-interop:0.6.1",
+             rxJava2                  : "io.reactivex.rxjava2:rxjava:2.0.1",
+             rxAndroid2               : "io.reactivex.rxjava2:rxandroid:2.0.1",
+             rxJava2Interop           : "com.github.akarnokd:rxjava2-interop:0.6.2",
              rxBindingAppCompatV7     : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0",
              eventBus                 : "org.greenrobot:eventbus:3.0.0",
              dagger                   : "com.google.dagger:dagger:$daggerVersion",
@@ -76,7 +76,7 @@ ext {
 
     appDependencies = [cardViewV7         : "com.android.support:cardview-v7:$androidSupportSdkVersion",
 
-                       rxJavaProGuardRules: "com.artemzin.rxjava:proguard-rules:1.2.1.0",
+                       rxJavaProGuardRules: "com.artemzin.rxjava:proguard-rules:1.2.2.0",
 
                        fresco             : "com.facebook.fresco:fresco:0.14.1",
                        glide              : "com.github.bumptech.glide:glide:3.7.0",
@@ -110,7 +110,7 @@ ext {
                        errorprone         : "com.google.errorprone:error_prone_core:2.0.14",]
 
     testDependencies = [junit                : "junit:junit:4.12",
-                        mockito              : "org.mockito:mockito-core:2.2.11",
+                        mockito              : "org.mockito:mockito-core:2.2.15",
                         espresso             : "com.android.support.test.espresso:espresso-core:$espressoVersion",
                         espressoIntents      : "com.android.support.test.espresso:espresso-intents:$espressoVersion",
                         espessoContrib       : "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
@@ -127,14 +127,6 @@ ext {
 
     // jacoco config
     ignoredByJacoco = ['testbase']
-
-    moduleClassDirs = ['base' : 'build/intermediates/classes/debug',
-                       'model': 'build/intermediates/classes/debug',
-                       'app'  : 'build/intermediates/classes/debug']
-
-    moduleJacocoExec = ['base' : 'build/jacoco/testDebugUnitTest.exec',
-                        'model': 'build/jacoco/testDebugUnitTest.exec',
-                        'app'  : 'build/jacoco/testDebugUnitTest.exec']
 
     moduleExcludes = ['base' : [// Android framework related
                                 '**/R*.class',

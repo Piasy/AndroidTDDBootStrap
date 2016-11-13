@@ -213,6 +213,7 @@ dependencies {
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
+    testCompile project(':mocks')
     androidTestCompile project(':testbase')
     androidTestAnnotationProcessor(aptDependencies.daggerApt) {
         exclude module: 'dagger'
