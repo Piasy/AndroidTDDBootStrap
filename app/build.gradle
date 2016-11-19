@@ -60,7 +60,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.github.piasy.gh"
+        applicationId "com.github.piasy.bootstrap"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode rootProject.ext.releaseVersionCode
@@ -68,7 +68,7 @@ android {
 
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "com.github.piasy.gh.GhAppRunner"
+        testInstrumentationRunner "com.github.piasy.bootstrap.BootstrapAppRunner"
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
         buildConfigField "int", "EXOPACKAGE_FLAGS", "0"
@@ -213,7 +213,7 @@ dependencies {
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
-    testCompile project(':mocks')
+    androidTestCompile project(':mocks')
     androidTestCompile project(':testbase')
     androidTestAnnotationProcessor(aptDependencies.daggerApt) {
         exclude module: 'dagger'

@@ -23,7 +23,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.github.piasy.gh"
+          package="com.github.piasy.bootstrap"
         >
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>

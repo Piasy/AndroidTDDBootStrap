@@ -23,7 +23,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.github.piasy.model"
+        package="com.github.piasy.bootstrap.model"
         >
 
     <uses-permission android:name="android.permission.INTERNET"/>
