@@ -1,21 +1,22 @@
+apply from: 'buildsystem/dependencies.gradle'
 apply plugin: 'com.uber.okbuck'
 okbuck {
-    buildToolVersion "24.0.3"
-    target "android-24"
+    buildToolVersion "$rootProject.ext.androidBuildToolsVersion"
+    target "android-$rootProject.ext.androidTargetSdkVersion"
     linearAllocHardLimit = [
             app: 16 * 1024 * 1024
     ]
     primaryDexPatterns = [
             app: [
-                    '^com/github/piasy/gh/AppShell^',
-                    '^com/github/piasy/gh/BootstrapApp^',
-                    '^com/github/piasy/gh/BuildConfig^',
+                    '^com/github/piasy/bootstrap/AppShell^',
+                    '^com/github/piasy/bootstrap/BootstrapApp^',
+                    '^com/github/piasy/bootstrap/BuildConfig^',
+                    '^com/github/piasy/bootstrap/analytics/AppBlockCanaryContext^',
                     '^com/facebook/buck/android/support/exopackage/',
                     '^android/support/multidex/',
                     '^android/support/annotation/',
-                    '^com/github/piasy/gh/analytics/AppBlockCanaryContext^',
-                    '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
                     '^android/support/v4/app/NotificationCompat$Builder^',
+                    '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
                     '^com/facebook/stetho/Stetho^',
                     '^com/squareup/leakcanary/LeakCanary^',
                     '^com/squareup/leakcanary/AnalysisResult^',
@@ -67,7 +68,7 @@ subprojects { project ->
     }
 }
 
-def addCommonConfigurationForJavaModules(Project project) {
+static def addCommonConfigurationForJavaModules(Project project) {
     if (project.plugins.hasPlugin('me.tatarka.retrolambda')) {
         project.sourceCompatibility = JavaVersion.VERSION_1_8
         project.targetCompatibility = JavaVersion.VERSION_1_8

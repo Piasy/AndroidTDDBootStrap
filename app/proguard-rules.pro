@@ -16,11 +16,11 @@
 #   public *;
 #}
 
--keepclassmembers,allowobfuscation class com.github.piasy.gh.BootstrapApp {
+-keepclassmembers,allowobfuscation class com.github.piasy.bootstrap.BootstrapApp {
     <init>(android.app.Application);
 }
+-keepnames class com.github.piasy.bootstrap.BootstrapApp
 
--keepnames class com.github.piasy.gh.BootstrapApp
 
 # RecyclerViewPager
 -keep class com.lsjwzh.widget.recyclerviewpager.**

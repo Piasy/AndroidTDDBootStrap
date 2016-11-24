@@ -26,12 +26,11 @@ package com.github.piasy.bootstrap;
 
 import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.github.piasy.bootstrap.base.utils.UtilsModule;
 import com.github.piasy.bootstrap.di.AppComponent;
 import com.github.piasy.bootstrap.di.AppModule;
+import com.github.piasy.bootstrap.di.DaggerMockAppComponent;
 import com.github.piasy.bootstrap.di.MockAppComponent;
 import com.github.piasy.bootstrap.di.MockProviderConfigModule;
-import com.github.piasy.bootstrap.di.DaggerMockAppComponent;
 import com.google.gson.Gson;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
@@ -75,7 +74,6 @@ public class MockBootstrapApp extends BootstrapApp {
     protected AppComponent createComponent() {
         final MockAppComponent appComponent = DaggerMockAppComponent.builder()
                 .appModule(new AppModule(mApplication))
-                .utilsModule(new UtilsModule(mApplication))
                 .providerConfigModule(new MockProviderConfigModule())
                 .build();
         appComponent.inject(this);

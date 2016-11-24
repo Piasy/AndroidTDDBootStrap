@@ -37,10 +37,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
-import com.github.piasy.bootstrap.base.android.BaseFragment;
-import com.github.piasy.bootstrap.base.utils.ToastUtil;
 import com.github.piasy.bootstrap.R;
 import com.github.piasy.bootstrap.R2;
+import com.github.piasy.bootstrap.base.android.BaseFragment;
+import com.github.piasy.bootstrap.base.utils.ScreenUtil;
+import com.github.piasy.bootstrap.base.utils.ToastUtil;
 import com.github.piasy.bootstrap.features.profile.ProfileActivityAutoBundle;
 import com.github.piasy.bootstrap.model.users.GithubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
@@ -48,11 +49,14 @@ import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Flowable;
 import java.util.List;
 import javax.inject.Inject;
+import onactivityresult.ExtraString;
 import onactivityresult.OnActivityResult;
 
 public class SearchFragment
         extends BaseFragment<SearchUserView, SearchPresenter, SearchComponent>
         implements SearchUserView {
+
+    public static final String RESULT_KEY_DUMMY = "dummy";
 
     private static final int SPAN_COUNT = 3;
     private static final int CODE_DETAIL = 1000;
@@ -63,6 +67,8 @@ public class SearchFragment
     AppCompatActivity mActivity;
     @Inject
     ToastUtil mToastUtil;
+    @Inject
+    ScreenUtil mScreenUtil;
 
     @BindView(R2.id.mToolBar)
     Toolbar mToolBar;
@@ -96,8 +102,8 @@ public class SearchFragment
     }
 
     @OnActivityResult(requestCode = CODE_DETAIL, resultCodes = { Activity.RESULT_OK })
-    void onDetailOk() {
-        mToastUtil.makeToast("onDetailOk");
+    void onDetail(@ExtraString(name = RESULT_KEY_DUMMY) final String dummy) {
+        mToastUtil.toast("onDetailOk " + dummy);
     }
 
     @Override
@@ -120,7 +126,7 @@ public class SearchFragment
 
     @Override
     public void showError(final String message) {
-        mToastUtil.makeToast(message);
+        mToastUtil.toast(message);
     }
 
     @Override

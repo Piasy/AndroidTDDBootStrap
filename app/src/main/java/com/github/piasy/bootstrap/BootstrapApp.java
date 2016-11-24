@@ -36,7 +36,6 @@ import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.anrwatchdog.ANRWatchDog;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.github.piasy.bootstrap.analytics.AppBlockCanaryContext;
-import com.github.piasy.bootstrap.base.utils.UtilsModule;
 import com.github.piasy.bootstrap.di.AppComponent;
 import com.github.piasy.bootstrap.di.AppModule;
 import com.github.piasy.bootstrap.di.DaggerAppComponent;
@@ -116,7 +115,6 @@ public class BootstrapApp extends DefaultApplicationLike implements IApplication
     protected AppComponent createComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(mApplication))
-                .utilsModule(new UtilsModule(mApplication))
                 .build();
     }
 

@@ -1,9 +1,11 @@
 package com.github.piasy.bootstrap.features.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.github.piasy.bootstrap.BootstrapActivity;
 import com.github.piasy.bootstrap.BootstrapApp;
+import com.github.piasy.bootstrap.features.search.SearchFragment;
 import com.github.piasy.bootstrap.model.users.GithubUser;
 import com.yatatsu.autobundle.AutoBundleField;
 
@@ -27,7 +29,9 @@ public class ProfileActivity extends
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK);
+        final Intent intent = new Intent();
+        intent.putExtra(SearchFragment.RESULT_KEY_DUMMY, "bingo!");
+        setResult(RESULT_OK, intent);
         super.onBackPressed();
     }
 
