@@ -26,7 +26,6 @@ package com.github.piasy.bootstrap.features.profile;
 
 import com.github.piasy.bootstrap.base.di.ActivityModule;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
-import com.github.piasy.yamvp.dagger2.BaseComponent;
 import dagger.Subcomponent;
 
 /**
@@ -38,5 +37,6 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {
         ActivityModule.class
 })
-public interface ProfileComponent extends BaseComponent<ProfileView, ProfilePresenter> {
+public interface ProfileComponent {
+    void inject(ProfileActivity activity);
 }

@@ -25,7 +25,6 @@
 package com.github.piasy.bootstrap.features.splash;
 
 import com.github.piasy.yamvp.dagger2.ActivityScope;
-import com.github.piasy.yamvp.dagger2.BaseComponent;
 import dagger.Subcomponent;
 
 /**
@@ -35,7 +34,7 @@ import dagger.Subcomponent;
  */
 @ActivityScope
 @Subcomponent
-public interface SplashComponent extends BaseComponent<SplashView, SplashPresenter> {
+public interface SplashComponent {
 
     void inject(SplashFragment fragment);
 }

@@ -28,17 +28,13 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.github.piasy.bootstrap.base.android.BaseActivity;
 import com.github.piasy.bootstrap.features.splash.SplashActivity;
-import com.github.piasy.yamvp.YaPresenter;
-import com.github.piasy.yamvp.YaView;
-import com.github.piasy.yamvp.dagger2.BaseComponent;
 import org.threeten.bp.Duration;
 import org.threeten.bp.ZonedDateTime;
 
 /**
  * Created by Piasy{github.com/Piasy} on 16/4/13.
  */
-public abstract class BootstrapActivity<V extends YaView, P extends YaPresenter<V>, C extends
-        BaseComponent<V, P>> extends BaseActivity<V, P, C> {
+public abstract class BootstrapActivity<C> extends BaseActivity<C> {
     private ZonedDateTime mResume;
     private ZonedDateTime mPause;
 

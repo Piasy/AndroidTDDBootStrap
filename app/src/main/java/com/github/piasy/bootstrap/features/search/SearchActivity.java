@@ -30,8 +30,7 @@ import com.github.piasy.bootstrap.BootstrapApp;
 
 import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
 
-public class SearchActivity
-        extends BootstrapActivity<SearchUserView, SearchPresenter, SearchComponent> {
+public class SearchActivity extends BootstrapActivity<SearchComponent> {
 
     public static final String SEARCH_FRAGMENT = "SearchFragment";
     private SearchComponent mSearchComponent;

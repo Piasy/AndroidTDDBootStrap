@@ -39,8 +39,7 @@ import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransaction
  * Dagger
  * 2 - graph creation performance</a> to avoid activity state loss.
  */
-public class SplashActivity
-        extends BootstrapActivity<SplashView, SplashPresenter, SplashComponent> {
+public class SplashActivity extends BootstrapActivity<SplashComponent> {
 
     private static final String SPLASH_FRAGMENT = "SplashFragment";
 

@@ -9,8 +9,7 @@ import com.github.piasy.bootstrap.features.search.SearchFragment;
 import com.github.piasy.bootstrap.model.users.GithubUser;
 import com.yatatsu.autobundle.AutoBundleField;
 
-public class ProfileActivity extends
-        BootstrapActivity<ProfileView, ProfilePresenter, ProfileComponent> {
+public class ProfileActivity extends BootstrapActivity<ProfileComponent> {
 
     @AutoBundleField
     GithubUser mUser;

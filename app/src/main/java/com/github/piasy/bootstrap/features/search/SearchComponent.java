@@ -27,7 +27,6 @@ package com.github.piasy.bootstrap.features.search;
 import com.github.piasy.bootstrap.base.di.ActivityModule;
 import com.github.piasy.bootstrap.model.users.UsersModule;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
-import com.github.piasy.yamvp.dagger2.BaseComponent;
 import dagger.Subcomponent;
 
 /**
@@ -37,6 +36,6 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {
         ActivityModule.class, UsersModule.class
 })
-public interface SearchComponent extends BaseComponent<SearchUserView, SearchPresenter> {
+public interface SearchComponent {
     void inject(SearchFragment searchFragment);
 }

@@ -18,6 +18,7 @@ public class SplashFragment extends BaseFragment<SplashView, SplashPresenter, Sp
 
     @Override
     protected void injectDependencies(final SplashComponent component) {
+        component.inject(this);
     }
 
     @Override
