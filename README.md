@@ -4,6 +4,14 @@
 
 An Android TDD bootstrap project, using a collection of new technology, obeying the best practices, inspired by some popular architectures, and developed with many handy tools.
 
+## Build tips
++  Sign key config
+  +  Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.
++  To clone all submodules, please use `git clone --recursive git@github.com:Piasy/AndroidTDDBootStrap.git`
++  use flavor to control server configuration, use build type to control log behavior
+  +  `dev` for development server, `prod` for production server
+  +  `debug` enable log and dev tools, disable crash and analytics, `release` against it
+
 ## Why another bootstrap project?
 From the beginning of the year 2015, our team started a new project, and before we developing functionality in detail, we have tried to create a well-architected project from scratch, with well designed network layer, data layer, asynchronous execution, communication between modules, and last but not least: unit test and integrated testing support. After several months of development, we found some drawbacks of our current architecture, and also found some popular architectures, then I decided to extract our original well designed architecture and make it open-source, with amendment according to the drawbacks and features from the new popular architectures we've found.
 Recently I have seen a lot of bootstrap/base Android projects, including [JakeWharton's u2020](https://github.com/JakeWharton/u2020), [mobiwiseco's Android-Base-Project](https://github.com/mobiwiseco/Android-Base-Project), etc, but none of these projects cover all the features I include in this AndroidTDDBootStrap project. That's why I want more people to see this repo, and I also want get feedback from more people to improve this project.
@@ -85,15 +93,6 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
   +  package by layer + package by feature
     +  network API, data object, REPO are organized in the single `model` library module, but inside model module, classes are organized by feature
     +  app functionality are organized by feature, mvp, di, ui code are organized together
-
-## Build tips
-+  Sign key config
-
-    Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.
-+  To clone all submodules, please use `git clone --recursive git@github.com:Piasy/AndroidTDDBootStrap.git`
-+  use flavor to control server configuration, use build type to control log behavior
-  +  `dev` for development server, `prod` for production server
-  +  `debug` enable log and dev tools, disable crash and analytics, `release` against it
 
 ## Dev tips
 +  Create Activity

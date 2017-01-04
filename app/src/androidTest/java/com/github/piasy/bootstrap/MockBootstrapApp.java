@@ -24,6 +24,7 @@
 
 package com.github.piasy.bootstrap;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.piasy.bootstrap.di.AppComponent;
@@ -42,6 +43,8 @@ import timber.log.Timber;
  */
 public class MockBootstrapApp extends BootstrapApp {
 
+    // we do want singleton of app instance
+    @SuppressLint("StaticFieldLeak")
     private static MockBootstrapApp sInstance;
 
     @Inject

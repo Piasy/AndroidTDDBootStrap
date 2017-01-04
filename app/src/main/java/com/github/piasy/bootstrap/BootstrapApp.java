@@ -50,6 +50,7 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class BootstrapApp extends DefaultApplicationLike implements IApplication {
 
+    // we do want singleton of app instance
     @SuppressLint("StaticFieldLeak")
     private static BootstrapApp sInstance;
 

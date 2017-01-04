@@ -12,11 +12,6 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
@@ -49,14 +44,6 @@ android {
         exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
         exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
         exclude 'META-INF/rxjava.properties'
-    }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-            outputs.upToDateWhen { false }
-            showStandardStreams = true
-        }
     }
 
     if (isTravis) {

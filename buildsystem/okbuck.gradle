@@ -77,7 +77,8 @@ static def addCommonConfigurationForJavaModules(Project project) {
         project.targetCompatibility = JavaVersion.VERSION_1_7
     }
 }
-def addCommonConfigurationForAndroidModules(Project project, Task okbuckTask) {
+
+static def addCommonConfigurationForAndroidModules(Project project, Task okbuckTask) {
     project.android {
         compileOptions {
             if (project.plugins.hasPlugin('me.tatarka.retrolambda')) {

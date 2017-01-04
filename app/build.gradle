@@ -54,11 +54,6 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
         applicationId "com.github.piasy.bootstrap"
         minSdkVersion rootProject.ext.androidMinSdkVersion
@@ -74,11 +69,6 @@ android {
         buildConfigField "int", "EXOPACKAGE_FLAGS", "0"
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/LICENSE.txt'
@@ -91,10 +81,6 @@ android {
         preDexLibraries = !isTravis
         maxProcessCount 8
         javaMaxHeapSize = isTravis ? "2g" : "6g"
-    }
-
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
     }
 
     signingConfigs {
@@ -141,18 +127,6 @@ android {
 
         prod {
             // inherit from default config
-        }
-    }
-
-    sourceSets {
-        test.java.srcDirs += 'build/generated/source/apt/develop/debug'
-    }
-
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-            outputs.upToDateWhen { false }
-            showStandardStreams = true
         }
     }
 }

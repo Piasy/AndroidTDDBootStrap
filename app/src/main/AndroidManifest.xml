@@ -35,7 +35,9 @@
             android:label="@string/app_name"
             tools:replace="label"
             android:supportsRtl="true"
+            android:extractNativeLibs="false"
             android:theme="@style/AppTheme"
+            tools:targetApi="m"
             >
         <meta-data
                 android:name="io.fabric.ApiKey"
