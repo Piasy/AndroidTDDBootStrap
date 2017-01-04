@@ -1,15 +1,12 @@
 .DS_Store
 
-# Android studio project file
-AndroidTDDBootStrap.iml
-app/app.iml
-model/model.iml
+# IDE files
+/.idea/
+**/*.iml
+
 # Gradle files
 /.gradle/
 /build/
-
-# idea folder
-/.idea/
 
 # Local configuration file (sdk path, etc)
 /local.properties
