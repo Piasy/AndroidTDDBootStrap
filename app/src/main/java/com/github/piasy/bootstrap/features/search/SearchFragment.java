@@ -94,7 +94,7 @@ public class SearchFragment
         mToolBar.setTitle(R.string.search);
         mActivity.setSupportActionBar(mToolBar);
         mAdapter = new SearchUserResultAdapter(mResources, user -> startActivityForResultSafely(
-                ProfileActivityAutoBundle.createIntentBuilder(user).build(getContext()),
+                ProfileActivityAutoBundle.builder(user).build(getContext()),
                 CODE_DETAIL));
         mRvSearchResult.setLayoutManager(
                 new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));

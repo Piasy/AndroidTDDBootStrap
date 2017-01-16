@@ -68,8 +68,12 @@ dependencies {
     compile project(':base')
     compile modelDependencies.multiDex
 
-    provided aptDependencies.autoValue
-    provided(aptDependencies.autoGsonApt) {
+    provided aptDependencies.autoValue // for ide
+    annotationProcessor aptDependencies.autoValue // for okbuck
+    provided(aptDependencies.autoGsonApt) { // for ide
+        exclude module: 'auto-value'
+    }
+    annotationProcessor(aptDependencies.autoGsonApt) { // for okbuck
         exclude module: 'auto-value'
     }
     annotationProcessor aptDependencies.daggerApt

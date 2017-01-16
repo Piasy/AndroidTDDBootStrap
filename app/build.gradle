@@ -182,6 +182,7 @@ dependencies {
 
     annotationProcessor aptDependencies.daggerApt
     annotationProcessor aptDependencies.autoBundleApt
+    annotationProcessor aptDependencies.icepickApt
     annotationProcessor aptDependencies.butterKnifeApt
     annotationProcessor aptDependencies.onActivityResultApt
     retrolambdaConfig aptDependencies.retrolambda

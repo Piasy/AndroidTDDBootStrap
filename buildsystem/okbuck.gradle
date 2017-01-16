@@ -41,14 +41,9 @@ okbuck {
         keep = [".okbuck/**/BUCK"]
         watch += ["**/*.sq"]
     }
-    experimental {
-        retrolambda = true
+    intellij {
+        sources = true
     }
-    extraBuckOpts = [
-        'appDebug': [
-            "binary": ["trim_resource_ids = True"]
-        ]
-    ]
 }
 
 Task okbuckTask = project.tasks.getByName("okbuck")

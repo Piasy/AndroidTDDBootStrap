@@ -35,7 +35,9 @@ buildscript {
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
         classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
-        classpath 'com.uber:okbuck:0.13.1'
+        classpath('com.uber:okbuck:0.14.3') {
+            exclude module: 'gradle'
+        }
 
         classpath 'me.tatarka:gradle-retrolambda:3.3.0'
         classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
