@@ -32,7 +32,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
-apply from: '../AndroidCodeQualityConfig/quality.gradle'
+apply from: "$rootProject.projectDir/AndroidCodeQualityConfig/quality.gradle"
 
 /*def keyConfigPath
 if (isFamily(FAMILY_WINDOWS)) {
@@ -145,40 +145,36 @@ gitSha {
 }
 
 dependencies {
-    def appDependencies = rootProject.ext.appDependencies
-    def aptDependencies = rootProject.ext.aptDependencies
-    def testDependencies = rootProject.ext.testDependencies
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile appDependencies.cardViewV7
+    compile featureDependencies.cardViewV7
 
     compile project(':model')
 
-    compile appDependencies.rxJavaProGuardRules
+    compile featureDependencies.rxJavaProGuardRules
 
-    compile(appDependencies.fresco) {
+    compile(featureDependencies.fresco) {
         exclude module: 'support-v4'
     }
-    compile(appDependencies.iconifyMD) {
+    compile(featureDependencies.iconifyMD) {
         exclude module: 'support-v4'
     }
-    compile(appDependencies.statusBarUtil) {
+    compile(featureDependencies.statusBarUtil) {
         exclude module: 'appcompat-v7'
     }
 
-    compile(appDependencies.crashlytics) {
+    compile(featureDependencies.crashlytics) {
         transitive = true;
     }
-    compile(appDependencies.answers) {
+    compile(featureDependencies.answers) {
         transitive = true;
     }
 
-    compile appDependencies.gitSha
-    compile appDependencies.stetho
-    compile appDependencies.strictmodeNotifier
-    compile appDependencies.anrWatchDog
-    compile appDependencies.blockCanary
-    compile appDependencies.leakCanary
+    compile featureDependencies.gitSha
+    compile featureDependencies.stetho
+    compile featureDependencies.strictmodeNotifier
+    compile featureDependencies.anrWatchDog
+    compile featureDependencies.blockCanary
+    compile featureDependencies.leakCanary
 
     annotationProcessor aptDependencies.daggerApt
     annotationProcessor aptDependencies.autoBundleApt
