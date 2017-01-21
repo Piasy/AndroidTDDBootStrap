@@ -148,19 +148,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile featureDependencies.cardViewV7
 
-    compile project(':model')
+    compile project(':base')
+    compile project(':contrib:piasy:misc')
+    compile project(':contrib:piasy:users')
 
     compile featureDependencies.rxJavaProGuardRules
 
-    compile(featureDependencies.fresco) {
-        exclude module: 'support-v4'
-    }
-    compile(featureDependencies.iconifyMD) {
-        exclude module: 'support-v4'
-    }
-    compile(featureDependencies.statusBarUtil) {
-        exclude module: 'appcompat-v7'
-    }
+    compile featureDependencies.fresco
+    compile featureDependencies.iconifyMD
+    compile featureDependencies.statusBarUtil
 
     compile(featureDependencies.crashlytics) {
         transitive = true;
@@ -186,9 +182,7 @@ dependencies {
 
     androidTestCompile project(':mocks')
     androidTestCompile project(':testbase')
-    androidTestAnnotationProcessor(aptDependencies.daggerApt) {
-        exclude module: 'dagger'
-    }
+    androidTestAnnotationProcessor aptDependencies.daggerApt
     androidTestProvided testDependencies.restMockAndroid
     androidTestProvided testDependencies.hamcrestLibrary
 }

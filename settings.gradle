@@ -1,1 +1,3 @@
-include ':base', ':testbase', ':mocks', ":model", ':app'
+include ':base', ':testbase', ':mocks', ':app',
+        ':contrib:piasy:misc',
+        ':contrib:piasy:users'

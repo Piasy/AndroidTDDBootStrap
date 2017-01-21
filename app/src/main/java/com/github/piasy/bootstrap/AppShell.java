@@ -9,14 +9,18 @@ import com.facebook.buck.android.support.exopackage.ExopackageApplication;
  */
 public class AppShell extends ExopackageApplication {
 
-    @VisibleForTesting
-    static String sRealAppName = "com.github.piasy.bootstrap.BootstrapApp";
+    private static String sRealAppName = "com.github.piasy.bootstrap.BootstrapApp";
 
     private final boolean mIsExoPackage;
 
     public AppShell() {
         super(sRealAppName, BuildConfig.EXOPACKAGE_FLAGS != 0);
         mIsExoPackage = BuildConfig.EXOPACKAGE_FLAGS != 0;
+    }
+
+    @VisibleForTesting
+    static void setRealAppName(final String realAppName) {
+        sRealAppName = realAppName;
     }
 
     @Override

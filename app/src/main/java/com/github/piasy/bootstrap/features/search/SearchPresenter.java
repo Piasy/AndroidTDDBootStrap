@@ -26,15 +26,12 @@ package com.github.piasy.bootstrap.features.search;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
-import com.github.piasy.bootstrap.model.errors.RxNetErrorProcessor;
-import com.github.piasy.bootstrap.model.users.GithubUser;
-import com.github.piasy.bootstrap.model.users.GithubUserRepo;
+import com.github.piasy.bootstrap.misc.RxNetErrorProcessor;
+import com.github.piasy.bootstrap.users.UserRepo;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import com.github.piasy.yamvp.rx.YaRxPresenter;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
@@ -45,15 +42,14 @@ import javax.inject.Inject;
 public class SearchPresenter extends YaRxPresenter<SearchUserView> {
     private static final int SEARCH_DELAY_MILLIS = 500;
 
-    private final GithubUserRepo mGithubUserRepo;
+    private final UserRepo mUserRepo;
     private final RxNetErrorProcessor mRxNetErrorProcessor;
     private String mQuery;
 
     @Inject
-    SearchPresenter(final GithubUserRepo githubUserRepo,
-            final RxNetErrorProcessor rxNetErrorProcessor) {
+    SearchPresenter(final UserRepo userRepo, final RxNetErrorProcessor rxNetErrorProcessor) {
         super();
-        mGithubUserRepo = githubUserRepo;
+        mUserRepo = userRepo;
         mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
@@ -65,13 +61,13 @@ public class SearchPresenter extends YaRxPresenter<SearchUserView> {
                 .debounce(SEARCH_DELAY_MILLIS, TimeUnit.MILLISECONDS)
                 .flatMap(query -> {
                     if (TextUtils.equals(mQuery, query)) {
-                        return Flowable.empty();
+                        return Observable.empty();
                     }
                     mQuery = query.toString();
                     if (TextUtils.isEmpty(mQuery)) {
-                        return Flowable.<List<GithubUser>>just(Collections.emptyList());
+                        return Observable.empty();
                     }
-                    return mGithubUserRepo.searchUser(mQuery);
+                    return mUserRepo.get(mQuery);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getView()::showSearchResult,

@@ -43,11 +43,11 @@ import com.github.piasy.bootstrap.base.android.BaseFragment;
 import com.github.piasy.bootstrap.base.utils.ScreenUtil;
 import com.github.piasy.bootstrap.base.utils.ToastUtil;
 import com.github.piasy.bootstrap.features.profile.ProfileActivityAutoBundle;
-import com.github.piasy.bootstrap.model.users.GithubUser;
+import com.github.piasy.bootstrap.users.GitHubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
-import io.reactivex.Flowable;
-import java.util.List;
+import io.reactivex.Observable;
+import java.util.Collections;
 import javax.inject.Inject;
 import onactivityresult.ExtraString;
 import onactivityresult.OnActivityResult;
@@ -115,13 +115,13 @@ public class SearchFragment
     }
 
     @Override
-    public Flowable<CharSequence> onQueryChanges() {
-        return RxJavaInterop.toV2Flowable(RxSearchView.queryTextChanges(mSearchView));
+    public Observable<CharSequence> onQueryChanges() {
+        return RxJavaInterop.toV2Observable(RxSearchView.queryTextChanges(mSearchView));
     }
 
     @Override
-    public void showSearchResult(final List<GithubUser> users) {
-        mAdapter.showUsers(users);
+    public void showSearchResult(final GitHubUser user) {
+        mAdapter.showUsers(Collections.singletonList(user));
     }
 
     @Override

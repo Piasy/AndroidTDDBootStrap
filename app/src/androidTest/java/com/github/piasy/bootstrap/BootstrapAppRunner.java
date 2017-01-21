@@ -13,7 +13,7 @@ public class BootstrapAppRunner extends AndroidJUnitRunner {
     public Application newApplication(final ClassLoader cl, final String className,
             final Context context)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        AppShell.sRealAppName = MockBootstrapApp.class.getCanonicalName();
+        AppShell.setRealAppName(MockBootstrapApp.class.getCanonicalName());
         return super.newApplication(cl, AppShell.class.getName(), context);
     }
 }

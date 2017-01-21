@@ -24,18 +24,17 @@
 
 package com.github.piasy.bootstrap.features.search;
 
-import com.github.piasy.bootstrap.model.users.GithubUser;
+import com.github.piasy.bootstrap.users.GitHubUser;
 import com.github.piasy.yamvp.YaView;
-import io.reactivex.Flowable;
-import java.util.List;
+import io.reactivex.Observable;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 public interface SearchUserView extends YaView {
-    Flowable<CharSequence> onQueryChanges();
+    Observable<CharSequence> onQueryChanges();
 
-    void showSearchResult(List<GithubUser> users);
+    void showSearchResult(GitHubUser user);
 
     void showError(String message);
 }

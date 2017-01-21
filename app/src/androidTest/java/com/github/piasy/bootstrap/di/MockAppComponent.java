@@ -28,7 +28,8 @@ import com.github.piasy.bootstrap.MockBootstrapApp;
 import com.github.piasy.bootstrap.base.model.jsr310.JSR310Module;
 import com.github.piasy.bootstrap.base.model.provider.ProviderModule;
 import com.github.piasy.bootstrap.base.utils.UtilsModule;
-import com.github.piasy.bootstrap.model.GsonProviderConfigModule;
+import com.github.piasy.bootstrap.misc.MiscModule;
+import com.github.piasy.bootstrap.users.UsersModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -48,9 +49,12 @@ import javax.inject.Singleton;
         modules = {
                 AppModule.class,
 
-                ProviderModule.class, ProviderConfigModule.class, GsonProviderConfigModule.class,
+                ProviderModule.class, ProviderConfigModule.class,
 
-                JSR310Module.class, UtilsModule.class
+                JSR310Module.class, UtilsModule.class,
+
+                UsersModule.class,
+                MiscModule.class,
         })
 public interface MockAppComponent extends AppComponent {
     void inject(MockBootstrapApp app);

@@ -35,7 +35,8 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.piasy.bootstrap.R;
-import com.github.piasy.bootstrap.model.users.GithubUser;
+import com.github.piasy.bootstrap.users.GitHubUser;
+import com.github.piasy.bootstrap.users.UserRepo;
 import com.joanzapata.iconify.widget.IconTextView;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ import java.util.List;
 public final class SearchUserResultAdapter
         extends RecyclerView.Adapter<SearchUserResultAdapter.GithubSearchResultVH> {
 
-    private final List<GithubUser> mGithubUsers = new ArrayList<>();
+    private final List<GitHubUser> mGitHubUsers = new ArrayList<>();
     private final Resources mResources;
     private final Action mAction;
 
@@ -69,9 +70,9 @@ public final class SearchUserResultAdapter
      *
      * @param users to be added.
      */
-    public void showUsers(@NonNull final List<GithubUser> users) {
-        mGithubUsers.clear();
-        mGithubUsers.addAll(users);
+    public void showUsers(@NonNull final List<GitHubUser> users) {
+        mGitHubUsers.clear();
+        mGitHubUsers.addAll(users);
         notifyDataSetChanged();
     }
 
@@ -84,16 +85,16 @@ public final class SearchUserResultAdapter
 
     @Override
     public void onBindViewHolder(final GithubSearchResultVH vh, final int position) {
-        vh.bind(mGithubUsers.get(position));
+        vh.bind(mGitHubUsers.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mGithubUsers.size();
+        return mGitHubUsers.size();
     }
 
     /**
-     * actions to perform on a GithubUser card.
+     * actions to perform on a GitHubUser card.
      */
     public interface Action {
 
@@ -102,7 +103,7 @@ public final class SearchUserResultAdapter
          *
          * @param user user to view detail info.
          */
-        void userDetail(GithubUser user);
+        void userDetail(GitHubUser user);
     }
 
     /**
@@ -116,7 +117,7 @@ public final class SearchUserResultAdapter
         private final CardView mCardView;
         private final Resources mResources;
         private final Action mAction;
-        private GithubUser mGithubUser;
+        private GitHubUser mGitHubUser;
 
         /**
          * create view holder.
@@ -137,28 +138,28 @@ public final class SearchUserResultAdapter
         }
 
         /**
-         * bind the GithubUser to the view.
+         * bind the GitHubUser to the view.
          *
-         * @param user GithubUser to bind.
+         * @param user GitHubUser to bind.
          */
-        void bind(final GithubUser user) {
-            mGithubUser = user;
-            mIvAvatar.setImageURI(Uri.parse(mGithubUser.avatar_url()));
+        void bind(final GitHubUser user) {
+            mGitHubUser = user;
+            mIvAvatar.setImageURI(Uri.parse(mGitHubUser.avatar_url()));
 
-            if (GithubUser.GITHUB_USER_TYPE_ORGANIZATION.equals(mGithubUser.type())) {
+            if (UserRepo.TYPE_ORG.equals(mGitHubUser.type())) {
                 mTvUsername.setText(
                         String.format(mResources.getString(R.string.github_username_formatter),
-                                GithubUser.ICONIFY_ICONS_ORG, mGithubUser.login()));
-            } else if (GithubUser.GITHUB_USER_TYPE_USER.equals(mGithubUser.type())) {
+                                UserRepo.ICONS_ORG, mGitHubUser.login()));
+            } else if (UserRepo.TYPE_USER.equals(mGitHubUser.type())) {
                 mTvUsername.setText(
                         String.format(mResources.getString(R.string.github_username_formatter),
-                                GithubUser.ICONIFY_ICONS_USER, mGithubUser.login()));
+                                UserRepo.ICONS_USER, mGitHubUser.login()));
             }
         }
 
         @Override
         public void onClick(@NonNull final View v) {
-            mAction.userDetail(mGithubUser);
+            mAction.userDetail(mGitHubUser);
         }
     }
 }

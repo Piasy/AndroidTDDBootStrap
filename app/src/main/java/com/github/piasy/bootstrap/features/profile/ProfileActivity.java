@@ -6,13 +6,13 @@ import android.widget.Toast;
 import com.github.piasy.bootstrap.BootstrapActivity;
 import com.github.piasy.bootstrap.BootstrapApp;
 import com.github.piasy.bootstrap.features.search.SearchFragment;
-import com.github.piasy.bootstrap.model.users.GithubUser;
+import com.github.piasy.bootstrap.users.GitHubUser;
 import com.yatatsu.autobundle.AutoBundleField;
 
 public class ProfileActivity extends BootstrapActivity<ProfileComponent> {
 
     @AutoBundleField
-    GithubUser mUser;
+    GitHubUser mUser;
     private ProfileComponent mProfileComponent;
 
     @Override

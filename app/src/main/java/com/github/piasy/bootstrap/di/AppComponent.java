@@ -31,7 +31,8 @@ import com.github.piasy.bootstrap.base.utils.UtilsModule;
 import com.github.piasy.bootstrap.features.profile.ProfileComponent;
 import com.github.piasy.bootstrap.features.search.SearchComponent;
 import com.github.piasy.bootstrap.features.splash.SplashComponent;
-import com.github.piasy.bootstrap.model.GsonProviderConfigModule;
+import com.github.piasy.bootstrap.misc.MiscModule;
+import com.github.piasy.bootstrap.users.UsersModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -51,9 +52,12 @@ import javax.inject.Singleton;
         modules = {
                 AppModule.class,
 
-                ProviderModule.class, ProviderConfigModule.class, GsonProviderConfigModule.class,
+                ProviderModule.class, ProviderConfigModule.class,
 
-                JSR310Module.class, UtilsModule.class
+                JSR310Module.class, UtilsModule.class,
+
+                UsersModule.class,
+                MiscModule.class,
         })
 public interface AppComponent {
     SplashComponent splashComponent();
