@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Piasy
+ * Copyright (c) 2016 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,45 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.bootstrap.users;
+package com.github.piasy.octostars.misc;
 
-import io.reactivex.Observable;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import java.util.List;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/7/23.
- *
- * Definition of Github API.
+ * Created by Piasy{github.com/Piasy} on 15/8/9.
  */
-interface UserApiSource {
+@SuppressWarnings("PMD.MethodNamingConventions")
+@AutoValue
+public abstract class ApiError implements Parcelable {
 
-    @GET("users/{login}")
-    Observable<GitHubUser> user(@Path("login") String login);
+    public abstract String message();
+
+    @Nullable
+    public abstract String documentation_url();
+
+    @Nullable
+    public abstract List<Detail> errors();
+
+    public static TypeAdapter<ApiError> typeAdapter(final Gson gson) {
+        return new AutoValue_ApiError.GsonTypeAdapter(gson);
+    }
+
+    @AutoValue
+    public abstract static class Detail implements Parcelable {
+
+        public abstract String resource();
+
+        public abstract String field();
+
+        public abstract String code();
+
+        public static TypeAdapter<Detail> typeAdapter(final Gson gson) {
+            return new AutoValue_ApiError_Detail.GsonTypeAdapter(gson);
+        }
+    }
 }

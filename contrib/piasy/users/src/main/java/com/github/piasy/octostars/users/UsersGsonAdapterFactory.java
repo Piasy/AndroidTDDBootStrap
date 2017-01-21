@@ -1,4 +1,4 @@
-package com.github.piasy.bootstrap.users;
+package com.github.piasy.octostars.users;
 
 import com.github.piasy.bootstrap.base.model.gson.NullSafeTypeAdapterFactory;
 import com.google.gson.TypeAdapterFactory;

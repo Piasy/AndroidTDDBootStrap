@@ -1,10 +1,13 @@
-package com.github.piasy.bootstrap.users;
+package com.github.piasy.octostars.users;
 
 import android.support.test.InstrumentationRegistry;
 import com.github.piasy.bootstrap.base.model.provider.ProviderModuleExposure;
 import com.github.piasy.bootstrap.mocks.MockDateTimeFormatter;
 import com.github.piasy.bootstrap.testbase.TestUtil;
 import com.github.piasy.bootstrap.testbase.rules.ThreeTenBPRule;
+import com.github.piasy.octostars.users.GitHubUser;
+import com.github.piasy.octostars.users.UserDbSource;
+import com.github.piasy.octostars.users.UserRepo;
 import com.squareup.sqlbrite.BriteDatabase;
 import io.reactivex.observers.TestObserver;
 import java.util.List;

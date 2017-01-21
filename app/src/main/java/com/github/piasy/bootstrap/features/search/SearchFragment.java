@@ -43,7 +43,7 @@ import com.github.piasy.bootstrap.base.android.BaseFragment;
 import com.github.piasy.bootstrap.base.utils.ScreenUtil;
 import com.github.piasy.bootstrap.base.utils.ToastUtil;
 import com.github.piasy.bootstrap.features.profile.ProfileActivityAutoBundle;
-import com.github.piasy.bootstrap.users.GitHubUser;
+import com.github.piasy.octostars.users.GitHubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Observable;

@@ -26,8 +26,8 @@ package com.github.piasy.bootstrap.features.search;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
-import com.github.piasy.bootstrap.misc.RxNetErrorProcessor;
-import com.github.piasy.bootstrap.users.UserRepo;
+import com.github.piasy.octostars.misc.RxNetErrorProcessor;
+import com.github.piasy.octostars.users.UserRepo;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import com.github.piasy.yamvp.rx.YaRxPresenter;
 import io.reactivex.Observable;

@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.github.piasy.bootstrap.BootstrapActivity;
 import com.github.piasy.bootstrap.BootstrapApp;
 import com.github.piasy.bootstrap.features.search.SearchFragment;
-import com.github.piasy.bootstrap.users.GitHubUser;
+import com.github.piasy.octostars.users.GitHubUser;
 import com.yatatsu.autobundle.AutoBundleField;
 
 public class ProfileActivity extends BootstrapActivity<ProfileComponent> {

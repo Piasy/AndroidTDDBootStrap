@@ -28,8 +28,8 @@ import com.github.piasy.bootstrap.MockBootstrapApp;
 import com.github.piasy.bootstrap.base.model.jsr310.JSR310Module;
 import com.github.piasy.bootstrap.base.model.provider.ProviderModule;
 import com.github.piasy.bootstrap.base.utils.UtilsModule;
-import com.github.piasy.bootstrap.misc.MiscModule;
-import com.github.piasy.bootstrap.users.UsersModule;
+import com.github.piasy.octostars.misc.MiscModule;
+import com.github.piasy.octostars.users.UsersModule;
 import dagger.Component;
 import javax.inject.Singleton;
 

@@ -31,7 +31,7 @@ import com.github.piasy.bootstrap.base.model.provider.EventBusConfig;
 import com.github.piasy.bootstrap.base.model.provider.GsonConfig;
 import com.github.piasy.bootstrap.base.model.provider.HttpClientConfig;
 import com.github.piasy.bootstrap.base.model.provider.RetrofitConfig;
-import com.github.piasy.bootstrap.misc.DbOpenHelper;
+import com.github.piasy.octostars.misc.DbOpenHelper;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

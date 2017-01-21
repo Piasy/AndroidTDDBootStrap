@@ -1,8 +1,11 @@
-package com.github.piasy.bootstrap.misc;
+package com.github.piasy.octostars.misc;
 
 import com.github.piasy.bootstrap.base.model.provider.ProviderModuleExposure;
 import com.github.piasy.bootstrap.testbase.TestUtil;
 import com.github.piasy.bootstrap.testbase.rules.ThreeTenBPRule;
+import com.github.piasy.octostars.misc.ApiError;
+import com.github.piasy.octostars.misc.ErrorGsonAdapterFactory;
+import com.github.piasy.octostars.misc.RxNetErrorProcessor;
 import com.google.gson.TypeAdapterFactory;
 import org.junit.Rule;
 import org.junit.Test;

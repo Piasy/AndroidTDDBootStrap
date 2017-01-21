@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.bootstrap.misc;
+package com.github.piasy.octostars.misc;
 
 import android.text.TextUtils;
 import com.google.gson.Gson;

@@ -22,13 +22,13 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.bootstrap.misc;
+package com.github.piasy.octostars.misc;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
-import com.github.piasy.bootstrap.users.GitHubUser;
+import com.github.piasy.octostars.users.GitHubUser;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

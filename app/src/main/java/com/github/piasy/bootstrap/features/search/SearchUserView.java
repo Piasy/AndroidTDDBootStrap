@@ -24,7 +24,7 @@
 
 package com.github.piasy.bootstrap.features.search;
 
-import com.github.piasy.bootstrap.users.GitHubUser;
+import com.github.piasy.octostars.users.GitHubUser;
 import com.github.piasy.yamvp.YaView;
 import io.reactivex.Observable;
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.bootstrap.users;
+package com.github.piasy.octostars.users;
 
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;
