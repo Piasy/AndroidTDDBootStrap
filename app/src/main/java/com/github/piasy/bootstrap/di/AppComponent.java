@@ -32,7 +32,6 @@ import com.github.piasy.bootstrap.features.profile.ProfileComponent;
 import com.github.piasy.bootstrap.features.search.SearchComponent;
 import com.github.piasy.bootstrap.features.splash.SplashComponent;
 import com.github.piasy.octostars.misc.MiscModule;
-import com.github.piasy.octostars.users.UsersModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -56,7 +55,6 @@ import javax.inject.Singleton;
 
                 JSR310Module.class, UtilsModule.class,
 
-                UsersModule.class,
                 MiscModule.class,
         })
 public interface AppComponent {

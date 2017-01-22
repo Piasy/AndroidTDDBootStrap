@@ -71,8 +71,9 @@ dependencies {
     annotationProcessor aptDependencies.autoValue // for okbuck
     provided aptDependencies.autoGsonApt // for ide
     annotationProcessor aptDependencies.autoGsonApt // for okbuck
-    annotationProcessor aptDependencies.daggerApt
     annotationProcessor aptDependencies.autoParcelApt
+
+    annotationProcessor aptDependencies.daggerApt
 
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone

@@ -57,7 +57,8 @@ public class UserRepo {
     @SuppressLint("NewApi")
     public Observable<GitHubUser> get(final String login) {
         final Observable<GitHubUser> remote = mUserApiSource.user(login)
-                .doOnNext(mUserDbSource::put);
+                .doOnNext(mUserDbSource::put)
+                .take(0); // only used to update db and trigger another onNext
         return Observable.merge(mUserDbSource.observe(login), remote);
     }
 }

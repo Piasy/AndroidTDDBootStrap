@@ -6,7 +6,6 @@ CREATE TABLE GitHubUsers (
     avatar_url TEXT NOT NULL,
     type TEXT NOT NULL,
     updated_at TEXT AS ZonedDateTime NULL
-
 );
 
 insert_user:

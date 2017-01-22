@@ -60,8 +60,8 @@ class UserDbSource {
                 new ZonedDateTimeDelightAdapter(dateTimeFormatter));
         mUserMapper = userFactory.select_by_loginMapper();
 
-        mDeletion = new GitHubUserModel.Delete_by_login(mBriteDb.getWritableDatabase());
-        mInsertion = new GitHubUserModel.Insert_user(mBriteDb.getWritableDatabase(), userFactory);
+        mDeletion = new GitHubUser.Delete_by_login(mBriteDb.getWritableDatabase());
+        mInsertion = new GitHubUser.Insert_user(mBriteDb.getWritableDatabase(), userFactory);
     }
 
     List<GitHubUser> get(final String login) {
@@ -90,8 +90,7 @@ class UserDbSource {
         try {
             final int size = users.size();
             for (int i = 0; i < size; i++) {
-                mBriteDb.executeInsert(GitHubUser.TABLE_NAME,
-                        users.get(i).bind(mInsertion).program);
+                mBriteDb.executeInsert(GitHubUser.TABLE_NAME, users.get(i).insert(mInsertion));
             }
             transaction.markSuccessful();
         } finally {
@@ -100,12 +99,12 @@ class UserDbSource {
     }
 
     void put(final GitHubUser user) {
-        mBriteDb.executeInsert(GitHubUser.TABLE_NAME, user.bind(mInsertion).program);
+        mBriteDb.executeInsert(GitHubUser.TABLE_NAME, user.insert(mInsertion));
     }
 
     int delete(final String login) {
-        mDeletion.bind(login);
-        return mBriteDb.executeUpdateDelete(GitHubUser.TABLE_NAME, mDeletion.program);
+        return mBriteDb.executeUpdateDelete(GitHubUser.TABLE_NAME,
+                GitHubUser.delete(mDeletion, login));
     }
 
     @VisibleForTesting

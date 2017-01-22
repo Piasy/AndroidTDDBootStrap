@@ -24,6 +24,7 @@
 
 package com.github.piasy.octostars.users;
 
+import android.database.sqlite.SQLiteStatement;
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -54,10 +55,16 @@ public abstract class GitHubUser implements GitHubUserModel, Parcelable {
                 .build();
     }
 
-    Insert_user bind(final Insert_user insert) {
+    static SQLiteStatement delete(final Delete_by_login delete, final String login) {
+        delete.program.clearBindings();
+        delete.bind(login);
+        return delete.program;
+    }
+
+    SQLiteStatement insert(final Insert_user insert) {
         insert.program.clearBindings();
         insert.bind(id(), login(), avatar_url(), type(), updated_at());
-        return insert;
+        return insert.program;
     }
 
     @AutoValue.Builder
