@@ -1,3 +1,4 @@
 include ':base', ':testbase', ':mocks', ':app',
         ':contrib:piasy:misc',
-        ':contrib:piasy:users'
+        ':contrib:piasy:users',
+		':contrib:piasy:repos'

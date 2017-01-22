@@ -65,6 +65,7 @@ unMock {
 dependencies {
     compile project(':base')
     compile project(':contrib:piasy:users')
+    compile project(':contrib:piasy:repos')
     compile modelDependencies.multiDex
 
     provided aptDependencies.autoValue // for ide

@@ -1,0 +1,27 @@
+import java.lang.Boolean;
+import java.lang.Integer;
+
+CREATE TABLE GitHubRepos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    full_name TEXT NOT NULL,
+    owner_login TEXT NULL,
+    description TEXT NULL,
+    html_url TEXT NOT NULL,
+    fork INTEGER As Boolean NOT NULL,
+    subscribers_count INTEGER As Integer NOT NULL,
+    stargazers_count INTEGER As Integer NOT NULL,
+    forks_count INTEGER As Integer NOT NULL
+);
+
+select_by_full_name:
+SELECT * FROM GitHubRepos WHERE full_name = ?;
+
+insert_repo:
+INSERT OR REPLACE INTO GitHubRepos
+(id, name, full_name, owner_login, description, html_url, fork, subscribers_count, stargazers_count, forks_count)
+VALUES
+(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+delete_repo:
+DELETE FROM GitHubRepos WHERE id = ?;
