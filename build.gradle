@@ -78,7 +78,6 @@ subprojects {
     }
 }
 
-apply from: 'AndroidCodeQualityConfig/jacoco.gradle'
 apply from: 'buildsystem/okbuck.gradle'
 
 apply plugin: "build-time-tracker"

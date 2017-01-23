@@ -27,7 +27,7 @@ ext {
     stethoVersion = '1.4.2'
 
     // Testing
-    jacocoVersion = '0.7.4.201502262128'
+    jacocoVersion = '0.7.7.201606060606'
     dexmakerVersion = '1.4'
     jsonAssertVersion = '1.3.0'
 
@@ -130,40 +130,49 @@ ext {
                         restMockAndroid      : "com.github.andrzejchm.RESTMock:android:0.1.1",]
 
     // jacoco config
-    ignoredByJacoco = ['testbase']
+    ignoredByJacoco = ['testbase', 'mocks']
 
     moduleExcludes = ['base' : [// Android framework related
                                 '**/R*.class',
                                 '**/BuildConfig.**',
-                                '**/ToastUtilImpl**',
-                                '**/ScreenUtil.**',
+                                '**/*Util*.**',
+                                '**/Base**.**',
 
                                 // Android framework delegate implementation
                                 '**/**DelegateImpl.**',
 
-                                // di code
+                                // apt
+                                '**/**AutoValue_**.**',
+                                '**/**Factory.**',
+
+                                '**/**Config.**',
+                                '**/**Builder.**',
+
                                 '**/**Module.**',
                                 '**/**Module_**.**',
+                                '**/**_Factory.**',
 
-                                // test code
-                                '**/BaseThreeTenBPTest.**',
-                                '**/**Test.**',],
-                      'model': [// Android framework related
+                                '**/**_MembersInjector.**',],
+                      'misc' : [// Android framework related
                                 '**/R*.class',
-                                '**/BuildConfig*',
-                                '**/DBOpenHelper.**',
+                                '**/BuildConfig.**',
+                                '**/DbOpenHelper.class',
 
                                 // Android framework delegate implementation
                                 '**/**DelegateImpl.**',
-                                '**/**TableMeta.**',
-                                '**/**TableMeta$**.**',
 
-                                // di code
+                                // apt
+                                '**/**AutoValue_**.**',
+                                '**/**Factory.**',
+
+                                '**/**Config.**',
+                                '**/**Builder.**',
+
                                 '**/**Module.**',
                                 '**/**Module_**.**',
+                                '**/**_Factory.**',
 
-                                // test code
-                                '**/**Test.**',],
+                                '**/**_MembersInjector.**',],
                       'app'  : ['**/R*.class',
                                 '**/BuildConfig*']]
 }
