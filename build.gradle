@@ -33,9 +33,9 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.0"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
-        classpath 'com.github.promeg:android-git-sha-plugin:1.0.0'
+        classpath 'com.github.promeg:android-git-sha-plugin:1.0.1'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
-        classpath('com.uber:okbuck:0.14.3') {
+        classpath('com.uber:okbuck:0.14.4') {
             exclude module: 'gradle'
         }
 

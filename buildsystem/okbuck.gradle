@@ -1,8 +1,8 @@
 apply from: 'buildsystem/dependencies.gradle'
 apply plugin: 'com.uber.okbuck'
 okbuck {
-    buildToolVersion "$rootProject.ext.androidBuildToolsVersion"
-    target "android-$rootProject.ext.androidTargetSdkVersion"
+    buildToolVersion = "$rootProject.ext.androidBuildToolsVersion"
+    target = "android-$rootProject.ext.androidTargetSdkVersion"
     linearAllocHardLimit = [
             app: 16 * 1024 * 1024
     ]

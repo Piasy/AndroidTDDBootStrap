@@ -36,7 +36,7 @@
 //import android.widget.EditText;
 //import android.widget.LinearLayout;
 //import butterknife.ButterKnife;
-//import com.github.piasy.bootstrap.MockBootstrapApp;
+//import com.github.piasy.octostars.MockBootstrapApp;
 //import com.github.piasy.bootstrap.R;
 //import com.github.piasy.bootstrap.mocks.MockSearchResult;
 //import com.github.piasy.bootstrap.testbase.TestUtil;

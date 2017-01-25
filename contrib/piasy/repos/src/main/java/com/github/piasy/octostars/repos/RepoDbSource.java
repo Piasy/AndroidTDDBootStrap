@@ -24,7 +24,6 @@
 
 package com.github.piasy.octostars.repos;
 
-import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -67,8 +66,8 @@ class RepoDbSource {
         mDeletion = new GitHubRepo.Delete_repo(mBriteDb.getWritableDatabase());
     }
 
-    List<GitHubRepo> get(final String login) {
-        final Cursor cursor = mBriteDb.query(GitHubUser.SELECT_BY_LOGIN, login);
+    List<GitHubRepo> getNow(final String fullName) {
+        final Cursor cursor = mBriteDb.query(GitHubRepo.SELECT_BY_FULL_NAME, fullName);
         try {
             if (cursor.moveToFirst()) {
                 return Collections.singletonList(mRepoMapper.map(cursor));
@@ -79,8 +78,12 @@ class RepoDbSource {
         }
     }
 
-    // gradle build will compile code use `Objects.requireNonNull()`
-    @SuppressLint("NewApi")
+    Observable<GitHubRepo> get(final String fullName) {
+        return Observable.fromCallable(() -> getNow(fullName))
+                .filter(list -> !list.isEmpty())
+                .map(list -> list.get(0));
+    }
+
     Observable<GitHubRepo> observe(final String fullName) {
         return RxJavaInterop.toV2Observable(
                 mBriteDb.createQuery(GitHubRepo.TABLE_NAME, GitHubRepo.SELECT_BY_FULL_NAME,
@@ -104,6 +107,7 @@ class RepoDbSource {
 
     void put(final GitHubRepo repo) {
         mBriteDb.executeInsert(GitHubRepo.TABLE_NAME, repo.insert(mInsertion));
+        mUserRepo.put(repo.owner());
     }
 
     @VisibleForTesting
@@ -121,7 +125,7 @@ class RepoDbSource {
             final int subscribersCount, final int stargazersCount, final int forksCount) {
         // CHECKSTYLE:ON
         try {
-            final GitHubUser owner = mUserRepo.get(ownerLogin).blockingFirst();
+            final GitHubUser owner = mUserRepo.get(ownerLogin, false).blockingFirst();
             return new AutoValue_GitHubRepo(id, name, fullName, ownerLogin, description, htmlUrl,
                     fork, subscribersCount, stargazersCount, forksCount, owner);
         } catch (NoSuchElementException e) {

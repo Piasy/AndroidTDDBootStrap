@@ -1,4 +1,6 @@
 include ':base', ':testbase', ':mocks', ':app',
-        ':contrib:piasy:misc',
+        ':contrib:business',
+        ':contrib:misc',
         ':contrib:piasy:users',
-		':contrib:piasy:repos'
+		':contrib:piasy:repos',
+		':contrib:piasy:trending'

@@ -20,6 +20,18 @@
   ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
-  -->
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.github.piasy.bootstrap.mocks"
+        >
 
-<manifest package="com.github.piasy.bootstrap.mocks"/>
+    <application
+            android:icon="@mipmap/ic_launcher"
+            >
+        <meta-data
+                android:name="io.fabric.ApiKey"
+                android:value="03bc0f690add9fe0b29a06fa9f3aace1ac45d998"
+                />
+    </application>
+
+</manifest>

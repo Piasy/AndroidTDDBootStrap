@@ -24,8 +24,9 @@
 
 package com.github.piasy.bootstrap.features.splash;
 
+import com.github.piasy.octostars.di.AppComponent;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
-import dagger.Subcomponent;
+import dagger.Component;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/9/19.
@@ -33,7 +34,7 @@ import dagger.Subcomponent;
  * Di appComponent for splash.
  */
 @ActivityScope
-@Subcomponent
+@Component(dependencies = AppComponent.class)
 public interface SplashComponent {
 
     void inject(SplashFragment fragment);

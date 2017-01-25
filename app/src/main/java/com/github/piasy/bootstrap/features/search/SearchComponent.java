@@ -24,17 +24,20 @@
 
 package com.github.piasy.bootstrap.features.search;
 
-import com.github.piasy.bootstrap.base.di.ActivityModule;
+import com.github.piasy.octostars.di.AppComponent;
+import com.github.piasy.octostars.misc.MiscModule;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
-import dagger.Subcomponent;
+import dagger.Component;
 
 /**
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 @ActivityScope
-@Subcomponent(modules = {
-        ActivityModule.class,
-})
-public interface SearchComponent {
+@Component(
+        dependencies = AppComponent.class,
+        modules = {
+                MiscModule.class,
+        })
+interface SearchComponent {
     void inject(SearchFragment searchFragment);
 }

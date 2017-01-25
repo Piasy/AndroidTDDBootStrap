@@ -1,12 +1,18 @@
 package com.github.piasy.octostars.repos;
 
-import android.annotation.SuppressLint;
+import com.github.piasy.bootstrap.base.rx.DisperseTransformer;
+import com.github.piasy.bootstrap.base.utils.RxUtil;
+import com.github.piasy.yamvp.dagger2.ActivityScope;
 import io.reactivex.Observable;
+import java.util.Collection;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by Piasy{github.com/Piasy} on 22/01/2017.
  */
 
+@ActivityScope
 public class RepositoryRepo {
     public static final long INVALID_ID = -1;
     public static final GitHubRepo INVALID_REPO = GitHubRepo.fake(INVALID_ID, "fake");
@@ -14,17 +20,26 @@ public class RepositoryRepo {
     private final RepoApiSource mRepoApiSource;
     private final RepoDbSource mRepoDbSource;
 
-    public RepositoryRepo(final RepoApiSource repoApiSource, final RepoDbSource repoDbSource) {
+    @Inject
+    RepositoryRepo(final RepoApiSource repoApiSource, final RepoDbSource repoDbSource) {
         mRepoApiSource = repoApiSource;
         mRepoDbSource = repoDbSource;
     }
 
-    // gradle build will compile code use `Objects.requireNonNull()`
-    @SuppressLint("NewApi")
-    public Observable<GitHubRepo> get(final String fullName) {
-        final Observable<GitHubRepo> remote = mRepoApiSource.repo(fullName)
-                .doOnNext(mRepoDbSource::put)
-                .take(0); // only used to update db and trigger another onNext
-        return Observable.merge(mRepoDbSource.observe(fullName), remote);
+    public Observable<GitHubRepo> get(final String fullName, final boolean refresh) {
+        return RxUtil.repoGet(
+                mRepoDbSource.get(fullName),
+                mRepoApiSource.repo(fullName)
+                        .doOnNext(mRepoDbSource::put),
+                refresh
+        );
+    }
+
+    public Observable<List<GitHubRepo>> get(final Collection<String> fullNames) {
+        return Observable.fromIterable(fullNames)
+                .compose(new DisperseTransformer<>(500))
+                .flatMap(fullName -> get(fullName, false))
+                .toList()
+                .toObservable();
     }
 }

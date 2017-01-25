@@ -5,9 +5,6 @@ import com.github.piasy.bootstrap.base.model.provider.ProviderModuleExposure;
 import com.github.piasy.bootstrap.mocks.MockDateTimeFormatter;
 import com.github.piasy.bootstrap.testbase.TestUtil;
 import com.github.piasy.bootstrap.testbase.rules.ThreeTenBPRule;
-import com.github.piasy.octostars.users.GitHubUser;
-import com.github.piasy.octostars.users.UserDbSource;
-import com.github.piasy.octostars.users.UserRepo;
 import com.squareup.sqlbrite.BriteDatabase;
 import io.reactivex.observers.TestObserver;
 import java.util.List;
@@ -46,7 +43,7 @@ public class UserDbSourceTest {
 
     @Test
     public void testInsert() {
-        List<GitHubUser> storedUsers = mUserDbSource.get(LOGIN);
+        List<GitHubUser> storedUsers = mUserDbSource.getNow(LOGIN);
         assertThat(storedUsers).isEmpty();
 
         final GitHubUser user = GitHubUser.builder()
@@ -58,8 +55,10 @@ public class UserDbSourceTest {
                 .build();
         mUserDbSource.put(user);
 
-        storedUsers = mUserDbSource.get(LOGIN);
-        assertThat(storedUsers).containsExactly(user);
+        storedUsers = mUserDbSource.getNow(LOGIN);
+        assertThat(storedUsers)
+                .containsExactly(user)
+                .inOrder();
     }
 
     @Test
@@ -82,8 +81,10 @@ public class UserDbSourceTest {
                 .build();
         mUserDbSource.put(altered);
 
-        List<GitHubUser> storedUsers = mUserDbSource.get(LOGIN);
-        assertThat(storedUsers).containsExactly(altered);
+        List<GitHubUser> storedUsers = mUserDbSource.getNow(LOGIN);
+        assertThat(storedUsers)
+                .containsExactly(altered)
+                .inOrder();
     }
 
     @Test
@@ -100,7 +101,7 @@ public class UserDbSourceTest {
         int deleted = mUserDbSource.delete(LOGIN);
         assertThat(deleted).isSameAs(1);
 
-        List<GitHubUser> storedUsers = mUserDbSource.get(LOGIN);
+        List<GitHubUser> storedUsers = mUserDbSource.getNow(LOGIN);
         assertThat(storedUsers).isEmpty();
     }
 
@@ -133,6 +134,8 @@ public class UserDbSourceTest {
         mUserDbSource.delete(LOGIN);
         TestUtil.sleep(50);
 
-        assertThat(testObserver.getEvents().get(0)).containsExactly(user, altered);
+        assertThat(testObserver.getEvents().get(0))
+                .containsExactly(user, altered)
+                .inOrder();
     }
 }

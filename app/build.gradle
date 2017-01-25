@@ -22,9 +22,10 @@
  * SOFTWARE.
  */
 
+def isDebug = "true" == isInDebugMode;
+
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.frogermcs.androiddevmetrics'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
 apply plugin: 'com.getkeepsafe.dexcount'
@@ -33,40 +34,25 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
 apply from: "$rootProject.projectDir/AndroidCodeQualityConfig/quality.gradle"
+apply from: "$rootProject.projectDir/buildsystem/signing.gradle"
 
-/*def keyConfigPath
-if (isFamily(FAMILY_WINDOWS)) {
-    keyConfigPath = System.getenv('USERPROFILE') + File.separator + ".ssh" + File.separator +
-            "TemplateKeyStore.properties"
-} else {
-    keyConfigPath = System.getenv('HOME') + File.separator + ".ssh" + File.separator +
-            "TemplateKeyStore.properties"
-}
-
-Properties props = new Properties()
-if (new File(keyConfigPath).exists()) {
-    props.load(new FileInputStream(file(keyConfigPath)))
-}*/
-
-def isTravis = "true".equals(System.getenv("TRAVIS"))
+def isTravis = "true" == System.getenv("TRAVIS")
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "com.github.piasy.bootstrap"
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
+        applicationId "com.github.piasy.bootstrap"
+
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "com.github.piasy.bootstrap.BootstrapAppRunner"
-
-        buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
-        buildConfigField "int", "EXOPACKAGE_FLAGS", "0"
     }
 
     packagingOptions {
@@ -84,49 +70,38 @@ android {
     }
 
     signingConfigs {
-        develop {
-            storeFile file('../buildsystem/OpenKey.jks')
-            storePassword '123456'
-            keyAlias '123456'
-            keyPassword '123456'
+        sign {
+            storeFile signStoreFile
+            storePassword signStorePassword
+            keyAlias signKeyAlias
+            keyPassword signKeyPassword
         }
-
-        /*production {
-            storeFile file(props['keystore'])
-            storePassword props['keystore.password']
-            keyAlias props['key.alias']
-            keyPassword props['key.password']
-        }*/
     }
 
     buildTypes {
         debug {
             minifyEnabled false
             debuggable true
-            signingConfig signingConfigs.develop
+            signingConfig signingConfigs.sign
             testCoverageEnabled isTravis
             ext.enableCrashlytics = false
+        }
+
+        qa {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.sign
+            ext.enableCrashlytics = true
         }
 
         release {
             minifyEnabled true
             debuggable false
             shrinkResources true
-            signingConfig signingConfigs.develop
+            signingConfig signingConfigs.sign
             //signingConfig signingConfigs.production
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             ext.enableCrashlytics = true
-        }
-    }
-
-    productFlavors {
-        dev {
-            // inherit from default config
-            buildConfigField "int", "EXOPACKAGE_FLAGS", "1"
-        }
-
-        prod {
-            // inherit from default config
         }
     }
 }
@@ -145,44 +120,43 @@ gitSha {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile featureDependencies.cardViewV7
 
     compile project(':base')
-    compile project(':contrib:piasy:misc')
+    debugCompile project(path: ':contrib:business', configuration: 'debug')
+    qaCompile project(path: ':contrib:business', configuration: 'qa')
+    releaseCompile project(path: ':contrib:business', configuration: 'release')
+    compile project(':contrib:misc')
+
     compile project(':contrib:piasy:users')
+
+    if (!isDebug) {
+        compile project(':contrib:piasy:trending')
+    }
 
     compile featureDependencies.rxJavaProGuardRules
 
-    compile featureDependencies.fresco
     compile featureDependencies.iconifyMD
     compile featureDependencies.statusBarUtil
 
-    compile(featureDependencies.crashlytics) {
-        transitive = true;
-    }
-    compile(featureDependencies.answers) {
-        transitive = true;
-    }
-
     compile featureDependencies.gitSha
-    compile featureDependencies.stetho
-    compile featureDependencies.strictmodeNotifier
-    compile featureDependencies.anrWatchDog
-    compile featureDependencies.blockCanary
-    compile featureDependencies.leakCanary
+
+    provided aptDependencies.autoValue // for ide
+    annotationProcessor aptDependencies.autoValue // for okbuck
+    provided aptDependencies.autoGsonApt // for ide
+    annotationProcessor aptDependencies.autoGsonApt // for okbuck
+    annotationProcessor aptDependencies.autoParcelApt
 
     annotationProcessor aptDependencies.daggerApt
+    annotationProcessor aptDependencies.butterKnifeApt
     annotationProcessor aptDependencies.autoBundleApt
     annotationProcessor aptDependencies.icepickApt
-    annotationProcessor aptDependencies.butterKnifeApt
     annotationProcessor aptDependencies.onActivityResultApt
+
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
 
     androidTestCompile project(':mocks')
     androidTestCompile project(':testbase')
     androidTestAnnotationProcessor aptDependencies.daggerApt
-    androidTestProvided testDependencies.restMockAndroid
-    androidTestProvided testDependencies.hamcrestLibrary
 }

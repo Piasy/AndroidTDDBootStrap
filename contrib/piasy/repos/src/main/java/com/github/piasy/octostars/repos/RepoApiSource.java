@@ -39,5 +39,5 @@ interface RepoApiSource {
     Observable<GitHubRepo> repo(@Path("owner") String owner, @Path("repo") String repo);
 
     @GET("repos/{full_name}")
-    Observable<GitHubRepo> repo(@Path("full_name") String fullName);
+    Observable<GitHubRepo> repo(@Path(value = "full_name", encoded = true) String fullName);
 }

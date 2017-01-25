@@ -24,7 +24,6 @@
 
 package com.github.piasy.bootstrap.features.search;
 
-import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import com.github.piasy.octostars.misc.RxNetErrorProcessor;
 import com.github.piasy.octostars.users.UserRepo;
@@ -39,7 +38,7 @@ import javax.inject.Inject;
  * Created by Piasy{github.com/Piasy} on 3/6/16.
  */
 @ActivityScope
-public class SearchPresenter extends YaRxPresenter<SearchUserView> {
+class SearchPresenter extends YaRxPresenter<SearchUserView> {
     private static final int SEARCH_DELAY_MILLIS = 500;
 
     private final UserRepo mUserRepo;
@@ -53,8 +52,6 @@ public class SearchPresenter extends YaRxPresenter<SearchUserView> {
         mRxNetErrorProcessor = rxNetErrorProcessor;
     }
 
-    // gradle build will compile code use `Objects.requireNonNull()`
-    @SuppressLint("NewApi")
     void onViewReady() {
         addUtilStop(getView().onQueryChanges()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +64,7 @@ public class SearchPresenter extends YaRxPresenter<SearchUserView> {
                     if (TextUtils.isEmpty(mQuery)) {
                         return Observable.empty();
                     }
-                    return mUserRepo.get(mQuery);
+                    return mUserRepo.get(mQuery, true);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getView()::showSearchResult,

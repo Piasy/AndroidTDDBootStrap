@@ -42,7 +42,6 @@ import com.github.piasy.bootstrap.R2;
 import com.github.piasy.bootstrap.base.android.BaseFragment;
 import com.github.piasy.bootstrap.base.utils.ScreenUtil;
 import com.github.piasy.bootstrap.base.utils.ToastUtil;
-import com.github.piasy.bootstrap.features.profile.ProfileActivityAutoBundle;
 import com.github.piasy.octostars.users.GitHubUser;
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
@@ -63,8 +62,6 @@ public class SearchFragment
 
     @Inject
     Resources mResources;
-    @Inject
-    AppCompatActivity mActivity;
     @Inject
     ToastUtil mToastUtil;
     @Inject
@@ -92,10 +89,9 @@ public class SearchFragment
     protected void bindView(final View rootView) {
         super.bindView(rootView);
         mToolBar.setTitle(R.string.search);
-        mActivity.setSupportActionBar(mToolBar);
-        mAdapter = new SearchUserResultAdapter(mResources, user -> startActivityForResultSafely(
-                ProfileActivityAutoBundle.builder(user).build(getContext()),
-                CODE_DETAIL));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolBar);
+        mAdapter = new SearchUserResultAdapter(mResources, user -> {
+        });
         mRvSearchResult.setLayoutManager(
                 new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
         mRvSearchResult.setAdapter(mAdapter);

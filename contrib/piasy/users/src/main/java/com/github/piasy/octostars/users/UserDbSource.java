@@ -24,7 +24,6 @@
 
 package com.github.piasy.octostars.users;
 
-import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import com.github.piasy.bootstrap.base.model.jsr310.ZonedDateTimeDelightAdapter;
@@ -64,7 +63,7 @@ class UserDbSource {
         mInsertion = new GitHubUser.Insert_user(mBriteDb.getWritableDatabase(), userFactory);
     }
 
-    List<GitHubUser> get(final String login) {
+    List<GitHubUser> getNow(final String login) {
         final Cursor cursor = mBriteDb.query(GitHubUser.SELECT_BY_LOGIN, login);
         try {
             if (cursor.moveToFirst()) {
@@ -76,8 +75,12 @@ class UserDbSource {
         }
     }
 
-    // gradle build will compile code use `Objects.requireNonNull()`
-    @SuppressLint("NewApi")
+    Observable<GitHubUser> get(final String login) {
+        return Observable.fromCallable(() -> getNow(login))
+                .filter(list -> !list.isEmpty())
+                .map(list -> list.get(0));
+    }
+
     Observable<GitHubUser> observe(final String login) {
         return RxJavaInterop.toV2Observable(
                 mBriteDb.createQuery(GitHubUser.TABLE_NAME, GitHubUser.SELECT_BY_LOGIN, login)

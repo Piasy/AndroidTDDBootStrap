@@ -24,7 +24,7 @@
 
 package com.github.piasy.octostars.users;
 
-import android.annotation.SuppressLint;
+import com.github.piasy.bootstrap.base.utils.RxUtil;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import io.reactivex.Observable;
 import javax.inject.Inject;
@@ -53,12 +53,16 @@ public class UserRepo {
         mUserApiSource = userApiSource;
     }
 
-    // gradle build will compile code use `Objects.requireNonNull()`
-    @SuppressLint("NewApi")
-    public Observable<GitHubUser> get(final String login) {
-        final Observable<GitHubUser> remote = mUserApiSource.user(login)
-                .doOnNext(mUserDbSource::put)
-                .take(0); // only used to update db and trigger another onNext
-        return Observable.merge(mUserDbSource.observe(login), remote);
+    public Observable<GitHubUser> get(final String login, final boolean refresh) {
+        return RxUtil.repoGet(
+                mUserDbSource.get(login),
+                mUserApiSource.user(login)
+                        .doOnNext(mUserDbSource::put),
+                refresh
+        );
+    }
+
+    public void put(final GitHubUser user) {
+        mUserDbSource.put(user);
     }
 }

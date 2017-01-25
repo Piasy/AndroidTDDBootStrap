@@ -25,9 +25,9 @@
 package com.github.piasy.bootstrap.features.splash;
 
 import android.os.Bundle;
-import com.github.piasy.bootstrap.BootstrapActivity;
-import com.github.piasy.bootstrap.BootstrapApp;
 import com.github.piasy.bootstrap.R;
+import com.github.piasy.octostars.BootstrapActivity;
+import com.github.piasy.octostars.BootstrapApp;
 
 import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
 
@@ -36,8 +36,7 @@ import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransaction
  *
  * Splash activity. Init app and handle other Intent action. I imitate the way in
  * <a href="http://frogermcs.github.io/dagger-graph-creation-performance/">frogermcs'  blog:
- * Dagger
- * 2 - graph creation performance</a> to avoid activity state loss.
+ * Dagger2 - graph creation performance</a> to avoid activity state loss.
  */
 public class SplashActivity extends BootstrapActivity<SplashComponent> {
 
@@ -59,8 +58,15 @@ public class SplashActivity extends BootstrapActivity<SplashComponent> {
     }
 
     @Override
+    protected boolean isTrack() {
+        return false;
+    }
+
+    @Override
     protected void initializeDi() {
-        mSplashComponent = BootstrapApp.get().appComponent().splashComponent();
+        mSplashComponent = DaggerSplashComponent.builder()
+                .appComponent(BootstrapApp.get().appComponent())
+                .build();
     }
 
     @Override
