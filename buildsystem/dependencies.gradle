@@ -22,6 +22,8 @@ ext {
     onActivityResultVersion = '0.6.0'
     mvpVersion = '1.3.1'
     icePickVersion = '3.2.0'
+    routerVersion = "0.5.0"
+    compilerVersion = "0.2.0"
 
     // Developer
     stethoVersion = '1.4.2'

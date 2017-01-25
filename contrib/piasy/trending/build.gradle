@@ -30,6 +30,7 @@ if (isDebug) {
     apply plugin: 'com.android.library'
 }
 
+apply plugin: 'com.chenenyu.router'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'de.mobilej.unmock'

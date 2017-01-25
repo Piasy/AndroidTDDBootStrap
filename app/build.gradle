@@ -25,6 +25,7 @@
 def isDebug = "true" == isInDebugMode;
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.chenenyu.router'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'de.mobilej.unmock'
 apply plugin: 'com.ofg.uptodate'
@@ -149,7 +150,6 @@ dependencies {
 
     annotationProcessor aptDependencies.daggerApt
     annotationProcessor aptDependencies.butterKnifeApt
-    annotationProcessor aptDependencies.autoBundleApt
     annotationProcessor aptDependencies.icepickApt
     annotationProcessor aptDependencies.onActivityResultApt
 

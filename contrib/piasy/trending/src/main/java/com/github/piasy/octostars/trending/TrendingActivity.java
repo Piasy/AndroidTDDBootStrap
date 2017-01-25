@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Window;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.chenenyu.router.annotation.Route;
 import com.github.piasy.octostars.BootstrapActivity;
 import com.github.piasy.octostars.BootstrapApp;
+import com.github.piasy.octostars.RouteTable;
 import com.github.piasy.octostars.repos.GitHubRepo;
 import java.util.List;
 import javax.inject.Inject;
 
+@Route(RouteTable.TRENDING)
 public class TrendingActivity extends BootstrapActivity<TrendingComponent> implements TrendingView {
 
     @Inject

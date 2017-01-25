@@ -1,12 +1,13 @@
 package com.github.piasy.bootstrap.features.splash;
 
 import android.app.Application;
+import com.chenenyu.router.Router;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.github.piasy.bootstrap.BuildConfig;
 import com.github.piasy.bootstrap.base.utils.RxUtil;
-import com.github.piasy.octostars.analytics.CrashReportingTree;
 import com.github.piasy.octostars.BootstrapApp;
+import com.github.piasy.octostars.analytics.CrashReportingTree;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import com.github.piasy.yamvp.rx.YaRxPresenter;
 import com.github.promeg.androidgitsha.lib.GitShaUtils;
@@ -34,9 +35,9 @@ public class SplashPresenter extends YaRxPresenter<SplashView> {
         super.attachView(view);
         addUtilDestroy(Observable
                 .fromCallable(() -> {
+                    final Application app = BootstrapApp.application();
                     if ("release".equals(BuildConfig.BUILD_TYPE)) {
                         Timber.plant(new CrashReportingTree());
-                        final Application app = BootstrapApp.application();
                         Fabric.with(app, new Crashlytics(), new Answers());
                         Crashlytics.setString("git_sha", GitShaUtils.getGitSha(app));
                     } else {
@@ -44,6 +45,7 @@ public class SplashPresenter extends YaRxPresenter<SplashView> {
                     }
 
                     Iconify.with(new MaterialModule());
+                    Router.initialize(app);
 
                     return true;
                 })

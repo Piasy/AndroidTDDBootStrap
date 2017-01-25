@@ -44,6 +44,9 @@ buildscript {
         classpath "com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion"
         classpath "com.jakewharton:butterknife-gradle-plugin:$butterKnifeVersion"
         classpath 'io.fabric.tools:gradle:1.22.0'
+        classpath('com.chenenyu.router:gradle-plugin:0.2.0') {
+            exclude module: 'gradle'
+        }
     }
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }

@@ -22,18 +22,16 @@
  * SOFTWARE.
  */
 
-package com.yatatsu.autobundle;
+package com.github.piasy.octostars;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
+/**
+ * Created by Piasy{github.com/Piasy} on 25/01/2017.
+ */
 
-public final class AutoBundleBindingDispatcher {
-    public void bind(@NonNull Object target, @NonNull Bundle args) {
+public final class RouteTable {
+    private RouteTable() {
+        // no instance
     }
 
-    public void bind(@NonNull Object target) {
-    }
-
-    public void pack(@NonNull Object target, @NonNull Bundle args) {
-    }
+    public static final String TRENDING = "trending";
 }

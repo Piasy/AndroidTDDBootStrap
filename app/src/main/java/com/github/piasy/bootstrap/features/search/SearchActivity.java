@@ -27,16 +27,12 @@ package com.github.piasy.bootstrap.features.search;
 import android.os.Bundle;
 import com.github.piasy.octostars.BootstrapActivity;
 import com.github.piasy.octostars.BootstrapApp;
-import com.yatatsu.autobundle.AutoBundleField;
 
 import static com.github.piasy.safelyandroid.fragment.SupportFragmentTransactionBuilder.transaction;
 
 public class SearchActivity extends BootstrapActivity<SearchComponent> {
 
     public static final String SEARCH_FRAGMENT = "SearchFragment";
-
-    @AutoBundleField(required = false)
-    int mDummy;
 
     private SearchComponent mSearchComponent;
 
@@ -55,8 +51,8 @@ public class SearchActivity extends BootstrapActivity<SearchComponent> {
     @Override
     protected void initializeDi() {
         mSearchComponent = DaggerSearchComponent.builder()
-        .appComponent(BootstrapApp.get().appComponent())
-        .build();
+                .appComponent(BootstrapApp.get().appComponent())
+                .build();
     }
 
     @Override
