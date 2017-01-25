@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2017 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,24 +22,25 @@
  * SOFTWARE.
  */
 
-package com.github.piasy.octostars.trending;
+package com.github.piasy.octostars.features.trending;
 
-import com.github.piasy.octostars.di.AppComponent;
-import com.github.piasy.octostars.misc.MiscModule;
-import com.github.piasy.yamvp.dagger2.ActivityScope;
-import dagger.Component;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import com.github.piasy.bootstrap.mocks.DebugSplashActivity;
+import com.github.piasy.octostars.features.trending.TrendingActivity;
 
 /**
- * Created by Piasy{github.com/Piasy} on 15/9/19.
- *
- * Di appComponent for splash.
+ * Created by Piasy{github.com/Piasy} on 23/01/2017.
  */
-@ActivityScope
-@Component(
-        dependencies = AppComponent.class,
-        modules = {
-                MiscModule.class,
-        })
-interface TrendingComponent {
-    void inject(TrendingActivity activity);
+
+public class TrendingSplash extends DebugSplashActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        startActivity(new Intent(this, TrendingActivity.class));
+        finish();
+    }
 }

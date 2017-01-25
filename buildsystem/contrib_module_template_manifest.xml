@@ -23,7 +23,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.github.piasy.octostars.model"
+        package="com.github.piasy.bootstrap.features."
         >
 
 </manifest>

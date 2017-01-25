@@ -48,6 +48,10 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
+        if (isDebug) {
+            applicationId "com.github.piasy.octostars.features."
+        }
+
         multiDexEnabled true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }

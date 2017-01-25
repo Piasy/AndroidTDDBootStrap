@@ -51,7 +51,7 @@ android {
         versionName rootProject.ext.releaseVersionName
 
         if (isDebug) {
-            applicationId "com.github.piasy.octostars.trending"
+            applicationId "com.github.piasy.octostars.features.trending"
         }
 
         multiDexEnabled true
