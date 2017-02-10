@@ -43,6 +43,8 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
+        consumerProguardFiles 'proguard-rules.pro'
+
         multiDexEnabled true
 
         buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
@@ -95,10 +97,11 @@ unMock {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':base')
-    compile project(':contrib:misc')
+    compile project(':contrib:bridge')
 
     compile featureDependencies.fresco
+    compile featureDependencies.iconifyMD
+    compile featureDependencies.gitSha
 
     compile(featureDependencies.crashlytics) {
         transitive = true;

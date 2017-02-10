@@ -28,7 +28,7 @@ import com.github.piasy.octostars.MockBootstrapApp;
 import com.github.piasy.bootstrap.base.model.jsr310.JSR310Module;
 import com.github.piasy.bootstrap.base.model.provider.ProviderModule;
 import com.github.piasy.bootstrap.base.utils.UtilsModule;
-import com.github.piasy.octostars.misc.MiscModule;
+import com.github.piasy.octostars.bridge.MiscModule;
 import dagger.Component;
 import javax.inject.Singleton;
 

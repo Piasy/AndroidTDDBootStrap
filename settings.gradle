@@ -1,6 +1,7 @@
 include ':base', ':testbase', ':mocks', ':app',
         ':contrib:business',
-        ':contrib:misc',
+		':contrib:bridge',
         ':contrib:piasy:users',
 		':contrib:piasy:repos',
-		':contrib:piasy:trending'
+		':contrib:piasy:trending',
+		':contrib:piasy:splash'

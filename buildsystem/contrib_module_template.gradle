@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-def isDebug = "true" == isInDebugMode;
+apply from: "$rootProject.projectDir/buildsystem/buildings.gradle"
 
-if (isDebug) {
-    apply plugin: 'com.android.application'
-} else {
+if (isComposeBuild) {
     apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
 }
 
 apply plugin: 'me.tatarka.retrolambda'
@@ -48,7 +48,7 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
-        if (isDebug) {
+        if (!isComposeBuild) {
             applicationId "com.github.piasy.octostars.features."
         }
 
@@ -56,12 +56,23 @@ android {
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
+    signingConfigs {
+        sign {
+            storeFile signStoreFile
+            storePassword signStorePassword
+            keyAlias signKeyAlias
+            keyPassword signKeyPassword
+        }
+    }
+
     buildTypes {
         debug {
             testCoverageEnabled isTravis
+            signingConfig signingConfigs.sign
         }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.sign
         }
     }
 
@@ -97,6 +108,8 @@ unMock {
 
 dependencies {
     compile project(':base')
+    compile project(':contrib:bridge')
+    releaseProvided project(path: ':contrib:business', configuration: 'release')
 
     provided aptDependencies.autoValue // for ide
     annotationProcessor aptDependencies.autoValue // for okbuck
@@ -108,6 +121,9 @@ dependencies {
 
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone
+
+    debugCompile project(path: ':contrib:business', configuration: 'debug')
+    debugCompile project(':mocks')
 
     testCompile project(':mocks')
     testCompile project(':testbase')

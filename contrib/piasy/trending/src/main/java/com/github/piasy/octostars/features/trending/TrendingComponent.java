@@ -25,7 +25,7 @@
 package com.github.piasy.octostars.features.trending;
 
 import com.github.piasy.octostars.di.AppComponent;
-import com.github.piasy.octostars.misc.MiscModule;
+import com.github.piasy.octostars.bridge.MiscModule;
 import com.github.piasy.yamvp.dagger2.ActivityScope;
 import dagger.Component;
 

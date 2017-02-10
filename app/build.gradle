@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-def isDebug = "true" == isInDebugMode;
+apply from: "$rootProject.projectDir/buildsystem/buildings.gradle"
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.chenenyu.router'
@@ -35,7 +35,6 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'android-git-sha'
 apply plugin: 'net.ltgt.errorprone'
 apply from: "$rootProject.projectDir/AndroidCodeQualityConfig/quality.gradle"
-apply from: "$rootProject.projectDir/buildsystem/signing.gradle"
 
 def isTravis = "true" == System.getenv("TRAVIS")
 
@@ -49,11 +48,11 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
-        applicationId "com.github.piasy.bootstrap"
+        applicationId "com.github.piasy.octostars"
 
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "com.github.piasy.bootstrap.BootstrapAppRunner"
+        testInstrumentationRunner "com.github.piasy.octostars.BootstrapAppRunner"
     }
 
     packagingOptions {
@@ -101,7 +100,9 @@ android {
             shrinkResources true
             signingConfig signingConfigs.sign
             //signingConfig signingConfigs.production
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
             ext.enableCrashlytics = true
         }
     }
@@ -127,20 +128,16 @@ dependencies {
     debugCompile project(path: ':contrib:business', configuration: 'debug')
     qaCompile project(path: ':contrib:business', configuration: 'qa')
     releaseCompile project(path: ':contrib:business', configuration: 'release')
-    compile project(':contrib:misc')
 
-    compile project(':contrib:piasy:users')
-
-    if (!isDebug) {
+    if (isComposeBuild) {
         compile project(':contrib:piasy:trending')
+        compile project(':contrib:piasy:splash')
     }
 
     compile featureDependencies.rxJavaProGuardRules
 
     compile featureDependencies.iconifyMD
     compile featureDependencies.statusBarUtil
-
-    compile featureDependencies.gitSha
 
     provided aptDependencies.autoValue // for ide
     annotationProcessor aptDependencies.autoValue // for okbuck
@@ -152,6 +149,7 @@ dependencies {
     annotationProcessor aptDependencies.butterKnifeApt
     annotationProcessor aptDependencies.icepickApt
     annotationProcessor aptDependencies.onActivityResultApt
+    annotationProcessor aptDependencies.autoBundleApt
 
     retrolambdaConfig aptDependencies.retrolambda
     errorprone aptDependencies.errorprone

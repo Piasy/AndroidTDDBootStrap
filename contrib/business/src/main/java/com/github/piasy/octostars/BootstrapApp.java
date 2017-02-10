@@ -30,6 +30,9 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import com.chenenyu.router.Router;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.facebook.buck.android.support.exopackage.DefaultApplicationLike;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
@@ -38,13 +41,19 @@ import com.github.anrwatchdog.ANRWatchDog;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.github.piasy.bootstrap.base.utils.RxUtil;
 import com.github.piasy.octostars.analytics.AppBlockCanaryContext;
+import com.github.piasy.octostars.analytics.CrashReportingTree;
 import com.github.piasy.octostars.business.BuildConfig;
-import com.github.piasy.octostars.di.DaggerAppComponent;
 import com.github.piasy.octostars.di.AppComponent;
 import com.github.piasy.octostars.di.AppModule;
+import com.github.piasy.octostars.di.DaggerAppComponent;
+import com.github.promeg.androidgitsha.lib.GitShaUtils;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.MaterialModule;
 import com.nshmura.strictmodenotifier.StrictModeNotifier;
 import com.squareup.leakcanary.LeakCanary;
+import io.fabric.sdk.android.Fabric;
 import io.reactivex.plugins.RxJavaPlugins;
+import timber.log.Timber;
 
 /**
  * Created by Piasy{github.com/Piasy} on 15/7/23.
@@ -86,6 +95,7 @@ public class BootstrapApp extends DefaultApplicationLike implements IApplication
 
         if ("debug".equals(BuildConfig.BUILD_TYPE)) {
             // developer tools
+            Timber.plant(new Timber.DebugTree());
             AndroidDevMetrics.initWith(mApplication);
             Stetho.initialize(Stetho.newInitializerBuilder(mApplication)
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(mApplication))
@@ -111,11 +121,26 @@ public class BootstrapApp extends DefaultApplicationLike implements IApplication
 
             new ANRWatchDog().start();
             BlockCanary.install(mApplication, new AppBlockCanaryContext()).start();
+        } else if ("release".equals(BuildConfig.BUILD_TYPE)) {
+            Fabric.with(mApplication, new Crashlytics(), new Answers());
+            Crashlytics.setString("git_sha", GitShaUtils.getGitSha(mApplication));
+            Timber.plant(new CrashReportingTree());
+        } else {
+            // qa build also need show log in logcat
+            Timber.plant(new Timber.DebugTree());
+
+            // and report crash
+            Fabric.with(mApplication, new Crashlytics(), new Answers());
+            Crashlytics.setString("git_sha", GitShaUtils.getGitSha(mApplication));
+            Timber.plant(new CrashReportingTree());
         }
 
-        mAppComponent = createComponent();
+        Iconify.with(new MaterialModule());
+        Router.initialize(mApplication);
         Fresco.initialize(mApplication);
         RxJavaPlugins.setErrorHandler(RxUtil.OnErrorLogger);
+
+        mAppComponent = createComponent();
     }
 
     protected AppComponent createComponent() {

@@ -33,7 +33,7 @@ import com.github.piasy.bootstrap.base.model.provider.HttpClientConfig;
 import com.github.piasy.bootstrap.base.model.provider.RetrofitConfig;
 import com.github.piasy.bootstrap.base.model.provider.SharedPreferenceConfig;
 import com.github.piasy.octostars.business.BuildConfig;
-import com.github.piasy.octostars.misc.DbOpenHelper;
+import com.github.piasy.octostars.bridge.DbOpenHelper;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

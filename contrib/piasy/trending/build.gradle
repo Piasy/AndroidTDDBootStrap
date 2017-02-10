@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-def isDebug = "true" == isInDebugMode;
+apply from: "$rootProject.projectDir/buildsystem/buildings.gradle"
 
-if (isDebug) {
-    apply plugin: 'com.android.application'
-} else {
+if (isComposeBuild) {
     apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
 }
 
 apply plugin: 'com.chenenyu.router'
@@ -50,7 +50,9 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
 
-        if (isDebug) {
+        consumerProguardFiles 'proguard-rules.pro'
+
+        if (!isComposeBuild) {
             applicationId "com.github.piasy.octostars.features.trending"
         }
 
@@ -58,12 +60,23 @@ android {
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
+    signingConfigs {
+        sign {
+            storeFile signStoreFile
+            storePassword signStorePassword
+            keyAlias signKeyAlias
+            keyPassword signKeyPassword
+        }
+    }
+
     buildTypes {
         debug {
             testCoverageEnabled isTravis
+            signingConfig signingConfigs.sign
         }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.sign
         }
     }
 
@@ -98,8 +111,7 @@ unMock {
 }
 
 dependencies {
-    compile project(':base')
-    compile project(':contrib:misc')
+    compile project(':contrib:bridge')
     releaseProvided project(path: ':contrib:business', configuration: 'release')
 
     compile featureDependencies.jsoup

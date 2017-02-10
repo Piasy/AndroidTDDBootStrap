@@ -29,9 +29,9 @@ package com.github.piasy.octostars;
  */
 
 public final class RouteTable {
+    public static final String TRENDING = "trending";
+
     private RouteTable() {
         // no instance
     }
-
-    public static final String TRENDING = "trending";
 }

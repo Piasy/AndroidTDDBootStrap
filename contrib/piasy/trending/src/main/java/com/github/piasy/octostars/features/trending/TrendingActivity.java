@@ -59,11 +59,11 @@ public class TrendingActivity extends BootstrapActivity<TrendingComponent> imple
         setContentView(R.layout.activity_trending);
         ButterKnife.bind(this);
 
+        mPresenter.attachView(this);
+
         mTrending.setLayoutManager(new LinearLayoutManager(this));
         mTrendingAdapter = new TrendingAdapter();
         mTrending.setAdapter(mTrendingAdapter);
-
-        mPresenter.attachView(this);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
