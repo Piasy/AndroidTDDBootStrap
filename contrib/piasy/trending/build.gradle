@@ -34,7 +34,7 @@ apply plugin: 'com.chenenyu.router'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'de.mobilej.unmock'
-apply plugin: 'com.ofg.uptodate'
+apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'net.ltgt.errorprone'
 apply from: "$rootProject.projectDir/AndroidCodeQualityConfig/quality.gradle"
 
