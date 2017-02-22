@@ -23,19 +23,5 @@
   -->
 
 <resources>
-    <string name="app_name">AndroidTDDBootStrap</string>
-
-    <!-- GithubSearch -->
-    <string name="github_user_followers_formatter" formatted="false">%d Followers</string>
-    <string name="github_user_following_formatter" formatted="false">%d Following</string>
-    <string name="splash">Splashing</string>
-    <string name="search">Search</string>
-    <string name="search_it">Search it</string>
-    <string name="search_result">Search Result</string>
-
-    <!-- formatter -->
-    <string name="github_username_formatter" formatted="false">%s\n%s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">OctoStars</string>
 </resources>

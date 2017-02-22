@@ -1,0 +1,107 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2017 Piasy
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'de.mobilej.unmock'
+apply plugin: 'com.ofg.uptodate'
+apply plugin: 'net.ltgt.errorprone'
+apply plugin: 'com.squareup.sqldelight'
+apply from: "$rootProject.projectDir/AndroidCodeQualityConfig/quality.gradle"
+
+def isTravis = "true" == System.getenv("TRAVIS")
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode rootProject.ext.releaseVersionCode
+        versionName rootProject.ext.releaseVersionName
+
+        multiDexEnabled true
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled isTravis
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    if (isTravis) {
+        lintOptions {
+            abortOnError false
+        }
+    }
+}
+
+unMock {
+    downloadFrom 'https://oss.sonatype.org/content/groups/public/org/robolectric/android-all/6.0.0_r1-robolectric-0/android-all-6.0.0_r1-robolectric-0.jar'
+    downloadTo "${System.getenv('HOME')}/.gradle/caches/"
+
+    keep "android.text.TextUtils"
+    keepStartingWith "org.json."
+}
+
+dependencies {
+    compile project(':base')
+
+    provided aptDependencies.autoValue // for ide
+    annotationProcessor aptDependencies.autoValue // for okbuck
+    provided aptDependencies.autoGsonApt // for ide
+    annotationProcessor aptDependencies.autoGsonApt // for okbuck
+    annotationProcessor aptDependencies.autoParcelApt
+
+    annotationProcessor aptDependencies.daggerApt
+
+    retrolambdaConfig aptDependencies.retrolambda
+    errorprone aptDependencies.errorprone
+
+    testCompile project(':mocks')
+    testCompile project(':testbase')
+
+    androidTestCompile project(':mocks')
+    androidTestCompile project(':testbase')
+}

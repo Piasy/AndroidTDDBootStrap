@@ -1,0 +1,21 @@
+import org.threeten.bp.ZonedDateTime;
+
+CREATE TABLE GitHubUsers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    login TEXT NOT NULL,
+    avatar_url TEXT NOT NULL,
+    type TEXT NOT NULL,
+    updated_at TEXT AS ZonedDateTime NULL
+);
+
+insert_user:
+INSERT OR REPLACE INTO GitHubUsers
+(id, login, avatar_url, type, updated_at)
+VALUES
+(?, ?, ?, ?, ?);
+
+select_by_login:
+SELECT * FROM GitHubUsers WHERE login = ?;
+
+delete_by_login:
+DELETE FROM GitHubUsers WHERE login = ?;

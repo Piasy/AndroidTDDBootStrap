@@ -1,44 +1,14 @@
 apply from: 'buildsystem/dependencies.gradle'
 apply plugin: 'com.uber.okbuck'
 okbuck {
-    buildToolVersion "$rootProject.ext.androidBuildToolsVersion"
-    target "android-$rootProject.ext.androidTargetSdkVersion"
+    buildToolVersion = "$rootProject.ext.androidBuildToolsVersion"
+    target = "android-$rootProject.ext.androidTargetSdkVersion"
     linearAllocHardLimit = [
             app: 16 * 1024 * 1024
-    ]
-    primaryDexPatterns = [
-            app: [
-                    '^com/github/piasy/bootstrap/AppShell^',
-                    '^com/github/piasy/bootstrap/BootstrapApp^',
-                    '^com/github/piasy/bootstrap/BuildConfig^',
-                    '^com/github/piasy/bootstrap/analytics/AppBlockCanaryContext^',
-                    '^com/facebook/buck/android/support/exopackage/',
-                    '^android/support/multidex/',
-                    '^android/support/annotation/',
-                    '^android/support/v4/app/NotificationCompat$Builder^',
-                    '^com/frogermcs/androiddevmetrics/AndroidDevMetrics^',
-                    '^com/facebook/stetho/Stetho^',
-                    '^com/squareup/leakcanary/LeakCanary^',
-                    '^com/squareup/leakcanary/AnalysisResult^',
-                    '^com/squareup/leakcanary/ExcludedRefs^',
-                    '^com/nshmura/strictmodenotifier/StrictModeNotifier^',
-                    '^com/github/anrwatchdog/ANRWatchDog^',
-            ]
-    ]
-    exopackage = [
-            app: true
-    ]
-    appLibDependencies = [
-            'appDev': [
-                    'buck-android-support',
-                    'com.android.support:multidex',
-                    'com.android.support:support-annotations',
-            ]
     ]
     wrapper {
         repo = 'https://github.com/OkBuilds/buck.git'
         remove = ['.buckconfig.local', "**/BUCK"]
-        keep = [".okbuck/**/BUCK"]
         watch += ["**/*.sq"]
     }
     intellij {

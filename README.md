@@ -4,6 +4,21 @@
 
 An Android TDD bootstrap project, using a collection of new technology, obeying the best practices, inspired by some popular architectures, and developed with many handy tools.
 
+## Project structure
+
+![20170210632AndroidTDDBookStrap_module_structure.png](https://imgs.babits.top/20170210632AndroidTDDBookStrap_module_structure.png)
+
++  `base` is the so called architecture part, and base classes, best practice, etc.
++  Package organization
+  +  Package by layer v.s. package by feature, read more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), and [Package by feature, not layer](http://www.javapractices.com/topic/TopicAction.do?Id=205).
+  +  Both features and models are packaged by their functions. `users` and `repos` are model modules, each one provides a `Repo` API for upper level modules. `splash` and `trending` are feature modules, each one is a standalone module, implementing a single feature.
+  +  All modules can be composed together as a full APK, containing all features.
++  Module organization
+  +  Modules are organized by contributors in the `contrib` dir, that can separate code and responsibility as much as possible. Because each person has his own style and flavor, others should obey the style of contributor in each module, that's a very clear rule.
+  +  Feature modules are 100% decomposed, that makes each feature module as lightweight as possible, and activity is launched through string url.
++  `business` contains app specific business code, configurations, etc.
++  `bridge` module is just like a bridge, connecting modules together, like the image above.
+
 ## Build tips
 +  Sign key config
   +  Place KeyStore file in some place, and create a TemplateKeyStore.properties, and config the KeyStore in it, include `keystore`, `keystore.password`, `key.password`, `key.alias`.
@@ -19,7 +34,7 @@ Recently I have seen a lot of bootstrap/base Android projects, including [JakeWh
 ## Architecture
 Based on the project architecture I'm currently working on, [YOLO](https://www.yoloyolo.tv/), and inspired by popular architectures: [Android Clean Architecture](https://github.com/android10/Android-CleanArchitecture), [Against Android Unit Tests: The Square way](http://www.philosophicalhacker.com/2015/04/10/against-android-unit-tests/).
 
-![perfect_android_model_layer](http://blog.piasy.com/img/201605/perfect_android_model_layer.png)
+![201702107343perfect_android_model_layer.png](https://imgs.babits.top/201702107343perfect_android_model_layer.png)
 
 +  MVP: [YaMvp](https://github.com/Piasy/YaMvp), Yet another Mvp library. Super simple, but with enough functionality.
 +  Dependency injection
@@ -43,6 +58,7 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
 +  Image loader: [Fresco](https://github.com/facebook/fresco), An Android library for managing images and the memory they use.
 +  Other core libraries
   +  [SafelyAndroid](https://github.com/Piasy/SafelyAndroid), Build safely Android app, no more Activity not found error and Activity state loss error!
+  +  [Router](https://github.com/chenenyu/Router), Using string url to launch activities, allowing us decompose feature modules.
   +  [RetroLambda](https://github.com/orfjackal/retrolambda), Backport of Java 8's lambda expressions to Java 7, 6 and 5.
   +  [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP), An adaptation of the JSR-310 backport for Android.
   +  [AutoBundle](https://github.com/yatatsu/AutoBundle/releases/tag/1.0.2), AutoBundle generates boilerplate code for field binding with android.os.Bundle.
@@ -81,20 +97,11 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
 +  Code coverage
   +  Jacoco && [Codecov](https://codecov.io)
 
-## Project structure
-+  base
-  +  The so called architecture part, and base classes, best practice, etc.
-+  model
-  +  Business related data layer, entities, API, REPO, etc.
-+  app
-  +  App functionality.
-+  package organization
-  +  package by layer v.s. package by feature, read more about the [Package organization part of this blog](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), and [Package by feature, not layer](http://www.javapractices.com/topic/TopicAction.do?Id=205).
-  +  package by layer + package by feature
-    +  network API, data object, REPO are organized in the single `model` library module, but inside model module, classes are organized by feature
-    +  app functionality are organized by feature, mvp, di, ui code are organized together
-
 ## Dev tips
++  Create a new contrib module: `./new_contrib_module.sh contrib/<contributor name>/<module name>`
++  Compose all modules together: `./install_app.sh <build type>`
++  Buck build for each feature module: `./install_buck.sh contrib/piasy/trending` or `./install_buck.sh app`
++  You can also click the `run` button of AndroidStudio for each feature module, but it doesn't work for app module.
 +  Create Activity
   +  **TODO** use the MVP feature generator
 +  Unit test
@@ -102,18 +109,13 @@ Based on the project architecture I'm currently working on, [YOLO](https://www.y
 +  Run `./buildsystem/ci.sh` before git push.
 
 ## Todo
-+  ~~CheckStyle~~
-+  ~~re-arch the provider package~~
-+  ~~Espresso test of presentation module~~
-+  ~~refactor AppComponent~~
-+  ~~facebook [BUCK](http://buckbuild.com) integration~~ integrate with [OkBuck](https://github.com/Piasy/OkBuck)
-+  ~~Update dependencies~~
-+  ~~refactor modules~~
-+  ~~NDK integrate~~ now it's easy to integrate NDK with Android gradle build tools 2.2.2
-+  MVP source generator plugin
-+  MVVM branch
-+  react native branch
-+  kotlin branch
++  [x] CheckStyle
++  [ ] MVP source generator plugin
++  [ ] Espresso test
++  [ ] exopackage for each feature module
++  [ ] try MVVM
++  [ ] try React Native
++  [ ] try Kotlin
 
 ## Coverage
 ![codecov.io](http://codecov.io/github/Piasy/AndroidTDDBootStrap/branch.svg?branch=master)
