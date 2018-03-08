@@ -6,7 +6,7 @@ An Android TDD bootstrap project, using a collection of new technology, obeying 
 
 ## Project structure
 
-![20170210632AndroidTDDBookStrap_module_structure.png](https://imgs.babits.top/20170210632AndroidTDDBookStrap_module_structure.png)
+![](https://imgs.piasy.com/2018-03-08-AndroidTDDBookStrap_module_structure.png)
 
 +  `base` is the so called architecture part, and base classes, best practice, etc.
 +  Package organization
@@ -34,7 +34,7 @@ Recently I have seen a lot of bootstrap/base Android projects, including [JakeWh
 ## Architecture
 Based on the project architecture I'm currently working on, [YOLO](https://www.yoloyolo.tv/), and inspired by popular architectures: [Android Clean Architecture](https://github.com/android10/Android-CleanArchitecture), [Against Android Unit Tests: The Square way](http://www.philosophicalhacker.com/2015/04/10/against-android-unit-tests/).
 
-![201702107343perfect_android_model_layer.png](https://imgs.babits.top/201702107343perfect_android_model_layer.png)
+![](https://imgs.piasy.com/2018-03-08-perfect_android_model_layer.png)
 
 +  MVP: [YaMvp](https://github.com/Piasy/YaMvp), Yet another Mvp library. Super simple, but with enough functionality.
 +  Dependency injection
